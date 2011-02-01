@@ -1,0 +1,46 @@
+<!-- Module Categories -->
+	<action-mappings module="Categories">
+		<action    path = "categoriesEdit"
+							 type = "CategoriesEditAction"
+							 name = "categoriesEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="CategoriesEdit.tpl" />
+		</action>
+
+		<action    path = "categoriesDoEdit"
+							 type = "CategoriesDoEditAction"
+							 name = "categoriesDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=categoriesList" redirect="true" />
+			<forward name="failure" path="CategoriesEdit.tpl" />
+		</action>
+
+		<action    path = "categoriesDoEditX"
+							 type = "CategoriesDoEditXAction"
+							 name = "categoriesDoEditX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="CategoriesIncludeRow.tpl" />
+			<forward name="failure" path="CategoriesEdit.tpl" />
+		</action>
+
+		<action    path = "categoriesList"
+							 type = "CategoriesListAction"
+							 name = "categoriesList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="CategoriesList.tpl" />
+		</action>
+
+		<action    path = "categoriesDoDelete"
+							 type = "CategoriesDoDeleteAction"
+							 name = "categoriesDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=categoriesList" redirect="true" />
+			<forward name="failure" path="/Main.php?do=categoriesList&amp;message=notdeleted" redirect="true" />
+		</action>
+	</action-mappings>
+<!-- End Categories -->

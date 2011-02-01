@@ -1,0 +1,35 @@
+<!-- Module Htmls -->
+	<action-mappings  module="Htmls">
+		<action    path = "htmlsUpdate"
+							 type = "HtmlsUpdateAction"
+							 name = "htmlsUpdate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="HtmlsUpdate.tpl"/>
+		</action>
+
+		<action    path = "htmlsDoUpdate"
+							 type = "HtmlsDoUpdateAction"
+							 name = "htmlsDoUpdate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="HtmlsUpdate.tpl"/>
+		</action>
+
+		<action    path = "htmlsShow"
+							 type = "HtmlsShowAction"
+							 name = "htmlsShow"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="HtmlsShow.tpl"/>
+		</action>
+
+		<action    path = "htmlsShowPrivate"
+							 type = "HtmlsShowPrivateAction"
+							 name = "htmlsShowPrivate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="HtmlsShow.tpl"/>
+		</action>
+	</action-mappings>
+<!-- End Module Htmls -->

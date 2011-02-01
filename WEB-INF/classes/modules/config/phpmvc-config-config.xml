@@ -1,0 +1,43 @@
+<!-- Module Config -->
+	<action-mappings module="Config">
+		<action    path = "configView"
+							 type = "ConfigViewAction"
+							 name = "configView"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ConfigView.tpl"/>
+		</action>
+
+		<action    path = "configEdit"
+							 type = "ConfigEditAction"
+							 name = "configEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ConfigEdit.tpl"/>
+		</action>
+		
+		<action    path = "configSet"
+							 type = "ConfigSetAction"
+							 name = "configSet"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ConfigSet.tpl"/>
+		</action>
+		
+		<action    path = "configDoSet"
+							 type = "ConfigDoSetAction"
+							 name = "configDoSet"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="Main.php?do=configSet&amp;message=ok" redirect="true" />
+		</action>
+
+		<action    path = "configDoEdit"
+							 type = "ConfigDoEditAction"
+							 name = "configDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="Main.php?do=configView&amp;message=ok" redirect="true" />
+		</action>
+	</action-mappings>
+<!-- End Module Config -->

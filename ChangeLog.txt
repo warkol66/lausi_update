@@ -1,0 +1,46 @@
+==============================
+Revisión 220
+------------------------------
+
+ALTER TABLE `lausi_circuit` ADD `orderBy` INT NULL COMMENT 'Orden del Circuito';
+# Ordenamiento circuitos
+UPDATE `lausi_circuit` SET `orderBy` = '1' WHERE `lausi_circuit`.`id` =3 LIMIT 1 ;
+UPDATE `lausi_circuit` SET `orderBy` = '2' WHERE `lausi_circuit`.`id` =1 LIMIT 1 ;
+UPDATE `lausi_circuit` SET `orderBy` = '3' WHERE `lausi_circuit`.`id` =2 LIMIT 1 ;
+UPDATE `lausi_circuit` SET `orderBy` = '4' WHERE `lausi_circuit`.`id` =7 LIMIT 1 ;
+UPDATE `lausi_circuit` SET `orderBy` = '5' WHERE `lausi_circuit`.`id` =5 LIMIT 1 ;
+UPDATE `lausi_circuit` SET `orderBy` = '6' WHERE `lausi_circuit`.`id` =6 LIMIT 1 ;
+UPDATE `lausi_circuit` SET `orderBy` = '7' WHERE `lausi_circuit`.`id` =8 LIMIT 1 ;
+UPDATE `lausi_circuit` SET `orderBy` = '8' WHERE `lausi_circuit`.`id` =4 LIMIT 1 ;
+
+==============================
+Revisión 212
+------------------------------
+
+ALTER TABLE `lausi_address` ADD `nickname` VARCHAR( 100 ) NULL COMMENT 'Nombre de Fantasia de la direccion';
+
+==============================
+Revisión 205
+------------------------------
+
+ALTER TABLE `lausi_address` ADD `orderCircuit` INT( 1 ) NOT NULL DEFAULT '0' COMMENT 'ordenamiento por proximidad en el circuito entre direcciones' ;
+
+==============================
+Revisión 202
+------------------------------
+
+ALTER TABLE `lausi_billboard` DROP `workforceId` ;
+ALTER TABLE `lausi_advertisement` ADD `workforceId` INT NOT NULL DEFAULT '0' COMMENT 'contratista asignado a ese workforce (solo sextuples)' AFTER `themeId` ;
+
+==============================
+Revisión 104
+------------------------------
+
+ALTER TABLE `lausi_theme` ADD `sheetsTotal` INT NULL COMMENT 'cantidad total de afiches que deberan distribuirse del motivo' AFTER `duration` ;
+
+
+==============================
+Revisión 75
+------------------------------
+
+ALTER TABLE `lausi_theme` ADD `active` BOOL NOT NULL DEFAULT '1' COMMENT 'indica si el motivo esta activo o no' AFTER `type` ;

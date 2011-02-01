@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<config>
+ <log>
+  <type>file</type>
+  <name>e:\temp\propel.log</name>
+  <ident>lausi</ident>
+  <level>7</level>
+ </log>
+ <propel>
+  <datasources default="lausi">
+   <datasource id="lausi">
+    <!-- the Propel adapter (usually same as phptype of connection DSN) -->
+    <adapter>mysql</adapter>
+    <connection>
+     <phptype>mysql</phptype>
+     <hostspec>localhost</hostspec>
+     <database>tablero</database>
+     <username>root</username>
+     <password>termal</password>
+    </connection>
+   </datasource>
+   <datasource id="mluse">
+    <!-- the Propel adapter (usually same as phptype of connection DSN) -->
+    <adapter>mysql</adapter>
+    <connection>
+     <phptype>mysql</phptype>
+     <hostspec>localhost</hostspec>
+     <database>tablero</database>
+     <username>root</username>
+     <password>termal</password>
+    </connection>
+   </datasource>
+  </datasources>
+ </propel>
+</config>

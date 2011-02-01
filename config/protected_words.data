@@ -1,0 +1,1 @@
+a:1:{s:14:"protectedWords";a:3:{s:12:"relationReal";s:4:"Real";s:17:"relationPotential";s:9:"Potencial";s:11:"orderStates";a:7:{s:3:"new";s:7:"Emitida";s:8:"accepted";s:8:"Aceptada";s:15:"pendingApproval";s:21:"Pendiente Aprobación";s:9:"inProcess";s:10:"En Proceso";s:9:"completed";s:8:"Completa";s:9:"cancelled";s:9:"Cancelada";s:12:"toBeVerified";s:11:"A Verificar";}}}

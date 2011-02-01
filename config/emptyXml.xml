@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<moduleInstalation>
+	<moduleInstalation:config>
+		<language>
+			<esp>
+				<label> </label>
+				<description> </description>
+			</esp>
+			<eng>
+				<label> </label>
+				<description> </description>
+			</eng>
+		</language>
+		<alwaysActive>1</alwaysActive>
+		<moduleDependencies>
+			<module1>Users</module1>
+			<module2>Modules</module2>
+		</moduleDependencies>
+	</moduleInstalation:config>
+	<moduleInstalation:actions>
+	</moduleInstalation:actions>
+	<moduleInstalation:securityModule>3</moduleInstalation:securityModule>
+	<moduleInstalation:sql>
+		<sql1>CREATE TABLE IF NOT EXISTS
+		</sql1>
+		<sql2>
+		CREATE TABLE IF NOT EXISTS
+		</sql2>
+	</moduleInstalation:sql>
+</moduleInstalation>

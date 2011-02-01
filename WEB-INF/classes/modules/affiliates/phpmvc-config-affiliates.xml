@@ -1,0 +1,106 @@
+<!-- Module Affiliates -->
+	<action-mappings module="Affiliates">
+		<action    path = "affiliatesList"
+							 type = "AffiliatesListAction"
+							 name = "affiliatesList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="AffiliatesList.tpl"/>
+		</action>
+
+		<action    path = "affiliatesEdit"
+							 type = "AffiliatesEditAction"
+							 name = "affiliatesEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="AffiliatesEdit.tpl"/>
+		</action>
+
+		<action    path = "affiliatesAddAffiliate"
+							 type = "AffiliatesAddAffiliateAction"
+							 name = "affiliatesAddAffiliate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="AffiliatesAdd.tpl"/>
+		</action>
+
+		<action    path = "affiliatesViewAffiliate"
+							 type = "AffiliatesViewAffiliateAction"
+							 name = "affiliatesViewAffiliate"
+							scope = "request"
+					 validate = "true">
+				<forward name="success" path="AffiliatesView.tpl"/>
+		</action>
+
+		<action    path = "affiliatesDoEdit"
+							 type = "AffiliatesDoEditAction"
+							 name = "affiliatesDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesList&amp;message=edited" redirect="true" />
+		</action>
+
+		<action    path = "affiliatesDoEditInfo"
+							 type = "AffiliatesDoEditInfoAction"
+							 name = "affiliatesDoEditInfo"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesList&amp;message=edited" redirect="true" />
+		</action>
+
+		<action    path = "affiliatesDoDelete"
+							 type = "AffiliatesDoDeleteAction"
+							 name = "affiliatesDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesList&amp;message=deleted" redirect="true" />
+			<forward name="failure" path="/Main.php?do=affiliatesList&amp;message=notdeleted" redirect="true" />
+		</action>
+
+		<action    path = "affiliatesDoAddAffiliate"
+							 type = "AffiliatesDoAddAffiliateAction"
+							 name = "affiliatesDoAddAffiliate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesList" redirect="true" />
+		</action>
+	</action-mappings>
+	
+<!-- Section Branches -->
+	<action-mappings module="Affiliates" section="Branches">
+		<action    path = "affiliatesBranchsEdit"
+							 type = "AffiliatesBranchsEditAction"
+							 name = "affiliatesBranchsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="AffiliatesBranchsEdit.tpl" />
+		</action>
+
+		<action    path = "affiliatesBranchsDoEdit"
+							 type = "AffiliatesBranchsDoEditAction"
+							 name = "affiliatesBranchsDoEdit"
+							scope = "request"
+					 validate = "true">
+		<forward name="success" path="Main.php?do=affiliatesBranchsList&amp;message=ok" redirect="true" />
+		<forward name="failure" path="AffiliatesBranchsEdit.tpl" />
+		</action>
+
+		<action    path = "affiliatesBranchsList"
+							 type = "AffiliatesBranchsListAction"
+							 name = "affiliatesBranchsList"
+							scope = "request"
+					 validate = "true">
+		<forward name="success" path="AffiliatesBranchsList.tpl" />
+		</action>
+
+		<action    path = "affiliatesBranchsDoDelete"
+							 type = "AffiliatesBranchsDoDeleteAction"
+							 name = "affiliatesBranchsDoDelete"
+							scope = "request"
+					 validate = "true">
+		<forward name="success" path="Main.php?do=affiliatesBranchsList&amp;message=deleted_ok" redirect="true" />
+		</action>
+	</action-mappings>
+<!-- End Section Branches -->
+
+<!-- End Module Affiliates -->

@@ -1,0 +1,30 @@
+<!-- ========== Action Mapping Módulo Logs  ============================== -->
+
+	<action-mappings        module = "Logs">
+
+		<action    path = "logsList"
+					     type = "LogsListAction"
+					     name = "logsList"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="LogsList.tpl"/>
+			<forward name="failure" path="demoPageError.tpl"/>
+		</action>
+		<action    path = "logsPurge"
+					     type = "LogsPurgeAction"
+					     name = "logsPurge"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="LogsPurge.tpl"/>
+		</action>
+		<action    path = "logsDoPurge"
+					     type = "LogsDoPurgeAction"
+					     name = "logsDoPurge"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=logsList" redirect="true" />
+		</action>
+
+	</action-mappings>
+
+<!-- ========== End Logs ================================================= -->->
