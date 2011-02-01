@@ -1,0 +1,59 @@
+<!-- Module Security -->
+	<action-mappings module="Security">
+		<action    path = "noPermission"
+							 type = "NoPermissionAction"
+							 name = "noPermission"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="NoPermission.tpl" />
+		</action>
+
+		<action    path = "securityActionList"
+							 type = "SecurityActionListAction"
+							 name = "securityActionList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="SecurityActionList.tpl" />
+		</action>
+
+		<action    path = "securityActionListUsersByAffiliate"
+							 type = "SecurityActionListUsersByAffiliateAction"
+							 name = "securityActionListUsersByAffiliate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="SecurityActionListUsersByAffiliate.tpl" />
+		</action>
+
+		<action    path = "securityActionDoSaveByAffiliate"
+							 type = "SecurityActionDoSaveByAffiliateAction"
+							 name = "securityActionDoSaveByAffiliateAction"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=securityActionListUsersByAffiliate" redirect='true'/>
+		</action>
+
+		<action    path = "securityActionDoSave"
+							 type = "SecurityActionDoSaveAction"
+							 name = "securityActionDoSave"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=securityActionList" redirect='true'/>
+		</action>
+
+	<action    path = "securityModuleList"
+							 type = "SecurityModuleListAction"
+							 name = "securityModuleList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="SecurityModuleList.tpl" />
+		</action>
+
+	<action    path = "securityModuleDoSave"
+							 type = "SecurityModuleDoSaveAction"
+							 name = "securityModuleDoSave"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=securityModuleList" redirect='true'/>
+		</action>
+	</action-mappings>
+<!-- End Module Security -->

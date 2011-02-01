@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf8"?>
+<protectedWords>
+	<relationReal>Real</relationReal>
+	<relationPotential>Potencial</relationPotential>
+	<orderStates>
+		<new>Emitida</new>
+		<accepted>Aceptada</accepted>
+		<pendingApproval>Pendiente Aprobación</pendingApproval>
+		<inProcess>En Proceso</inProcess>
+		<completed>Completa</completed>
+		<cancelled>Cancelada</cancelled>
+		<toBeVerified>A Verificar</toBeVerified>	
+	</orderStates>
+</protectedWords>

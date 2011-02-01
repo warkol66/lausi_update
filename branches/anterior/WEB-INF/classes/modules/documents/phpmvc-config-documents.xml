@@ -1,0 +1,68 @@
+<!-- Module Documents -->
+	<action-mappings module="Documents">
+		<action    path = "documentsList"
+							 type = "DocumentsListAction"
+							 name = "documentsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="documents_list.tpl"/>
+		</action>
+
+		<action    path = "documentsSelectCategory"
+							 type = "DocumentsSelectCategoryAction"
+							 name = "documentsSelectCategory"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="documents_select_category.tpl"/>
+		</action>
+
+		<action    path = "documentsEdit"
+							 type = "DocumentsEditAction"
+							 name = "documentsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="documents_edit.tpl"/>
+		</action>
+
+		<action    path = "documentsUpload"
+							 type = "DocumentsUploadAction"
+							 name = "documentsUpload"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="documents_upload.tpl"/>
+		</action>
+
+		<action    path = "documentsDoUpload"
+							 type = "DocumentsDoUploadAction"
+							 name = "documentsDoUpload"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=documentsSelectCategory" redirect="true"/>
+		</action>
+
+		<action    path = "documentsDoDownload"
+							 type = "DocumentsDoDownloadAction"
+							 name = "documentsDoDownload"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=documentsSelectCategory" redirect="true"/>
+		</action>
+
+		<action    path = "documentsDoEdit"
+							 type = "DocumentsDoEditAction"
+							 name = "documentsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=documentsSelectCategory" redirect="true"/>
+			<forward name="failure" path="documents_edit.tpl"/>
+		</action>
+
+		<action    path = "documentsDoDelete"
+							 type = "DocumentsDoDeleteAction"
+							 name = "documentsDoDeleteAction"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=documentsList" redirect="true"/>
+		</action>
+	</action-mappings>
+<!-- End Module Documents -->

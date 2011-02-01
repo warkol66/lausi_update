@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<moduleInstalation>
+	<moduleInstalation:config>
+		<language>
+			<esp>
+				<label>Histórico Logs</label>
+				<description>Administrador de logueo de usuarios</description>
+			</esp>
+			<eng>
+				<label>Logs</label>
+				<description>Users loging manager</description>
+			</eng>
+		</language>
+		<alwaysActive>0</alwaysActive>
+		<moduleDependencies>
+			<module1>Users</module1>
+			<module2>Modules</module2>
+		</moduleDependencies>
+	</moduleInstalation:config>
+	<moduleInstalation:actions>
+		<logsList>
+			<actionLogs>
+				<success>
+					<esp>Mostrar lista de histórico</esp>
+					<eng>Show Logs List</eng>
+				</success>
+				<failure>
+					<esp>No se pudo mostrar lista de Histórico</esp>
+					<eng>Unable to list Logs data</eng>
+				</failure>
+			</actionLogs>
+			<securityAction>
+				<usersBitLevel>1</usersBitLevel>
+				<usersByaffiliateBitLevel>1</usersByaffiliateBitLevel>
+				<actionPair>LogsList</actionPair>
+				<label>
+					<esp>Listado de Histórico</esp>
+					<eng>Logs List</eng>
+				</label>
+			</securityAction>
+			<menu>
+				<esp>Histórico</esp>
+				<eng>Logs</eng>
+			</menu>
+		</logsList>
+		<logsPurge>
+			<actionLogs>
+				<success>
+					<esp>Ingresar a pugar histórico</esp>
+					<eng>Enter to Logs purge</eng>
+				</success>
+			</actionLogs>
+			<securityAction>
+				<usersBitLevel>1</usersBitLevel>
+				<usersByaffiliateBitLevel>1</usersByaffiliateBitLevel>
+				<actionPair>LogsDoPurge</actionPair>
+				<label>
+					<esp>Purgar Información</esp>
+					<eng>Purge Info</eng>
+				</label>
+			</securityAction>
+			<menu>
+				<esp></esp>
+				<eng></eng>
+			</menu>
+		</logsPurge>
+	</moduleInstalation:actions>
+	<moduleInstalation:securityModule>3</moduleInstalation:securityModule>
+	<moduleInstalation:sql>
+		<sql1>CREATE TABLE IF NOT EXISTS `actionLogs_log`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT COMMENT 'Id log',
+	`userId` INTEGER  NOT NULL COMMENT 'Id del usuario',
+	`affiliateId` INTEGER  NOT NULL COMMENT 'Id del afiliado',
+	`datetime` DATETIME  NOT NULL COMMENT 'Fecha en que se logueo el dato',
+	`action` VARCHAR(100)  NOT NULL COMMENT 'action en que se logueo el dato',
+	`object` VARCHAR(100)  NOT NULL COMMENT 'objeto sobre el cual se realizo la accion',
+	`forward` VARCHAR(100) COMMENT 'tipo de accion de la etiqueta',
+	PRIMARY KEY (`id`),
+	INDEX `actionLogs_log_FI_1` (`userId`),
+	CONSTRAINT `actionLogs_log_FK_1`
+		FOREIGN KEY (`userId`)
+		REFERENCES `users_user` (`id`),
+	INDEX `actionLogs_log_FI_2` (`action`),
+	CONSTRAINT `actionLogs_log_FK_2`
+		FOREIGN KEY (`action`)
+		REFERENCES `security_action` (`action`)
+)Type=MyISAM COMMENT='logs del sistema';
+		</sql1>
+		<sql2>
+CREATE TABLE IF NOT EXISTS `actionLogs_label`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT COMMENT 'Id Label',
+	`action` VARCHAR(100)  NOT NULL COMMENT 'action en que se loguea el dato',
+	`label` VARCHAR(100)  NOT NULL COMMENT 'mensaje del log',
+	`language` VARCHAR(100) COMMENT 'idioma de la etiqueta',
+	`forward` VARCHAR(100) COMMENT 'tipo de accion de la etiqueta',
+	PRIMARY KEY (`id`,`action`)
+)Type=MyISAM COMMENT='Etiquetas de logueo';
+		</sql2>
+	</moduleInstalation:sql>
+</moduleInstalation>

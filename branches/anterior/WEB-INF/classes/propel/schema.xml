@@ -1,0 +1,445 @@
+<database defaultIdMethod="native" name="lausi" >
+
+ <table name="users_user" phpName='User' description="Users">
+  <column name="id" required="true" primaryKey="true" type="INTEGER" description="User Id" autoIncrement="true"/>
+  <column name="username" required="true"  type="VARCHAR" size="255" description="username"/>
+  <column name="password" required="true"  type="VARCHAR" size="255" description="password"/>
+  <column name="active" required="true"  type="BOOLEAN"  description="Is user active?"/>
+  <column name="created" required="true"  type="TIMESTAMP"  description="Creation date for"/>
+  <column name="updated" required="true"  type="TIMESTAMP"  description="Last update date"/>
+  <column name="levelId" type="INTEGER" description="User Level" />
+  <column name="lastLogin" type="TIMESTAMP" description="Fecha del ultimo login del usuario" />
+  <column name="timezone" type="VARCHAR" size="100" description="Timezone GMT del usuario" />
+	<unique>
+		<unique-column name="username" />
+	</unique>
+  <foreign-key foreignTable="users_userInfo" >
+    <reference local="id" foreign="userId" />
+  </foreign-key>
+  <foreign-key foreignTable="users_level" >
+    <reference local="levelId" foreign="id" />
+  </foreign-key>
+ </table>
+
+ <table name="users_userInfo" phpName='UserInfo' description="Information about users">
+  <column name="userId" required="true" primaryKey="true" type="INTEGER" description="User Id" />
+  <column name="name" type="VARCHAR" size="255" description="name"/>
+  <column name="surname" type="VARCHAR" size="255" description="surname"/>
+  <column name="mailAddress" type="VARCHAR" size="255" description="Email" />
+	<foreign-key foreignTable="users_user" >
+      <reference local="userId" foreign="id" />
+    </foreign-key>
+ </table>
+
+  <table name="users_userGroup" phpName='UserGroup' description="Users / Groups">
+  <column name="userId" required="true" primaryKey='true' type="INTEGER"  description="Group ID"/>
+  <column name="groupId" required="true" primaryKey='true' type="INTEGER"  description="Group ID"/>
+  <foreign-key foreignTable="users_user">
+     <reference local="userId" foreign="id"/>
+  </foreign-key>
+  <foreign-key foreignTable="users_group" onDelete="cascade">
+     <reference local="groupId" foreign="id"/>
+  </foreign-key>
+ </table>
+
+ <table name="users_group" phpName='Group' description="Groups">
+  <column name="id" required="true"  primaryKey='true' type="INTEGER"  description="Group ID" autoIncrement="true"/>
+  <column name="name" required="true"  type="VARCHAR" size="255"  description="Group Name"/>
+  <column name="created" required="true"  type="TIMESTAMP"  description="Creation date for"/>
+  <column name="updated" required="true"  type="TIMESTAMP"  description="Last update date"/>
+  <column name="bitLevel"   type="INTEGER"  description="Nivel"/>
+	<unique>
+		<unique-column name="name" />
+	</unique>
+ </table>
+
+ <table name="users_level" phpName='Level' description="Levels">
+  <column name="id" required="true"  primaryKey='true' type="INTEGER"  description="Level ID" autoIncrement="true"/>
+  <column name="name" required="true"  type="VARCHAR" size="255"  description="Level Name"/>
+  <column name="bitLevel" type="INTEGER"  description="Bit del nivel"/>
+	<unique>
+		<unique-column name="name" />
+	</unique>
+ </table>
+
+   <table name="security_action" phpName="SecurityAction"  description="Actions del sistema">
+    <column name="action" type="VARCHAR" size="100" description="Action pagina" primaryKey='true' />
+	<column name="module" type="VARCHAR" size="100" description="Modulo" />
+	<column name="section" type="VARCHAR" size="100" description="Seccion"/>
+    <column name="access" type="INTEGER" description="El acceso a ese action" />
+    <column name="accessAffiliateUser" type="INTEGER" description="El acceso a ese action para los usuarios por afiliados" />
+	<column name="active" type="INTEGER" description="Si el action esta activo o no" />
+    <column name="pair" type="VARCHAR" size="100" description="Par del Action" />
+	<foreign-key foreignTable="security_actionLabel" >
+		<reference local="action" foreign="action" />
+	</foreign-key>
+  </table>
+  
+  <table name="security_module" phpName="SecurityModule"  description="Modulos del sistema">
+	<column name="module" type="VARCHAR" size="100" description="Modulo" primaryKey='true'/>
+    <column name="access" type="INTEGER" description="El acceso a ese action" />
+    <column name="accessAffiliateUser" type="INTEGER" description="El acceso a ese action para los usuarios por afiliados" />
+  </table>
+
+  <table name="security_actionLabel" phpName="SecurityActionLabel"  description="etiquetas de actions de seguridad">
+    	<column name="id" type="INTEGER"  required="true" description="Id label security" primaryKey="true" autoIncrement="true"  />
+	<column name="action" type="VARCHAR" size="100" description="Action pagina" primaryKey='true' />
+	<column name="language" type="VARCHAR" size="100" description="Idioma de la etiqueta" />
+	<column name="label" type="VARCHAR" size="100" description="Etiqueta"/>
+  </table>
+
+  <table name="affiliates_affiliate" phpName="Affiliate"  description="Afiliados">
+	 <column name="id" required="true" primaryKey="true" type="INTEGER" description="Id afiliado" autoIncrement="true"/>
+	 <column name="name" required="true"  type="VARCHAR" size="255" description="nombre afiliado"/>
+   <column name="ownerId" type="INTEGER" description="Id del usuario administrador del afiliado" />
+    <foreign-key foreignTable="affiliates_affiliateInfo" >
+    <reference local="id" foreign="affiliateId" />
+  </foreign-key>
+	<unique>
+		<unique-column name="name" />
+	</unique>
+  </table>
+
+  <table name="affiliates_affiliateInfo" phpName="AffiliateInfo"  description="Informacion del afiliado">
+    <column name="affiliateId" primaryKey="true" required="true" type="INTEGER" description="Id afiliado"/>
+    <column name="affiliateInternalNumber" required="true" type="INTEGER" description="Id interno"/>
+    <column name="address" type="VARCHAR" size="255" description="Direccion afiliado"/>
+    <column name="phone" type="VARCHAR" size="50" description="Telefono afiliado"/>
+    <column name="email" type="VARCHAR" size="50" description="Email afiliado"/>
+    <column name="contact" type="VARCHAR" size="50" description="Nombre de persona de contacto"/>
+    <column name="contactEmail" type="VARCHAR" size="100" description="Email de persona de contacto"/>
+    <column name="web" type="VARCHAR" size="255" description="Direccion web del afiliado"/>
+    <column name="memo" type="LONGVARCHAR" description="Informacion adicional del afiliado"/>
+    <foreign-key foreignTable="affiliates_affiliate" >
+      <reference local="affiliateId" foreign="id" />
+    </foreign-key>
+  </table>
+
+ <table name="affiliates_user" phpName='AffiliateUser' description="Usuarios de afiliado">
+  <column name="id" required="true" primaryKey="true" type="INTEGER" description="User Id" autoIncrement="true"/>
+  <column name="affiliateId" required="true" type="INTEGER" description="Id afiliado"/>
+  <column name="username" required="true"  type="VARCHAR" size="255" description="username"/>
+  <column name="password" required="true"  type="VARCHAR" size="255" description="password"/>
+  <column name="active" required="true"  type="BOOLEAN"  description="Is user active?"/>
+  <column name="created" required="true"  type="TIMESTAMP"  description="Creation date for"/>
+  <column name="updated" required="true"  type="TIMESTAMP"  description="Last update date"/>
+  <column name="timezone" type="VARCHAR" size="100" description="Timezone GMT del usuario afiliado" />
+  <column name="levelId" type="INTEGER" description="User Level" />
+  <column name="lastLogin" type="TIMESTAMP" description="Fecha del ultimo login del usuario" />
+	<unique>
+		<unique-column name="username" />
+	</unique>
+  <foreign-key foreignTable="affiliates_userInfo" >
+    <reference local="id" foreign="userId" />
+  </foreign-key>
+  <foreign-key foreignTable="affiliates_level" >
+    <reference local="levelId" foreign="id" />
+  </foreign-key>
+  	<foreign-key foreignTable="affiliates_affiliate" >
+		<reference local="affiliateId" foreign="id" />
+	</foreign-key>
+ </table>
+ 
+ <table name="affiliates_userInfo" phpName='AffiliateUserInfo' description="Information about users by affiliates">
+  <column name="userId" required="true" primaryKey="true" type="INTEGER" description="User Id" />
+  <column name="name" type="VARCHAR" size="255" description="name"/>
+  <column name="surname" type="VARCHAR" size="255" description="surname"/>
+  <column name="mailAddress" type="VARCHAR" size="255" description="Email" />
+	<foreign-key foreignTable="affiliates_user" >
+      <reference local="userId" foreign="id" />
+    </foreign-key>
+ </table>
+ 
+ <table name="affiliates_level" phpName='AffiliateLevel' description="Levels">
+  <column name="id" required="true"  primaryKey='true' type="INTEGER"  description="Level ID" autoIncrement="true"/>
+  <column name="name" required="true"  type="VARCHAR" size="255"  description="Level Name"/>
+  <column name="bitLevel" type="INTEGER"  description="Bit del nivel"/>
+	<unique>
+		<unique-column name="name" />
+	</unique>
+ </table>
+ 
+  <table name="affiliates_userGroup" phpName='AffiliateUserGroup' description="Users / Groups">
+  <column name="userId" required="true" primaryKey='true' type="INTEGER"  description="Group ID"/>
+  <column name="groupId" required="true" primaryKey='true' type="INTEGER"  description="Group ID"/>
+  <foreign-key foreignTable="affiliates_user">
+     <reference local="userId" foreign="id"/>
+  </foreign-key>
+  <foreign-key foreignTable="affiliates_group" onDelete="cascade">
+     <reference local="groupId" foreign="id"/>
+  </foreign-key>
+ </table>
+
+ <table name="affiliates_group" phpName='AffiliateGroup' description="Groups">
+  <column name="id" required="true"  primaryKey='true' type="INTEGER"  description="Group ID" autoIncrement="true"/>
+  <column name="name" required="true"  type="VARCHAR" size="255"  description="Group Name"/>
+  <column name="created" required="true"  type="TIMESTAMP"  description="Creation date for"/>
+  <column name="updated" required="true"  type="TIMESTAMP"  description="Last update date"/>
+  <column name="bitLevel"   type="INTEGER"  description="Nivel"/>
+	<unique>
+		<unique-column name="name" />
+	</unique>
+ </table>
+ 
+  <table phpName="Category" name="categories_category" description="Categorias" >
+    <column autoIncrement="true" type="INTEGER" name="id" required="true" description="" primaryKey='true' />
+    <column size="255" type="VARCHAR" name="name" required="true" description="Category name" />
+    <column type="BOOLEAN" name="active" required="true" description="Is category active?" />
+  </table>
+  
+ <table name="users_groupCategory" phpName='GroupCategory' description="Groups / Categories">
+  <column name="groupId" required="true" primaryKey='true' type="INTEGER"  description="Group ID"/>
+  <column name="categoryId" required="true" primaryKey='true' type="INTEGER"  description="Category ID"/>
+  <foreign-key foreignTable="users_group" onDelete="cascade">
+     <reference local="groupId" foreign="id"/>
+  </foreign-key>
+  <foreign-key foreignTable="categories_category">
+     <reference local="categoryId" foreign="id"/>
+  </foreign-key>
+ </table>
+ 
+ <table name="affiliates_groupCategory" phpName='AffiliateGroupCategory' description="Groups / Categories">
+  <column name="groupId" required="true" primaryKey='true' type="INTEGER"  description="Group ID"/>
+  <column name="categoryId" required="true" primaryKey='true' type="INTEGER"  description="Category ID"/>
+  <foreign-key foreignTable="affiliates_group" onDelete="cascade">
+     <reference local="groupId" foreign="id"/>
+  </foreign-key>
+  <foreign-key foreignTable="categories_category">
+     <reference local="categoryId" foreign="id"/>
+  </foreign-key>
+ </table>
+
+
+<table name="modules_module" phpName='Module' description=" Registro de modulos">
+	<column name="name" required="true" primaryKey='true' size="255" type="VARCHAR"  description="nombre del modulo"/>
+	<column name="active" required="true" type="BOOLEAN"  default="0" description="Estado del modulo"/>
+	<column name="alwaysActive" required="true" type="BOOLEAN"  default="0" description="Modulo siempre activo"/>
+ </table>
+
+ <table name="modules_dependency" phpName='ModuleDependency' description="Dependencia de modulos ">
+	<column size="50" type="VARCHAR" primaryKey='true' name="moduleName" description="Modulo" />
+	<column size="50" type="VARCHAR" primaryKey='true' name="dependence" description="Modulos de los cuales depende" />
+	<foreign-key foreignTable="modules_module" onDelete="cascade">
+		<reference local="moduleName" foreign="name"/>
+	</foreign-key>
+ </table>
+
+ <table name="modules_label" phpName='ModuleLabel' description="Etiquetas de modulos ">
+ 	<column name="id" type="INTEGER"  required="true" description="Id module label" primaryKey="true" autoIncrement="true"  />
+	<column name="name" required="true" primaryKey='true' size="255" type="VARCHAR"  description="nombre del modulo"/>
+	<column size="255" type="VARCHAR" name="label" description="Etiqueta" />
+	<column size="255" type="VARCHAR" name="description" description="Descripcion del modulo" />
+	<column name="language" type="VARCHAR" size="100" description="idioma de la etiqueta"/>
+	<foreign-key foreignTable="modules_module" onDelete="cascade">
+		<reference local="name" foreign="name"/>
+	</foreign-key> 
+ </table>
+
+
+<table phpName="ActionLog" name="actionLogs_log" description="logs del sistema">
+	<column name="id" type="INTEGER"  required="true" description="Id log" primaryKey="true" autoIncrement="true"  />
+	<column name="userId" type="INTEGER"  required="true" description="Id del usuario" />
+	<column name="affiliateId" type="INTEGER"  required="true" description="Id del afiliado" />
+	<column name="datetime" type="TIMESTAMP"  required="true" description="Fecha en que se logueo el dato" />
+	<column name="action" type="VARCHAR" size="100"  required="true" description="action en que se logueo el dato" />
+	<column name="object" type="VARCHAR" size="100"  required="true" description="objeto sobre el cual se realizo la accion"/>
+	<column name="forward" type="VARCHAR" size="100" description="tipo de accion de la etiqueta"/>
+	<foreign-key foreignTable="users_user" >
+		<reference local="userId" foreign="id" />
+	</foreign-key>
+	<foreign-key foreignTable="security_action" >
+		<reference local="action" foreign="action" />
+	</foreign-key>
+</table>
+
+
+<table phpName="ActionLogLabel" name="actionLogs_label" description="Etiquetas de logueo">
+	<column name="id" type="INTEGER"  required="true" description="Id Label" primaryKey="true" autoIncrement="true"  />
+	<column name="action" primaryKey="true" type="VARCHAR" size="100"  required="true" description="action en que se loguea el dato" />
+	<column name="label" type="VARCHAR" size="100"  required="true" description="mensaje del log"/>
+	<column name="language" type="VARCHAR" size="100" description="idioma de la etiqueta"/>
+	<column name="forward" type="VARCHAR" size="100" description="tipo de accion de la etiqueta"/>
+</table>
+
+
+
+<!-- Tablas especificas de Lausi -->
+
+<!-- Fuerza de Trabajo -->
+<table phpName="Workforce" name="lausi_workforce" description="Base de Fuerza de Trabajo">
+
+	<column name="id" type="INTEGER"  required="true" description="Id de fuerza de trabajo" primaryKey="true" autoIncrement="true"  />
+	<column name="name" type="VARCHAR" size="100"  required="true" description="Nombre de fuerza de trabajo" />
+	<column name="telephone" type="VARCHAR" size="100" description="telefono de contacto" />
+	<column name="workInHeight" type="BOOLEAN" description="Trabaja en altura" />
+</table>
+
+<!-- Circuito -->
+
+<table phpName="Circuit" name="lausi_circuit" description="Base de Circuitos">
+
+	<column name="id" type="INTEGER"  required="true" description="Id de Circuito" primaryKey="true" autoIncrement="true"  />
+	<column name="name" type="VARCHAR" size="100"  required="true" description="Nombre del circuito" />
+	<column name="description" type="LONGVARCHAR" description="descripcion del circuito" />
+	<column name="limitsDescription" type="LONGVARCHAR" description="descripcion de los limites del circuito" />
+	<column name="orderBy" type="INTEGER" description="Orden del Circuito" />
+	
+</table>
+
+<!-- Una misma fuerza de Trabajo de relaciona con varios circuitos -->
+<table phpName="WorkforceCircuit" name="lausi_workforceCircuit">
+	<column name="workforceId" type="INTEGER" required="true" primaryKey="true"/>
+	<column name="circuitId" type="INTEGER" required="true" primaryKey="true"/>
+
+	<foreign-key foreignTable="lausi_workforce">
+		<reference local="workforceId" foreign="id"/>
+	</foreign-key>
+
+	<foreign-key foreignTable="lausi_circuit">
+		<reference local="circuitId" foreign="id"/>
+	</foreign-key>
+</table>
+
+<!-- Barrios -->
+<table name="lausi_region" phpName='Region' description="Barrios">
+	<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
+	<column name="name" required="true" type="VARCHAR" size="100" description="Name"/>
+	<unique>
+		<unique-column name="name" />
+	</unique>
+</table>
+
+
+<!-- Base de Direcciones -->
+<table phpName="Address" name="lausi_address" description="Base de Direcciones">
+
+	<column name="id" type="INTEGER"  required="true" description="Id de la calle" primaryKey="true" autoIncrement="true" />
+	<column name="street" type="VARCHAR" size="100"  required="true" description="Nombre de la calle" />
+	<column name="number" type="INTEGER" description="numero de la calle" />	
+	<column name="rating" type="INTEGER" description="Valoracion de la calle" />
+	<column name="intersection" type="VARCHAR" size="100" description="cruce con otra calle de la direccion" />
+	<column name="owner" type="VARCHAR" size="100" description="duenio de la direccion" />
+	<column name="latitude" type="FLOAT" description="latitud de la direccion" />
+	<column name="longitude" type="FLOAT" description="longitud de la direccion" />
+	<column name="regionId" type="INTEGER" description="barrio de la direccion" />
+	<column name="ownerPhone" type="VARCHAR" size="100" description="telefono de contacto" />
+	<column name="orderCircuit" type="INTEGER" default="0" description="ordenamiento por proximidad en el circuito entre direcciones" />
+	<column name="nickname" type="VARCHAR" size="100" default="" description="Nombre de Fantasia de la direccion" />
+
+	<column name="circuitId" type="INTEGER" description="circuito al que pertenece la calle" />
+
+	<foreign-key foreignTable="lausi_circuit">
+		<reference local="circuitId" foreign="id"/>
+	</foreign-key>
+	<foreign-key foreignTable="lausi_region">
+		<reference local="regionId" foreign="id"/>
+	</foreign-key>
+
+</table>
+
+<!-- Clientes -->
+<table phpName="Client" name="lausi_client" description="Base de Clientes">
+
+	<column name="id" type="INTEGER"  required="true" description="Id del cliente" primaryKey="true" autoIncrement="true"  />
+	<column name="name" type="VARCHAR" size="100"  required="true" description="Nombre del cliente" />
+	<column name="contact" type="VARCHAR" size="100" description="contacto del cliente" />
+	
+</table>
+
+<!-- Base de Direcciones de cliente -->
+<table phpName="ClientAddress" name="lausi_clientAddress" description="Base de Direcciones de Clientes">
+
+	<column name="id" type="INTEGER"  required="true" description="Id de la direccion del cliente" primaryKey="true" autoIncrement="true" />
+	<column name="street" type="VARCHAR" size="100"  required="true" description="Nombre de la direccion del cliente" />
+	<column name="number" type="INTEGER" description="numero de la direccion del cliente" />	
+	<column name="intersection" type="VARCHAR" size="100" description="cruce con otra calle de la direccion del cliente" />
+	<column name="latitude" type="FLOAT"  description="latitud de la direccion del cliente" />
+	<column name="longitude" type="FLOAT" description="longitud de la direccion del cliente" />
+	<column name="type" type="VARCHAR" size="100" description="tipo de la direccion del cliente" />
+	<column name="circuitId" type="INTEGER" description="circuito al que pertenece la direccion del cliente" />
+	<column name="clientId" type="INTEGER"  required="true" description="Id del cliente de esa direccion" />
+	<column name="regionId" type="INTEGER" description="barrio de la direccion" />
+
+	<foreign-key foreignTable="lausi_circuit">
+		<reference local="circuitId" foreign="id"/>
+	</foreign-key>
+
+	<foreign-key foreignTable="lausi_client">
+		<reference local="clientId" foreign="id"/>
+	</foreign-key>
+	
+	<foreign-key foreignTable="lausi_region">
+		<reference local="regionId" foreign="id"/>
+	</foreign-key>	
+
+</table>
+
+<!-- Base de Activos (Carteleras) -->
+<table phpName="Billboard" name="lausi_billboard" description="Base de Activos (Carteleras)">
+
+	<column name="id" type="INTEGER"  required="true" description="Id del activo" primaryKey="true" autoIncrement="true"  />
+	<column name="number" type="INTEGER" required="true" description="numero del activo" />	
+	<column name="type" type="INTEGER" description="tipo del activo" />
+	<column name="height" type="BOOLEAN" description="si esta en altura" />
+	<column name="row" type="INTEGER" description="fila del activo" />
+	<column name="billboardColumn" type="INTEGER" description="columna del activo" />
+	<column name="addressId" type="INTEGER" required="true" description="altura del activo" />
+
+	<foreign-key foreignTable="lausi_address" onDelete="cascade">
+		<reference local="addressId" foreign="id"/>
+	</foreign-key>
+	
+</table>
+
+<!-- Base de Motivos -->
+<table phpName="Theme" name="lausi_theme" description="Base de Motivos">
+
+	<column name="id" type="INTEGER"  required="true" description="Id del motivo" primaryKey="true" autoIncrement="true"  />
+	<column name="name" type="VARCHAR" size="100"  required="true" description="nombre del motivo" />
+	<column name="shortName" type="VARCHAR" size="100"  description="nombre abreviado del motivo" />
+	<column name="startDate" type="DATE" required="true" description="fecha de inicio del motivo" />
+	<column name="duration" type="INTEGER" required="true" description="duracion del motivo" />
+	<column name="sheetsTotal" type="INTEGER" description="cantidad total de afiches que deberan distribuirse del motivo" />
+	<column name="type" type="INTEGER" description="tipo del motivo" />
+	<column name="active" type="BOOLEAN" description="indica si el motivo esta activo o no" default="1"/>
+	
+	<column name="clientId" type="INTEGER"  required="true" description="Id del cliente del motivo" />
+
+	<foreign-key foreignTable="lausi_client">
+		<reference local="clientId" foreign="id"/>
+	</foreign-key>
+
+		
+</table>
+
+
+<!-- Base de Avisos -->
+<table phpName="Advertisement" name="lausi_advertisement" description="Base de Avisos">
+
+	<column name="id" type="INTEGER"  required="true" description="Id del motivo" primaryKey="true" autoIncrement="true"  />
+	<column name="date" type="DATE" required="true" description="fecha de actualizacion del aviso" />
+	<column name="publishDate" type="DATE" required="true" description="fecha de publicacion del aviso" />
+	<column name="duration" type="INTEGER" required="true" description="duracion del motivo" />	
+
+	<column name="billboardId" type="INTEGER" required="true" description="activo del aviso" />
+	<column name="themeId" type="INTEGER" required="true" description="motivo del aviso" />
+	<column name="workforceId" type="INTEGER" default="0" description="contratista asignado a ese workforce (solo sextuples)" />
+
+	<foreign-key foreignTable="lausi_billboard" onDelete="cascade">
+		<reference local="billboardId" foreign="id"/>
+	</foreign-key>
+
+	<foreign-key foreignTable="lausi_theme">
+		<reference local="themeId" foreign="id"/>
+	</foreign-key>
+	
+	<foreign-key foreignTable="lausi_workforce">
+		<reference local="workforceId" foreign="id"/>
+	</foreign-key>
+	
+</table>
+
+
+<!-- fin Tablas especificas de Lausi -->
+
+</database>

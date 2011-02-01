@@ -1,0 +1,16 @@
+<database defaultIdMethod="native" name="mluse" >
+  <table phpName="MLUseText" name="MLUSE_Text">
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="languageId" type="INTEGER" primaryKey="true" required="true" />
+		<column name="text" type="LONGVARCHAR" required="true" />
+		<foreign-key foreignTable="MLUSE_Language" onDelete="cascade" >
+			<reference local="languageId" foreign="id" />
+		</foreign-key>
+	</table>
+
+  <table phpName="MLUseLanguage" name="MLUSE_Language">
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="50" required="true" />
+		<column name="code" type="VARCHAR" size="30" required="true" />
+	</table>
+</database>
