@@ -1,6 +1,6 @@
 <?php
 
-require_once 'lausi/om/BaseTheme.php';
+require_once 'om/BaseTheme.php';
 
 
 /**

@@ -112,11 +112,9 @@ class WorkforcePeer extends BaseWorkforcePeer {
       $perPage = 	WorkforcePeer::getRowsPerPage();
     if (empty($page))
       $page = 1;
-    require_once("propel/util/PropelPager.php");
     $cond = new Criteria();     
     $pager = new PropelPager($cond,"WorkforcePeer", "doSelect",$page,$perPage);
     return $pager;
    }    
 
 }
-?>

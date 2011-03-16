@@ -412,7 +412,6 @@ class AddressPeer extends BaseAddressPeer {
       $perPage = 	AddressPeer::getRowsPerPage();
     if (empty($page))
       $page = 1;
-    require_once("propel/util/PropelPager.php");
     if ($criteria == null)
     	$cond = new Criteria();
     else 

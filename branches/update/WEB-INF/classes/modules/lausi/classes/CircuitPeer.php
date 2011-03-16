@@ -117,11 +117,9 @@ class CircuitPeer extends BaseCircuitPeer {
       $perPage = 	CircuitPeer::getRowsPerPage();
     if (empty($page))
       $page = 1;
-    require_once("propel/util/PropelPager.php");
     $cond = new Criteria();     
     $pager = new PropelPager($cond,"CircuitPeer", "doSelect",$page,$perPage);
     return $pager;
    }    
 
 }
-?>

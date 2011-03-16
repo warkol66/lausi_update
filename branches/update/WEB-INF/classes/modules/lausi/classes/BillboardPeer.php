@@ -217,7 +217,6 @@ class BillboardPeer extends BaseBillboardPeer {
       $perPage = 	BillboardPeer::getRowsPerPage();
     if (empty($page))
       $page = 1;
-    require_once("propel/util/PropelPager.php");
 
     if ($criteria == null)
     	$cond = new Criteria();

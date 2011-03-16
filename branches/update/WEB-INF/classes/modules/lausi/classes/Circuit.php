@@ -1,6 +1,6 @@
 <?php
 
-require_once 'lausi/om/BaseCircuit.php';
+require_once 'om/BaseCircuit.php';
 require_once('WorkforceCircuit.php');
 require_once('AdvertisementPeer.php');
 

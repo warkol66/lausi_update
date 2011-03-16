@@ -118,11 +118,9 @@ class RegionPeer extends BaseRegionPeer {
       $perPage = 	RegionPeer::getRowsPerPage();
     if (empty($page))
       $page = 1;
-    require_once("propel/util/PropelPager.php");
     $cond = new Criteria();     
     $pager = new PropelPager($cond,"RegionPeer", "doSelect",$page,$perPage);
     return $pager;
    }    
 
 }
-?>
