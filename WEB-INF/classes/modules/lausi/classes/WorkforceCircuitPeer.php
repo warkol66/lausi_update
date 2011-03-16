@@ -1,7 +1,7 @@
 <?php
 
   // include base peer class
-  require_once 'lausi/om/BaseWorkforceCircuitPeer.php';
+  require_once 'om/BaseWorkforceCircuitPeer.php';
 
   // include object class
   include_once 'lausi/WorkforceCircuit.php';

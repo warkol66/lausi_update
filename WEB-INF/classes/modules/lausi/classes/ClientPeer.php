@@ -137,11 +137,9 @@ class ClientPeer extends BaseClientPeer {
       $perPage = 	ClientPeer::getRowsPerPage();
     if (empty($page))
       $page = 1;
-    require_once("propel/util/PropelPager.php");
     $cond = new Criteria();     
     $pager = new PropelPager($cond,"ClientPeer", "doSelect",$page,$perPage);
     return $pager;
    }    
 
 }
-?>

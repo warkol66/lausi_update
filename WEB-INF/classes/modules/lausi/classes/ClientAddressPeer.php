@@ -136,11 +136,9 @@ class ClientAddressPeer extends BaseClientAddressPeer {
       $perPage = 	ClientAddressPeer::getRowsPerPage();
     if (empty($page))
       $page = 1;
-    require_once("propel/util/PropelPager.php");
     $cond = new Criteria();     
     $pager = new PropelPager($cond,"ClientAddressPeer", "doSelect",$page,$perPage);
     return $pager;
    }    
 
 }
-?>

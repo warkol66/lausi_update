@@ -1,6 +1,6 @@
 <?php
 
-require_once 'lausi/om/BaseRegion.php';
+require_once 'om/BaseRegion.php';
 
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-require_once 'lausi/om/BaseAdvertisement.php';
+require_once 'om/BaseAdvertisement.php';
 
 
 /**

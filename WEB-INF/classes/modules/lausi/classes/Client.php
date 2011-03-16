@@ -1,6 +1,6 @@
 <?php
 
-require_once 'lausi/om/BaseClient.php';
+require_once 'om/BaseClient.php';
 
 
 /**

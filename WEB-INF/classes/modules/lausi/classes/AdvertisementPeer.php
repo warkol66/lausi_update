@@ -416,7 +416,6 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
       $perPage = 	AdvertisementPeer::getRowsPerPage();
     if (empty($page))
       $page = 1;
-    require_once("propel/util/PropelPager.php");
     $cond = new Criteria();     
     
     $pager = new PropelPager($cond,"AdvertisementPeer", "doSelect",$page,$perPage);
@@ -517,7 +516,6 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
       $perPage = 	AdvertisementPeer::getRowsPerPage();
     if (empty($page))
       $page = 1;
-    require_once("propel/util/PropelPager.php");
 
     $cond = $this->generateFilterCriteria();	    
     
@@ -660,9 +658,6 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 	}
 	
 	function getAllFiltered() {
-
-
-    	require_once("propel/util/PropelPager.php");
 		
 		$criteria = $this->generateFilterCriteria();
 
@@ -684,4 +679,3 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 
 
 }
-?>

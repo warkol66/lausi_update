@@ -1,6 +1,6 @@
 <?php
 
-require_once 'lausi/om/BaseAddress.php';
+require_once 'om/BaseAddress.php';
 
 
 /**

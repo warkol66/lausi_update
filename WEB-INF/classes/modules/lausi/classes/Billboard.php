@@ -1,6 +1,6 @@
 <?php
 
-require_once 'lausi/om/BaseBillboard.php';
+require_once 'om/BaseBillboard.php';
 require_once('AdvertisementPeer.php');
 
 

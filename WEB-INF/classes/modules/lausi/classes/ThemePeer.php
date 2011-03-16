@@ -193,7 +193,6 @@ class ThemePeer extends BaseThemePeer {
       $perPage = 	ThemePeer::getRowsPerPage();
     if (empty($page))
       $page = 1;
-    require_once("propel/util/PropelPager.php");
     $cond = new Criteria();     
     $pager = new PropelPager($cond,"ThemePeer", "doSelect",$page,$perPage);
     return $pager;
@@ -221,7 +220,6 @@ class ThemePeer extends BaseThemePeer {
       $perPage = 	ThemePeer::getRowsPerPage();
     if (empty($page))
       $page = 1;
-    require_once("propel/util/PropelPager.php");
     $cond = $this->getCriteria();     
     $pager = new PropelPager($cond,"ThemePeer", "doSelect",$page,$perPage);
     return $pager;

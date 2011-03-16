@@ -1,6 +1,6 @@
 <?php
 
-require_once 'lausi/om/BaseWorkforceCircuit.php';
+require_once 'om/BaseWorkforceCircuit.php';
 
 
 /**
