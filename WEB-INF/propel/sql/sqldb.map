@@ -1,0 +1,8 @@
+# Sqlfile -> Database map
+categories.classes.schema.sql=application
+common.classes.schema.sql=application
+lausi.classes.schema.sql=application
+modules.classes.schema.sql=application
+multilang.classes.schema.sql=application
+security.classes.schema.sql=application
+users.classes.schema.sql=application
