@@ -16,7 +16,7 @@
 	<table border="0" cellpadding="4" cellspacing="0" id="tabla-themes" class="tableTdBorders">
 		<thead>
 			<tr>
-				 <th colspan="11" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiThemesEdit" class="agregarNueva">Agregar Motivo</a></div></th>
+				 <th colspan="11" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiThemesEdit" class="addLink">Agregar Motivo</a></div></th>
 			</tr>
 			<tr>
 				<th width="2%">Id</th>
@@ -51,12 +51,12 @@
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="lausiThemesEdit" />
 						<input type="hidden" name="id" value="|-$theme->getid()-|" />
-						<input type="submit" name="submit_go_edit_theme" value="Editar" class="buttonImageEdit" />
+						<input type="submit" name="submit_go_edit_theme" value="Editar" class="iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="lausiThemesDoDelete" />
 						<input type="hidden" name="id" value="|-$theme->getid()-|" />
-						<input type="submit" name="submit_go_delete_theme" value="Borrar" onclick="return confirm('Seguro que desea eliminar el motivo?')" class="buttonImageDelete" />
+						<input type="submit" name="submit_go_delete_theme" value="Borrar" onclick="return confirm('Seguro que desea eliminar el motivo?')" class="iconDelete" />
 					</form>				
 				</td>
 				<td>
@@ -84,7 +84,7 @@
 				</th>		
 			</tr>
 			<tr>
-				<th colspan="11" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiThemesEdit" class="agregarNueva">Agregar Motivo</a></div></th>
+				<th colspan="11" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiThemesEdit" class="addLink">Agregar Motivo</a></div></th>
 			</tr>
 		</tbody>
 	</table>

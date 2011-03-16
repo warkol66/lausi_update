@@ -11,16 +11,14 @@
 		<form action="Main.php" method="get">
 			<p>
 				<label for="circuit">Circuito</label>
-				<select name="circuitId">
+				<select name="circuitId" onchange="this.form.submit();">
 					<option value="">Seleccione un circuito</option>
 					|-foreach from=$circuits item=circuit name=for_circuit-|
 						<option value="|-$circuit->getId()-|" |-if isset($circuitId) and $circuitId eq $circuit->getId()-|selected="selected"|-/if-|>|-$circuit->getName()-|</option>
 					|-/foreach-|
 				</select>				
-			</p>				
-			<p>
-				<input type="hidden" name="do" value="lausiAddressesOrder" />
 				<input type="submit" value="Aplicar Filtro" />
+				<input type="hidden" name="do" value="lausiAddressesOrder" />
 			</p>
 		</form>
 	</fieldset>

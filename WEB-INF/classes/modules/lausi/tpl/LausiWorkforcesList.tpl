@@ -6,7 +6,7 @@
 	<table id="tabla-workforces" border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 		<thead>
 			<tr>
-				 <th colspan="6" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiWorkforcesEdit" class="agregarNueva">Agregar Contratista</a></div></th>
+				 <th colspan="6" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiWorkforcesEdit" class="addLink">Agregar Contratista</a></div></th>
 			</tr>
 			<tr>
 				<th>Id</th>
@@ -29,12 +29,12 @@
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="lausiWorkforcesEdit" />
 						<input type="hidden" name="id" value="|-$workforce->getid()-|" />
-						<input type="submit" name="submit_go_edit_workforce" value="Editar" class="buttonImageEdit" />
+						<input type="submit" name="submit_go_edit_workforce" value="Editar" class="iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="lausiWorkforcesDoDelete" />
 						<input type="hidden" name="id" value="|-$workforce->getid()-|" />
-						<input type="submit" name="submit_go_delete_workforce" value="Borrar" onclick="return confirm('Seguro que desea eliminar el workforce?')" class="buttonImageDelete" />
+						<input type="submit" name="submit_go_delete_workforce" value="Borrar" onclick="return confirm('Seguro que desea eliminar el workforce?')" class="iconDelete" />
 					</form>				</td>
 			</tr>
 		|-/foreach-|						
@@ -44,7 +44,7 @@
 			</tr>							
 		|-/if-|						
 			<tr>
-				 <th colspan="6" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiWorkforcesEdit" class="agregarNueva">Agregar Contratista</a></div></th>
+				 <th colspan="6" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiWorkforcesEdit" class="addLink">Agregar Contratista</a></div></th>
 			</tr>
 		</tbody>
 	</table>

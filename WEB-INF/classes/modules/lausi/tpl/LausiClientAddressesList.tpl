@@ -6,7 +6,7 @@
 	<table id="tabla-clientaddresses" width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 		<thead>
 			<tr>
-				 <th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiClientAddressesEdit" class="agregarNueva">Agregar Dirección de Cliente</a></div></th>
+				 <th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiClientAddressesEdit" class="addLink">Agregar Dirección de Cliente</a></div></th>
 			</tr>
 			<tr>
 				<th>Calle</th>
@@ -40,12 +40,12 @@
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="lausiClientAddressesEdit" />
 						<input type="hidden" name="id" value="|-$clientaddress->getid()-|" />
-						<input type="submit" name="submit_go_edit_clientaddress" value="Editar" class="buttonImageEdit" />
+						<input type="submit" name="submit_go_edit_clientaddress" value="Editar" class="iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="lausiClientAddressesDoDelete" />
 						<input type="hidden" name="id" value="|-$clientaddress->getid()-|" />
-						<input type="submit" name="submit_go_delete_clientaddress" value="Borrar" onclick="return confirm('Seguro que desea eliminar el clientaddress?')" class="buttonImageDelete" />
+						<input type="submit" name="submit_go_delete_clientaddress" value="Borrar" onclick="return confirm('Seguro que desea eliminar el clientaddress?')" class="iconDelete" />
 					</form>
 				</td>
 			</tr>
@@ -56,7 +56,7 @@
 			</tr>													
 		|-/if-|						
 			<tr>
-				 <th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiClientAddressesEdit" class="agregarNueva">Agregar Dirección de Cliente</a></div></th>
+				 <th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiClientAddressesEdit" class="addLink">Agregar Dirección de Cliente</a></div></th>
 			</tr>
 		</tbody>
 	</table>

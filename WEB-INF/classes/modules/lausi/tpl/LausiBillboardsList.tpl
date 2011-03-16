@@ -100,7 +100,7 @@
 		<thead>
 			|-if $all eq "1"-|			
 			<tr>
-				 <th colspan="9" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiBillboardsEdit" class="agregarNueva">Agregar Cartelera</a></div></th>
+				 <th colspan="9" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiBillboardsEdit" class="addLink">Agregar Cartelera</a></div></th>
 			</tr>
 			|-/if-|
 			<tr>
@@ -193,7 +193,7 @@
 						|-/if-|
 						<input type="hidden" name="do" value="lausiBillboardsEdit" />
 						<input type="hidden" name="id" value="|-$billboard->getid()-|" />
-						<input type="submit" name="submit_go_edit_billboard" value="Editar" class="buttonImageEdit" />
+						<input type="submit" name="submit_go_edit_billboard" value="Editar" class="iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						|-if isset($listRedirect)-|
@@ -215,7 +215,7 @@
 						|-/if-|
 						<input type="hidden" name="do" value="lausiBillboardsDoDelete" />
 						<input type="hidden" name="id" value="|-$billboard->getid()-|" />
-						<input type="submit" name="submit_go_delete_billboard" value="Borrar" onclick="return confirm('Seguro que desea eliminar el billboard?')" class="buttonImageDelete" />
+						<input type="submit" name="submit_go_delete_billboard" value="Borrar" onclick="return confirm('Seguro que desea eliminar el billboard?')" class="iconDelete" />
 					</form>								
 				</td>
 			|-/if-|
@@ -229,7 +229,7 @@
 			</tr>							
 		|-/if-|						
 			<tr>
-				 <th colspan="8" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiBillboardsEdit" class="agregarNueva">Agregar Cartelera</a></div></th>
+				 <th colspan="8" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiBillboardsEdit" class="addLink">Agregar Cartelera</a></div></th>
 			</tr>
 		|-else-|
 			<tr>

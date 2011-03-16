@@ -103,7 +103,7 @@
 			<thead>
 				|-if $printReport eq ''-|
 				<tr>
-					 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit" class="agregarNueva">Agregar Aviso</a></div></th>
+					 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit" class="addLink">Agregar Aviso</a></div></th>
 				</tr>
 				|-/if-|
 				<tr>
@@ -140,7 +140,7 @@
 				|-/if-|								
 				|-if $printReport eq ''-|
 				<tr>
-					 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit" class="agregarNueva">Agregar Aviso</a></div></th>
+					 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit" class="addLink">Agregar Aviso</a></div></th>
 				</tr>
 				|-/if-|
 			</tbody>
@@ -150,7 +150,7 @@
 			<thead>
 				|-if $printReport eq ''-|
 				<tr>
-					 <th colspan="9" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit" class="agregarNueva">Agregar Aviso</a></div></th>
+					 <th colspan="9" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit" class="addLink">Agregar Aviso</a></div></th>
 				</tr>
 				|-/if-|
 				<tr>
@@ -199,7 +199,7 @@
 						<form action="Main.php" method="get">
 							<input type="hidden" name="do" value="lausiAdvertisementsEdit" />
 							<input type="hidden" name="id" value="|-$advertisement->getId()-|" />
-							<input type="submit" name="submit_go_edit_advertisement" value="Editar" class="buttonImageEdit" />
+							<input type="submit" name="submit_go_edit_advertisement" value="Editar" class="iconEdit" />
 							|-if $clientReport eq 1-|
 								<input type="hidden" name="clientReport" value="1"/>
 							|-/if-|
@@ -207,7 +207,7 @@
 						<form action="Main.php" method="post">
 							<input type="hidden" name="do" value="lausiAdvertisementsDoDelete" />
 							<input type="hidden" name="id" value="|-$advertisement->getId()-|" />
-							<input type="submit" name="submit_go_delete_advertisement" value="Borrar" onclick="return confirm('Seguro que desea eliminar el aviso?')" class="buttonImageDelete" />
+							<input type="submit" name="submit_go_delete_advertisement" value="Borrar" onclick="return confirm('Seguro que desea eliminar el aviso?')" class="iconDelete" />
 							|-if $clientReport eq 1-|
 								<input type="hidden" name="clientReport" value="1"/>
 							|-/if-|
@@ -224,7 +224,7 @@
 			|-/if-|						
 				|-if $printReport eq ''-|
 				<tr>
-					 <th colspan="9" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit" class="agregarNueva">Agregar Aviso</a></div></th>
+					 <th colspan="9" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit" class="addLink">Agregar Aviso</a></div></th>
 				</tr>
 				|-/if-|
 			</tbody>

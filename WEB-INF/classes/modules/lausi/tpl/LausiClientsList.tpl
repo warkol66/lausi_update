@@ -6,7 +6,7 @@
 	<table id="tabla-clients" border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 		<thead>
 			<tr>
-				 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiClientsEdit" class="agregarNueva">Agregar Cliente</a></div></th>
+				 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiClientsEdit" class="addLink">Agregar Cliente</a></div></th>
 			</tr>
 			<tr>
 				<th>Nombre</th>
@@ -23,12 +23,12 @@
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="lausiClientsEdit" />
 						<input type="hidden" name="id" value="|-$client->getid()-|" />
-						<input type="submit" name="submit_go_edit_client" value="Editar" class="buttonImageEdit" />
+						<input type="submit" name="submit_go_edit_client" value="Editar" class="iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="lausiClientsDoDelete" />
 						<input type="hidden" name="id" value="|-$client->getid()-|" />
-						<input type="submit" name="submit_go_delete_client" value="Borrar" onclick="return confirm('Seguro que desea eliminar el client?')" class="buttonImageDelete" />
+						<input type="submit" name="submit_go_delete_client" value="Borrar" onclick="return confirm('Seguro que desea eliminar el client?')" class="iconDelete" />
 					</form>
 				</td>
 			</tr>
@@ -39,7 +39,7 @@
 			</tr>							
 		|-/if-|						
 			<tr>
-				 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiClientsEdit" class="agregarNueva">Agregar Cliente</a></div></th>
+				 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiClientsEdit" class="addLink">Agregar Cliente</a></div></th>
 			</tr>
 		</tbody>
 	</table>

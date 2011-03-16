@@ -6,7 +6,7 @@
 	<table id="tabla-circuits" border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 		<thead>
 			<tr>
-				 <th colspan="5" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiCircuitsEdit" class="agregarNueva">Agregar Circuito</a></div></th>
+				 <th colspan="5" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiCircuitsEdit" class="addLink">Agregar Circuito</a></div></th>
 			</tr>
 			<tr>
 				<th>Id</th>
@@ -27,12 +27,12 @@
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="lausiCircuitsEdit" />
 						<input type="hidden" name="id" value="|-$circuit->getid()-|" />
-						<input type="submit" name="submit_go_edit_circuit" value="Editar" class="buttonImageEdit" />
+						<input type="submit" name="submit_go_edit_circuit" value="Editar" class="iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="lausiCircuitsDoDelete" />
 						<input type="hidden" name="id" value="|-$circuit->getid()-|" />
-						<input type="submit" name="submit_go_delete_circuit" value="Borrar" onclick="return confirm('Seguro que desea eliminar el circuit?')" class="buttonImageDelete" />
+						<input type="submit" name="submit_go_delete_circuit" value="Borrar" onclick="return confirm('Seguro que desea eliminar el circuit?')" class="iconDelete" />
 					</form>
 				</td>
 			</tr>
@@ -43,7 +43,7 @@
 			</tr>							
 		|-/if-|						
 			<tr>
-				 <th colspan="5" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiCircuitsEdit" class="agregarNueva">Agregar Circuito</a></div></th>
+				 <th colspan="5" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiCircuitsEdit" class="addLink">Agregar Circuito</a></div></th>
 			</tr>
 		</tbody>
 	</table>

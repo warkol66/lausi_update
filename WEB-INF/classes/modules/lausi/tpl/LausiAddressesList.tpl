@@ -45,19 +45,16 @@
 			<p>
 				<input type="hidden" name="do" value="lausiAddressesList" />
 				<input type="submit" value="Aplicar Filtro" />
+				<input type="button" id="cancel" name="cancel" title="Quitar Filtro" value="Quitar Filtro" onClick="location.href='Main.php?do=lausiAddressesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'"/>
 			</p>
 		</form>
-			<form action="Main.php" method="get" accept-charset="utf-8">
-				<input type="hidden" name="do" value="lausiAddressesList" id="do">
-				<p><input type="submit" value="Quitar Filtro"></p>
-			</form>
 	</fieldset>
 	<br />
 
 	<table id="tabla-addresses" border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 		<thead>
 			<tr>
-				 <th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAddressesEdit" class="agregarNueva">Agregar Dirección</a></div></th>
+				 <th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAddressesEdit" class="addLink">Agregar Dirección</a></div></th>
 			</tr>
 			<tr>
 				<th width="20%">Calle</th>
@@ -110,7 +107,7 @@
 						|-if isset($page)-|
 							<input type="hidden" name="listRedirect[page]" value="|-$page-|"></input>
 						|-/if-|
-						<input type="submit" name="submit_go_edit_address" value="Editar" class="buttonImageEdit" />
+						<input type="submit" name="submit_go_edit_address" value="Editar" class="iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="lausiAddressesDoDelete" />
@@ -130,7 +127,7 @@
 						|-if isset($page)-|
 							<input type="hidden" name="listRedirect[page]" value="|-$page-|"></input>
 						|-/if-|
-            <input type="submit" name="submit_go_delete_address" value="Borrar" onClick="return confirm('Seguro que desea eliminar el address?')" class="buttonImageDelete" />
+            <input type="submit" name="submit_go_delete_address" value="Borrar" onClick="return confirm('Seguro que desea eliminar el address?')" class="iconDelete" />
           </form>				</td>
 			</tr>
 		|-/foreach-|						
@@ -140,7 +137,7 @@
 			</tr>							
 		|-/if-|						
 			<tr>
-				 <th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAddressesEdit" class="agregarNueva">Agregar Dirección</a></div></th>
+				 <th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAddressesEdit" class="addLink">Agregar Dirección</a></div></th>
 			</tr>
 		</tbody>
 	</table>
