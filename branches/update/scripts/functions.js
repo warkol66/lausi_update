@@ -226,3 +226,13 @@ function ordersSendOrdersDelete(form) {
 
 	return true;
 } // End of ordersSendOrdersExport
+
+
+function CheckAllBoxes(fmobj) {
+  for (var i=0;i<fmobj.elements.length;i++) {
+    var e = fmobj.elements[i];
+    if ( (e.name != 'allbox') && (e.type=='checkbox') && (!e.disabled) ) {
+      e.checked = fmobj.allbox.checked;
+    }
+  }
+}

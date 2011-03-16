@@ -13,6 +13,7 @@
 			<li><a href="Main.php?do=lausiWorkforcesList">Contratistas</a></li>
 			<li><a href="Main.php?do=lausiWorkforcesAssignAdmin">Avisos Sextuples por Contratista</a></li>
 			<li><a href="Main.php?do=lausiClientAddressesList">Direcciones Importantes de Clientes</a></li>
+			<li><a href="Main.php?do=backupList">Respaldos</a></li>
 
 		<li class="titleMenu">Distribución de Motivos</li>
 			<li><a href="Main.php?do=lausiDistributeByRegion">Por Barrio</a></li>
@@ -39,18 +40,17 @@
 			<li><a href="Main.php?do=lausiReportsThemesCircuit">Motivos por Circuito</a></li>
 
 		<li class="titleMenu">Configuración</li>
-			<li><a href="Main.php?do=configView">Ver Configuración</a></li>
-			<li><a href="Main.php?do=configSet">Configurar Sistema</a></li>
-			<li><a href="Main.php?do=configEdit">Editar Configuración</a></li>
+			<li><a href="Main.php?do=lausiAddressesImport">Importar Direcciones</a></li>
 
-		<li class="titleMenu">Administración</li>
-			<li><a href="Main.php?do=usersList">Usuarios</a></li>
+		<li class="titleMenu"><a href="javascript:switch_vis('adminMenu');">Administración</a></li>
+			<div id="adminMenu" style="display:|-if $module|lower eq 'users' || $module|lower eq 'categories' || $module|lower eq 'config' || $module|lower eq 'calendar'-|block|-else-|none|-/if-|;">			<li><a href="Main.php?do=usersList">Usuarios</a></li>
 			<li><a href="Main.php?do=usersGroupsList">Grupos de Usuarios</a></li>
 			<li><a href="Main.php?do=usersLevelsList">Niveles Usuarios</a></li>
 			<li><a href="Main.php?do=categoriesList">Categorías</a></li>
-			<li><a href="Main.php?do=backupList">Respaldos</a></li>
-			<li><a href="Main.php?do=lausiAddressesImport">Importar Direcciones</a></li>
-
+			<li><a href="Main.php?do=configView">Ver Configuración</a></li>
+			<li><a href="Main.php?do=configSet">Configurar Sistema</a></li>
+			<li><a href="Main.php?do=configEdit">Editar Configuración</a></li>
+		</div>
 	</ul>
 	<a href="Main.php?do=usersDoLogout" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")' id="logout"></a>
 |-/if-|

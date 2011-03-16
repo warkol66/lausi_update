@@ -6,7 +6,7 @@
 	<table id="tabla-regions" border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 		<thead>
 			<tr>
-				 <th colspan="2" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiRegionsEdit" class="agregarNueva">Agregar Barrio</a></div></th>
+				 <th colspan="2" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiRegionsEdit" class="addLink">Agregar Barrio</a></div></th>
 			</tr>
 			<tr>
 				<th>Nombre</th>
@@ -21,12 +21,12 @@
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="lausiRegionsEdit" />
 						<input type="hidden" name="id" value="|-$region->getid()-|" />
-						<input type="submit" name="submit_go_edit_region" value="Editar" class="buttonImageEdit" />
+						<input type="submit" name="submit_go_edit_region" value="Editar" class="iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="lausiRegionsDoDelete" />
 						<input type="hidden" name="id" value="|-$region->getid()-|" />
-						<input type="submit" name="submit_go_delete_region" value="Borrar" onclick="return confirm('Seguro que desea eliminar el region?')" class="buttonImageDelete" />
+						<input type="submit" name="submit_go_delete_region" value="Borrar" onclick="return confirm('Seguro que desea eliminar el region?')" class="iconDelete" />
 				</form></td>
 			</tr>
 		|-/foreach-|						
@@ -36,7 +36,7 @@
 			</tr>							
 		|-/if-|						
 			<tr>
-				 <th colspan="2" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiRegionsEdit" class="agregarNueva">Agregar Barrio</a></div></th>
+				 <th colspan="2" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiRegionsEdit" class="addLink">Agregar Barrio</a></div></th>
 			</tr>
 		</tbody>
 	</table>

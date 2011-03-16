@@ -40,7 +40,8 @@
 		</tbody>
 		|-else-|
 			<tr>
-				<th colspan="2">Dirección</th>
+				<th><input name="allbox" onclick="javascript:CheckAllBoxes(this.form)" type="checkbox" checked="checked"></th>
+				<th>Dirección</th>
 				<th width="5%" nowrap="nowrap">Número de Cartelera</th>
 				<th width="15%" nowrap="nowrap">Inicia</th>
 				<th width="15%" nowrap="nowrap">Duración</th>
