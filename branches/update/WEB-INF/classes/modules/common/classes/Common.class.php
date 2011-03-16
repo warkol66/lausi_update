@@ -628,7 +628,10 @@ class Common {
 	function getCurrentLocale() {
 		$currentLanguageCode = Common::getCurrentLanguageCode();
 		$language = MultilangLanguagePeer::getLanguageByCode($currentLanguageCode);
-		return $language->getLocale();
+		if (is_object($language))
+			return $language->getLocale();
+		else
+			return;
 	}
 
 	/**
