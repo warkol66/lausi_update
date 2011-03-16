@@ -80,11 +80,24 @@
 			E_USER_ERROR     => 'USER ERROR',
 			E_USER_WARNING   => 'USER WARNING',
 			E_USER_NOTICE    => 'USER NOTICE',
-			E_STRICT         => 'STRICT NOTICE',
-			E_RECOVERABLE_ERROR  => 'RECOVERABLE ERROR',
-			E_DEPRECATED     => 'E_DEPRECATED',
-			E_USER_DEPRECATED => 'E_USER_DEPRECATED'
+			E_STRICT         => 'STRICT NOTICE'
 		);
+
+		if ((version_compare(PHP_VERSION, '5.2.0')) > 0) {
+			$errortype5_2 = array (
+				E_RECOVERABLE_ERROR  => 'RECOVERABLE ERROR'
+			);
+			$errortype = $errortype + $errortype5_2 ;
+		}
+
+		if ((version_compare(PHP_VERSION, '5.3.0')) > 0) {
+			$errortype5_3 = array (
+				E_DEPRECATED     => 'E_DEPRECATED',
+				E_USER_DEPRECATED => 'E_USER_DEPRECATED'
+			);
+			$errortype = $errortype + $errortype5_3 ;
+		}
+
 		// SET of errors for which a var trace will be saved
 		$user_errors = array(E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE);
 		$err = "<errorentry>\n";

@@ -13,9 +13,9 @@ class DBConnection extends DB_Sql
   function DBConnection() {
 	global $moduleRootDir;
 	
-	$configDbFromPropel = include("$moduleRootDir/config/anmaga-conf.php");
+	$configDbFromPropel = include("$moduleRootDir/config/application-conf.php");
 	
-	$configDbData = $configDbFromPropel["datasources"]["anmaga"]["connection"];
+	$configDbData = $configDbFromPropel["datasources"]["application"]["connection"];
 	$dsnParts = explode("=",$configDbData["dsn"]);
 	$database = $dsnParts[2];
 	$dsnParts2 = explode(";",$dsnParts[1]);
