@@ -15,7 +15,7 @@
   include_once 'PropertyMessageResources.php';
 
 require_once 'lib/Propel.php';
-Propel::init("$moduleRootDir/config/anmaga-conf.php");
+Propel::init("$moduleRootDir/config/application-conf.php");
 
 //ponemos el server en UTC
 date_default_timezone_set('UTC');
