@@ -110,6 +110,25 @@ class TestGis extends BaseTest {
 		}	
 	}
 	
+	/**
+	 * Obtiene las direcciones ordenadas por proximidad al obelisco.
+	 */
+	public function propelAddressTest() {
+		try {
+			$addresses = AddressQuery::create()->withColumn("Round(GLength(LineStringFromWKB(LineString(geomFromText(CONCAT('Point(',`longitude`*10000,' ', `latitude`*10000,')')),geomFromText('Point(-583816 -346037)'))))) / 10000", 'Distance')
+											   ->orderBy('Distance')
+											   ->find();
+			if ($this->isVerbose())
+				print_r($addresses);
+			
+			return true;
+		} catch (PropelException $e) {
+			if ($this->isVerbose())
+				print_r($e);
+			return false;
+		}
+	}
+	
 	public function cleanup() {
 		parent::cleanup();
 		$con = $this->getConnection();
