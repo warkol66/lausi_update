@@ -1,11 +1,11 @@
 <?php
-require_once "../BaseTest.php";
+require_once "tests/BaseTest.php";
 /**
  * Crea algunas tablas para realizar las pruebas
  */
 
 class TestGis extends BaseTest {
-	public function createTablesTest() {
+	 public function createTablesTest() {
 		$con = $this->getConnection();
 		$con->beginTransaction();
 		try {
@@ -29,10 +29,10 @@ class TestGis extends BaseTest {
 			);");
 			$con->commit();
 			
-			echo "Tablas creadas con exito \r\n";
+			return true;
 		} catch (PDOException $e){
 			$con->rollback();
-			echo "Error al cargar las tablas \r\n";
+			return false;
 		}
 	}
 	
@@ -64,10 +64,10 @@ class TestGis extends BaseTest {
 			
 			$con->commit();
 			
-			echo "Datos cargados con exito \r\n";
+			return true;
 		} catch (PDOException $e){
 			$con->rollback();
-			echo "Error al cargar los datos \r\n";
+			return false;
 		}
 	}
 	
@@ -86,29 +86,44 @@ class TestGis extends BaseTest {
 			$stmt->execute();
 			$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			if (empty($result) || !count($result)) {
-				echo "no results\r\n";
-				return;
+				return false;
 			}
-				
-			foreach (array_keys($result[0]) as $fieldName) {
-				echo $fieldName . "\t";
-			}
-			echo "\r\n";
-			foreach ($result as $row) {
-				foreach($row as $field) {
-					echo $field . "\t";
+			
+			if ($this->isVerbose())	{
+				foreach (array_keys($result[0]) as $fieldName) {
+					echo $fieldName . "\t";
 				}
 				echo "\r\n";
+				foreach ($result as $row) {
+					foreach($row as $field) {
+						echo $field . "\t";
+					}
+					echo "\r\n";
+	    		}
     		}
 			
 			$con->commit();
-			
+			return true;
 		} catch (PDOException $e){
 			$con->rollback();
-			echo "Error al ejecutar la consulta \r\n";
+			return false;
 		}	
 	}
+	
+	public function cleanup() {
+		parent::cleanup();
+		$con = $this->getConnection();
+		$con->beginTransaction();
+		try {
+			//Eliminamos las tablas si existiesen.
+			$con->exec("DROP TABLE IF EXISTS address");
+			$con->exec("DROP TABLE IF EXISTS cab");
+			
+			$con->commit();
+			return true;
+		} catch (PDOException $e){
+			$con->rollback();
+			return false;
+		}
+	}
 }
-
-$tableTest = new TestGis;
-$tableTest->run();
