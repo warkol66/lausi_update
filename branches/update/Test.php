@@ -53,7 +53,12 @@ if (!empty($argc)) {
 }
 else
 	$_ENV['PHPMVC_MODE_CLI'] = false;
-	
+
+if (empty($_GET)) {
+	printHelp();
+	die();
+}
+
 include_once 'tests/gis/'.$_GET['testName'].'.php';
 if (class_exists($_GET['testName'])) {
 	$test = new $_GET['testName'];
@@ -63,6 +68,16 @@ if (class_exists($_GET['testName'])) {
 		die('No se ha encontrado ninguna prueba con ese nombre');
 } else {
 	die('No se ha encontrado ninguna prueba con ese nombre');
+}
+
+function printHelp() {
+	echo 'Script para ejecutar prubeas' . "\r\n";
+	echo 'Uso:' . "\r\n";
+	echo "\t" . 'Test.php testName=<valor> [<opcion>=<valor> ...]' . "\r\n";
+	echo 'Opciones:' . "\r\n";
+	echo "\t" . 'testName: nombre de la suite de pruebas a ejecutar, ej: TestGis' . "\r\n";
+	echo "\t" . 'run: nombre de un método especifico a ejecutar. Opcional. ej: createTables' . "\r\n";
+	echo "\t" . 'verbose: true|false, indica si se imprimen datos adicionales' . "\r\n";
 }
 
 
