@@ -155,26 +155,26 @@ class TestGis extends BaseTest {
 	 * la circunsferencia de radio 5km en torno a la client address con id = 4.
 	 */
 	public function getAllAvailableByLocationSquareTest() {
-		try {
-			$criteria = new Criteria();	
+		$criteria = new Criteria();	
 			
-			$clientAddress = ClientAddressPeer::get(4);
-			$longitude_0 = $clientAddress->getLongitude();
-			$latitude_0 = $clientAddress->getLatitude();
-			$radius = 5000;
-			
-			$deltaLatitude = $radius / 110960;
-			$deltaLongitude = $radius / 90000;
+		$clientAddress = ClientAddressPeer::get(4);
+		$longitude_0 = $clientAddress->getLongitude();
+		$latitude_0 = $clientAddress->getLatitude();
+		$radius = 5000;
 		
-			$longitude_1 = $longitude_0 - $deltaLongitude;
-			$longitude_2 = $longitude_0 + $deltaLongitude;
-			$longitudeMin = min($longitude_1,$longitude_2);
-			$longitudeMax = max($longitude_1,$longitude_2);
-			$latitude_1 = $latitude_0 - $deltaLatitude;
-			$latitude_2 = $latitude_0 + $deltaLatitude;
-			$latitudeMin = min($latitude_1,$latitude_2);
-			$latitudeMax = max($latitude_1,$latitude_2);
-			
+		$deltaLatitude = $radius / 110960;
+		$deltaLongitude = $radius / 90000;
+		
+		$longitude_1 = $longitude_0 - $deltaLongitude;
+		$longitude_2 = $longitude_0 + $deltaLongitude;
+		$longitudeMin = min($longitude_1,$longitude_2);
+		$longitudeMax = max($longitude_1,$longitude_2);
+		$latitude_1 = $latitude_0 - $deltaLatitude;
+		$latitude_2 = $latitude_0 + $deltaLatitude;
+		$latitudeMin = min($latitude_1,$latitude_2);
+		$latitudeMax = max($latitude_1,$latitude_2);
+		
+		try {
 			$criterionLongitude = $criteria->getNewCriterion(AddressPeer::LONGITUDE, $longitudeMin, Criteria::GREATER_EQUAL); 
 		   	$criterionLongitude->addAnd($criteria->getNewCriterion(AddressPeer::LONGITUDE, $longitudeMax, Criteria::LESS_EQUAL));
 	
@@ -210,9 +210,6 @@ class TestGis extends BaseTest {
 		$longitude_0 = $clientAddress->getLongitude();
 		$latitude_0 = $clientAddress->getLatitude();
 		$radius = 5000;
-		
-		$deltaLatitude = $radius / 110960;
-		$deltaLongitude = $radius / 90000;
 		
 		try {
 			$billboards = $criteria->join('Address')
