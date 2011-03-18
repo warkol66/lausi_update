@@ -5,7 +5,29 @@ require_once "tests/BaseTest.php";
  */
 
 class TestGis extends BaseTest {
-	 public function createTablesTest() {
+	
+	public function startUp() {
+		//Vamos a intentar crear una columna de tipo point en la tabla de direcciones e indexarla
+		$con = $this->getConnection();
+		$con->beginTransaction();
+		try {
+			//Intentamos crearlas
+			$con->exec("ALTER TABLE lausi_address ADD loc POINT NOT NULL;");
+			
+			$con->exec("ALTER TABLE lausi_address ADD SPATIAL KEY(loc)");
+			
+			$con->exec("UPDATE lausi_address SET
+				loc = geomFromText(CONCAT('Point(',`longitude`*10000,' ', `latitude`*10000,')'))
+			;");
+			$con->commit();
+			return true;
+		} catch (PDOException $e){
+			$con->rollback();
+			return false;
+		}
+	}
+	
+	public function createTablesTest() {
 		$con = $this->getConnection();
 		$con->beginTransaction();
 		try {
@@ -116,7 +138,7 @@ class TestGis extends BaseTest {
 	 */
 	public function propelAddressGisTest() {
 		try {
-			$addresses = AddressQuery::create()->withColumn("Round(GLength(LineStringFromWKB(LineString(geomFromText(CONCAT('Point(',`longitude`*10000,' ', `latitude`*10000,')')),geomFromText('Point(-583816 -346037)'))))) / 10000", 'Distance')
+			$addresses = AddressQuery::create()->withColumn("Round(GLength(LineStringFromWKB(LineString(lausi_address.loc,geomFromText('Point(-583816 -346037)'))))) / 10000", 'Distance')
 											   ->orderBy('Distance')
 											   ->find();
 			if ($this->isVerbose())
@@ -236,6 +258,7 @@ class TestGis extends BaseTest {
 			//Eliminamos las tablas si existiesen.
 			$con->exec("DROP TABLE IF EXISTS address");
 			$con->exec("DROP TABLE IF EXISTS cab");
+			$con->exec("ALTER TABLE lausi_address DROP loc");
 			
 			$con->commit();
 			return true;
