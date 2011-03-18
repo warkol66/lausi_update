@@ -1,0 +1,16 @@
+<database defaultIdMethod="native" package="backup.classes" name="application" >
+
+	<table name="backup_log" phpName="Backup" description="logs de acciones del sistema">
+
+    <column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true" description="Id del log" />
+
+    <vendor type="mysql">
+      <parameter name="Type" value="MyISAM"/>
+      <parameter name="Charset" value="utf8"/>
+      <parameter name="Collate" value="utf8_general_ci"/>
+    </vendor>
+
+	</table>
+
+
+</database>
