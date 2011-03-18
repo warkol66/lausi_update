@@ -150,6 +150,85 @@ class TestGis extends BaseTest {
 		}
 	}
 	
+	/**
+	 * Obtiene los billboards que se encuentran en el rectangulo circunscrito a 
+	 * la circunsferencia de radio 5km en torno a la client address con id = 4.
+	 */
+	public function getAllAvailableByLocationSquareTest() {
+		try {
+			$criteria = new Criteria();	
+			
+			$clientAddress = ClientAddressPeer::get(4);
+			$longitude_0 = $clientAddress->getLongitude();
+			$latitude_0 = $clientAddress->getLatitude();
+			$radius = 5000;
+			
+			$deltaLatitude = $radius / 110960;
+			$deltaLongitude = $radius / 90000;
+		
+			$longitude_1 = $longitude_0 - $deltaLongitude;
+			$longitude_2 = $longitude_0 + $deltaLongitude;
+			$longitudeMin = min($longitude_1,$longitude_2);
+			$longitudeMax = max($longitude_1,$longitude_2);
+			$latitude_1 = $latitude_0 - $deltaLatitude;
+			$latitude_2 = $latitude_0 + $deltaLatitude;
+			$latitudeMin = min($latitude_1,$latitude_2);
+			$latitudeMax = max($latitude_1,$latitude_2);
+			
+			$criterionLongitude = $criteria->getNewCriterion(AddressPeer::LONGITUDE, $longitudeMin, Criteria::GREATER_EQUAL); 
+		   	$criterionLongitude->addAnd($criteria->getNewCriterion(AddressPeer::LONGITUDE, $longitudeMax, Criteria::LESS_EQUAL));
+	
+		   	$criterionLatitude = $criteria->getNewCriterion(AddressPeer::LATITUDE, $latitudeMin, Criteria::GREATER_EQUAL);
+		   	$criterionLatitude->addAnd($criteria->getNewCriterion(AddressPeer::LATITUDE, $latitudeMax, Criteria::LESS_EQUAL));
+		   	
+			$criteria->addJoin(BillboardPeer::ADDRESSID,AddressPeer::ID,Criteria::INNER_JOIN);
+			
+			//los agregamos a la criteria
+			$criteria->add($criterionLatitude);
+			$criteria->add($criterionLongitude);
+			
+			$result = BillboardPeer::doSelect($criteria);
+			
+			if ($this->isVerbose())
+				print_r($result);
+			
+			return true;
+		} catch (PropelException $e) {
+			if ($this->isVerbose())
+				print_r($e);
+			return false;
+		}
+	}
+	
+	/**
+	 * Obtiene los billboards que se encuentran a un radio menor a 5km de la client address con id = 4.
+	 */
+	public function getAllAvailableByLocationRadialTest() {
+		$criteria = new BillboardQuery();	
+			
+		$clientAddress = ClientAddressPeer::get(4);
+		$longitude_0 = $clientAddress->getLongitude();
+		$latitude_0 = $clientAddress->getLatitude();
+		$radius = 5000;
+		
+		$deltaLatitude = $radius / 110960;
+		$deltaLongitude = $radius / 90000;
+		
+		try {
+			$billboards = $criteria->join('Address')
+								   ->withColumn("round(sqrt(pow(abs(" . AddressPeer::LONGITUDE . " - $longitude_0) * 90000,2) + pow(abs(" . AddressPeer::LATITUDE . " - $latitude_0) * 110960,2)))", 'distance')
+								   ->having("distance <= $radius")
+								   ->find();
+			if ($this->isVerbose())
+				print_r($billboards);
+			
+			return true;
+		} catch (PropelException $e) {
+			if ($this->isVerbose())
+				print_r($e);
+			return false;
+		}
+	}
 	
 	
 	public function cleanup() {
