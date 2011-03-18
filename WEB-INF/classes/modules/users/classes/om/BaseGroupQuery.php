@@ -26,10 +26,6 @@
  * @method     GroupQuery rightJoinUserGroup($relationAlias = null) Adds a RIGHT JOIN clause to the query using the UserGroup relation
  * @method     GroupQuery innerJoinUserGroup($relationAlias = null) Adds a INNER JOIN clause to the query using the UserGroup relation
  *
- * @method     GroupQuery leftJoinGroupCategory($relationAlias = null) Adds a LEFT JOIN clause to the query using the GroupCategory relation
- * @method     GroupQuery rightJoinGroupCategory($relationAlias = null) Adds a RIGHT JOIN clause to the query using the GroupCategory relation
- * @method     GroupQuery innerJoinGroupCategory($relationAlias = null) Adds a INNER JOIN clause to the query using the GroupCategory relation
- *
  * @method     Group findOne(PropelPDO $con = null) Return the first Group matching the query
  * @method     Group findOneOrCreate(PropelPDO $con = null) Return the first Group matching the query, or a new Group object populated from the query conditions when no match is found
  *
@@ -359,79 +355,6 @@ abstract class BaseGroupQuery extends ModelCriteria
 	}
 
 	/**
-	 * Filter the query by a related GroupCategory object
-	 *
-	 * @param     GroupCategory $groupCategory  the related object to use as filter
-	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-	 *
-	 * @return    GroupQuery The current query, for fluid interface
-	 */
-	public function filterByGroupCategory($groupCategory, $comparison = null)
-	{
-		if ($groupCategory instanceof GroupCategory) {
-			return $this
-				->addUsingAlias(GroupPeer::ID, $groupCategory->getGroupid(), $comparison);
-		} elseif ($groupCategory instanceof PropelCollection) {
-			return $this
-				->useGroupCategoryQuery()
-					->filterByPrimaryKeys($groupCategory->getPrimaryKeys())
-				->endUse();
-		} else {
-			throw new PropelException('filterByGroupCategory() only accepts arguments of type GroupCategory or PropelCollection');
-		}
-	}
-
-	/**
-	 * Adds a JOIN clause to the query using the GroupCategory relation
-	 * 
-	 * @param     string $relationAlias optional alias for the relation
-	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-	 *
-	 * @return    GroupQuery The current query, for fluid interface
-	 */
-	public function joinGroupCategory($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-	{
-		$tableMap = $this->getTableMap();
-		$relationMap = $tableMap->getRelation('GroupCategory');
-		
-		// create a ModelJoin object for this join
-		$join = new ModelJoin();
-		$join->setJoinType($joinType);
-		$join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-		if ($previousJoin = $this->getPreviousJoin()) {
-			$join->setPreviousJoin($previousJoin);
-		}
-		
-		// add the ModelJoin to the current object
-		if($relationAlias) {
-			$this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-			$this->addJoinObject($join, $relationAlias);
-		} else {
-			$this->addJoinObject($join, 'GroupCategory');
-		}
-		
-		return $this;
-	}
-
-	/**
-	 * Use the GroupCategory relation GroupCategory object
-	 *
-	 * @see       useQuery()
-	 * 
-	 * @param     string $relationAlias optional alias for the relation,
-	 *                                   to be used as main alias in the secondary query
-	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-	 *
-	 * @return    GroupCategoryQuery A secondary query class using the current class as primary query
-	 */
-	public function useGroupCategoryQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-	{
-		return $this
-			->joinGroupCategory($relationAlias, $joinType)
-			->useQuery($relationAlias ? $relationAlias : 'GroupCategory', 'GroupCategoryQuery');
-	}
-
-	/**
 	 * Filter the query by a related User object
 	 * using the users_userGroup table as cross reference
 	 *
@@ -445,23 +368,6 @@ abstract class BaseGroupQuery extends ModelCriteria
 		return $this
 			->useUserGroupQuery()
 				->filterByUser($user, $comparison)
-			->endUse();
-	}
-	
-	/**
-	 * Filter the query by a related Category object
-	 * using the users_groupCategory table as cross reference
-	 *
-	 * @param     Category $category the related object to use as filter
-	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-	 *
-	 * @return    GroupQuery The current query, for fluid interface
-	 */
-	public function filterByCategory($category, $comparison = Criteria::EQUAL)
-	{
-		return $this
-			->useGroupCategoryQuery()
-				->filterByCategory($category, $comparison)
 			->endUse();
 	}
 	

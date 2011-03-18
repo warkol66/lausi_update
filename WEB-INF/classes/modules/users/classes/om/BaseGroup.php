@@ -60,19 +60,9 @@ abstract class BaseGroup extends BaseObject  implements Persistent
 	protected $collUserGroups;
 
 	/**
-	 * @var        array GroupCategory[] Collection to store aggregation of GroupCategory objects.
-	 */
-	protected $collGroupCategorys;
-
-	/**
 	 * @var        array User[] Collection to store aggregation of User objects.
 	 */
 	protected $collUsers;
-
-	/**
-	 * @var        array Category[] Collection to store aggregation of Category objects.
-	 */
-	protected $collCategorys;
 
 	/**
 	 * Flag to prevent endless save loop, if this object is referenced
@@ -461,10 +451,7 @@ abstract class BaseGroup extends BaseObject  implements Persistent
 
 			$this->collUserGroups = null;
 
-			$this->collGroupCategorys = null;
-
 			$this->collUsers = null;
-			$this->collCategorys = null;
 		} // if (deep)
 	}
 
@@ -606,14 +593,6 @@ abstract class BaseGroup extends BaseObject  implements Persistent
 				}
 			}
 
-			if ($this->collGroupCategorys !== null) {
-				foreach ($this->collGroupCategorys as $referrerFK) {
-					if (!$referrerFK->isDeleted()) {
-						$affectedRows += $referrerFK->save($con);
-					}
-				}
-			}
-
 			$this->alreadyInSave = false;
 
 		}
@@ -687,14 +666,6 @@ abstract class BaseGroup extends BaseObject  implements Persistent
 
 				if ($this->collUserGroups !== null) {
 					foreach ($this->collUserGroups as $referrerFK) {
-						if (!$referrerFK->validate($columns)) {
-							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
-						}
-					}
-				}
-
-				if ($this->collGroupCategorys !== null) {
-					foreach ($this->collGroupCategorys as $referrerFK) {
 						if (!$referrerFK->validate($columns)) {
 							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
 						}
@@ -787,9 +758,6 @@ abstract class BaseGroup extends BaseObject  implements Persistent
 		if ($includeForeignObjects) {
 			if (null !== $this->collUserGroups) {
 				$result['UserGroups'] = $this->collUserGroups->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
-			}
-			if (null !== $this->collGroupCategorys) {
-				$result['GroupCategorys'] = $this->collGroupCategorys->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
 			}
 		}
 		return $result;
@@ -957,12 +925,6 @@ abstract class BaseGroup extends BaseObject  implements Persistent
 			foreach ($this->getUserGroups() as $relObj) {
 				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
 					$copyObj->addUserGroup($relObj->copy($deepCopy));
-				}
-			}
-
-			foreach ($this->getGroupCategorys() as $relObj) {
-				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-					$copyObj->addGroupCategory($relObj->copy($deepCopy));
 				}
 			}
 
@@ -1153,146 +1115,6 @@ abstract class BaseGroup extends BaseObject  implements Persistent
 	}
 
 	/**
-	 * Clears out the collGroupCategorys collection
-	 *
-	 * This does not modify the database; however, it will remove any associated objects, causing
-	 * them to be refetched by subsequent calls to accessor method.
-	 *
-	 * @return     void
-	 * @see        addGroupCategorys()
-	 */
-	public function clearGroupCategorys()
-	{
-		$this->collGroupCategorys = null; // important to set this to NULL since that means it is uninitialized
-	}
-
-	/**
-	 * Initializes the collGroupCategorys collection.
-	 *
-	 * By default this just sets the collGroupCategorys collection to an empty array (like clearcollGroupCategorys());
-	 * however, you may wish to override this method in your stub class to provide setting appropriate
-	 * to your application -- for example, setting the initial array to the values stored in database.
-	 *
-	 * @param      boolean $overrideExisting If set to true, the method call initializes
-	 *                                        the collection even if it is not empty
-	 *
-	 * @return     void
-	 */
-	public function initGroupCategorys($overrideExisting = true)
-	{
-		if (null !== $this->collGroupCategorys && !$overrideExisting) {
-			return;
-		}
-		$this->collGroupCategorys = new PropelObjectCollection();
-		$this->collGroupCategorys->setModel('GroupCategory');
-	}
-
-	/**
-	 * Gets an array of GroupCategory objects which contain a foreign key that references this object.
-	 *
-	 * If the $criteria is not null, it is used to always fetch the results from the database.
-	 * Otherwise the results are fetched from the database the first time, then cached.
-	 * Next time the same method is called without $criteria, the cached collection is returned.
-	 * If this Group is new, it will return
-	 * an empty collection or the current collection; the criteria is ignored on a new object.
-	 *
-	 * @param      Criteria $criteria optional Criteria object to narrow the query
-	 * @param      PropelPDO $con optional connection object
-	 * @return     PropelCollection|array GroupCategory[] List of GroupCategory objects
-	 * @throws     PropelException
-	 */
-	public function getGroupCategorys($criteria = null, PropelPDO $con = null)
-	{
-		if(null === $this->collGroupCategorys || null !== $criteria) {
-			if ($this->isNew() && null === $this->collGroupCategorys) {
-				// return empty collection
-				$this->initGroupCategorys();
-			} else {
-				$collGroupCategorys = GroupCategoryQuery::create(null, $criteria)
-					->filterByGroup($this)
-					->find($con);
-				if (null !== $criteria) {
-					return $collGroupCategorys;
-				}
-				$this->collGroupCategorys = $collGroupCategorys;
-			}
-		}
-		return $this->collGroupCategorys;
-	}
-
-	/**
-	 * Returns the number of related GroupCategory objects.
-	 *
-	 * @param      Criteria $criteria
-	 * @param      boolean $distinct
-	 * @param      PropelPDO $con
-	 * @return     int Count of related GroupCategory objects.
-	 * @throws     PropelException
-	 */
-	public function countGroupCategorys(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
-	{
-		if(null === $this->collGroupCategorys || null !== $criteria) {
-			if ($this->isNew() && null === $this->collGroupCategorys) {
-				return 0;
-			} else {
-				$query = GroupCategoryQuery::create(null, $criteria);
-				if($distinct) {
-					$query->distinct();
-				}
-				return $query
-					->filterByGroup($this)
-					->count($con);
-			}
-		} else {
-			return count($this->collGroupCategorys);
-		}
-	}
-
-	/**
-	 * Method called to associate a GroupCategory object to this object
-	 * through the GroupCategory foreign key attribute.
-	 *
-	 * @param      GroupCategory $l GroupCategory
-	 * @return     void
-	 * @throws     PropelException
-	 */
-	public function addGroupCategory(GroupCategory $l)
-	{
-		if ($this->collGroupCategorys === null) {
-			$this->initGroupCategorys();
-		}
-		if (!$this->collGroupCategorys->contains($l)) { // only add it if the **same** object is not already associated
-			$this->collGroupCategorys[]= $l;
-			$l->setGroup($this);
-		}
-	}
-
-
-	/**
-	 * If this collection has already been initialized with
-	 * an identical criteria, it returns the collection.
-	 * Otherwise if this Group is new, it will return
-	 * an empty collection; or if this Group has previously
-	 * been saved, it will retrieve related GroupCategorys from storage.
-	 *
-	 * This method is protected by default in order to keep the public
-	 * api reasonable.  You can provide public methods for those you
-	 * actually need in Group.
-	 *
-	 * @param      Criteria $criteria optional Criteria object to narrow the query
-	 * @param      PropelPDO $con optional connection object
-	 * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-	 * @return     PropelCollection|array GroupCategory[] List of GroupCategory objects
-	 */
-	public function getGroupCategorysJoinCategory($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-	{
-		$query = GroupCategoryQuery::create(null, $criteria);
-		$query->joinWith('Category', $join_behavior);
-
-		return $this->getGroupCategorys($query, $con);
-	}
-
-	/**
 	 * Clears out the collUsers collection
 	 *
 	 * This does not modify the database; however, it will remove any associated objects, causing
@@ -1406,119 +1228,6 @@ abstract class BaseGroup extends BaseObject  implements Persistent
 	}
 
 	/**
-	 * Clears out the collCategorys collection
-	 *
-	 * This does not modify the database; however, it will remove any associated objects, causing
-	 * them to be refetched by subsequent calls to accessor method.
-	 *
-	 * @return     void
-	 * @see        addCategorys()
-	 */
-	public function clearCategorys()
-	{
-		$this->collCategorys = null; // important to set this to NULL since that means it is uninitialized
-	}
-
-	/**
-	 * Initializes the collCategorys collection.
-	 *
-	 * By default this just sets the collCategorys collection to an empty collection (like clearCategorys());
-	 * however, you may wish to override this method in your stub class to provide setting appropriate
-	 * to your application -- for example, setting the initial array to the values stored in database.
-	 *
-	 * @return     void
-	 */
-	public function initCategorys()
-	{
-		$this->collCategorys = new PropelObjectCollection();
-		$this->collCategorys->setModel('Category');
-	}
-
-	/**
-	 * Gets a collection of Category objects related by a many-to-many relationship
-	 * to the current object by way of the users_groupCategory cross-reference table.
-	 *
-	 * If the $criteria is not null, it is used to always fetch the results from the database.
-	 * Otherwise the results are fetched from the database the first time, then cached.
-	 * Next time the same method is called without $criteria, the cached collection is returned.
-	 * If this Group is new, it will return
-	 * an empty collection or the current collection; the criteria is ignored on a new object.
-	 *
-	 * @param      Criteria $criteria Optional query object to filter the query
-	 * @param      PropelPDO $con Optional connection object
-	 *
-	 * @return     PropelCollection|array Category[] List of Category objects
-	 */
-	public function getCategorys($criteria = null, PropelPDO $con = null)
-	{
-		if(null === $this->collCategorys || null !== $criteria) {
-			if ($this->isNew() && null === $this->collCategorys) {
-				// return empty collection
-				$this->initCategorys();
-			} else {
-				$collCategorys = CategoryQuery::create(null, $criteria)
-					->filterByGroup($this)
-					->find($con);
-				if (null !== $criteria) {
-					return $collCategorys;
-				}
-				$this->collCategorys = $collCategorys;
-			}
-		}
-		return $this->collCategorys;
-	}
-
-	/**
-	 * Gets the number of Category objects related by a many-to-many relationship
-	 * to the current object by way of the users_groupCategory cross-reference table.
-	 *
-	 * @param      Criteria $criteria Optional query object to filter the query
-	 * @param      boolean $distinct Set to true to force count distinct
-	 * @param      PropelPDO $con Optional connection object
-	 *
-	 * @return     int the number of related Category objects
-	 */
-	public function countCategorys($criteria = null, $distinct = false, PropelPDO $con = null)
-	{
-		if(null === $this->collCategorys || null !== $criteria) {
-			if ($this->isNew() && null === $this->collCategorys) {
-				return 0;
-			} else {
-				$query = CategoryQuery::create(null, $criteria);
-				if($distinct) {
-					$query->distinct();
-				}
-				return $query
-					->filterByGroup($this)
-					->count($con);
-			}
-		} else {
-			return count($this->collCategorys);
-		}
-	}
-
-	/**
-	 * Associate a Category object to this object
-	 * through the users_groupCategory cross reference table.
-	 *
-	 * @param      Category $category The GroupCategory object to relate
-	 * @return     void
-	 */
-	public function addCategory($category)
-	{
-		if ($this->collCategorys === null) {
-			$this->initCategorys();
-		}
-		if (!$this->collCategorys->contains($category)) { // only add it if the **same** object is not already associated
-			$groupCategory = new GroupCategory();
-			$groupCategory->setCategory($category);
-			$this->addGroupCategory($groupCategory);
-
-			$this->collCategorys[]= $category;
-		}
-	}
-
-	/**
 	 * Clears the current object and sets all attributes to their default values
 	 */
 	public function clear()
@@ -1553,21 +1262,12 @@ abstract class BaseGroup extends BaseObject  implements Persistent
 					$o->clearAllReferences($deep);
 				}
 			}
-			if ($this->collGroupCategorys) {
-				foreach ($this->collGroupCategorys as $o) {
-					$o->clearAllReferences($deep);
-				}
-			}
 		} // if ($deep)
 
 		if ($this->collUserGroups instanceof PropelCollection) {
 			$this->collUserGroups->clearIterator();
 		}
 		$this->collUserGroups = null;
-		if ($this->collGroupCategorys instanceof PropelCollection) {
-			$this->collGroupCategorys->clearIterator();
-		}
-		$this->collGroupCategorys = null;
 	}
 
 	/**
