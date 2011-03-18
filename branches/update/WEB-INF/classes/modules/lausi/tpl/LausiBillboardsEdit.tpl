@@ -64,7 +64,7 @@
 				|-/if-|
 				<input type="hidden" name="action" id="action" value="|-$action-|" />
 				<input type="hidden" name="do" id="do" value="lausiBillboardsDoEdit" />
-				<input type="submit" id="button_edit_billboard" name="button_edit_billboard" title="Aceptar" value="Aceptar" class="boton" />
+				<input type="submit" id="button_edit_billboard" name="button_edit_billboard" title="Aceptar" value="Aceptar" />
 				
 
 				<form action="LausiBillboardsEdit_cancel" method="get" >
@@ -87,7 +87,7 @@
 						|-/if-|
 					|-/if-|					
 
-					<input type="button" name="button_cancel_edit_billboard" value="Cancelar" id="button_cancel_edit_billboard" onClick="javascript:history.back();" class="boton">
+					<input type="button" name="button_cancel_edit_billboard" value="Cancelar" id="button_cancel_edit_billboard" onClick="javascript:history.back();" />
 			</p>
 				</form>
 				</fieldset>
