@@ -1,0 +1,49 @@
+/*
+NEW GLOBAL CUSTOM
+*/
+
+/* ADD   ----------------------------------------------*/
+a.addLink {
+	line-height: 1.4em;
+	vertical-align: middle;
+	display: inline-block;
+}
+a.addLink:link, a.addLink:visited {
+	font-weight: bold;
+	padding: 0 5px 0 20px;
+	margin: 3px;
+	text-decoration: none;
+}
+a.addLink:hover, a.addLink:active {
+	text-decoration: none;
+}
+/* /ADD   ----------------------------------------------*/
+
+/* SEARCH   -------------------------------------------*/
+a.searchLink:link, a.searchLink:active {
+	font-weight: bold;
+	padding: 0 5px 0 20px;
+	margin: 3px;
+	text-decoration: none;
+}
+a.searchLink:hover, a.searchLink:active {
+	text-decoration: none;
+}
+/* /SEARCH   -------------------------------------------*/
+
+/* MAILS   --------------------------------------------*/
+a.linkMailNew,a.linkMailNew:link,
+a.linkMailMarkRead,a.linkMailMarkRead:link,
+a.linkMailMarkUnread,a.linkMailMarkUnread:link,
+a.linkMailReply,a.linkMailReply:link,
+a.linkMailForward,a.linkMailForward:link,
+a.linkMailDelete,a.linkMailDelete:link {
+	line-height: 1.4em;
+	vertical-align: middle;
+	display: inline-block;
+	font-weight: bold;
+	padding: 0 5px 0 20px;
+	margin: 3px;
+	text-decoration: none;
+}
+/* /MAILS   --------------------------------------------*/

@@ -1,50 +1,432 @@
-/* Estilo AZUL CLARO, reemplazo 438e89 con 438e89 E5EDFF*/ 
-.botones_desac {
-	color: #999999;
-	background-image: url(../images/ButtonDarkGreen.png);
+body {
+	background-color: #999999;
+	background-image: url(../images/bkg_panel.gif);
+	background-position:top left;
+	background-repeat:repeat-x;
+	background-attachment: fixed;
+	font-size:62.5%; /* this makes the text sized at 10px */
+}
+/*  LOGIN  -----------------------------------------------*/
+#login { 
+}
+#loginTop { 
+	background-image:url(../images/loginTop.png);
+	background-position: top center;
+	background-repeat:no-repeat;
+}
+#loginContent { 
+	background-image:url(../images/loginContent.png);
+	background-position: top center;
+	background-repeat:repeat-y;
+}
+#loginContent h1{ 
+	color: #000066;
+}
+#loginContent p{ 
+	color: #000000;
+}
+
+#loginContent input { 
+	border: solid 1px #000066;
+}
+#loginButton { 
+	background-image:url(../images/buttonImageLogin.png);
+	background-position: top center;
+	background-repeat:no-repeat;
+	color: Navy;
+}
+#loginBottom { 
+	background-image:url(../images/loginBottom.png);
+	background-position: bottom center;
 	background-repeat: no-repeat;
-	background-position: left center;
-	background-color: #F5F5F5;
-	border: 1px solid #112139;
 }
-a.botones_desac:link {
-	color: #999999;
-	background-image: url(../images/ButtonDarkGreen.png);
-	background-color: #F5F5F5;
+/*  /LOGIN  -----------------------------------------------*/
+
+/* wrapper -----------------------------------------------------------*/ 
+#wrapper { 
 }
-a.botones_desac:visited {
-	color: #999999;
-	background-image: url(../images/ButtonDarkGreen.png);
-	background-color: #F5F5F5;
+#header {
+	background-image: url(../images/topImage.png);
+	background-position: left 20px;
+	background-repeat: no-repeat;
 }
-a.botones_desac:hover {
-	color: #999999;
-	background-image: url(../images/ButtonDarkGreen.png);
-	background-color: #F5F5F5;
+#contentWrapper { 
+	background-image: url(../images/bkg-2columns.gif);
+	background-repeat: repeat-y;
 }
-a.botones_desac:active {
-	color: #999999;
-	background-image: url(../images/ButtonDarkGreen.png);
-	background-color: #F5F5F5;
+#contentCloser { 
+	background-image: url(../images/bkg-2columns.gif);
+	background-repeat: repeat-y;
 }
-.thresultado {
+#leftColumn{
+	color: #333;
+	background-image:url(../images/leftcolumn_bottom.jpg);
+	background-position: left bottom;
+	background-repeat:no-repeat;
+	padding-bottom: 150px;
+	vertical-align:top;
+}
+#rightColumn { 
+	background-color: #FFFFFF;
+	color: #333;
+}
+#footer { 
+	background-color: #122239;
+	border-bottom: solid 5px #0066cc;
+	border-left: solid 5px #0066cc;
+	border-right: solid 5px #0066cc;
+}
+#footer p{
+	color: #FFF;
+}
+/* /wrapper -----------------------------------------------------------*/ 
+
+/* content -----------------------------------------------------------*/ 
+#rightColumn h1{
+	color:#0066CC;
+	border-bottom: solid 1px #0066cc;
+}
+#rightColumn h2{
+	color:#999;
+}
+#rightColumn h3, h4 {
+	color:#0066CC;
+}
+#rightColumn h2 a:link, #rightColumn h2 a:visited{
+	color: #003399;
+}
+#rightColumn h2 a:hover, #rightColumn h2 a:active{
+	color: #0000FF;
+}
+#rightColumn p{
+	color:#000;
+}
+.paragraphEdit{
+	background-image:url(../images/icon_write.gif);
+	background-repeat:no-repeat;
+	background-position:left top;
+}
+/* /content -----------------------------------------------------------*/ 
+
+/*   OTROS LINKS   ------------------------*/
+
+/* posiciona el link de "AGREGAR NUEVA ..." y VOLVER */
+.rightLink{
+}
+/* BOTON AGREGAR NUEVA ...  */
+a.agregarNueva:link, a.agregarNueva:visited {
+	background-image:url(../images/icon_more.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+
+a.agregarNueva:hover, a.agregarNueva:active {
+	color:#009900;}
+/* /BOTON AGREGAR NUEVA ...  */
+
+
+/* BOTON VOLVER  */
+a.volver:link, a.volver:visited {
+}
+
+a.volver:hover, a.volver:active {
+	color:#009900;
+}
+/* /BOTON VOLVER  */
+
+/* BOTON EDITAR ...  */
+a.editarRight:link, a.editarRight:visited {
+	background-image: url(../images/icon_editar_small.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+
+a.editarRight:hover, a.editarRight:active {
+	color:#009900;}
+/* /BOTON AGREGAR NUEVA ...  */
+
+
+	
+/* PAGINADO    ----------------------------*/
+.pages{	
+	background-color: #FFF;
+	color:#0066CC;
+}
+
+a.pageLink:link, a.pageLink:visited {
+	color:#666;
+}
+
+a.pageLink:hover, a.pageLink:active {
+	color:#0066CC;
+}
+
+
+.tdFooter{
+	background-color:#eaeee8;
+}
+
+
+
+/* SEARCH   -------------------------------------------*/
+.tdTitSearch{
+background-color: #f4f6f3;
+	background-image:url(../images/icon_search.gif);
+	background-position:8px 2px;
+	background-repeat:no-repeat;
+	color: #0066CC;
+}
+.tdSearch{
+	background-color: #f4f6f3;
+	color: #000000;
+}
+
+.tdSearch input{
+	color: #333;
+	border: solid 1px #a7a6aa;
+}
+
+.tdSearch img{
+}
+
+
+
+a.tdSearchButton:link, 
+a.tdSearchButton:visited  {
+	border: solid 1px #a7a6aa;
+	color: #333;
+	
+	background-image:url(../images/bot_bkg.gif);
+	background-position:left top;
+	background-repeat: repeat-x;	
+	background-color:#d2d0c3;
+}
+a.tdSearchButton:hover, 
+a.tdSearchButton:active  {
 	color: #FFFFFF;
-	background-color: #112139;
+	background-color:#999999;
+	background-image: none;
 }
-.botones {
-	background-repeat: no-repeat;
-	background-position: left center;
+
+/* -------------------------------------------------------------------*/ 
+
+/* MENU NAVEGACION   */
+
+/* -------------------------------------------------------------------*/ 
+#leftColumn ul { 
+	background-color: #e7ebf0;
 }
+
+#leftColumn li { 
+	border-bottom: solid 1px #FFF;
+/*	border-top: solid 1px #FFF;	*/
+}
+#leftColumn li a { 
+	color: #000;
+}
+#leftColumn li a:hover { 
+	background-color:#d3dbe4;
+	background-image:url(../images/list-image_arrow1.gif);
+	background-position:3px 6px;
+	background-repeat:no-repeat;
+}
+
+
+.titleMenu { 
+	color: #003399;
+	background-color: #bdcad7;
+	background-image:url(../images/tit1_bkg.gif);
+	background-repeat:repeat-X;
+	background-position: left top;
+	
+	border-top: solid 1px #DBFFFF;
+	border-bottom: solid 1px #4d667f;
+	border-left: none;
+	border-right: none;
+}
+
+
+#logout{
+	background-image:url(../images/bot_salir.gif);
+	background-position: top left;
+	background-repeat:no-repeat;
+}
+
+
+/*  BOX VARIABLES   ----------------------------------- */
+#boxVariables{
+	background-color: #f4f6f3;
+	color:#000;		
+	border: solid 1px #999;
+}
+
+
+#boxVariables ul{
+}
+
+/*  INITIAL UL*/
+#boxVariables ul li{
+	color:#000;
+	background-image:url(../images/bullet-0.gif);
+	background-position:0 4px;
+	background-repeat:no-repeat;
+}
+
+/*FIRST UL */
+#boxVariables ul li ul li{
+	color:#0066CC;
+	background-image:url(../images/bullet-1.gif);
+	background-position:0 4px;
+	background-repeat:no-repeat;
+}
+
+/* SECOND UL */
+#boxVariables ul li ul li ul li{
+	color:#000;
+	background-image:url(../images/bullet-2.gif);
+	background-position:0 4px;
+	background-repeat:no-repeat;
+}
+/* THIRD UL  */
+#boxVariables ul li ul li ul li ul li{
+	color:#000;
+	background-image:url(../images/bullet-1.gif);
+	background-position:0 4px;
+	background-repeat:no-repeat;
+}
+
+/* Boton Atributo ------------------*/
+#boxVariables a{
+}
+
+#boxVariables a.atributo:link,
+#boxVariables a.atributo:visited {
+	background-image:url(../images/add-comment-blue.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+#boxVariables a.atributo:hover,
+#boxVariables a.atributo:active {
+}
+
+/* Boton Seccion ------------------*/
+#boxVariables a.seccion:link,
+#boxVariables a.seccion:visited {
+	background-image:url(../images/add-folder-green.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+#boxVariables a.seccion:hover,
+#boxVariables a.seccion:active {
+}
+
+
+/* Boton ELIMNINAR SECCION ------------------*/
+#boxVariables a.eliminar1:link,
+#boxVariables a.eliminar1:visited {
+	color: #FF0000;
+	background-image:url(../images/delete-folder-green.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+#boxVariables a.eliminar1:hover,
+#boxVariables a.eliminar1:active {
+}
+
+
+/* Boton ELIMNINAR ATRIBUTO ------------------*/
+#boxVariables a.eliminar2:link,
+#boxVariables a.eliminar2:visited {
+	color: #FF0000;
+	background-image:url(../images/delete-comment-blue.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+#boxVariables a.eliminar2:hover,
+#boxVariables a.eliminar2:active {
+}
+
+.textboxVariables{
+	border: solid 1px #999;
+}
+
+.linksEdicion{
+}
+
+.flagGreen {
+	background: Green;
+	color: White;
+	font-weight: bold;
+	width: 40px;
+	min-width: 40px;
+	text-decoration: none;
+}
+.flagYellow {
+	background: Yellow;
+	color: White;
+	font-weight: bold;
+	width: 40px;
+	min-width: 40px;
+	text-decoration: none;
+}
+.flagRed {
+	background: Red;
+	color: White;
+	font-weight: bold;
+	width: 40px;
+	min-width: 40px;
+	text-decoration: none;
+}
+.whiteNoDecoration {
+	color: White ;
+	text-decoration: none;
+}
+a.whiteNoDecoration {
+	color: White ;
+	text-decoration: none;
+}
+a.whiteNoDecoration:link {
+	color: White ;
+	text-decoration: none;
+}
+a.whiteNoDecoration:hover {
+	color: White;
+	text-decoration: none;
+}
+a.whiteNoDecoration:hover {
+	color: White;
+	text-decoration: none;
+}
+a.blackNoDecoration:link {
+	color: Black;
+	text-decoration: none;
+}
+a.blackNoDecoration:hover {
+	color: Black;
+	text-decoration: none;
+}
+a.blackNoDecoration:visited {
+	color: Black;
+	text-decoration: none;
+}
+
+
+
+
+
+
+
+
+/* TABLES   -------------------------------------------*/
+
 .row_odd {
 	background: #BFD3FF; /* #BFD3FF o #AFC3FE  #FFCBCB*/
 }
 .row_even {
 	background: #D6DBE9; /* #D6DBE9 o #C6CBD9*/
 }
-.tableTdBorders {
-	border-collapse: collapse;
-}
 table.tableTdBorders th {
+	color:#0066CC;
 	border: 1px solid #A9A9A9;
 	padding: 5px;
 }
@@ -52,126 +434,23 @@ table.tableTdBorders td {
 	border: 1px solid #A9A9A9;
 	padding: 4px;
 }
-
-/*table.tableTdBorders td:first-child { */
-/*	font-weight: bolder;	
-}*/
 .tdBorders {
 	border: 1px solid #112139;
-}
-.mandatory {
-	display: inline;
-	vertical-align: top;
-	color: #FF0000;
-}
-
-/* New Styles*/
-.menuButton {
-	color: #112139;
-	background-image: url(../images/menuBullet10_DarkGrey.png);
-	background-repeat: no-repeat;
-	background-position: left center;
-	background-color: #F5F5F5;
-	border: 1px solid #112139;
-}
-a.menuButton:link {
-	color: #112139;
-	background-image: url(../images/menuBullet10_DarkGrey.png);
-	background-color: #F5F5F5;
-}
-a.menuButton:visited {
-	color: #112139;
-	background-image: url(../images/menuBullet10_DarkGrey.png);
-	background-color: #F5F5F5;
-}
-a.menuButton:hover {
-	color: #505050;
-	background-image: url(../images/menuBullet10_DarkGrey_over.png);
-	background-color: #FFFFFF;
-}
-a.menuButton:active {
-	color: #505050;
-	background-image: url(../images/menuBullet10_DarkGrey_over.png);
-	background-color: #F5F5F5;
-}
-.menuSubButton {
-	color: #112139;
-	background-image: url(../images/menuBullet10_DarkGrey.png);
-	background-repeat: no-repeat;
-	background-position: left center;
-	background-color: #F5F5F5;
-}
-a.menuSubButton:link {
-	color: #112139;
-	background-image: url(../images/menuBullet10_DarkGrey.png);
-	background-color: #F5F5F5;
-}
-a.menuSubButton:visited {
-	color: #112139;
-	background-image: url(../images/menuBullet10_DarkGrey.png);
-	background-color: #F5F5F5;
-}
-a.menuSubButton:hover {
-	color: #505050;
-	background-image: url(../images/menuBullet10_DarkGrey_over.png);
-	background-color: #FFFFFF;
-}
-a.menuSubButton:active {
-	color: #505050;
-	background-image: url(../images/menuBullet10_DarkGrey_over.png);
-	background-color: #F5F5F5;
-}
-.menuSection {
-	border: 1px solid #112139;
-}
-.title {
-	color: #112139;
-}
-.backgroundTitle {
-	background: url(../images/tablafondo1.gif);
-	border: 1px solid #999999;
-	color: #112139;
-}
-.underlineTitle {
-	background: url(../images/back_gris_tit.gif);
-	border: #999999 1px solid;
-}
-.buttonCell {
-	background-color: #FFFFFF;
-}
-.dataTitle {
-	background-color: #112139;
-	color: #112139;
-	border: 3px solid #ffffff;
-}
-.button {
-	background: #DCDCDC;
-}
-a.button:active {
-	background-color: #FFFFFF;
-	color: #B22222;
-}
-.tdTitle {
-	background-color: #112139;
-	color: #112139;
-	border: 3px solid #ffffff;
-	background-color: #ffffff;
 }
 .thFillTitle {
 	background-color: #f4f6f3;
 	color: #0066CC;
 }
+/* /TABLES   -------------------------------------------*/
+
+.mandatory {
+	display: inline;
+	vertical-align: top;
+	color: #FF0000;
+}
 .deactivated {
 	color: #999999;
 }
-.tableNoTdBorders {
-	border-collapse: collapse;
-	border: none;
-}
-
-
-
-
 .edit {
 	color: #007D62;
 }
@@ -224,76 +503,6 @@ a.detail:hover{
 	color: #FFFFFF;
 	background-color: #000066;
 }
-fieldset {
-}
-
-/* NEW */
-.buttonImageDelete {
-	background: url(../images/linkImageDelete.png) center no-repeat;
-}
-.buttonImageDeleteDisabled {
-	background: url(../images/linkImageDeleteDesabled.png) center no-repeat;
-}
-.buttonImageEdit {
-	background: url(../images/linkImageEdit.png) no-repeat center;
-}
-.buttonImageEditDisabled {
-	background: url(../images/linkImageEditDisabled.png) no-repeat center;
-}
-.buttonImageAdd {
-	background: url(../images/linkImageAdd.png) no-repeat center;
-}
-.buttonImageAddDisabled {
-	background: url(../images/linkImageAddDisabled.png) no-repeat center;
-}
-.buttonImageView {
-	background: url(../images/linkImageView.png) no-repeat center;
-}
-.buttonImageViewDisabled {
-	background: url(../images/linkImageViewDisabled.png) no-repeat center;
-}
-.buttonImageGoTo {
-	background: url(../images/linkImageGoTo.png) no-repeat center;
-}
-.buttonImageBack {
-	background: url(../images/linkImageBack.png) no-repeat center;
-}
-.buttonImageViewGantt {
-	background: url(../images/linkImageViewGantt.png) no-repeat center;
-}
-.linkImageDelete {
-	background: url(../images/linkImageDelete.png) center no-repeat;
-}
-.linkImageDeleteDisabled {
-	background: url(../images/linkImageDeleteDesabled.png) center no-repeat;
-}
-.linkImageEdit {
-	background: url(../images/linkImageEdit.png) no-repeat center;
-}
-.linkImageEditDisabled {
-	background: url(../images/linkImageEditDisabled.png) no-repeat center;
-}
-.linkImageAdd {
-	background: url(../images/linkImageAdd.png) no-repeat center;
-}
-.linkImageAddDisabled {
-	background: url(../images/linkImageAddDisabled.png) no-repeat center;
-}
-.linkImageView {
-	background: url(../images/linkImageView.png) no-repeat center;
-}
-.linkImageViewDisabled {
-	background: url(../images/linkImageViewDisabled.png) no-repeat center;
-}
-.linkImageGoTo {
-	background: url(../images/linkImageGoTo.png) no-repeat center;
-}
-.linkImageBack {
-	background: url(../images/linkImageBack.png) no-repeat center;
-}
-.linkImageViewGantt {
-	background: url(../images/linkImageViewGantt.png) no-repeat center;
-}
 .buttonImageLogin {
 	font-size: 0px !Important;
 	width: 100px;
@@ -304,7 +513,6 @@ fieldset {
 	background: url(../images/buttonImageLogin.png) no-repeat center;
 	cursor: pointer;	
 }
-
 .errorMessage {
 	color: #B22222;
 	font-weight: bold;
@@ -312,7 +520,6 @@ fieldset {
 	margin: 9px;
 	border: 1px solid #B22222;
 	text-align: center;
-
 }
 .successMessage {
 	color: #007D62;
@@ -322,312 +529,12 @@ fieldset {
 	border: 1px solid #007D62;
 	text-align: center;
 }
-
 fieldset {  
-background-color: #f7f7f8;
+	background-color: #f7f7f8;
 }
-
 legend {  
 	color:#0066CC
 }
-
-
-
-
-
-/*
-NEW CUSTOM!!!!
-*/
-
-input[type="submit"], input[type="button"], input[type="reset"] {
-	background-color: #f0f0f0;
-	border: 1px outset #F0F0F0;
-	outline: 0 none;
-	cursor: pointer;
-	-khtml-border-radius: 2px;
-	-opera-border-radius: 2px;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	margin: 0 5px 0 5px;
-	padding: 2px 12px 2px 12px;
-}
-input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
-	background-color: #d0d0d0;
-	border: outset 1px  #909090;
-}
-
-/* Image Buttons and Links */
-.iconActivate, .iconAdd, .iconBack, .iconBudget, .iconDelete, .iconDetail, .iconDownload,
-.iconEdit, .iconEmail, .iconFollow, .iconGoTo, .iconGraph, .iconHelp, .iconHistory, .iconIndicator,
-.iconInfo, .iconManufacture, .iconOrder, .iconPassword, .iconPlus, .iconRestore, .iconRestoreFromServer,
-.iconSendMultiple, .iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload,
-.iconView, .iconViewGantt, .iconWeight, .iconAddToCart, .iconRemoveFromCart, .iconUpdateCart, .iconSetPrivileges, .iconOwner,
-.iconRead, .iconUnread {
-	background: url(../images/icons_all.png) no-repeat #f0f0f0;
-	border: solid 1px #ababab !Important;;
-	font-size: 0px !Important;
-	width: 20px;
-	height: 20px;
-	color: transparent !Important;
-	outline: 0 none;
-	cursor: pointer;
-	vertical-align:top;
-	-khtml-border-radius: 2px;
-	-opera-border-radius: 2px;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-}
-input.iconActivate, input.iconAdd, input.iconBack, input.iconBudget, input.iconDelete, input.iconDetail, input.iconDownload,
-input.iconEdit, input.iconEmail, input.iconFollow, input.iconGoTo, input.iconGraph, input.iconHelp, input.iconHistory, input.iconIndicator,
-input.iconInfo, input.iconManufacture, input.iconOrder, input.iconPassword, input.iconPlus, input.iconRestore, input.iconRestoreFromServer,
-input.iconSendMultiple, input.iconStoreInServer, input.iconStoreLocal, input.iconThumbnail, input.iconUpload,
-input.iconView, input.iconViewGantt, input.iconWeight, input.iconAddToCart, input.iconRemoveFromCart, input.iconUpdateCart,
-input.iconSetPrivileges, input.iconOwner, input.iconRead, input.iconUnread {
-	width: 22px;
-	height: 22px;
-	margin: 0;
-	padding: 0;
-
-}
-.disabled {
-	background: url(../images/icons_all_dis.png) no-repeat #f0f0f0;
-	border: solid 1px #ababab !Important;;
-	-khtml-border-radius: 2px;
-	-opera-border-radius: 2px;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-}
-.iconEdit {
-	background-position: 0px 0px;
-}
-.iconDelete {
-	background-position: -20px 0px;
-}
-.iconView {
-	background-position: -40px 0px;
-}
-.iconUpload {
-	background-position: -60px 0px;
-}
-.iconDownload {
-	background-position: -80px 0px;
-}
-.iconAdd {
-	background-position: -100px 0px;
-}
-.iconInfo {
-	background-position: -120px 0px;
-}
-.iconHelp {
-	background-position: -140px 0px;
-}
-.iconBack {
-	background-position: -160px 0px;
-}
-.iconGoTo {
-	background-position: -180px 0px;
-}
-.iconStoreInServer {
-	background-position: 0px -20px;
-}
-.iconStoreLocal {
-	background-position: -20px -20px;
-}
-.iconRestoreFromServer {
-	background-position: -40px -20px;
-}
-.iconRestore {
-	background-position: -80px -20px;
-}
-.iconEmail {
-	background-position: -80px -140px;
-}
-.iconSendMultiple {
-	background-position: -100px -20px;
-}
-.iconOrder {
-	background-position: -120px -20px;
-}
-.iconWeight {
-	background-position: -140px -20px;
-}
-.iconActivate {
-	background-position: -160px -20px;
-}
-.iconHistory {
-	background-position: -180px -20px;
-}
-.iconThumbnail {
-	background-position: -20px -40px;
-}
-.iconViewGantt {
-	background-position: -60px -40px;
-}
-.iconManufacture {
-	background-position: -80px -40px;
-}
-.iconIndicator {
-	background-position: -100px -40px;
-}
-.iconTableh3 {
-	background-position: -120px -40px;
-}
-.iconNote {
-	background-position: -140px -40px;
-}
-.iconDocument {
-	background-position: -160px -40px;
-}
-.iconAttach {
-	background-position: -180px -40px;
-}
-.iconGraph {
-	background-position: -0px -60px;
-}
-.iconFollow {
-	background-position: -20px -60px;
-}
-.iconPlus {
-	background-position: -40px -60px;
-}
-.iconDetail {
-	background-position: -60px -60px;
-}
-.iconBudget {
-	background-position: -100px -60px;
-}
-.iconPassword {
-	background-position: -80px -60px;
-}
-.iconAddToCart {
-	background-position: -140px -60px;
-}
-.iconRemoveFromCart {
-	background-position: -160px -60px;
-}
-.iconUpdateCart{
-	background-position: -180px -60px;
-}
-.iconSetPrivileges{
-	background-position: -20px -80px;
-}
-.iconOwner{
-	background-position: -0px -80px;
-}
-.iconRead{
-	background-position: -40px -100px;
-}
-.iconUnread{
-	background-position: -60px -100px;
-}
-.iconActivate:hover, .iconAdd:hover, .iconBack:hover, .iconBudget:hover, .iconDelete:hover, .iconDetail:hover, .iconDownload:hover,
-.iconEdit:hover, .iconEmail:hover, .iconFollow:hover, .iconGoTo:hover, .iconGraph:hover, .iconHelp:hover, .iconHistory:hover, .iconIndicator:hover,
-.iconInfo:hover, .iconManufacture:hover, .iconOrder:hover, .iconPassword:hover, .iconPlus:hover, .iconRestore:hover, .iconRestoreFromServer:hover,
-.iconSendMultiple:hover, .iconStoreInServer:hover, .iconStoreLocal:hover, .iconThumbnail:hover, .iconUpload:hover,
-.iconView:hover, .iconViewGantt:hover, .iconWeight:hover, .iconAddToCart:hover, .iconRemoveFromCart:hover, .iconSetPrivileges:hover,
-.iconOwner:hover, .iconRead:hover, .iconUnread:hover{
-	background-color: #c0c0c0;
-	border: solid 1px #909090 !Important;;
-}
-.disabled, .disabled:hover{
-	background-color: #f0f0f0 !Important;
-}
-
-/* LINK AGREGAR NUEVA ...  */
-
-a.addLink:link, a.addLink:visited {
-	color:#0054A4;
-	background-image:url(../images/icon_add.png);
-	background-position:left top;
-	background-repeat:no-repeat;
-}
-
-a.addLink:hover, a.addLink:active {
-	color:#009900;
-}
-/* SEARCH   -------------------------------------------*/
-.tdTitSearch{
-	background-color: #f4f6f3;
-	background-image:url(../images/icon_search.gif);
-	background-position:9px 0px;
-	background-repeat:no-repeat;
-	color: #0066CC;
-}
-.tdSearch{
-	background-color: #f4f6f3;
-	color: #000000;
-}
-.tdSearch input, .tdSearch textarea, .tdSearch input select{
-	color: #333;
-	border: solid 1px #a7a6aa;
-	outline: 0 none;
-}
-
-a.tdSearchButton:link, 
-a.tdSearchButton:visited  {
-	border: solid 1px #a7a6aa;
-	color: #333;
-	background-image:url(../images/bot_bkg.gif);
-	background-position:left top;
-	background-repeat: repeat-x;	
-	background-color:#d2d0c3;
-}
-a.tdSearchButton:hover, 
-a.tdSearchButton:active  {
-	color: #FFFFFF;
-	background-color:#999999;
-	background-image: none;
-}
-a.searchLink:link, a.searchLink:visited {
-	color:#0054A4;
-	background-image: url(../images/icon_search.png);
-	background-position:left top;
-	background-repeat: no-repeat;
-}
-a.searchLink:hover, a.searchLink:active {
-	color:#009900;
-}
-
-/* LINKS  MAILS ...  */
-
-a.linkMailNew:link, a.linkMailNew:visited,
-a.linkMailMarkRead:link, a.linkMailMarkRead:visited,
-a.linkMailMarkUnread:link, a.linkMailMarkUnread:visited,
-a.linkMailReply:link, a.linkMailReply:visited,
-a.linkMailForward:link, a.linkMailForward:visited,
-a.linkMailDelete:link, a.linkMailDelete:visited {
-	color:#0054A4;
-	background-position:left top;
-	background-repeat:no-repeat;
-}
-
-a.linkMailNew:hover, a.linkMailNew:active,
-a.linkMailMarkRead:hover, a.linkMailMarkRead:active,
-a.linkMailMarkUnread:hover, a.linkMailMarkUnread:active,
-a.linkMailReply:hover, a.linkMailReply:active,
-a.linkMailForward:hover, a.linkMailForward:active,
-a.linkMailDelete:hover, a.linkMailDelete:active {
-	color:#009900;
-}
-a.linkMailNew {
-	background-image:url(../images/icon_mailNew.png);
-}
-a.linkMailMarkRead {
-	background-image:url(../images/icon_mailMarkRead.png);
-}
-a.linkMailMarkUnread {
-	background-image:url(../images/icon_mailMarkUnread.png);
-}
-a.linkMailReply {
-	background-image:url(../images/icon_mailReply.png);
-}
-a.linkMailForward {
-	background-image:url(../images/icon_mailForward.png);
-}
-a.linkMailDelete {
-	background-image:url(../images/icon_mailDelete.png);
-}
-
 .read {
 	color: Blue;
 }
@@ -635,4 +542,7 @@ a.linkMailDelete {
 	color: Green;
 	font-weight: bold;
 }
+
+
+
 

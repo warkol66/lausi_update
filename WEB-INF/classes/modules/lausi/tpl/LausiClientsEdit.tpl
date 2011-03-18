@@ -21,7 +21,7 @@
 				|-/if-|
 				<input type="hidden" name="action" id="action" value="|-$action-|" />
 				<input type="hidden" name="do" id="do" value="lausiClientsDoEdit" />
-				<input type="submit" id="button_edit_client" name="button_edit_client" title="Aceptar" value="Aceptar" class="boton" />
+				<input type="submit" id="button_edit_client" name="button_edit_client" title="Aceptar" value="Aceptar" />
 			</p>
 				</fieldset>
 	</form>

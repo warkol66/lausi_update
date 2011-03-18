@@ -78,7 +78,7 @@
 				<th colspan="11" class="thFillTitle">
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="lausiThemesDeactivateEndedX" />
-						<input type="submit" value="Desactivar Vencidos" class="boton" onclick="return lausiThemesDeactivateEnded(this.form);" />
+						<input type="submit" value="Desactivar Vencidos" onclick="return lausiThemesDeactivateEnded(this.form);" />
 						<span id="msgboxDeactivate"></span>
 					</form>		
 				</th>		
