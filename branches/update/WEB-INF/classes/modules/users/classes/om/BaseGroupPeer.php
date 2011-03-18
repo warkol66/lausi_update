@@ -364,9 +364,6 @@ abstract class BaseGroupPeer {
 		// Invalidate objects in UserGroupPeer instance pool, 
 		// since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
 		UserGroupPeer::clearInstancePool();
-		// Invalidate objects in GroupCategoryPeer instance pool, 
-		// since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
-		GroupCategoryPeer::clearInstancePool();
 	}
 
 	/**
@@ -703,12 +700,6 @@ abstract class BaseGroupPeer {
 			
 			$criteria->add(UserGroupPeer::GROUPID, $obj->getId());
 			$affectedRows += UserGroupPeer::doDelete($criteria, $con);
-
-			// delete related GroupCategory objects
-			$criteria = new Criteria(GroupCategoryPeer::DATABASE_NAME);
-			
-			$criteria->add(GroupCategoryPeer::GROUPID, $obj->getId());
-			$affectedRows += GroupCategoryPeer::doDelete($criteria, $con);
 		}
 		return $affectedRows;
 	}

@@ -89,27 +89,5 @@ CREATE TABLE `users_level`
 	UNIQUE INDEX `users_level_U_1` (`name`)
 ) ENGINE=InnoDB COMMENT='Levels';
 
--- ---------------------------------------------------------------------
--- users_groupCategory
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `users_groupCategory`;
-
-CREATE TABLE `users_groupCategory`
-(
-	`groupId` INTEGER NOT NULL COMMENT 'Group ID',
-	`categoryId` INTEGER NOT NULL COMMENT 'Category ID',
-	PRIMARY KEY (`groupId`,`categoryId`),
-	INDEX `users_groupCategory_FI_2` (`categoryId`),
-	CONSTRAINT `users_groupCategory_FK_1`
-		FOREIGN KEY (`groupId`)
-		REFERENCES `users_group` (`id`)
-		ON DELETE CASCADE,
-	CONSTRAINT `users_groupCategory_FK_2`
-		FOREIGN KEY (`categoryId`)
-		REFERENCES `categories_category` (`id`)
-		ON DELETE CASCADE
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Groups_Categories';
-
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;

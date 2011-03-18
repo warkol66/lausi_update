@@ -25,7 +25,7 @@ CREATE TABLE `categories_category`
 	`tree_level` INTEGER,
 	`scope` INTEGER,
 	PRIMARY KEY (`id`)
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Categorias';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Categorias';
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;
