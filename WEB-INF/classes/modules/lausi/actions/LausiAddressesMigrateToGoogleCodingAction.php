@@ -3,6 +3,8 @@
 class LausiAddressesMigrateToGoogleCodingAction extends BaseAction {
 	
 	private $overQueryLimitReached = false;
+	
+	const DELTA_COORDINATES = 0.003;
 
 	// ----- Constructor ---------------------------------------------------- //
 
@@ -104,7 +106,7 @@ class LausiAddressesMigrateToGoogleCodingAction extends BaseAction {
 			$deltaLong = abs($params['longitude'] - $address->getLongitude());
 			//Vamos a ver que no haya demasiada diferencia de coordenadas, si así fuera
 			//es preferible quedarse con los datos anteriores.
-			if ($deltaLat < 0.001 && $deltaLong < 0.001) {
+			if ($deltaLat < DELTA_COORDINATES && $deltaLong < DELTA_COORDINATES) {
 				return true;
 			}
 			
