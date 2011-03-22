@@ -1,6 +1,8 @@
 <?php
 
 class LausiAddressesMigrateToGoogleCodingAction extends BaseAction {
+	
+	private $overQueryLimitReached = false;
 
 	// ----- Constructor ---------------------------------------------------- //
 
@@ -47,7 +49,12 @@ class LausiAddressesMigrateToGoogleCodingAction extends BaseAction {
 		
 		foreach ($addresses as $address) {
 			$this->updateAddress($address);
+			if ($this->overQueryLimitReached) {
+				echo "Se ha excedido el límite de consultas diarias a Google Geocoding. \n";
+				return $mapping->findForwardConfig('failure');
+			}
 		}
+		echo "El proceso de recodificación se ha completado.\n";
 
 		$smarty->assign("message",$_GET["message"]);
 
@@ -58,7 +65,7 @@ class LausiAddressesMigrateToGoogleCodingAction extends BaseAction {
 		//Armamos la url para la consulta al servicio de geocoding de google
 		//ej: http://maps.google.com/maps/api/geocode/xml?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true_or_false
 		$url = 'http://maps.google.com/maps/api/geocode/json?';
-		$url .= 'address=' . $address->getNumber() .'+'. str_replace(' ', '+', $address->getStreet()) . ',+Buenos+Aires,+Argentina';
+		$url .= 'address=' . $address->getNumber() .'+'. str_replace(' ', '+', $address->getStreet()) . ',+'. str_replace(' ', '+', $address->getRegion()->getName()) . ',+Buenos+Aires,+Argentina';
 		$url .= '&sensor=false';
 		
 		$response = json_decode(file_get_contents($url));
@@ -73,9 +80,11 @@ class LausiAddressesMigrateToGoogleCodingAction extends BaseAction {
 			$params['longitude'] = $response->results[0]->geometry->location->lng;
 			
 			if ($this->addressNeedsUpdate($address, $params)) {
-				//Common::setObjectFromParams($address, $params);
-				//$address->save();
+				Common::setObjectFromParams($address, $params);
+				$address->save();
 			}
+		} else if ($response->status == 'OVER_QUERY_LIMIT') {
+			$this->overQueryLimitReached = true;
 		}
 	}
 	
@@ -89,8 +98,18 @@ class LausiAddressesMigrateToGoogleCodingAction extends BaseAction {
 	}
 	
 	protected function addressNeedsUpdate($address, $params) {
-		//TODO: terminar de especificar la regla para esto.
-		return true;
+		//Nos fijamos que estemos tratando con un resultado no vacío
+		if (!empty($params['street']) && !empty($params['number'])) {
+			$deltaLat = abs($params['latitude'] - $address->getLatitude());
+			$deltaLong = abs($params['longitude'] - $address->getLongitude());
+			//Vamos a ver que no haya demasiada diferencia de coordenadas, si así fuera
+			//es preferible quedarse con los datos anteriores.
+			if ($deltaLat < 0.001 && $deltaLong < 0.001) {
+				return true;
+			}
+			
+		}
+		return false;
 	}
 
 }
