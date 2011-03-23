@@ -1,9 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("AddressPeer.php");
-require_once("ThemePeer.php");
-
 class LausiAddressesEditAction extends BaseAction {
 
 
@@ -53,13 +49,6 @@ class LausiAddressesEditAction extends BaseAction {
 
 			$address = AddressPeer::get($_GET["id"]);
 
-			$smarty->assign("address",$address);
-
-			require_once("RegionPeer.php");		
-			$smarty->assign("regionIdValues",RegionPeer::getAll());
-			require_once("CircuitPeer.php");		
-			$smarty->assign("circuitIdValues",CircuitPeer::getAll());
-			
 			//obtengo todas las carteleras en la direccion
 			$smarty->assign("billboards",$address->getBillboards());
 			//obtengo todos los motivos actuales en esa direccion
@@ -103,15 +92,12 @@ class LausiAddressesEditAction extends BaseAction {
 		else {
 			//voy a crear un address nuevo
 			$address = new Address();
-			$smarty->assign("address",$address);			
-			require_once("RegionPeer.php");	
-			$smarty->assign("regionIdValues",RegionPeer::getAll());
-			require_once("CircuitPeer.php");		
-			$smarty->assign("circuitIdValues",CircuitPeer::getAll());
-			
 			$smarty->assign("action","create");
-
 		}
+		
+		$smarty->assign("address",$address);			
+		$smarty->assign("regionIdValues",RegionPeer::getAll());
+		$smarty->assign("circuitIdValues",CircuitPeer::getAll());
 
 		if (isset($_GET['listRedirect'])) {
 			$smarty->assign('listRedirect',$_GET['listRedirect']);
