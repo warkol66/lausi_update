@@ -207,9 +207,9 @@
 	var infowindow = new google.maps.InfoWindow();
 	var marker;
 	
-	window.onload = function() { initialize(); }
+	window.onload = function() { initializeMap(); }
 	
-	function initialize() {
+	function initializeMap() {
 	    directionsDisplay = new google.maps.DirectionsRenderer();
 	    geocoder = new google.maps.Geocoder();
 	    var latlng = new google.maps.LatLng(|-if $address->getLatitude() ne '' && $address->getLongitude() ne ''-|'|-$address->getLatitude()-|', '|-$address->getLongitude()-|'|-else-|'-34.649', '-58.456'|-/if-|);
