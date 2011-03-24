@@ -397,10 +397,12 @@ fieldset fieldset legend {
 
 .inProgress {
 	font-weight: bold;
-	color: #D2691E;	
+	color: #D2691E !Important;
 	text-decoration: blink;
 	padding-left: 30px;
 	padding-right: 30px;
+	margin-left: 30px;
+	background: url(../images/spinner.gif) no-repeat;
 }
 .resultSuccess {
 	font-weight: bold;
