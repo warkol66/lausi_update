@@ -660,3 +660,10 @@ a.tdSearchButton:active  {
 fieldset li {
 	margin-left: 35px;
 }
+
+#boxVariables .configIcon {
+	padding: 0;
+	margin: 0 2px 0 2px !Important; 
+	width: 14px;
+	height: 14px;
+}
