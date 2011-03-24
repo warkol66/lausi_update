@@ -1,10 +1,8 @@
 /* CSS Document */
 
-@import url("style.css"); /*  font-size: en PIXEL*/
-@import url("custom.css");
-@import url("style2.css"); /*  font-size: en PIXEL*/
-@import url("custom2.css");
 @import url("globalStyles.css");
 @import url("globalCustom.css");
+@import url("style.css"); /*  font-size: en PIXEL*/
+@import url("custom.css");
 
 @import url("datePicker.css");

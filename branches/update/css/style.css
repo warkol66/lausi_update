@@ -1,29 +1,8 @@
-* {
-	padding: 0; 
-	margin: 0; 
-	font-family: Arial, Helvetica, sans-serif, Geneva;
-}
-body {
-	margin-top: 0px;
-	margin-left: 0px;
-	margin-right: 0px;
-	vertical-align:top;
-}
-form {
-	display:inline;
-}
-a:active, a:focus, input:active, input:focus {
-	outline: 0 none;
-}
-a img{
-	border: none;
-}
-
 /*  LOGIN  -----------------------------------------------*/
 #login { 
 	float:left;
 	display:block;
-	margin:40px auto 0 auto;
+	margin:30px auto 0 auto;
 	width:100%;
 	padding:0;
 	text-align:center;
@@ -34,7 +13,6 @@ a img{
 	padding: 0;
 	margin: 0 auto;
 }
-
 #loginContent { 
 	width: 360px;
 	height: auto;	
@@ -59,25 +37,39 @@ a img{
 	margin-bottom: 10px;
 	font-size: 1.2em;
 }
-
 #loginButton { 
-	width: 100px;
-	height: 55px;
-	margin: 0 auto 0 auto;
-	background-color: transparent;
-	border: none;
-	font-size: 0px;
-	cursor: pointer;	
+	width: 100px !Important;
+	height: 55px !Important;
+	margin: 0 auto 0 auto !Important;
+	background-color: transparent !Important;
+	border: none !Important;
+	font-size: 0px !Important;
+	cursor: pointer !Important;
+	text-align:center !Important;
 }
-
+#loginButtonDiv { 
+	width:360px;
+	margin: 0 auto 0 auto !Important;
+	text-align:center !Important;
+}
+#lostPassword {
+	width:360px;
+	text-align:right;
+}
+#lostPassword a { 
+	padding-right:30px;
+	text-decoration: none;
+}
+#lostPassword a:hover { 
+	padding-right:30px;
+	text-decoration: underline;
+}
 #loginBottom { 
 	width: 360px;
-	height: 162px;	
+	height: 175px;	
 	margin: auto;
 	padding: 0;
-	vertical-align: bottom;
 }
-
 /*  /LOGIN  -----------------------------------------------*/
 
 /* wrapper -----------------------------------------------------------*/ 
@@ -146,20 +138,17 @@ a img{
 
 /* content -----------------------------------------------------------*/ 
 #rightColumn h1{
-	font-family:Arial, Helvetica, sans-serif, Geneva;
 	font-size: 1.7em;
 	font-weight:bold;
 	padding-bottom: 5px;
 	margin-bottom:15px;
 }
 #rightColumn h2{
-	font-family:Arial, Helvetica, sans-serif, Geneva;
 	font-size:1.2em;
 	font-weight:normal;
 	margin-bottom: 5px;
 }
 #rightColumn h3 {
-	font-family:Arial, Helvetica, sans-serif, Geneva;
 	font-size: 1.5em;
 	font-weight:bold;
 	padding-top: 20px;
@@ -167,7 +156,6 @@ a img{
 	margin-bottom:15px;
 }
 #rightColumn h4 {
-	font-family:Arial, Helvetica, sans-serif, Geneva;
 	font-size: 1.4em;
 	font-weight:bold;
 	padding-top: 15px;
@@ -175,20 +163,17 @@ a img{
 	margin-bottom:15px;
 }
 #rightColumn h2 a:link, #rightColumn h2 a:visited{
-	font-family:Arial, Helvetica, sans-serif, Geneva;
 	font-size: inherit;
 	font-weight:normal;
 	text-decoration:none;
 }
 #rightColumn h2 a:hover, #rightColumn h2 a:active{
-	font-family:Arial, Helvetica, sans-serif, Geneva;
 	font-size: inherit;
 	font-weight:normal;
 	text-decoration:underline;	
 }
 #rightColumn p{
 	width: 570px;
-	font-family:Arial, Helvetica, sans-serif, Geneva;
 	font-size: 1.2em; /*NEW, px to em*/
 	margin-bottom: 10px;
 	padding-right: 10px;
@@ -227,7 +212,6 @@ a img{
 }
 
 .tdTitle {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 1.2em;
 	font-weight: bold;
 	vertical-align: middle;
@@ -530,6 +514,11 @@ a.tdSearchButton:active  {
 #leftColumn li a:hover { 
 	width:135px;  /* 150px stylres-ie6.css*/
 	height:auto;
+}
+#leftColumn li a.titleLink, #leftColumn li a.titleLink:hover{ 
+	padding:0;
+	margin:0;
+	list-style: none;
 }
 .titleMenu { 
 	margin:0;

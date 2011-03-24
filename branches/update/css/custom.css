@@ -25,7 +25,6 @@ body {
 #loginContent p{ 
 	color: #000000;
 }
-
 #loginContent input { 
 	border: solid 1px #000066;
 }
@@ -34,6 +33,11 @@ body {
 	background-position: top center;
 	background-repeat:no-repeat;
 	color: Navy;
+	border: none !Important;
+}
+#lostPassword a, #lostPassword a:visited { 
+	color: #003399;
+	font-size: 1.1em !Important;
 }
 #loginBottom { 
 	background-image:url(../images/loginBottom.png);
@@ -230,22 +234,23 @@ a.tdSearchButton:active  {
 	background-position:3px 6px;
 	background-repeat:no-repeat;
 }
-
-
+#leftColumn li a.titleLink, #leftColumn li a.titleLink:hover{ 
+	color: #003399;
+	background-color: #bdcad7;
+	background-image: none;
+	font-size: 1.0em;
+}
 .titleMenu { 
 	color: #003399;
 	background-color: #bdcad7;
 	background-image:url(../images/tit1_bkg.gif);
 	background-repeat:repeat-X;
 	background-position: left top;
-	
 	border-top: solid 1px #DBFFFF;
 	border-bottom: solid 1px #4d667f;
 	border-left: none;
 	border-right: none;
 }
-
-
 #logout{
 	background-image:url(../images/bot_salir.gif);
 	background-position: top left;
@@ -418,7 +423,9 @@ a.blackNoDecoration:visited {
 
 
 /* TABLES   -------------------------------------------*/
-
+table{
+	font-size:1.2em;
+}
 .row_odd {
 	background: #BFD3FF; /* #BFD3FF o #AFC3FE  #FFCBCB*/
 }
