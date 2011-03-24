@@ -305,9 +305,3 @@ function check(field) {
 	}
 }
 //  End -->
-
-function cambiaclase(element,clase) {
-	var NAME = document.getElementById(element);
-	NAME.className=clase;
-} // End of cambiaclase
-
