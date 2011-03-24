@@ -147,7 +147,7 @@ class LausiDistributeProposeAction extends BaseAction {
 						$results[0]['quantity'] = $proposalGenerator->getQuantityByType(ThemePeer::get($themeId),$quantity);
 						
 					}
-
+					
 					$smarty->assign('results',$results);
 					return $mapping->findForwardConfig('success-by-location');
 					
