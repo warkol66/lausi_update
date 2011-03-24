@@ -1,0 +1,14 @@
+<input type="button" value="Generar Recorrido" disabled onClick="generateDirections()"/>
+
+<div id="map_canvas" style="height: 480px;"></div>
+
+<script type="text/javascript" language="javascript">
+	initializeMap();
+	
+	|-foreach from=$results item=result name=for_result-|
+		|-foreach from=$result.options item=byAddress name=for_byAddress-|
+			|-assign var=address value=$byAddress.address-|
+			displayMarker(new google.maps.LatLng('|-$address->getLatitude()-|', '|-$address->getLongitude()-|'));
+		|-/foreach-|
+	|-/foreach-|
+</script>
