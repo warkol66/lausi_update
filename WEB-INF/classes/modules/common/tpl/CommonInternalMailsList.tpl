@@ -72,8 +72,8 @@
 		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar&nbsp;&nbsp;<input type="button" class="iconDelete" /></a> 
 	</div> 
 	<div id="lightboxContent">
-	</div
-></div> 
+	</div>
+</div> 
 
 <script type="text/javascript" language="javascript" charset="utf-8">
 	var selected=-1;
@@ -155,7 +155,7 @@
 		if (selected != id) { 
 		
 			//Cargamos los datos en el lightbox.
-			document.getElementById('lightboxContent').innerHTML = "<p>Cargando mensaje&nbsp;&nbsp;&nbsp;<img src='images/spinner.gif' /></p>";
+			document.getElementById('lightboxContent').innerHTML = "<p class='inProgress'>Cargando mensaje</p>";
 			var myAjax = new Ajax.Updater(
 				{success: 'lightboxContent'},
 				'Main.php?do=commonInternalMailsViewX&id='+id,
