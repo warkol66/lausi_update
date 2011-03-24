@@ -291,13 +291,7 @@ class BillboardPeer extends BaseBillboardPeer {
     * @param integer $duration disponibilidad de duracion
     */
 	public function getAllAvailable($criteria = null, $fromDate, $duration) {
-	
-		$criteria = BillboardPeer::getAllAvailableCriteria($criteria,$fromDate,$duration);
-		
-		$result = BillboardPeer::doSelect($criteria);
-		
-		return $result;	
-		
+		return $criteria->filterByAvailable($fromDate, $duration)->find();
 	}
 	
 	private function getDistributionStructure($billboards) {
@@ -456,7 +450,6 @@ class BillboardPeer extends BaseBillboardPeer {
 		$result = BillboardPeer::getAllAvailable($criteria,$fromDate,$duration);
 
 		$available = array();
-
 		
 		if ($type == BillboardPeer::TYPE_DOBLE)
 			$available = BillboardPeer::distributeDoubles($quantity,$result);
@@ -586,7 +579,7 @@ class BillboardPeer extends BaseBillboardPeer {
     */
    public function getAllAvailableByLocation($quantity, $longitude_0 , $latitude_0, $radius, $fromDate, $duration, $type = null, $quantity) {
 
-   		$criteria = new Criteria();
+   		$criteria = new BillboardQuery();
    		
    		//si se pide un tipo especifico se agrega a la consulta
    		if ($type != null)
