@@ -15,4 +15,15 @@
  */
 class BillboardQuery extends BaseBillboardQuery {
 
+	public function filterByAvailable($fromDate,$duration) {
+		//hacemos un ordenamiento random de los resultados de la consulta
+		$this->addAscendingOrderByColumn('RAND()');
+		$this->join('Address', Criteria::INNER_JOIN);
+		
+		$this->join('Advertisement');
+		$this->useQuery('Advertisement')->filterByAvailable($fromDate,$duration)->endUse();
+		$this->distinct();
+		
+		return $this;
+	}
 } // BillboardQuery

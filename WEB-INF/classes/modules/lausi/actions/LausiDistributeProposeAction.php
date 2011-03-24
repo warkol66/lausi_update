@@ -1,10 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("RegionPeer.php");
-require_once("CircuitPeer.php");
-require_once("ThemePeer.php");
-require_once("ClientAddressPeer.php");
 require_once("ProposalGenerator.php");
 
 class LausiDistributeProposeAction extends BaseAction {
