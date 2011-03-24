@@ -42,7 +42,7 @@
 		<li class="titleMenu">Configuración</li>
 			<li><a href="Main.php?do=lausiAddressesImport">Importar Direcciones</a></li>
 
-		<li class="titleMenu"><a href="javascript:switch_vis('adminMenu');">Administración</a></li>
+		<li class="titleMenu"><a href="javascript:switch_vis('adminMenu');" class="titleLink">Administración</a></li>
 			<div id="adminMenu" style="display:|-if $module|lower eq 'users' || $module|lower eq 'categories' || $module|lower eq 'config' || $module|lower eq 'calendar'-|block|-else-|none|-/if-|;">			<li><a href="Main.php?do=usersList">Usuarios</a></li>
 			<li><a href="Main.php?do=usersGroupsList">Grupos de Usuarios</a></li>
 			<li><a href="Main.php?do=usersLevelsList">Niveles Usuarios</a></li>

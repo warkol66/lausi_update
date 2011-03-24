@@ -2,6 +2,10 @@
 NEW GLOBAL CUSTOM
 */
 
+* {
+	font-family: Arial, Helvetica, sans-serif, Geneva;
+}
+
 /* INPUTS, ICONS & LINKS ------------------------------*/
 input[type="submit"], input[type="button"], input[type="reset"] {
 	background-color: #f0f0f0;

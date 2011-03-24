@@ -1,6 +1,25 @@
 /*
 NEW GLOBAL CUSTOM
 */
+* {
+	padding: 0; 
+	margin: 0; 
+}
+body {
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	vertical-align:top;
+}
+form {
+	display:inline;
+}
+a:active, a:focus, input:active, input:focus {
+	outline: 0 none;
+}
+a img{
+	border: none;
+}
 
 /* ADD   ----------------------------------------------*/
 a.addLink {
