@@ -73,21 +73,13 @@ class Circuit extends BaseCircuit {
 	}
 	
 	public function getBillboardsCount($type = null) {
-
 		if (empty($type)) {
 			$type = BillboardPeer::TYPE_SEXTUPLE;
 		}
 		
-		$criteria = new Criteria();
-		$criteria->addJoin(BillboardPeer::ADDRESSID,AddressPeer::ID,Criteria::INNER_JOIN);
-		$criteria->add(BillboardPeer::TYPE,$type);
-		$criteria->add(AddressPeer::CIRCUITID,$this->getId());
-		$criteria->addGroupByColumn(AddressPeer::CIRCUITID);
-		
-		$count = AddressPeer::doCount($criteria);
+		$count = CircuitQuery::create()->countBillboards($this->getId(), $type);
 		
 		return $count;
-	
 	}
 
 	/**
