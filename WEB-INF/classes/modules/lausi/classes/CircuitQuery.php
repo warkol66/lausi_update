@@ -15,4 +15,17 @@
  */
 class CircuitQuery extends BaseCircuitQuery {
 
+	public function countBillboards($circuitId, $type = null) {
+		if (empty($type)) {
+			$type = BillboardPeer::TYPE_SEXTUPLE;
+		}
+		
+		$this->join('Address', Criteria::INNER_JOIN);
+		$this->join('Address.Billboard', Criteria::INNER_JOIN);
+		$this->filterByPrimaryKey($circuitId);
+		$this->useQuery('Billboard')
+				->filterByType($type)
+			->endUse();
+		return $this->count();
+	}
 } // CircuitQuery
