@@ -1,4 +1,5 @@
-<input type="button" value="Generar Recorrido" disabled onClick="generateDirections()"/>
+<input type="button" value="Generar Recorrido" onClick="generateDirections()"/>
+<input type="button" value="Limpiar" onClick="clearAll()"/>
 
 <div id="map_canvas" style="height: 480px;"></div>
 
