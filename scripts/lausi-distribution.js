@@ -242,21 +242,14 @@ function markerOnClick(marker) {
 function generateDirections() {
 	var path = polyLine.getPath();
 	var subPath = [];
-	console.log(path);
 
 	path.forEach(function(position, idx) {
-		subPath.push({
-			location: position, 
-			stopover: true
-		});
+		subPath.push(position);
 		//Enviamos los puntos en paquetes de a 10 para no exceder las limitaciones del geocoder
-		if ((idx + 1 ) % 9 == 0) {
+		if (subPath.size() == 10) {
 			requestDirections(subPath);
 			subPath.clear();
-			subPath.push({
-				location: position, 
-				stopover: true
-			});
+			subPath.push(position);
 		}
 	});
 	
@@ -269,31 +262,39 @@ function generateDirections() {
 }
 
 function requestDirections(waypoints) {
-	var origin = waypoints.shift().location;
-	var destination = waypoints.pop().location;
+	var origin = waypoints.first();
+	var destination = waypoints.last();
+	
+	waypts = [];
+	var i;
+	
+	for (i = 1; i < waypoints.size() - 1; i++) {
+		waypts.push({
+			location: waypoints[i],
+			stopover: true
+		});
+	}
 	
 	var request = {
 		origin: origin, 
 		destination: destination,
-		waypoints: waypoints,
-		optimizeWaypoints: false,
+		waypoints: waypts,
 		travelMode: google.maps.DirectionsTravelMode.DRIVING
     };
     
-    var colors = ['#ff0000', '#00ff00', '#0000ff']
-    
-    directionsService.route(request, function(result, status) {
-      if (status == google.maps.DirectionsStatus.OK) {
-      	directionsDisplays.push(new google.maps.DirectionsRenderer({
-      		suppressMarkers: true,
-      		directions: result,
-      		map: map,
-      		polylineOptions: {
-      			strokeColor: colors[directionsDisplays.size()]
-      		}
-      	}));
-      }
-    });
+    directionsService.route(request, displayDirections);
+}
+
+function displayDirections(result, status) {
+	  	
+    if (status == google.maps.DirectionsStatus.OK) {
+    	var renderer = new google.maps.DirectionsRenderer({
+	   		suppressMarkers: true,
+	   		directions: result,
+	   		map: map,
+	   	});
+	   	directionsDisplays.push(renderer);
+    }
 }
 
 function clearPolyLine() {
@@ -307,4 +308,7 @@ function clearPolyLine() {
 
 function clearAll() {
 	clearPolyLine();
+	directionsDisplays.each(function(renderer) {
+		renderer.setMap(null);
+	});
 }

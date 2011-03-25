@@ -70,3 +70,4 @@
 </form>	
 	<br />	
 |-/foreach-|
+|-include file="LausiDistributeProposeMapInclude.tpl"-|
