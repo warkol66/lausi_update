@@ -4,7 +4,7 @@ body {
 	background-position:top left;
 	background-repeat:repeat-x;
 	background-attachment: fixed;
-	font-size:62.5%; /* this makes the text sized at 10px */
+	font-size:77%; /* this makes the text sized at 10px */
 }
 /*  LOGIN  -----------------------------------------------*/
 #login { 
@@ -37,7 +37,6 @@ body {
 }
 #lostPassword a, #lostPassword a:visited { 
 	color: #003399;
-	font-size: 1.1em !Important;
 }
 #loginBottom { 
 	background-image:url(../images/loginBottom.png);
@@ -238,7 +237,6 @@ a.tdSearchButton:active  {
 	color: #003399;
 	background-color: #bdcad7;
 	background-image: none;
-	font-size: 1.0em;
 }
 .titleMenu { 
 	color: #003399;
@@ -424,7 +422,6 @@ a.blackNoDecoration:visited {
 
 /* TABLES   -------------------------------------------*/
 table{
-	font-size:1.2em;
 }
 .row_odd {
 	background: #BFD3FF; /* #BFD3FF o #AFC3FE  #FFCBCB*/

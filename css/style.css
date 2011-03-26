@@ -21,12 +21,11 @@
 }
 #loginContent h1{ 
 	font-weight: bold;
-	font-size: 1.4em;
+	font-size: 138.5%;
 	padding-left: 25px;
 }
 #loginContent p{ 
 	font-weight: bold;
-	font-size: 1.1em;
 	padding-left: 25px;
 	padding-right: 25px;
 	padding-bottom: 15px;
@@ -35,7 +34,6 @@
 	width: 300px;
 	height: 20px;
 	margin-bottom: 10px;
-	font-size: 1.2em;
 }
 #loginButton { 
 	width: 100px !Important;
@@ -130,7 +128,6 @@
 	border: none;
 }
 #footer p{
-	font-size:1em;
 	text-align:right;
 	padding: 3px 5px 0 0 ;
 }
@@ -138,25 +135,25 @@
 
 /* content -----------------------------------------------------------*/ 
 #rightColumn h1{
-	font-size: 1.7em;
+	font-size: 153.9%;
 	font-weight:bold;
 	padding-bottom: 5px;
 	margin-bottom:15px;
 }
 #rightColumn h2{
-	font-size:1.2em;
+	font-size:108%;
 	font-weight:normal;
 	margin-bottom: 5px;
 }
 #rightColumn h3 {
-	font-size: 1.5em;
+	font-size: 123.1%;
 	font-weight:bold;
 	padding-top: 20px;
 	padding-bottom: 5px;
 	margin-bottom:15px;
 }
 #rightColumn h4 {
-	font-size: 1.4em;
+	font-size: 138.5%;
 	font-weight:bold;
 	padding-top: 15px;
 	padding-bottom: 5px;
@@ -174,7 +171,6 @@
 }
 #rightColumn p{
 	width: 570px;
-	font-size: 1.2em; /*NEW, px to em*/
 	margin-bottom: 10px;
 	padding-right: 10px;
 }
@@ -212,7 +208,7 @@
 }
 
 .tdTitle {
-	font-size: 1.2em;
+	font-size: 93%;
 	font-weight: bold;
 	vertical-align: middle;
 	margin: 7px 3px 5px 3px;
@@ -305,8 +301,7 @@ a.detail:hover{
 	vertical-align: bottom; 
 }
 .buttonSmall {
-	font-size: .80em;
-	height: 1.80em;
+	font-size: 77%;
 }
 fieldset {
 	padding: 8px;
@@ -315,14 +310,16 @@ fieldset {
 }
 fieldset legend {
 	font-weight: bold;
-	font-size: 1.4em;
+	font-size: 123.1%;
 	margin-bottom: 0.5em;
 	position: relative;  
-	top: -1.4em;
+	top: -138.5%;
 	margin-left: -.3em;
 	padding: .2em;
 }
 fieldset label {
+	font-size: 93%;
+	line-height: 153.9%;
 	width: 140px;
 	float: left;
 	font-weight: bold;
@@ -360,13 +357,9 @@ fieldset fieldset label {
 fieldset li {
 	margin-left: 35px;
 }
-
-
-
 fieldset {  
 	position: relative;
 }
-
 legend {  
 	margin-bottom: 0.5em;
 	position: relative;  
@@ -374,7 +367,6 @@ legend {
 	margin-left: -.5em;
 	padding: .2em;
 }
-
 fieldset fieldset legend {  
 	background-color: transparent;
 }
@@ -422,7 +414,7 @@ option{
 /* PAGINADO    ----------------------------*/
 .pages{	
 	height: 37px;
-	font-size: 0.9em;
+	font-size: 77%;
 	text-align:center;
 	vertical-align:middle;
 	font-weight:bold;
@@ -467,7 +459,6 @@ a.pageLink:hover, a.pageLink:active {
 	margin: 8px 0 0 30px;   /* ie */
 }
 .tdSearch input{
-	font-size:1.1em;
 	margin-top: 0;
 }
 .tdSearch img{
@@ -479,7 +470,6 @@ a.tdSearchButton:visited  {
 	display:inline;
 	padding: 0px 5px;
 	margin: 0 0 0 3px;
-	font-size: 1.1em;
 	font-weight:bold;
 	text-decoration:none;	
 }
@@ -503,7 +493,6 @@ a.tdSearchButton:active  {
 	width:135px; /* 150px styles-ie6.css*/
 	height:auto;
 	display:block;
-	font-size:1.2em;
 	padding: 4px 0px 4px 0px;
 	padding: 4px 3px 4px 10px;
 	text-align:left;
@@ -523,7 +512,6 @@ a.tdSearchButton:active  {
 .titleMenu { 
 	margin:0;
 	padding: 5px;
-	font-size:1.2em;
 	text-transform:uppercase;
 	font-weight:bold;	
 }
@@ -547,7 +535,6 @@ a.tdSearchButton:active  {
 /*  INITIAL UL*/
 #boxVariables ul li{
 	font-weight:bold;
-	font-size: 1.3em;
 	list-style: none;
 	padding-left: 15px;	
 	margin-bottom: 10px;
@@ -556,7 +543,6 @@ a.tdSearchButton:active  {
 /*FIRST UL */
 #boxVariables ul li ul li{
 	font-weight:bold;
-	font-size: 1em;
 	list-style: none;
 	padding-left: 15px;	
 	margin-bottom: 10px;
@@ -565,7 +551,6 @@ a.tdSearchButton:active  {
 #boxVariables ul li ul li ul li{
 	font-weight:normal;
 	text-transform: none;	
-	font-size: 1.0em ; /* 11px/13px = 1.1818em*/
 	list-style: none;
 	padding-left: 15px;		
 	margin-bottom: 0;	
@@ -574,14 +559,12 @@ a.tdSearchButton:active  {
 #boxVariables ul li ul li ul li ul li{
 	font-weight:normal;
 	text-transform: none;		
-	font-size: 1.0em;
 	list-style: none;
 	padding-left: 15px;	
 	margin-bottom: 0;
 }
 /* Boton Atributo ------------------*/
 #boxVariables a{
-	font-size: 1em;
 	font-weight:normal;
 	text-transform:none;
 	width:14px;
@@ -627,7 +610,6 @@ a.tdSearchButton:active  {
 	text-decoration:underline;
 }
 .textboxVariables{
-	font-size: 1em;
 	height:12px;
 	padding-left: 5px;
 }
