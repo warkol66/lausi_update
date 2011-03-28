@@ -86,12 +86,12 @@ function resetPassword(form){
 			<input type="button" value="Resetear contraseña" onClick="if (confirm('¿Seguro que desea resetear esta contraseña?')){resetPassword(this.form)}; return false" title="Resetear contraseña" class="iconPassword">
 			</form>
 			|-elseif ($loginUser->getUsername() neq $user->getUsername()) && ($user->getMailAddress() eq '') -|
-						<input type="button" title="El usuario no podee dirección de correo electrónico, no se puede resetear la contraseña" class="iconPassword disabled">
+						<input type="button" title="El usuario no posee dirección de correo electrónico, no se puede resetear la contraseña" class="iconPassword disabled">
 |-/if-|
 		</td>
 	</tr>|-/if-|
 	|-/foreach-|
-	|-if $licensesLeft gt 0-|
+	|-if $licensesLeft eq 0-|
 	<tr>
 		<th colspan="5"><div class="rightLink"><a href="Main.php?do=usersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Usuario</a></div></th>
 	</tr>

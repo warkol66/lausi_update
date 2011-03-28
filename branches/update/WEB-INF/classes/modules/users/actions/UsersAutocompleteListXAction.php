@@ -10,7 +10,7 @@ class UsersAutocompleteListXAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+		BaseAction::execute($mapping, $form, $request, $response);
 
 		//////////
 		// Access the Smarty PlugIn instance
@@ -22,29 +22,26 @@ class UsersAutocompleteListXAction extends BaseAction {
 		}
 
 		$module = "Users";
-		
+
 		$smarty->assign("module",$module);
-		
-		$this->template->template = "TemplateAjax.tpl";
 
 		$searchString = $_REQUEST['value'];
 		$smarty->assign("searchString",$searchString);
 
-		if (!empty($_REQUEST['adminActId'])) {
+		if (!empty($_REQUEST['adminActId']))
 			$userParticipatingIds = AdminActParticipantQuery::create()
 									->filterByAdminActId($_REQUEST['adminActId'])
 									->filterByObjectType('User')
 									->select('Objectid')
 									->find();
-		}
-		
+
 		$users = UserQuery::create()->where('User.Username LIKE ?', "%" . $searchString . "%")
 									->orWhere('User.Name LIKE ?', "%" . $searchString . "%")
 									->orWhere('User.Surname LIKE ?', "%" . $searchString . "%")
 									->where('User.Id NOT IN ?', $userParticipatingIds)
 									->limit($_REQUEST['limit'])
 									->find();
-		
+
 		$smarty->assign("users",$users);
 		$smarty->assign("limit",$_REQUEST['limit']);
 

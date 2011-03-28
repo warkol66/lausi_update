@@ -1,9 +1,9 @@
 ﻿<?php
-/** 
+/**
  * UsersDoDeleteFromGroupXAction
  *
- * @package users 
- * @subpackage groups 
+ * @package users
+ * @subpackage groups
  */
 
 class UsersDoEditInfoXAction extends BaseAction {
@@ -25,9 +25,6 @@ class UsersDoEditInfoXAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		//por ser una action ajax.		
-		$this->template->template = "TemplateAjax.tpl";
-
 		$module = "Users";
 
 		$userPeer = new UserPeer();
@@ -37,8 +34,8 @@ class UsersDoEditInfoXAction extends BaseAction {
 		if ($userPeer->update($user,$_POST["userParams"]) ) {
 			Common::doLog('success','username: ' . $_POST["username"] . ' action: edit');
 			return $mapping->findForwardConfig('success');
-		 }
-		
+		}
+
 		$smarty->assign('errorTagId','userInfoMsgField');
 		return $mapping->findForwardConfig('failure');
 	}

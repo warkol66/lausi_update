@@ -1,8 +1,8 @@
 <?php
-/** 
+/**
  * UsersPasswordResetXAction
  *
- * @package users 
+ * @package users
  */
 
 require_once("EmailManagement.php");
@@ -25,8 +25,6 @@ class UsersPasswordResetXAction extends BaseAction {
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
-
-		$this->template->template = 'TemplateAjax.tpl';
 
 		$module = "Users";
 		$smarty->assign('module',$module);
@@ -51,7 +49,7 @@ class UsersPasswordResetXAction extends BaseAction {
 			$message = $manager->createHTMLMessage($subject,$body);
 			$result = $manager->sendMessage($mailTo,$mailFrom,$message);
 		}
-			
+
 		$smarty->assign('name',$fieldname);
 		$smarty->assign('value',$exist);
 		$smarty->assign('message',$message);

@@ -13,27 +13,30 @@
 	padding: 0;
 	margin: 0 auto;
 }
-#loginContent { 
+#loginContent, #passRecovery { 
 	width: 360px;
 	height: auto;	
 	margin: auto;
 	text-align:left;
 }
-#loginContent h1{ 
+#loginContent h1, #passRecovery h1, #passRecovery h2 { 
 	font-weight: bold;
 	font-size: 138.5%;
 	padding-left: 25px;
 }
-#loginContent p{ 
+#loginContent p, #passRecovery p { 
 	font-weight: bold;
 	padding-left: 25px;
 	padding-right: 25px;
 	padding-bottom: 15px;
 }
-#loginContent input { 
+#loginContent input, #passRecovery input { 
 	width: 300px;
 	height: 20px;
 	margin-bottom: 10px;
+}
+#security_code { 
+	width: 100px !Important;
 }
 #loginButton { 
 	width: 100px !Important;
