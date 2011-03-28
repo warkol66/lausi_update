@@ -484,7 +484,7 @@ class BillboardPeer extends BaseBillboardPeer {
     */
    public function getAllAvailableByAddress($addressId, $quantity, $fromDate, $duration, $type = null) {
    
-   		$criteria = new Criteria();
+   		$criteria = new BillboardQuery();
 	   	
 	   	$criteria->add(AddressPeer::ID,$addressId);
 	
@@ -509,7 +509,7 @@ class BillboardPeer extends BaseBillboardPeer {
     */
    public function getAllAvailableByRegion($regionId, $quantity, $fromDate, $duration, $type = null) {
    
-   		$criteria = new Criteria();
+   		$criteria = new BillboardQuery();
    		
    		//si se pide un tipo especifico se agrega a la consulta
    		if ($type != null)
@@ -533,7 +533,7 @@ class BillboardPeer extends BaseBillboardPeer {
     */
    public function getAllAvailableByCircuit($circuitId, $fromDate, $duration, $quantity, $type = null) {
    
-   		$criteria = new Criteria();
+   		$criteria = new BillboardQuery();
 	
    		//si se pide un tipo especifico se agrega a la consulta
    		if ($type != null)
@@ -556,7 +556,7 @@ class BillboardPeer extends BaseBillboardPeer {
     */
    public function getAllAvailableByRating($rating, $fromDate, $quantity, $duration, $type = null) {
    
-   		$criteria = new Criteria();
+   		$criteria = new BillboardQuery();
    		
    		//si se pide un tipo especifico se agrega a la consulta
    		if ($type != null)
