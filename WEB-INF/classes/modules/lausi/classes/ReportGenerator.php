@@ -1,12 +1,5 @@
 <?php
 
-require_once('AdvertisementPeer.php');
-require_once('BillboardPeer.php');
-require_once('AddressPeer.php');
-require_once('WorkforceCircuitPeer.php');
-require_once('ThemePeer.php');
-require_once('CircuitPeer.php');
-
 	/**
 	* Generador de Reportes
 	*/
@@ -28,49 +21,21 @@ require_once('CircuitPeer.php');
 		}
 		
 		public function getRouteSheetReport($date) {
+			$adverts = AdvertisementQuery::create()
+				->filterAdvertisementsForRouteSheetReport($date, $this->workforceId, $this->themeId)
+			->find();
 			
-
-				$criteria = new Criteria();
-				
-				$criteria->addJoin(AdvertisementPeer::BILLBOARDID,BillboardPeer::ID,Criteria::INNER_JOIN);
-				$criteria->addJoin(BillboardPeer::ADDRESSID,AddressPeer::ID,Criteria::LEFT_JOIN);
-				$criteria->addJoin(AdvertisementPeer::THEMEID,ThemePeer::ID,Criteria::INNER_JOIN);
-				$criteria->addJoin(AddressPeer::CIRCUITID,CircuitPeer::ID,Criteria::LEFT_JOIN);
-				
-				$criteria->addGroupByColumn(BillboardPeer::ADDRESSID);
-//				$criteria->addGroupByColumn(AdvertisementPeer::THEMEID);
-//				$criteria->addGroupByColumn(AdvertisementPeer::WORKFORCEID);
-				$criteria->add(AdvertisementPeer::PUBLISHDATE,$date);
-				
-				if (!empty($this->workforceId))
-					$criteria->add(AdvertisementPeer::WORKFORCEID,$this->workforceId);
-				if (!empty($this->themeId))
-					$criteria->add(AdvertisementPeer::THEMEID,$this->themeId);
-				
-				//solo para sextuples segun requerimiento
-				$criteria->add(BillboardPeer::TYPE,BillboardPeer::TYPE_SEXTUPLE);
-				//ordenamiento primero por nombre de motivo y luego por direccion
-				//$criteria->addAscendingOrderByColumn(CircuitPeer::NAME,ThemePeer::NAME,AddressPeer::STREET,AddressPeer::NUMBER);
-				$criteria->addAscendingOrderByColumn(CircuitPeer::NAME);
-				$criteria->addAscendingOrderByColumn(AddressPeer::ORDERCIRCUIT);
-
-				$adverts = AdvertisementPeer::doSelect($criteria);
-
 			foreach ($adverts as $advert) {
+				$theme = $advert->getTheme();
 					
-					$theme = $advert->getTheme();
-					
-					if (!isset($results[$theme->getId()])) {
-						$results[$theme->getId()]['theme'] = $theme;
-						$results[$theme->getId()]['adverts'] = array();
-					}
-					
-					array_push($results[$theme->getId()]['adverts'],$advert);		
-					
+				if (!isset($results[$theme->getId()])) {
+					$results[$theme->getId()]['theme'] = $theme;
+					$results[$theme->getId()]['adverts'] = array();
 				}
-
-				return $results;
-
+					
+				array_push($results[$theme->getId()]['adverts'],$advert);		
+			}
+			return $results;
 		}
 	
 		public function getSheetsLocationReport($date,$type,$circuitId=null) {
@@ -80,33 +45,9 @@ require_once('CircuitPeer.php');
 				if ($type == BillboardPeer::TYPE_DOBLE)
 					$multiplier = 2;			
 
-				$criteria = new Criteria();
-				$criteria->addJoin(AdvertisementPeer::BILLBOARDID,BillboardPeer::ID,Criteria::LEFT_JOIN);
-				$criteria->addJoin(BillboardPeer::ADDRESSID,AddressPeer::ID,Criteria::LEFT_JOIN);
-				$criteria->addJoin(AdvertisementPeer::THEMEID,ThemePeer::ID,Criteria::LEFT_JOIN);
-				$criteria->addJoin(AddressPeer::CIRCUITID,CircuitPeer::ID,Criteria::LEFT_JOIN);				
-				//agrupamiento y ordenamiento
-				$criteria->addAscendingOrderByColumn(AddressPeer::CIRCUITID,AddressPeer::STREET,AddressPeer::NUMBER);
-				//condiciones
-
-				//Caso fecha de publicacion sea menor a la de inicio del periodo y fecha de finalizacion del aviso sea mayor a la fecha de finalizacion del periodo
-				$sql .= "('" . $date . "' >= lausi_advertisement.publishDate AND ";
-				$sql .=	"'" . $date ."' <= DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY))";
-
-				$criteria->add(AdvertisementPeer::PUBLISHDATE,$sql,Criteria::CUSTOM);
-
-				$criteria->add(BillboardPeer::TYPE,$type);
-				$criteria->add(ThemePeer::ACTIVE,1);
-				
-				if (!empty($circuitId)) {
-					$criteria->add(AddressPeer::CIRCUITID,$circuitId);
-				}
-				
-				$criteria->addAscendingOrderByColumn(CircuitPeer::NAME);
-				$criteria->addAscendingOrderByColumn(AddressPeer::ORDERCIRCUIT);
-				
-				$adverts = AdvertisementPeer::doSelect($criteria);
-
+				$adverts = AdvertisementQuery::create()
+					->filterAdvertisementsForSheetsLocationReport($date,$type,$circuitId)
+				->find();
 
 				$results = array();
 				
@@ -207,8 +148,6 @@ require_once('CircuitPeer.php');
 		
 		public function getAvailableBillboardsReport() {
 			
-			require_once('BillboardPeer.php');
-			require_once('CircuitPeer.php');
 			global $system;
 			
 			$iterations = $system['config']['lausi']['availableBillboardsDays'];
@@ -221,51 +160,22 @@ require_once('CircuitPeer.php');
 
 				$duration = 1;
 
-				$criteria = new Criteria();
+				$criteria = new AdvertisementQuery();
 			
 				//el result set tendra registros con id de circuitm nombre de circuit, cuenta y tipo
-				$criteria->addSelectColumn(CircuitPeer::ID);
-				$criteria->addSelectColumn('COUNT(*)');
-				$criteria->addSelectColumn(BillboardPeer::TYPE);
-				$criteria->addSelectColumn(CircuitPeer::NAME);
+				$criteria->selectFieldsForAvailableBillboardsReport();
 			
 				$criteria->addJoin(BillboardPeer::ADDRESSID,AddressPeer::ID,Criteria::INNER_JOIN);
 				$criteria->addJoin(AddressPeer::CIRCUITID,CircuitPeer::ID,Criteria::INNER_JOIN);
 
-				//armamos la fecha final
-				ereg("([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})", $fromDate, $splitDate);
-				$year = $splitDate[1];
-				$month = $splitDate[2];
-				$day = $splitDate[3];
-				$timestamp = mktime(0,0,0,$month,$day+$duration,$year);
-		    	$toDate = date('Y-m-d',$timestamp);
-
-				$sql  = '(SELECT COUNT(*) from lausi_advertisement where lausi_advertisement.billboardId = lausi_billboard.id AND';
-				//Caso fecha de publicacion sea menor a la de inicio del periodo y fecha de finalizacion del aviso sea menor a la fecha de finalizacion del periodo
-		    	$sql .= "((('" . $fromDate . "' >= lausi_advertisement.publishDate) AND ";
-				$sql .=	"('" . $toDate ."' >=  DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY)) AND";
-				$sql .=	"('" . $fromDate ."' <  DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY))) OR ";
-
-				//Caso fecha de publicacion sea mayor a la de inicio del periodo y fecha de finalizacion del aviso sea mayor a la fecha de finalizacion del periodo
-		    	$sql .= "(('" . $fromDate . "' <= lausi_advertisement.publishDate) AND ";
-		    	$sql .= "('" . $toDate . "' >= lausi_advertisement.publishDate) AND ";
-				$sql .=	"('" . $toDate ."' < DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY))) OR ";
-
-				//Caso fecha de publicacion sea mayor igual a la de inicio del periodo y fecha de finalizacion del aviso sea menor igual a la fecha de finalizacion del periodo
-		    	$sql .= "(('" . $fromDate . "' <= lausi_advertisement.publishDate) AND ";
-				$sql .=	"('" . $toDate ."' >= DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY))) OR";
-
-				//Caso fecha de publicacion sea menor a la de inicio del periodo y fecha de finalizacion del aviso sea mayor a la fecha de finalizacion del periodo
-		    	$sql .= "(('" . $fromDate . "' >= lausi_advertisement.publishDate) AND ";
-				$sql .=	"('" . $toDate ."' < DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY)))) ) = 0";
-
-				$criteria->add(BillboardPeer::ID,$sql,Criteria::CUSTOM);
-				
+				$criteria->filterByAvailable($fromDate, $duration);				
 
 				$criteria->addGroupByColumn(BillboardPeer::TYPE);
 				$criteria->addGroupByColumn(AddressPeer::CIRCUITID);
 				
-				$resultSet = BasePeer::doSelect($criteria);
+				$criteria->setFormatter('PropelStatementFormatter');
+				
+				$resultSet = $criteria->find();
 
 				if (empty($result['total']['dates'][$fromDate]['numberDoble'])) {
 					$result['total']['dates'][$fromDate]['numberDoble'] = 0;
@@ -282,8 +192,7 @@ require_once('CircuitPeer.php');
 					$result['circuit'][$index]['name'] = $circuit->getName();
 				}			
 
-			
-				while ($resultSet->next()) {
+				while ($resultSet->nextRowSet()) { //Acá decía $resultSet->next() pero tiraba error
 					//we obtain the result from the second column of the record
 					$index = $resultSet->getInt(1);	
 				
@@ -304,13 +213,8 @@ require_once('CircuitPeer.php');
 					}
 					
 				}
-			
-
 			}
-
 			return $result;
-			
-			
 		}
 		
 		public function getThemeByCircuitReport($theme) {
