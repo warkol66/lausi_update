@@ -45,7 +45,7 @@
 				<table id="tabla-addresses|-$address->getName()-|" width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 			|-foreach from=$byAddress.elements item=billboard name=for_billboards-|			
 				<tr>
-					<td width="2%" nowrap><input type="checkbox" |-if $billboard->isChecked() -|checked="checked"|-/if-| name="toDistribute[]" value="|-$billboard->getId()-|" /></td>
+					<td width="2%" nowrap><input type="checkbox" |-if $billboard->isChecked() -|checked="checked"|-/if-| name="toDistribute[]" value="|-$billboard->getId()-|" onClick="if ($$('#div_|-$address->getId()-| input:checked').size() > 0) {markAssigned(|-$address->getId()-|)} else {markAvailable(|-$address->getId()-|)}" /></td>
 					<td width="60%">|-$address->getName()-|</td>
 <!--					|-$billboard->getNumber()-|  -->
 					<td width="38%">|-assign var=lastTheme value=$billboard->getLastTheme()-||-if $lastTheme neq false-||-$lastTheme->getName()-||-else-|-|-/if-|</td>
