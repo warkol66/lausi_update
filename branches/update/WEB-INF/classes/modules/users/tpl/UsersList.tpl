@@ -91,7 +91,7 @@ function resetPassword(form){
 		</td>
 	</tr>|-/if-|
 	|-/foreach-|
-	|-if $licensesLeft eq 0-|
+	|-if $licensesLeft gt 0-|
 	<tr>
 		<th colspan="5"><div class="rightLink"><a href="Main.php?do=usersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Usuario</a></div></th>
 	</tr>
