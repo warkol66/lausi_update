@@ -1,6 +1,10 @@
 var map;
 var markers = [];
-var icons = {available: 'images/available.gif', assigned: 'images/assigned.gif'};
+var icons = {
+	available: 'images/available.gif', 
+	assigned: 'images/assigned.gif',
+	partiallyAssigned: 'images/partiallyAssigned.gif'
+};
 
 function initializeMap() {
     var latlng = new google.maps.LatLng('-34.649', '-58.456');
@@ -33,4 +37,8 @@ function markAssigned(markerId) {
 
 function markAvailable(markerId) {
 	markers[markerId].setIcon(icons['available']);
+}
+
+function markPartiallyAssigned(markerId) {
+	markers[markerId].setIcon(icons['partiallyAssigned']);
 }
