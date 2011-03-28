@@ -1,9 +1,20 @@
 ﻿==============================
+Revisión 48 - Fecha 201100328
+------------------------------
+#ATENCION: es importante ejecutar estas dos consultas en el orden en que están escritas.
+
+#1- Borramos todos los billboards que no tengan address
+DELETE FROM `lausi_billboard` WHERE (SELECT COUNT(*) FROM lausi_address WHERE lausi_address.id=lausi_billboard.addressId)=0;
+
+#2- Borramos todos los advertisements que no tengan billboards
+DELETE FROM `lausi_advertisement` WHERE (SELECT COUNT(*) FROM lausi_billboard WHERE lausi_billboard.id=lausi_advertisement.billboardId)=0;
+
+==============================
 Revisión 742 - Fecha 201100314
 ------------------------------
 #Insercion del módulo surveys en tabla de modulos.
 
-INSERT INTO  `anmaga`.`modules_module` (
+INSERT INTO `modules_module` (
 `name` ,
 `active` ,
 `alwaysActive` ,
