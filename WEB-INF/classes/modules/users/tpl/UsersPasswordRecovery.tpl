@@ -2,7 +2,7 @@
 <form method='post' action="Main.php?do=usersPasswordRecoverySendConfirmationRequest">
 	<div id="loginWrapper">
 	<!-- Begin Login --> 
-	<div id="login"><img src="images/passRecoveryTop.png" />
+	<div id="login">
 		 <!-- Begin LoginTop --> 
 		 <div id="loginTop"></div> 
 		 <!-- End LoginTop --> 
@@ -20,9 +20,9 @@
 				|-/if-|
 				|-if $message neq "requestAlredyMade"-|
 							<h1>Usuario</h1> 
-							<p><input type='text' name='username' size='35'  class="inputLogin" /></p>
+							<p><input type='text' name='username' size='30' /></p>
 							<h1>E-Mail</h1>
-							<p><input type='text' name='mailAddress' size='35'  class="inputLogin" /></p>
+							<p><input type='text' name='mailAddress' size='45' /></p>
 							
 							<!--Captcha -->
 							<p>
@@ -37,13 +37,13 @@
 				|-/if-|
 		<!--[if lte IE 6]><p>Su versión actual de navegador es IExplorer 6.<br />Este sistema requiere que utilice una versión mas nueva de Interntet Explorer.<br />
 Debe actualizarla para el correcto funcionamiento del sistema.</p><![endif]-->
-		 <!-- Begin LoginBottom --> 
-		 <div id="loginBottom">
-			<input type='submit' value='Solicitar contraseña' id="loginButton" /> 
-		</div> 
-		 <!-- End LoginBottom --> 
 		</div>
 		 <!-- End LoginContent --> 
+		 <!-- Begin LoginBottom --> 
+		 <div id="loginBottom">
+			<div id="loginButtonDiv"><input type='submit' value='Solicitar contraseña' id="loginButton" /> 
+		</div> 
+		 <!-- End LoginBottom --> 
 	 </div> 
 	<!-- End Login --> 
 	</div>

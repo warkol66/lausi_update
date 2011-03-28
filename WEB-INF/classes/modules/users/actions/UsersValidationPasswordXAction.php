@@ -13,7 +13,7 @@ class UsersValidationPasswordXAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-				BaseAction::execute($mapping, $form, $request, $response);
+			BaseAction::execute($mapping, $form, $request, $response);
 
 			//////////
 			// Access the Smarty PlugIn instance
@@ -23,8 +23,6 @@ class UsersValidationPasswordXAction extends BaseAction {
 			if($smarty == NULL) {
 				echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 			}
-
-			$this->template->template = 'TemplateAjax.tpl';
 
 			$module = "Validation";
 			$smarty->assign('module',$module);

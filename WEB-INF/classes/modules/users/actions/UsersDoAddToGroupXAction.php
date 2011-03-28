@@ -1,9 +1,9 @@
 <?php
-/** 
+/**
  * UsersDoAddToGroupXAction
  *
- * @package users 
- * @subpackage groups 
+ * @package users
+ * @subpackage groups
  */
 
 class UsersDoAddToGroupXAction extends BaseAction {
@@ -25,9 +25,6 @@ class UsersDoAddToGroupXAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		//por ser una action ajax.		
-		$this->template->template = "TemplateAjax.tpl";
-
 		$module = "Users";
 
 		$userPeer = new UserPeer();
@@ -38,11 +35,10 @@ class UsersDoAddToGroupXAction extends BaseAction {
 		$smarty->assign('group',$group);
 
 
-		if ( !empty($_POST["groupId"]) && !empty($_POST["userId"]) ) {
-			if ( $userPeer->addUserToGroup($_POST["userId"],$_POST["groupId"]) ) {
+		if ( !empty($_POST["groupId"]) && !empty($_POST["userId"]) )
+			if ( $userPeer->addUserToGroup($_POST["userId"],$_POST["groupId"]) )
 				return $mapping->findForwardConfig('success');
-		 }
-		}
+
 
 		$smarty->assign('errorTagId','groupMsgField');
 		return $mapping->findForwardConfig('failure');

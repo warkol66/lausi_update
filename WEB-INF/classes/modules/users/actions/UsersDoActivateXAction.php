@@ -1,8 +1,8 @@
 <?php
-/** 
+/**
  * UsersDoActivateXAction
  *
- * @package users 
+ * @package users
  */
 
 class UsersDoActivateXAction extends BaseAction {
@@ -23,9 +23,6 @@ class UsersDoActivateXAction extends BaseAction {
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
-
-		//por ser una action ajax.		
-		$this->template->template = "TemplateAjax.tpl";
 
 		$module = "Users";
 

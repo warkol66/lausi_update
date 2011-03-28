@@ -19,8 +19,6 @@ class UsersValidationUsernameXAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		$this->template->template = 'TemplateAjax.tpl';
-
 		$module = "Validation";
 		$smarty->assign('module',$module);
 
@@ -45,6 +43,7 @@ class UsersValidationUsernameXAction extends BaseAction {
 		}
 		else
 			$minLength = 1;
+
 		$smarty->assign('minLength',$minLength);
 
 		$smarty->assign('name',$fieldname);
