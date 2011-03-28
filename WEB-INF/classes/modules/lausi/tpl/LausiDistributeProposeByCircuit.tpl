@@ -42,7 +42,7 @@
 				|-foreach from=$byAddress.elements item=billboard name=for_billboards-|			
 				|-assign var=address value=$billboard->getAddress()-|
 				<tr>
-					<td width="2%" nowrap><input type="checkbox" |-if $billboard->isChecked() -|checked="checked"|-/if-| name="toDistribute[]" value="|-$billboard->getId()-|" /></td>
+					<td width="2%" nowrap><input type="checkbox" |-if $billboard->isChecked() -|checked="checked"|-/if-| name="toDistribute[]" value="|-$billboard->getId()-|" onClick="var checkedsCount = $$('#div_|-$address->getId()-| input:checked').size();if (checkedsCount == 0) {markAvailable(|-$address->getId()-|)} else if (checkedsCount == |-$byAddress.elements|@count-|){markAssigned(|-$address->getId()-|)} else {markPartiallyAssigned(|-$address->getId()-|)}" /></td>
 					<td width="60%">|-$address->getName()-|</td>
 <!--					|-$billboard->getNumber()-|  -->
 					<td width="38%">|-assign var=lastTheme value=$billboard->getLastTheme()-||-if $lastTheme neq false-||-$lastTheme->getName()-||-else-|-|-/if-|</td>
