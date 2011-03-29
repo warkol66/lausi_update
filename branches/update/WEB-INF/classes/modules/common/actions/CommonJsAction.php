@@ -8,7 +8,7 @@ class CommonJsAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+		BaseAction::execute($mapping, $form, $request, $response);
 
 		//////////
 		// Access the Smarty PlugIn instance
@@ -18,20 +18,20 @@ class CommonJsAction extends BaseAction {
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
-		
-		//por ser una action ajax.		
-		$this->template->template = "TemplatePlain.tpl";					
+
+		//Cambio el template externo
+		$this->template->template = "TemplatePlain.tpl";
 
 		global $moduleRootDir;
-		
+
 		if (!empty($_GET["module"]))
 			$path = $moduleRootDir . "/WEB-INF/classes/modules/" . $_GET["module"] . "/tpl/" . ucfirst($_GET["module"]) . ucfirst($_GET["name"]) . ".js";
 		else
 			$path = "Common" . ucfirst($_GET["name"]) . ".js";
-		
+
 		header("Expires: " . gmdate('D, d M Y H:i:s', time()+24*60*60*365) . " GMT");
 		header("Content-Type: application/javascript;");
-		
+
 		$text = $smarty->display($path);
 
 	}
