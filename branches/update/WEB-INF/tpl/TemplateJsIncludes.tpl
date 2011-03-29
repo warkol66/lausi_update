@@ -4,9 +4,6 @@
 <script src="scripts/effects.js" language="JavaScript" type="text/javascript"></script>
 <script src="scripts/dragdrop.js" language="JavaScript" type="text/javascript"></script>
 <script src="scripts/functions.js" language="JavaScript" type="text/javascript"></script>
-<script src="Main.php?do=js&name=js&module=common&code=|-$currentLanguageCode-|" type="text/javascript"></script>
-<script src="Main.php?do=js&name=js&module=categories&code=|-$currentLanguageCode-|" type="text/javascript"></script>
-<script src="Main.php?do=js&name=js&module=|-$module|lower-|&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 <script language="JavaScript" type="text/JavaScript">
 	var url="|-$systemUrl-|";
 <!-- Swampy browser-->

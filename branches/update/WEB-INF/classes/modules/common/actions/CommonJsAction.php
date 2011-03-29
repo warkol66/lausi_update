@@ -1,10 +1,8 @@
 <?php
 
-require_once("BaseAction.php");
+class CommonJsAction extends BaseAction {
 
-class JsAction extends BaseAction {
-
-	function JsAction() {
+	function CommonJsAction() {
 		;
 	}
 
@@ -21,6 +19,9 @@ class JsAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 		
+		//por ser una action ajax.		
+		$this->template->template = "TemplatePlain.tpl";					
+
 		global $moduleRootDir;
 		
 		if (!empty($_GET["module"]))
