@@ -16,12 +16,32 @@
 class BillboardQuery extends BaseBillboardQuery {
 
 	public function filterByAvailable($fromDate,$duration) {
-		//hacemos un ordenamiento random de los resultados de la consulta
-		$this->addAscendingOrderByColumn('RAND()');
 		$this->join('Address', Criteria::INNER_JOIN);
 		
-		$this->join('Advertisement', Criteria::LEFT_JOIN);
-		$this->useQuery('Advertisement')->filterByAvailable($fromDate,$duration)->endUse();
+		$fromDate = new DateTime($fromDate);
+		$toDate = new DateTime($fromDate->format('Y-m-d'));
+		$toDate->modify("+$duration days");
+		
+		$fromDate = $fromDate->format('Y-m-d');
+		$toDate = $toDate->format('Y-m-d');
+		
+		//Esta subquery lo que hace es agregar una cuenta de la cantidad de advertisements asociados
+		//al billboard cuyo rango temporal de validez tiene alguna intersección con el rango temporal
+		//pasado por parámetro.
+		$subQuery = AdvertisementQuery::create()
+			->where(AdvertisementPeer::BILLBOARDID .' = ' . BillboardPeer::ID)
+			->where(AdvertisementPeer::PUBLISHDATE . " <= '$toDate'")
+			->where("DATE_ADD(" . AdvertisementPeer::PUBLISHDATE . ",INTERVAL " . AdvertisementPeer::DURATION. " DAY) >= '$fromDate'")
+			->clearSelectColumns()
+			->addSelectColumn('COUNT(*)');
+		$subQuery->setPrimaryTableName(AdvertisementPeer::TABLE_NAME);
+			
+		$params = array();
+		$subQuery = BasePeer::createSelectSql($subQuery, $params);
+		
+		//Ahora nos fijamos si el resultado de ese subselect es igual a 0.
+		$this->where('(' . $subQuery . ') = 0');
+		
 		$this->distinct();
 		
 		return $this;

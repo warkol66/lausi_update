@@ -291,6 +291,8 @@ class BillboardPeer extends BaseBillboardPeer {
     * @param integer $duration disponibilidad de duracion
     */
 	public function getAllAvailable($criteria = null, $fromDate, $duration) {
+		//hacemos un ordenamiento random de los resultados de la consulta
+		$criteria->addAscendingOrderByColumn('RAND()');
 		return $criteria->filterByAvailable($fromDate, $duration)->find();
 	}
 	
