@@ -6,5 +6,6 @@ Bienvenido al Sistema |-$parameters.siteName-|</h2>
 <br>|-$parameters.news-|
 |-/if-|
 </p>
+|-include file="UsersWelcomeInclude.tpl"-|
 
 
