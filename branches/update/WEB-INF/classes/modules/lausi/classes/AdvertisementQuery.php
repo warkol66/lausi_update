@@ -119,10 +119,4 @@ class AdvertisementQuery extends BaseAdvertisementQuery {
 		return $this;
 	}
 
-	public function selectFieldsForAvailableBillboardsReport() {
-		$this->addSelectColumn(CircuitPeer::ID);
-		$this->addSelectColumn('COUNT(*)');
-		$this->addSelectColumn(BillboardPeer::TYPE);
-		$this->addSelectColumn(CircuitPeer::NAME);
-	}
 } // AdvertisementQuery
