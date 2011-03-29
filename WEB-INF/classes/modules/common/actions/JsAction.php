@@ -19,8 +19,8 @@ class JsAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		//por ser una action ajax.		
-		$this->template->template = "TemplatePlain.tpl";					
+		//Cambio el template externo
+		$this->template->template = "TemplatePlain.tpl";
 
 		global $moduleRootDir;
 
