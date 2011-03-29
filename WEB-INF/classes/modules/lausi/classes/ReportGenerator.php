@@ -153,6 +153,11 @@
 			$iterations = $system['config']['lausi']['availableBillboardsDays'];
 			$result = array();
 			$circuits = CircuitPeer::getAll();
+			
+			$types = array(
+				BillboardPeer::TYPE_DOBLE => 'numberDoble',
+				BillboardPeer::TYPE_SEXTUPLE => 'numberSextuple'
+			);
 
 			for ($i=0; $i<$iterations ; $i++) {
 				
@@ -160,23 +165,27 @@
 
 				$duration = 1;
 
-				$criteria = new AdvertisementQuery();
+				$criteria = new BillboardQuery();
 			
-				//el result set tendra registros con id de circuitm nombre de circuit, cuenta y tipo
-				$criteria->selectFieldsForAvailableBillboardsReport();
-			
-				$criteria->addJoin(BillboardPeer::ADDRESSID,AddressPeer::ID,Criteria::INNER_JOIN);
-				$criteria->addJoin(AddressPeer::CIRCUITID,CircuitPeer::ID,Criteria::INNER_JOIN);
-
+				$criteria->join('Billboard.Address',Criteria::INNER_JOIN);
+				$criteria->join('Address.Circuit',Criteria::INNER_JOIN);
+				
 				$criteria->filterByAvailable($fromDate, $duration);				
 
-				$criteria->addGroupByColumn(BillboardPeer::TYPE);
-				$criteria->addGroupByColumn(AddressPeer::CIRCUITID);
+				$criteria->groupBy('Billboard.Type');
+				$criteria->groupBy('Address.Circuitid');
 				
-				$criteria->setFormatter('PropelStatementFormatter');
+				//el result set tendra registros con id de circuitm nombre de circuit, cuenta y tipo
+				$criteria->selectFieldsForAvailableBillboardsReport();
 				
-				$resultSet = $criteria->find();
-
+				try {
+					$resultSet = $criteria->find();
+				} catch (PropelException $exp) {
+					if (ConfigModule::get("global","showPropelExceptions"))
+						print_r($exp->getMessage());
+					return false;
+				}
+				
 				if (empty($result['total']['dates'][$fromDate]['numberDoble'])) {
 					$result['total']['dates'][$fromDate]['numberDoble'] = 0;
 				}
@@ -192,26 +201,12 @@
 					$result['circuit'][$index]['name'] = $circuit->getName();
 				}			
 
-				while ($resultSet->nextRowSet()) { //Acá decía $resultSet->next() pero tiraba error
+				foreach ($resultSet as $row) { //Acá decía $resultSet->next() pero tiraba error
 					//we obtain the result from the second column of the record
-					$index = $resultSet->getInt(1);	
-				
-					if ($resultSet->getInt(3) == BillboardPeer::TYPE_DOBLE) {
-						
-						$result['total']['dates'][$fromDate]['numberDoble'] += $resultSet->getInt(2);
-
-
-						$result['circuit'][$index]['dates'][$fromDate]['numberDoble'] = $resultSet->getInt(2);
-					}
-
-					if ($resultSet->getInt(3) == BillboardPeer::TYPE_SEXTUPLE) {
-
-					
-						$result['total']['dates'][$fromDate]['numberSextuple'] += $resultSet->getInt(2);					
-				
-						$result['circuit'][$index]['dates'][$fromDate]['numberSextuple'] = $resultSet->getInt(2);
-					}
-					
+					$index = $row['CircuitId'];	
+					$type = $types[$row['BillboardType']];
+					$result['total']['dates'][$fromDate][$type] += $row['Count'];
+					$result['circuit'][$index]['dates'][$fromDate][$type] = $row['Count'];
 				}
 			}
 			return $result;
@@ -248,7 +243,6 @@
 				
 			}
 			return $results;
-			
 		}
 	
 	}

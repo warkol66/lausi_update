@@ -20,10 +20,19 @@ class BillboardQuery extends BaseBillboardQuery {
 		$this->addAscendingOrderByColumn('RAND()');
 		$this->join('Address', Criteria::INNER_JOIN);
 		
-		$this->join('Advertisement');
+		$this->join('Advertisement', Criteria::LEFT_JOIN);
 		$this->useQuery('Advertisement')->filterByAvailable($fromDate,$duration)->endUse();
 		$this->distinct();
 		
+		return $this;
+	}
+	
+	public function selectFieldsForAvailableBillboardsReport() {
+		$this->withColumn(CircuitPeer::ID, 'CircuitId');
+		$this->withColumn(BillboardPeer::TYPE, 'BillboardType');
+		$this->withColumn(CircuitPeer::NAME, 'CircuitName');
+		$this->withColumn('COUNT(*)', 'Count');
+		$this->select(array('CircuitId', 'Count', 'BillboardType', 'CircuitName'));
 		return $this;
 	}
 } // BillboardQuery
