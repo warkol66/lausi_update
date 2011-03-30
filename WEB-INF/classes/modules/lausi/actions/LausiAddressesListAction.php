@@ -1,36 +1,11 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("AddressPeer.php");
-require_once("RegionPeer.php");
-require_once("CircuitPeer.php");
-
 class LausiAddressesListAction extends BaseAction {
-
-
-	// ----- Constructor ---------------------------------------------------- //
 
 	function LausiAddressesListAction() {
 		;
 	}
 	
-
-	// ----- Public Methods ------------------------------------------------- //
-
-	/**
-	* Process the specified HTTP request, and create the corresponding HTTP
-	* response (or forward to another web component that will create it).
-	* Return an <code>ActionForward</code> instance describing where and how
-	* control should be forwarded, or <code>NULL</code> if the response has
-	* already been completed.
-	*
-	* @param ActionConfig		The ActionConfig (mapping) used to select this instance
-	* @param ActionForm			The optional ActionForm bean for this request (if any)
-	* @param HttpRequestBase	The HTTP request we are processing
-	* @param HttpRequestBase	The HTTP response we are creating
-	* @public
-	* @returns ActionForward
-	*/
 	function execute($mapping, $form, &$request, &$response) {
 
     BaseAction::execute($mapping, $form, $request, $response);
@@ -57,32 +32,32 @@ class LausiAddressesListAction extends BaseAction {
  	
  		//procesamos las opciones de filtrado que pueden llegar a haberse aplicado
  		
- 		if (!empty($_GET['regionId'])) {
- 			$addressPeer->setRegionId($_GET['regionId']);
- 			$smarty->assign('regionId',$_GET['regionId']);
- 		}
+		$filters = $_GET['filters'];
+		$smarty->assign("filters",$filters);
 
- 		if (!empty($_GET['circuitId'])) {
- 			$addressPeer->setCircuitId($_GET['circuitId']);
- 			$smarty->assign('circuitId',$_GET['circuitId']);
- 		}
+ 		if (!empty($_GET['filters']['regionId']))
+ 			$addressPeer->setRegionId($_GET['filters']['regionId']);
 
- 		if (!empty($_GET['rating'])) {
- 			$addressPeer->setRating($_GET['rating']);
- 			$smarty->assign('rating',$_GET['rating']); 			
- 		}
+ 		if (!empty($_GET['filters']['circuitId']))
+ 			$addressPeer->setCircuitId($_GET['filters']['circuitId']);
 
- 		if (!empty($_GET['streetName'])) {
- 			$addressPeer->setStreetName($_GET['streetName']);
- 			$smarty->assign('streetName',$_GET['streetName']); 			
- 		}
+ 		if (!empty($_GET['filters']['rating']))
+ 			$addressPeer->setRating($_GET['filters']['rating']);
+
+ 		if (!empty($_GET['filters']['streetName']))
+ 			$addressPeer->setStreetName($_GET['filters']['streetName']);
  		
  
 		$pager = $addressPeer->getAllPaginatedFiltered($_GET["page"]);
 		$smarty->assign("addresses",$pager->getResult());
 		$smarty->assign("pager",$pager);
-		$url = "Main.php?do=lausiAddressesList&regionId" . '&regionId=' . $_GET['regionId'] . "&circuitId=" . $_GET['circuitId'] . "&rating=" . $_GET['rating'] . "&streetName=" . $_GET['streetName'];
-		$smarty->assign("url",$url);		
+		//$url = "Main.php?do=lausiAddressesList&regionId" . '&regionId=' . $_GET['regionId'] . "&circuitId=" . $_GET['circuitId'] . "&rating=" . $_GET['rating'] . "&streetName=" . $_GET['streetName'];
+
+				$url = "Main.php?do=lausiAddressesList";
+
+				foreach ($filters as $key => $value)
+					$url .= "&filters[$key]=$value";
+				$smarty->assign("url",$url);
 
 		$smarty->assign("message",$_GET["message"]);
 		$smarty->assign("page",$_GET['page']);

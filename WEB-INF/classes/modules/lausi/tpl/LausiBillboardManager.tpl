@@ -3,8 +3,8 @@
 <fieldset>
 	<p>
 		<ul id="billboardList">
-			<li>Módulos Dobles: |-$address->getBillboardCountByType('1')-|</li>
-			<li>Carteleras Séxtuples: |-$address->getBillboardCountByType('2')-|</li>
+			<li>Módulos Dobles: |-$address->getBillboardCountByType(1)-|</li>
+			<li>Carteleras Séxtuples: |-$address->getBillboardCountByType(2)-|</li>
 		</ul>
 	</p>
 	<p><span id="msgbox"></span></p>

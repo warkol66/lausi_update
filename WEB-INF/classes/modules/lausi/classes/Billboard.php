@@ -105,36 +105,40 @@ class Billboard extends BaseBillboard {
 
         	$adverts = $this->getAdvertisements($criteria);
         	
-        	return $adverts;
+			if (empty($adverts))
+				return null;
+			else
+				return $adverts;
 
         	
         }
         
-        /**
-         * Indica si la cartelera esta disponible hoy
-         *
-         * @return boolean devuelve true si esta disponible o la instancia que esta ocupando en este momento la cartelera
-         */
-        public function isAvailableToday() {
+      /**
+       * Indica si la cartelera esta disponible hoy
+       *
+       * @return boolean devuelve true si esta disponible o la instancia que esta ocupando en este momento la cartelera
+       */
+      public function isAvailableToday() {
 
-			$adverts = $this->getTodayAdvertisements();
-        	if (empty($adverts))
-        		return true;
+				$adverts = $this->getTodayAdvertisements();
+	    	if (empty($adverts))
+	    		return true;
+	    	
+	    	return false;
         	
-        	return false;
-        	
-        }
+     }
         
-        /**
-         * Devuelve el motivo que se encuentra el dia de hoy en la cartelera.
-         *
-         * @return Theme instancia de theme, o null en caso que este libre
-         *
+    /**
+     * Devuelve el motivo que se encuentra el dia de hoy en la cartelera.
+     *
+     * @return Theme instancia de theme, o null en caso que este libre
+     *
 		 */
 		public function getCurrentTheme() {
 			
 			$adverts = $this->getTodayAdvertisements();
-			if (empty($adverts))
+			
+			if (count($adverts) == 0)
 				return null;
 				
 			$advert = $adverts[0];
