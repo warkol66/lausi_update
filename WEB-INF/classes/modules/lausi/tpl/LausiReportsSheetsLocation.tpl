@@ -1,7 +1,7 @@
 <div class="noPrint"><h2>Reportes</h2>
 <h1>Disposición de Afiches</h1>
 </div>
-<p>El siguiente reporte le permite obtener un listado de direcciones y motivos en cada dirección por cada circuito. Para generar el reporte debe selecionar un circuito.</p>
+<p class="noPrint">El siguiente reporte le permite obtener un listado de direcciones y motivos en cada dirección por cada circuito. Para generar el reporte debe selecionar un circuito.</p>
 <div id="div_advertisements">
 |-if $message eq "noCircuitSeleted"-|
 	<div class="errorMessage">Este reporte se genera por circuito, por favor, seleccione un circuito y solicite el reporte nuevamente</div>
@@ -69,14 +69,13 @@
 					|-/foreach-|
 					</tr>
 				|-/foreach-|					
-
 					<tr>
 						<th>Totales</th>
 					|-assign var=generalTotal value=0-|
 					|-assign var=counter value=0-|
 					|-foreach from=$themes item=theme-|
 						|-assign var=themeId value=$theme->getId()-|
-						<td align="center"><strong>|-if isset($item.totals.$themeId)-||-$item.totals.$themeId-||-else-|---|-/if-|</strong></td>			
+						<th>|-if isset($item.totals.$themeId)-||-$item.totals.$themeId-||-else-|---|-/if-|</th>			
 					|-/foreach-|
 					</tr>
 					<tr>

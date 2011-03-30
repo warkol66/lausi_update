@@ -1,18 +1,22 @@
-<input type="button" value="Generar Recorrido" onClick="generateDirections()"/>
-<input type="button" value="Limpiar" onClick="clearAll()"/>
-
+<fieldset>
+<legend>Recorrido</legend>
+<p>
+<input type="button" value="Generar Recorrido" onClick="generateDirections()" class="noPrint" />
+<input type="button" value="Limpiar" onClick="clearAll()" class="noPrint"/>
+</p>
+<p></p>
 <div>
-	<ul id="addresses_list" style="float:left;">
+	<ol id="addresses_list" style="float:left;">
 	|-foreach from=$results item=result name=for_result-|
 		|-foreach from=$result.addresses item=byAddress name=for_byAddress-|
 			|-assign var=address value=$byAddress.address-|
 			<li id="address_|-$address->getId()-|" onMouseOver="firstPath[this.id].marker.setIcon('images/available.gif')" onMouseOut="firstPath[this.id].marker.setIcon('')">|-$address->getName()-|</li>
 		|-/foreach-|
 	|-/foreach-|
-	</ul>
+	</ol>
 </div>
 
-<div id="map_canvas" style="height: 480px;"></div>
+<div id="map_canvas"></div>
 
 <script type="text/javascript" src="scripts/lausi-map-circuit.js"></script>
 
@@ -35,3 +39,4 @@
 		|-/foreach-|
 	|-/foreach-|
 </script>
+</fieldset>

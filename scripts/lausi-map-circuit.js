@@ -5,7 +5,7 @@ var directionsService;
 var firstPath = {};
 
 function initializeMap() {
-    var latlng = new google.maps.LatLng('-34.649', '-58.456');
+    var latlng = new google.maps.LatLng('-34.609', '-58.445');
     var myOptions = {
       zoom: 12,
       center: latlng,

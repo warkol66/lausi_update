@@ -2,7 +2,7 @@
 
 @import url("globalStyles.css");
 @import url("globalCustom.css");
-@import url("style.css"); /*  font-size: en PIXEL*/
+@import url("style.css");
 @import url("custom.css");
 
 @import url("datePicker.css");
