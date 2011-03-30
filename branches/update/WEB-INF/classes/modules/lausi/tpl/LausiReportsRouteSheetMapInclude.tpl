@@ -1,7 +1,7 @@
 <input type="button" value="Generar Recorrido" onClick="generateDirections()"/>
 <input type="button" value="Limpiar" onClick="clearAll()"/>
 
-<div id="map_canvas" style="height: 480px;"></div>
+<div id="map_canvas"></div>
 
 <script type="text/javascript" src="scripts/lausi-map-circuit.js"></script>
 

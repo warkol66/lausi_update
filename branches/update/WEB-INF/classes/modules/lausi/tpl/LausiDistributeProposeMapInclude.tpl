@@ -1,4 +1,4 @@
-<div id="map_canvas" style="height: 480px;"></div>
+<div id="map_canvas"></div>
 
 <script type="text/javascript" language="javascript">
 	initializeMap();

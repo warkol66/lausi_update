@@ -69,7 +69,7 @@
 			</fieldset>
 </form>
 </div>
-<div id="map_canvas" style="height: 480px;"></div>
+<div id="map_canvas"></div>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 <script type="text/javascript">
 	var map;
@@ -82,7 +82,7 @@
 	function initializeMap() {
 	    directionsDisplay = new google.maps.DirectionsRenderer();
 	    geocoder = new google.maps.Geocoder();
-	    var latlng = new google.maps.LatLng(|-if $clientaddress->getLatitude() ne '' && $clientaddress->getLongitude() ne ''-|'|-$clientaddress->getLatitude()-|', '|-$clientaddress->getLongitude()-|'|-else-|'-34.649', '-58.456'|-/if-|);
+	    var latlng = new google.maps.LatLng(|-if $clientaddress->getLatitude() ne '' && $clientaddress->getLongitude() ne ''-|'|-$clientaddress->getLatitude()-|', '|-$clientaddress->getLongitude()-|'|-else-|'-34.609', '-58.445'|-/if-|);
 	    var myOptions = {
 	      zoom: |-if $clientaddress->getId() ne ''-|16|-else-|12|-/if-|,
 	      center: latlng,
