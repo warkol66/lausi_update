@@ -1,25 +1,9 @@
 <h2>Administración de Carteleras</h2>
 <h1>Listado de Carteleras</h1>
 <p>
-|-if isset($address) -|
+|-if isset($address)-|
 <form action="Main.php" method="get">
-	|-if isset($filters)-|
-		|-if isset($filters.circuitId)-|
-			<input type="hidden" name="filters[circuitId]" value="|-$filters.circuitId-|"></input>
-		|-/if-|
-		|-if isset($filters.regionId)-|
-			<input type="hidden" name="filters[regionId]" value="|-$filters.regionId-|"></input>
-		|-/if-|
-		|-if isset($filters.rating)-|
-			<input type="hidden" name="filters[rating]" value="|-$filters.rating-|"></input>
-		|-/if-|
-		|-if isset($filters.streetName)-|
-			<input type="hidden" name="filters[streetName]" value="|-$filters.streetName-|"></input>
-		|-/if-|
-		|-if isset($filters.page)-|
-			<input type="hidden" name="filters[page]" value="|-$filters.page-|"></input>
-		|-/if-|
-	|-/if-|
+	|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 	<input type="hidden" name="id" value="|-$address->getId()-|" id="addressId">
 	<input type="hidden" name="do" value="lausiAddressesEdit">
 	<p><input type="submit" value="Volver a Dirección |-$address->getName()-|"></p>
