@@ -35,22 +35,21 @@
 			<p>
 				<input name="longitude" type="hidden" id="longitude" title="longitude" value="|-$address->getlongitude()|system_numeric_format:8-|" size="20" />
 			</p>
-		<p>
-				<label for="rating">Valoración</label>
-					<select name="rating" id="rating" >
-						<option value="0" |-if $address->getrating() lt 1-|selected="selected"|-/if-|>Seleccione Valoración&nbsp;&nbsp;</option>
-						<option value="1" |-if $address->getrating() eq 1-|selected="selected"|-/if-|>Premium&nbsp;&nbsp;</option>
-						<option value="2" |-if $address->getrating() eq 2-|selected="selected"|-/if-|>Superior&nbsp;&nbsp;</option>
-						<option value="3" |-if $address->getrating() eq 3-|selected="selected"|-/if-|>Destacada&nbsp;&nbsp;</option>
-						<option value="4" |-if $address->getrating() eq 4-|selected="selected"|-/if-|>Standart&nbsp;&nbsp;</option>
-					</select>
-		</p>
 			<p>
 				<label for="regionId">Barrio</label>
 				<select id="regionId" name="regionId" title="regionId" onChange="$('button_edit_address').disable()">
 					<option value="">Seleccione un Barrio</option>
 									|-foreach from=$regionIdValues item=object-|
 									<option value="|-$object->getid()-|" |-if $address->getregionId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getname()-|</option>
+									|-/foreach-|
+								</select>
+		</p>
+			<p>
+				<label for="circuitId">Circuito</label>
+				<select id="circuitId" name="circuitId" title="circuitId">
+					<option value="">Seleccione un Circuito</option>
+									|-foreach from=$circuitIdValues item=object-|
+									<option value="|-$object->getid()-|" |-if $address->getcircuitId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getname()-|</option>
 									|-/foreach-|
 								</select>
 		</p>
@@ -62,14 +61,15 @@
 				<label for="ownerPhone">Tel. Dueño</label>
 				<input name="ownerPhone" type="text" id="ownerPhone" title="ownerPhone" value="|-$address->getownerPhone()-|" size="30" maxlength="100" />
 			</p>
-			<p>
-				<label for="circuitId">Circuito</label>
-				<select id="circuitId" name="circuitId" title="circuitId">
-					<option value="">Seleccione un Circuito</option>
-									|-foreach from=$circuitIdValues item=object-|
-									<option value="|-$object->getid()-|" |-if $address->getcircuitId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getname()-|</option>
-									|-/foreach-|
-								</select>
+		<p>
+				<label for="rating">Valoración</label>
+					<select name="rating" id="rating" >
+						<option value="0" |-0|selected:$address->getRating()-|>Seleccione Valoración</option>
+						<option value="1" |-1|selected:$address->getRating()-|>Premium</option>
+						<option value="2" |-2|selected:$address->getRating()-|>Superior</option>
+						<option value="3" |-3|selected:$address->getRating()-|>Destacada</option>
+						<option value="4" |-4|selected:$address->getRating()-|>Standart</option>
+					</select>
 		</p>
 			<p>
 				|-if $action eq "edit"-|
@@ -78,24 +78,7 @@
 				<input type="hidden" name="action" id="action" value="|-$action-|" />
 				<input type="hidden" name="do" id="do" value="lausiAddressesDoEdit" />
 
-				|-if isset($filters)-|
-					|-if isset($filters.circuitId)-|
-						<input type="hidden" name="filters[circuitId]" value="|-$filters.circuitId-|"></input>
-					|-/if-|
-					|-if isset($filters.regionId)-|
-						<input type="hidden" name="filters[regionId]" value="|-$filters.regionId-|"></input>
-					|-/if-|
-					|-if isset($filters.rating)-|
-						<input type="hidden" name="filters[rating]" value="|-$filters.rating-|"></input>
-					|-/if-|
-					|-if isset($filters.streetName)-|
-						<input type="hidden" name="filters[streetName]" value="|-$filters.streetName-|"></input>
-					|-/if-|
-					|-if isset($filters.page)-|
-						<input type="hidden" name="filters[page]" value="|-$filters.page-|"></input>
-					|-/if-|
-				|-/if-|
-				
+				|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 				<input type="submit" id="button_edit_address" name="button_edit_address" title="Aceptar" value="Aceptar" |-if $address->getId() eq ''-|disabled|-/if-|/>
 				<input type='button' onClick='location.href="Main.php?do=lausiAddressesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Cancelar' title="Regresar al listado de carteleras"/>
 				</p>

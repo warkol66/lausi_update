@@ -33,7 +33,7 @@ class LausiAddressesListAction extends BaseAction {
  		//procesamos las opciones de filtrado que pueden llegar a haberse aplicado
  		
 		$filters = $_GET['filters'];
-		$smarty->assign("filters",$filters);
+			$smarty->assign("filters",$filters);
 
  		if (!empty($_GET['filters']['regionId']))
  			$addressPeer->setRegionId($_GET['filters']['regionId']);

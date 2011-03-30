@@ -92,41 +92,15 @@
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="lausiAddressesEdit" />
 						<input type="hidden" name="id" value="|-$address->getid()-|" />
-						|-if isset($circuitId)-|
-							<input type="hidden" name="filters[circuitId]" value="|-$circuitId-|"></input>
-						|-/if-|
-						|-if isset($regionId)-|
-							<input type="hidden" name="filters[regionId]" value="|-$regionId-|"></input>
-						|-/if-|
-						|-if isset($rating)-|
-							<input type="hidden" name="filters[rating]" value="|-$rating-|"></input>
-						|-/if-|
-						|-if isset($streetName)-|
-							<input type="hidden" name="filters[streetName]" value="|-$streetName-|"></input>
-						|-/if-|
-						|-if isset($page)-|
-							<input type="hidden" name="filters[page]" value="|-$page-|"></input>
-						|-/if-|
+						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 						<input type="submit" name="submit_go_edit_address" value="Editar" class="iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="lausiAddressesDoDelete" />
 						<input type="hidden" name="id" value="|-$address->getid()-|" />
-						|-if isset($circuitId)-|
-							<input type="hidden" name="filters[circuitId]" value="|-$circuitId-|"></input>
-						|-/if-|
-						|-if isset($regionId)-|
-							<input type="hidden" name="filters[regionId]" value="|-$regionId-|"></input>
-						|-/if-|
-						|-if isset($rating)-|
-							<input type="hidden" name="filters[rating]" value="|-$rating-|"></input>
-						|-/if-|
-						|-if isset($rating)-|
-							<input type="hidden" name="filters[streetName]" value="|-$streetName-|"></input>
-						|-/if-|
-						|-if isset($page)-|
-							<input type="hidden" name="filters[page]" value="|-$page-|"></input>
-						|-/if-|
+						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
             <input type="submit" name="submit_go_delete_address" value="Borrar" onClick="return confirm('Seguro que desea eliminar el address?')" class="iconDelete" />
           </form>				</td>
 			</tr>
