@@ -1,12 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("AddressPeer.php");
-require_once("BillboardPeer.php");
-require_once("ThemePeer.php");
-require_once("CircuitPeer.php");
-require_once("RegionPeer.php");
-
 class LausiBillboardsListAction extends BaseAction {
 
 
@@ -59,62 +52,59 @@ class LausiBillboardsListAction extends BaseAction {
 		}
 		else {
 
-			//opciones para selector de filtro
 			$smarty->assign('themes',ThemePeer::getAllActive());
 			$smarty->assign('regions',RegionPeer::getAll());
 			$smarty->assign('circuits',CircuitPeer::getAll());
+
+			if (!empty($_GET['filters'])) {
+				//opciones para selector de filtro
+	
+				$billboardPeer = new BillboardPeer();
+
+				$filters = $_GET['filters'];
+				$smarty->assign("filters",$filters);
+//				$this->applyFilters($billboardPeer,$filters,$smarty);
 			
-			$billboardPeer = new BillboardPeer();
-		
-			//procesamos las opciones de filtrado que pueden llegar a haberse aplicado
-			if (!empty($_GET['regionId'])) {
-				$billboardPeer->setRegionId($_GET['regionId']);
-				$smarty->assign('regionId',$_GET['regionId']);
-			}
-
-			if (!empty($_GET['circuitId'])) {
-				$billboardPeer->setCircuitId($_GET['circuitId']);
-				$smarty->assign('circuitId',$_GET['circuitId']);
-			}
-
-			if (!empty($_GET['themeId'])) {
-				$billboardPeer->setThemeId($_GET['themeId']);
-				$smarty->assign('themeId',$_GET['themeId']); 			
-			}
-
-			if (!empty($_GET['type'])) {
-				$billboardPeer->setType($_GET['type']);
-				$smarty->assign('type',$_GET['type']); 			
-			}
-
-			if (empty($_GET['groupByAddress'])) {
-				$billboardPeer->setGroupByAddress();
-				$smarty->assign('groupByAddress',true);			
-			}
+				//procesamos las opciones de filtrado que pueden llegar a haberse aplicado
+				if (!empty($_GET['filters']['regionId']))
+					$billboardPeer->setRegionId($_GET['filters']['regionId']);
+	
+				if (!empty($_GET['filters']['circuitId']))
+					$billboardPeer->setCircuitId($_GET['filters']['circuitId']);
+	
+				if (!empty($_GET['filters']['themeId']))
+					$billboardPeer->setThemeId($_GET['filters']['themeId']);
+	
+				if (!empty($_GET['filters']['type']))
+					$billboardPeer->setType($_GET['filters']['type']);
+	
+				if (empty($_GET['filters']['groupByAddress']))
+					$billboardPeer->setGroupByAddress();
+				
+				if (!empty($_GET['filters']['groupByType']))
+					$billboardPeer->setGroupByType();
+	
+		 		if (!empty($_GET['filters']['rating']))
+		 			$billboardPeer->setRating($_GET['filters']['rating']);
 			
-			if (!empty($_GET['groupByType'])) {
-				$billboardPeer->setGroupByType();
-				$smarty->assign('groupByType',true); 			
-			}
+				$pager = $billboardPeer->getAllPaginatedFilter($_GET["page"]);
+				$smarty->assign("billboards",$pager->getResult());
+				$smarty->assign("pager",$pager);
 
-	 		if (!empty($_GET['rating'])) {
-	 			$billboardPeer->setRating($_GET['rating']);
-	 			$smarty->assign('rating',$_GET['rating']); 			
-	 		}
+				//$url = "Main.php?do=lausiBillboardsList&regionId=".$_GET['regionId']."&circuitId=".$_GET['circuitId']."&themeId=".$_GET['themeId']."&type=".$_GET['type']."&groupByAddress=".$_GET['groupByAddress']."&groupByType=".$_GET['groupByType'];
+				$url = "Main.php?do=lausiBillboardsList";
+
+				foreach ($filters as $key => $value)
+					$url .= "&filters[$key]=$value";
+				$smarty->assign("url",$url);
+
+				$smarty->assign("url",$url);	
+				$smarty->assign("all","1");
+			}
 		
-			$pager = $billboardPeer->getAllPaginatedFilter($_GET["page"]);
-			$smarty->assign("billboards",$pager->getResult());
-			$smarty->assign("pager",$pager);
-			$url = "Main.php?do=lausiBillboardsList&regionId=".$_GET['regionId']."&circuitId=".$_GET['circuitId']."&themeId=".$_GET['themeId']."&type=".$_GET['type']."&groupByAddress=".$_GET['groupByAddress']."&groupByType=".$_GET['groupByType'];
-			$smarty->assign("url",$url);	
-			$smarty->assign("all","1");		
 		}
    
 		$smarty->assign("message",$_GET["message"]);
-		
-		if (isset($_GET['listRedirect'])) {
-			$smarty->assign('listRedirect',$_GET['listRedirect']);
-		}
 		
 		return $mapping->findForwardConfig('success');
 	}

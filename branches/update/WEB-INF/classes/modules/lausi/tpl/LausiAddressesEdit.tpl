@@ -1,7 +1,7 @@
 <h2>Administración de Direcciones</h2>
 <h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Dirección</h1>
 |-if $message eq "created"-|
-	<div class="successMessage">Direccion creada correctamente, Puede Editar sus carteleras en la seccion inferior</div>
+	<div class="successMessage">Direccion creada correctamente, puede editar sus carteleras en la seccion inferior</div>
 |-elseif $message eq "error"-|
 	<div class="failureMessage">Ha ocurrido un error al intentar guardar la dirección</div>
 |-/if-|
@@ -24,6 +24,7 @@
 				<label for="intersection">Intersección</label>
 				<input name="intersection" type="text" id="intersection" title="intersection" value="|-$address->getintersection()-|" size="45" maxlength="100" onChange="$('button_edit_address').disable()" />
 			</p>
+			<p><input type="button" id="button_locate" value="Buscar en Mapa" title="Buscar en Mapa" onClick="locate(this.form); $('button_edit_address').enable()"/></p>
 			<p>
 				<label for="nickname">Nombre De Fantasía</label>
 				<input name="nickname" type="text" id="number" title="number" value="|-$address->getNickname()-|" size="45" />
@@ -77,110 +78,92 @@
 				<input type="hidden" name="action" id="action" value="|-$action-|" />
 				<input type="hidden" name="do" id="do" value="lausiAddressesDoEdit" />
 
-				|-if isset($listRedirect)-|
-					|-if isset($listRedirect.circuitId)-|
-						<input type="hidden" name="listRedirect[circuitId]" value="|-$listRedirect.circuitId-|"></input>
+				|-if isset($filters)-|
+					|-if isset($filters.circuitId)-|
+						<input type="hidden" name="filters[circuitId]" value="|-$filters.circuitId-|"></input>
 					|-/if-|
-					|-if isset($listRedirect.regionId)-|
-						<input type="hidden" name="listRedirect[regionId]" value="|-$listRedirect.regionId-|"></input>
+					|-if isset($filters.regionId)-|
+						<input type="hidden" name="filters[regionId]" value="|-$filters.regionId-|"></input>
 					|-/if-|
-					|-if isset($listRedirect.rating)-|
-						<input type="hidden" name="listRedirect[rating]" value="|-$listRedirect.rating-|"></input>
+					|-if isset($filters.rating)-|
+						<input type="hidden" name="filters[rating]" value="|-$filters.rating-|"></input>
 					|-/if-|
-					|-if isset($listRedirect.streetName)-|
-						<input type="hidden" name="listRedirect[streetName]" value="|-$listRedirect.streetName-|"></input>
+					|-if isset($filters.streetName)-|
+						<input type="hidden" name="filters[streetName]" value="|-$filters.streetName-|"></input>
 					|-/if-|
-					|-if isset($listRedirect.page)-|
-						<input type="hidden" name="listRedirect[page]" value="|-$listRedirect.page-|"></input>
+					|-if isset($filters.page)-|
+						<input type="hidden" name="filters[page]" value="|-$filters.page-|"></input>
 					|-/if-|
 				|-/if-|
 				
 				<input type="submit" id="button_edit_address" name="button_edit_address" title="Aceptar" value="Aceptar" |-if $address->getId() eq ''-|disabled|-/if-|/>
-				<input type="button" id="button_locate" value="Buscar" title="Buscar en Mapa" onClick="locate(this.form); $('button_edit_address').enable()"/>
-			
+				<input type='button' onClick='location.href="Main.php?do=lausiAddressesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Cancelar' title="Regresar al listado de carteleras"/>
+				</p>
 	</form>
-	<form action="Main.php" method="get">
-		|-if isset($listRedirect)-|
-			|-if isset($listRedirect.circuitId)-|
-				<input type="hidden" name="circuitId" value="|-$listRedirect.circuitId-|"></input>
-			|-/if-|
-			|-if isset($listRedirect.regionId)-|
-				<input type="hidden" name="regionId" value="|-$listRedirect.regionId-|"></input>
-			|-/if-|
-			|-if isset($listRedirect.rating)-|
-				<input type="hidden" name="rating" value="|-$listRedirect.rating-|"></input>
-			|-/if-|
-			|-if isset($listRedirect.streetName)-|
-				<input type="hidden" name="streetName" value="|-$listRedirect.streetName-|"></input>
-			|-/if-|
-			|-if isset($listRedirect.page)-|
-				<input type="hidden" name="page" value="|-$listRedirect.page-|"></input>
-			|-/if-|			
-		|-/if-|
-		<input type="hidden" name="do" value="lausiAddressesList">
-		<input type="submit" value="Cancelar">
-	</form>
-	</p>
 	</fieldset>	
-	
+	<!-- mapa google -->
 	<div id="map_canvas" style="height: 480px;"></div>
-	
-	<p>
+	<!-- fin mapa google -->
+	<p>&nbsp;</p>
+	<h2>|-$address->getName()-|</h2>
+	<h1>Carteleras y Motivos en la Dirección</h1>
 	<form action="Main.php" method="get">
-			|-if isset($listRedirect)-|
-				|-if isset($listRedirect.circuitId)-|
-					<input type="hidden" name="listRedirect[circuitId]" value="|-$listRedirect.circuitId-|"></input>
+			|-if isset($filters)-|
+				|-if isset($filters.circuitId)-|
+					<input type="hidden" name="filters[circuitId]" value="|-$filters.circuitId-|"></input>
 				|-/if-|
-				|-if isset($listRedirect.regionId)-|
-					<input type="hidden" name="listRedirect[regionId]" value="|-$listRedirect.regionId-|"></input>
+				|-if isset($filters.regionId)-|
+					<input type="hidden" name="filters[regionId]" value="|-$filters.regionId-|"></input>
 				|-/if-|
-				|-if isset($listRedirect.rating)-|
-					<input type="hidden" name="listRedirect[rating]" value="|-$listRedirect.rating-|"></input>
+				|-if isset($filters.rating)-|
+					<input type="hidden" name="filters[rating]" value="|-$filters.rating-|"></input>
 				|-/if-|
-				|-if isset($listRedirect.streetName)-|
-					<input type="hidden" name="listRedirect[streetName]" value="|-$listRedirect.streetName-|"></input>
+				|-if isset($filters.streetName)-|
+					<input type="hidden" name="filters[streetName]" value="|-$filters.streetName-|"></input>
 				|-/if-|
-				|-if isset($listRedirect.page)-|
-					<input type="hidden" name="listRedirect[page]" value="|-$listRedirect.page-|"></input>
+				|-if isset($filters.page)-|
+					<input type="hidden" name="filters[page]" value="|-$filters.page-|"></input>
 				|-/if-|
 			|-/if-|
 			<input type="hidden" name="addressId" value="|-$address->getId()-|" id="addressId" />
 			<input type="hidden" name="do" value="lausiAdvertisementsEdit" />
-			<p><input type="submit" value="Crear Aviso en Dirección" /></p>
+			<input type="submit" value="Crear Aviso en Dirección" />
 	</form>
-	</p>
+
 
 |-if isset($billboards)-|
-	<p>
 	<form action="Main.php" method="get">
-		|-if isset($listRedirect)-|
-			|-if isset($listRedirect.circuitId)-|
-				<input type="hidden" name="listRedirect[circuitId]" value="|-$listRedirect.circuitId-|"></input>
+		|-if isset($filters)-|
+			|-if isset($filters.circuitId)-|
+				<input type="hidden" name="filters[circuitId]" value="|-$filters.circuitId-|"></input>
 			|-/if-|
-			|-if isset($listRedirect.regionId)-|
-				<input type="hidden" name="listRedirect[regionId]" value="|-$listRedirect.regionId-|"></input>
+			|-if isset($filters.regionId)-|
+				<input type="hidden" name="filters[regionId]" value="|-$filters.regionId-|"></input>
 			|-/if-|
-			|-if isset($listRedirect.rating)-|
-				<input type="hidden" name="listRedirect[rating]" value="|-$listRedirect.rating-|"></input>
+			|-if isset($filters.rating)-|
+				<input type="hidden" name="filters[rating]" value="|-$filters.rating-|"></input>
 			|-/if-|
-			|-if isset($listRedirect.streetName)-|
-				<input type="hidden" name="listRedirect[streetName]" value="|-$listRedirect.streetName-|"></input>
+			|-if isset($filters.streetName)-|
+				<input type="hidden" name="filters[streetName]" value="|-$filters.streetName-|"></input>
 			|-/if-|
-			|-if isset($listRedirect.page)-|
-				<input type="hidden" name="listRedirect[page]" value="|-$listRedirect.page-|"></input>
+			|-if isset($filters.page)-|
+				<input type="hidden" name="filters[page]" value="|-$filters.page-|"></input>
 			|-/if-|
 		|-/if-|
 		<input type="hidden" name="addressId" value="|-$address->getId()-|" id="addressId">
 		<input type="hidden" name="do" value="lausiBillboardsList">
-		<p><input type="submit" value="Editar Carteleras de la Dirección"></p>
+	<input type="submit" value="Editar Carteleras de la Dirección">
 	</form>
-	</p>
 	<h3>Motivos en la Dirección</h3>
 	<fieldset>
 		<ul>
+			|-if $groupByTheme|@count gt 0-|
 			|-foreach from=$groupByTheme item=item-|
 			<li>|-assign var=theme value=$item.theme-|<strong>|-$theme->getName()-|</strong> - Cantidad de |-if $theme->getType() eq 1-|Módulos Dobles|-/if-||-if $theme->getType() eq 2-|Séxtuples|-/if-|: |-$item.adverts|@count-|<br />&nbsp;&nbsp;&nbsp;Desde: |-$theme->getStartDate()|date_format:"%d-%m-%Y"-| - Hasta: |-$theme->getEndDate()|date_format:"%d-%m-%Y"-| </li>
 			|-/foreach-|
+		|-else-|
+		<li>No hay motivos asignados</li>
+		|-/if-|
 		</ul>
 	</fieldset>
 	<h3>Disponibilidad de Carteleras</h3>
