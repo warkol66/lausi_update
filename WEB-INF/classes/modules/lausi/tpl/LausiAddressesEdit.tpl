@@ -258,37 +258,25 @@
 	}
 	
 	function updateAddressInfoByResult(result) {
-		//Cuidado, esta funcion puede estar trabajando con una versión serializada en JSON de un result.
-		
 		infowindow.setContent(result.formatted_address);
 	    infowindow.open(map, marker);
 	    
 	    var addressComponents = result.address_components;
 		$('street').value = getComponent(addressComponents, 'route').long_name;
-		
-		//La altura devuelta por el geocoding es del tipo 2500-2600
-		//Como necesitamos un único número y no un intervalo, tomamos el primer límite.
+
 		var number = getComponent(addressComponents, 'street_number').long_name;
 		if (number) {
+			//La altura devuelta por el geocoding es del tipo 2500-2600
+			//Como necesitamos un único número y no un intervalo, tomamos el primer límite.
 			number = number.split('-');
 			number = parseInt(number[0]);
 		} else {
 			number = '';
 		}
 		$('number').value = number;
-		var loc = result.geometry.location;
 		
-		//Si estamos con la versión serializada del result, hemos tomado el recaudo anteriormente de
-		//convertir el location en su representacion de cadena. Ahora lo reconstruimos con el constructor.
-		//La idea es permitir el uso de los métodos y no acceder a las propiedades, para que no se rompa el dia
-		//de mañana si sale una api donde internamente el objeto LatLng sea distinto.
-		if (Object.isString(loc)) {
-			loc = loc.split(',');
-			loc = new google.maps.LatLng(loc[0], loc[1]);
-		}
-		
-		$('latitude').value = loc.lat();
-		$('longitude').value = loc.lng();
+		$('latitude').value = result.geometry.location.lat();
+		$('longitude').value = result.geometry.location.lng();
 		
 		var region = getComponent(addressComponents, 'neighborhood').long_name;
 		selectRegion(region);
@@ -373,20 +361,16 @@
 	function displayResultsList(results) {
 		var resultsList = $('directions_results');
 		resultsList.innerHTML = '';
-		results.each(function(result) {
-			//Esto se hace para reconstruir el objeto usando el constructor y no el simple evalJSON
-			//esto nos permite poder usar sus métodos
-			result.geometry.location = result.geometry.location.lat() + ', ' + result.geometry.location.lng();
-			
-			var locationString = 'new google.maps.LatLng(' + result.geometry.location + ')';
-			resultString = Object.toJSON(result);
-			var onClickString = 'displayMarker('+locationString+');updateAddressInfoByResult('+resultString+');';
-			resultsList.insert({bottom:"<li onClick='"+onClickString+"'>"+result.formatted_address+'</li>'});
+		results.each(function(result, idx) {
+			suggestions['suggestion_'+idx] = result;
+			var onClickString = 'displayMarker(suggestions[this.id].geometry.location);updateAddressInfoByResult(suggestions[this.id]);';
+			resultsList.insert({bottom:'<li id="suggestion_'+idx+'" onClick="'+onClickString+'">'+result.formatted_address+'</li>'});
 		});
 	}
 	
 	function clearResultsList() {
 		$('directions_results').innerHTML = '';
+		suggestions.clear();
 	}
 	
 </script>
