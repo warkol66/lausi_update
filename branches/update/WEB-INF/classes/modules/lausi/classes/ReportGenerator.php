@@ -86,13 +86,12 @@
 					$results[$circuit->getId()]['totals'][$theme->getId()] = $results[$circuit->getId()]['totals'][$theme->getId()] + (1 * $multiplier);
 					$results[$circuit->getId()]['addresses'][$address->getId()]['adverts'][$theme->getId()] += (1 * $multiplier);
 					
-					$results[$circuit->getId()]['total'] = $results[$circuit->getId()]['total'] + (1 * $multiplier);
 					
+					$results[$circuit->getId()]['total'] = $results[$circuit->getId()]['total'] + (1 * $multiplier);
 				}
-				
 
+				$results = $this->orderResults($results);
 				return $results;
-
 		}
 		
 		public function getThemesReport($type=null,$circuit=null) {
@@ -244,8 +243,56 @@
 			}
 			return $results;
 		}
-	
+
+		/**
+		 * Devuelve una arreglo conteniendo todos los resultados pero ordenados en forma aproximada
+		 * por proximidad.
+		 */
+		protected function orderResults($results) {
+			$orderedResults = $results;
+			
+			foreach ($results as $key => $result) {
+				$orderedResults[$key]['addresses'] = array();
+				$addresses = $result['addresses'];
+				//Primero tomamos un punto de partida al azar.
+				$idx = 0; //rand(0, count($addresses)); Me parece que no está bueno tan al azar
+				//el arreglo no esta indexado en forma continua
+				$keys = array_keys($addresses);
+				$idx = $keys[$idx];
+				$orderedResults[$key]['addresses'][$idx] = $addresses[$idx];
+				unset($addresses[$idx]);
+				
+				//elemento que usamos como fijo para obtener el más cercano.
+				$pivot = $orderedResults[$key]['addresses'][$idx];
+				
+				//Mientras queden elementos por ordenar.
+				while (count($addresses) > 0) {
+					$idx = $this->getIndexOfClosestTo($pivot, $addresses);
+					$orderedResults[$key]['addresses'][$idx] = $addresses[$idx];
+					$pivot = $addresses[$idx];
+					unset($addresses[$idx]);
+				}
+			}
+			return $orderedResults;
+		}
+		
+		/**
+		 * Devuelve el indice del elemento de $results que se encuentra más cerca de $pivot.
+		 * 
+		 * $results es pasado por referencia por una cuestion de performance, pero no va a ser modificado.
+		 */
+		protected function getIndexOfClosestTo($pivot, &$addresses) {
+			$minIdx = 0;
+			$minDistance = -1;
+			
+			foreach($addresses as $i => $address) {
+				$distance = $pivot['address']->getDistanceTo($address['address']);
+				if ($distance < $minDistance || $minDistance == -1) {
+					$minIdx = $i;
+					$minDistance = $distance;
+				}
+			}
+			return $minIdx;
+		}
 	}
-
-
 ?>

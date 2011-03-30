@@ -33,6 +33,7 @@ function displayMarker(position) {
     google.maps.event.addListener(marker, 'click', function() {
     	markerOnClick(marker);
   	});
+  	return marker;
 }
 
 function markerOnClick(marker) {
