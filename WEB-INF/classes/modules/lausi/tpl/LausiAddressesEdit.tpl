@@ -101,9 +101,18 @@
 				</p>
 	</form>
 	</fieldset>	
+	
 	<!-- mapa google -->
-	<div id="map_canvas" style="height: 480px;"></div>
+	<div id="map_container" style="display:none">
+		<div id="map_canvas" style="height: 480px;"></div>
+		<div><ul id="directions_results"></ul></div>
+		<p><input id="hide_map" type="button" value="Ocultar mapa" title="Ocultar mapa" onClick="$('map_container').hide();$('show_map').show()"/></p>
+	</div>
+	<p><input id="show_map" type="button" value="Mostrar mapa" title="Mostrar mapa" onClick="$('map_container').show(); this.hide()" style="display:none;"/></p>
 	<!-- fin mapa google -->
+	
+|-if isset($listRedirect) || $address->getId() ne ''-|
+
 	<p>&nbsp;</p>
 	<h2>|-$address->getName()-|</h2>
 	<h1>Carteleras y Motivos en la Dirección</h1>
@@ -130,6 +139,7 @@
 			<input type="submit" value="Crear Aviso en Dirección" />
 	</form>
 
+|-/if-|
 
 |-if isset($billboards)-|
 	<form action="Main.php" method="get">
@@ -190,8 +200,6 @@
 	var marker;
 	var suggestions = [];
 	
-	window.onload = function() { initializeMap(); }
-	
 	function initializeMap() {
 	    directionsDisplay = new google.maps.DirectionsRenderer();
 	    geocoder = new google.maps.Geocoder();
@@ -208,6 +216,7 @@
 		|-/if-|
 		
 	  	google.maps.event.addListener(map, 'click', function(evnt) {
+	  		clearResultsList();
 	    	displayMarker(evnt.latLng);
 	    	updateAddressInfoByPosition(evnt.latLng);
 	  	});
@@ -220,17 +229,17 @@
 	        	position: position,
 	        	draggable: true
 	        });
+	        google.maps.event.addListener(marker, 'click', function() {
+	    		infowindow.open(map, marker);
+	  		});
+	  		
+		  	google.maps.event.addListener(marker, 'dragend', function() {
+		  		clearResultsList;
+		  		updateAddressInfoByPosition(marker.getPosition());
+		  	});
 	    } else {
 	    	marker.setPosition(position);
 	    }
-	        
-	    google.maps.event.addListener(marker, 'click', function() {
-	    	infowindow.open(map, marker);
-	  	});
-	  		
-	  	google.maps.event.addListener(marker, 'dragend', function() {
-	  		updateAddressInfoByPosition(marker.getPosition());
-	  	});
 	}
 	
 	function updateAddressInfoByPosition(position) {
@@ -238,20 +247,7 @@
 	      geocoder.geocode({'latLng': position}, function(results, status) {
 	        if (status == google.maps.GeocoderStatus.OK) {
 	          if (results[0]) {
-	            infowindow.setContent(results[0].formatted_address);
-	            infowindow.open(map, marker);
-	            var addressComponents = results[0].address_components;
-		    	$('street').value = getStreetComponent(addressComponents).long_name;
-		    	//La altura devuelta por el geocoding es del tipo 2500-2600
-		    	//Como necesitamos un único número y no un intervalo, tomamos el primer límite.
-		    	var number = getNumberComponent(addressComponents).long_name;
-		    	number = number.split('-');
-		    	number = parseInt(number[0]);
-		    	$('number').value = number;
-		    	$('latitude').value = results[0].geometry.location.lat();
-		    	$('longitude').value = results[0].geometry.location.lng();
-		    	var region = getNeighborhoodComponent(addressComponents).long_name;
-		    	selectRegion(region);
+				updateAddressInfoByResult(results[0]);
 	          }
 	        } else {
 	          alert("Geocoder failed due to: " + status);
@@ -262,50 +258,53 @@
 	}
 	
 	function updateAddressInfoByResult(result) {
+		//Cuidado, esta funcion puede estar trabajando con una versión serializada en JSON de un result.
+		
 		infowindow.setContent(result.formatted_address);
 	    infowindow.open(map, marker);
+	    
 	    var addressComponents = result.address_components;
-		$('street').value = getStreetComponent(addressComponents).long_name;
+		$('street').value = getComponent(addressComponents, 'route').long_name;
+		
 		//La altura devuelta por el geocoding es del tipo 2500-2600
 		//Como necesitamos un único número y no un intervalo, tomamos el primer límite.
-		var number = getNumberComponent(addressComponents).long_name;
-		number = number.split('-');
-		number = parseInt(number[0]);
+		var number = getComponent(addressComponents, 'street_number').long_name;
+		if (number) {
+			number = number.split('-');
+			number = parseInt(number[0]);
+		} else {
+			number = '';
+		}
 		$('number').value = number;
-		$('latitude').value = result.geometry.location.lat();
-		$('longitude').value = result.geometry.location.lng();
-		var region = getNeighborhoodComponent(addressComponents).long_name;
+		var loc = result.geometry.location;
+		
+		//Si estamos con la versión serializada del result, hemos tomado el recaudo anteriormente de
+		//convertir el location en su representacion de cadena. Ahora lo reconstruimos con el constructor.
+		//La idea es permitir el uso de los métodos y no acceder a las propiedades, para que no se rompa el dia
+		//de mañana si sale una api donde internamente el objeto LatLng sea distinto.
+		if (Object.isString(loc)) {
+			loc = loc.split(',');
+			loc = new google.maps.LatLng(loc[0], loc[1]);
+		}
+		
+		$('latitude').value = loc.lat();
+		$('longitude').value = loc.lng();
+		
+		var region = getComponent(addressComponents, 'neighborhood').long_name;
 		selectRegion(region);
+		
 		$('button_edit_address').enable();
 	}
 	
-	function getStreetComponent(addressComponents) {
+	function getComponent(addressComponents, componentName) {
 		var i = 0;
 		var addressComponent;
 		do {
 			addressComponent = addressComponents[i];
 			i++;
-		} while (i < addressComponents.size() && addressComponent.types[0] != 'route');
-		return addressComponent;
-	}
-	
-	function getNumberComponent(addressComponents) {
-		var i = 0;
-		var addressComponent;
-		do {
-			addressComponent = addressComponents[i];
-			i++;
-		} while (i < addressComponents.size() && addressComponent.types[0] != 'street_number');
-		return addressComponent;
-	}
-	
-	function getNeighborhoodComponent(addressComponents) {
-		var i = 0;
-		var addressComponent;
-		do {
-			addressComponent = addressComponents[i];
-			i++;
-		} while (i < addressComponents.size() && addressComponent.types[0] != 'neighborhood');
+		} while (i < addressComponents.size() && addressComponent.types[0] != componentName);
+		if (addressComponent.types[0] != componentName)
+			return false;
 		return addressComponent;
 	}
 	
@@ -333,6 +332,13 @@
 	}
 	
 	function locate(form) {
+		$('map_container').show();
+		if (!map) {
+			initializeMap();
+		}
+		
+		clearResultsList();
+	
 		//Convertimos el form en un objeto js para facilitar el análisis
 		var locationData = form.serialize(true);
 		
@@ -355,11 +361,32 @@
 	    			var result = results[0];
 	    			displayMarker(result.geometry.location);
 	    			updateAddressInfoByResult(result);
+	    			if (results.size() > 1)
+	    				displayResultsList(results);
 				} else {
 					alert("Geocode was not successful for the following reason: " + status);
 				}
 			});
 		}
+	}
+	
+	function displayResultsList(results) {
+		var resultsList = $('directions_results');
+		resultsList.innerHTML = '';
+		results.each(function(result) {
+			//Esto se hace para reconstruir el objeto usando el constructor y no el simple evalJSON
+			//esto nos permite poder usar sus métodos
+			result.geometry.location = result.geometry.location.lat() + ', ' + result.geometry.location.lng();
+			
+			var locationString = 'new google.maps.LatLng(' + result.geometry.location + ')';
+			resultString = Object.toJSON(result);
+			var onClickString = 'displayMarker('+locationString+');updateAddressInfoByResult('+resultString+');';
+			resultsList.insert({bottom:"<li onClick='"+onClickString+"'>"+result.formatted_address+'</li>'});
+		});
+	}
+	
+	function clearResultsList() {
+		$('directions_results').innerHTML = '';
 	}
 	
 </script>
