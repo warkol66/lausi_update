@@ -2,6 +2,7 @@ var map;
 var polyLine;
 var directionsDisplays = [];
 var directionsService;
+var firstPath = {};
 
 function initializeMap() {
     var latlng = new google.maps.LatLng('-34.649', '-58.456');
@@ -40,16 +41,25 @@ function markerOnClick(marker) {
 	var path = polyLine.getPath();
 	var i = 0;
 	var found = false;
+	var inFirstPath = false;
 	
 	while (i < path.getLength() && !found) {
 		if (path.getAt(i).equals(marker.getPosition()))
 			found = true;
 		i++;
 	}
+	
+	for (key in firstPath) {
+   		if (firstPath[key].position.equals(marker.getPosition())) {
+			$(key).toggle();
+			inFirstPath = true;
+			redrawPolyline($(key).parentNode);
+		}
+  	}
 
 	if (found) {
 		path.removeAt(i - 1);
-	} else {
+	} else if (!inFirstPath){
 		// Because path is an MVCArray, we can simply append a new coordinate
   		// and it will automatically appear
   		path.push(marker.getPosition());
@@ -127,5 +137,15 @@ function clearAll() {
 	clearPolyLine();
 	directionsDisplays.each(function(renderer) {
 		renderer.setMap(null);
+	});
+}
+
+function redrawPolyline(list) {
+	var lis = list.childElements();
+	clearPolyLine();
+	var path = polyLine.getPath();
+	
+	lis.each(function(li) {
+		path.push(firstPath[li.id].position);
 	});
 }
