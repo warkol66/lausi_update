@@ -27,9 +27,9 @@ class Address extends BaseAddress {
         }
         
 		/**
-		 * Devuelve el próximo número de cartelera en la dirección
+		 * Devuelve el prï¿½ximo nï¿½mero de cartelera en la direcciï¿½n
 		 *
-		 * @return integer próximo número de cartelera en la dirección
+		 * @return integer prï¿½ximo nï¿½mero de cartelera en la direcciï¿½n
 		 */
     function getNextBillboardNumber() {
 			$billboard = BillboardQuery::create()
@@ -42,7 +42,7 @@ class Address extends BaseAddress {
     }
         
 		/**
-		 * Devuelve la cantidad de carteleras por tipo en cada dirección
+		 * Devuelve la cantidad de carteleras por tipo en cada direcciï¿½n
      * @param integer $type tipe de cartelera
 		 * @return integer cantidad de carteleras por tipo
 		 */
@@ -194,6 +194,10 @@ class Address extends BaseAddress {
 						$availables[] = $billboard;
 				}
 				return $availables;
+		}
+		
+		public function getDistanceTo($otherAddress) {
+			return sqrt(pow($this->getLatitude() - $otherAddress->getLatitude(),2) + pow($this->getLongitude() - $otherAddress->getLongitude(),2));
 		}
 		          		
 		

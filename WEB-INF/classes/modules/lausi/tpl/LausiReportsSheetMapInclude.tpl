@@ -11,7 +11,8 @@
 	|-foreach from=$results item=result name=for_result-|
 		|-foreach from=$result.addresses item=byAddress name=for_byAddress-|
 			|-assign var=address value=$byAddress.address-|
-			displayMarker(new google.maps.LatLng('|-$address->getLatitude()-|', '|-$address->getLongitude()-|'));
+			var marker = displayMarker(new google.maps.LatLng('|-$address->getLatitude()-|', '|-$address->getLongitude()-|'));
+			markerOnClick(marker);
 		|-/foreach-|
 	|-/foreach-|
 </script>
