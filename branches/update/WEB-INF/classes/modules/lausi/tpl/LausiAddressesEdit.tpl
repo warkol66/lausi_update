@@ -29,12 +29,10 @@
 				<input name="nickname" type="text" id="number" title="number" value="|-$address->getNickname()-|" size="45" />
 			</p>			
 			<p>
-				<label for="latitude">Latitud</label>
-				<input name="latitude" type="text" id="latitude" title="latitude" value="|-$address->getlatitude()|system_numeric_format:8-|" size="20" />
+				<input name="latitude" type="hidden" id="latitude" title="latitude" value="|-$address->getlatitude()|system_numeric_format:8-|" size="20" />
 			</p>
 			<p>
-				<label for="longitude">Longitud</label>
-				<input name="longitude" type="text" id="longitude" title="longitude" value="|-$address->getlongitude()|system_numeric_format:8-|" size="20" />
+				<input name="longitude" type="hidden" id="longitude" title="longitude" value="|-$address->getlongitude()|system_numeric_format:8-|" size="20" />
 			</p>
 		<p>
 				<label for="rating">Valoración</label>
@@ -98,6 +96,7 @@
 				|-/if-|
 				
 				<input type="submit" id="button_edit_address" name="button_edit_address" title="Aceptar" value="Aceptar" />
+				<input type="button" id="button_locate" value="Buscar" title="Buscar en Mapa" onClick="locate(this.form)"/>
 			
 	</form>
 	<form action="Main.php" method="get">
@@ -206,6 +205,7 @@
 	var geocoder;
 	var infowindow = new google.maps.InfoWindow();
 	var marker;
+	var suggestions = [];
 	
 	window.onload = function() { initializeMap(); }
 	
@@ -226,7 +226,7 @@
 		
 	  	google.maps.event.addListener(map, 'click', function(evnt) {
 	    	displayMarker(evnt.latLng);
-	    	updateAddressInfo(evnt.latLng);
+	    	updateAddressInfoByPosition(evnt.latLng);
 	  	});
 	}
 	
@@ -246,15 +246,15 @@
 	  	});
 	  		
 	  	google.maps.event.addListener(marker, 'dragend', function() {
-	  		updateAddressInfo(marker.getPosition());
+	  		updateAddressInfoByPosition(marker.getPosition());
 	  	});
 	}
 	
-	function updateAddressInfo(position) {
+	function updateAddressInfoByPosition(position) {
 		if (geocoder) {
 	      geocoder.geocode({'latLng': position}, function(results, status) {
 	        if (status == google.maps.GeocoderStatus.OK) {
-	          if (results[1]) {
+	          if (results[0]) {
 	            infowindow.setContent(results[0].formatted_address);
 	            infowindow.open(map, marker);
 	            var addressComponents = results[0].address_components;
@@ -276,6 +276,24 @@
 	        }
 	      });
 	    }
+	}
+	
+	function updateAddressInfoByResult(result) {
+		infowindow.setContent(result.formatted_address);
+	    infowindow.open(map, marker);
+	    var addressComponents = result.address_components;
+		$('street').value = getStreetComponent(addressComponents).long_name;
+		//La altura devuelta por el geocoding es del tipo 2500-2600
+		//Como necesitamos un único número y no un intervalo, tomamos el primer límite.
+		var number = getNumberComponent(addressComponents).long_name;
+		number = number.split('-');
+		number = parseInt(number[0]);
+		$('number').value = number;
+		$('latitude').value = result.geometry.location.lat();
+		$('longitude').value = result.geometry.location.lng();
+		var region = getNeighborhoodComponent(addressComponents).long_name;
+		selectRegion(region);
+		console.log(result);
 	}
 	
 	function getStreetComponent(addressComponents) {
@@ -329,6 +347,36 @@
 				option.selected = false;
 			}
 		});
+	}
+	
+	function locate(form) {
+		//Convertimos el form en un objeto js para facilitar el análisis
+		var locationData = form.serialize(true);
+		
+		//Componemos la dirección para la busqueda de la siguiente manera:
+		//<calle> <numero>[, <barrio>], Buenos Aires, Argentina
+		var address = locationData.street;
+		
+		if (locationData.number != '')
+			address += ' ' + locationData.number;
+			
+		if (locationData.regionId != '')
+			address += ', ' + locationData.regionId;
+		
+		address += ', Ciudad Autonoma de Buenos Aires, Capital Federal, Argentina';
+		
+		if (geocoder) {
+    		geocoder.geocode( { 'address': address}, function(results, status) {
+	     		if (status == google.maps.GeocoderStatus.OK) {
+	     			suggestions.clear();
+	    			var result = results[0];
+	    			displayMarker(result.geometry.location);
+	    			updateAddressInfoByResult(result);
+				} else {
+					alert("Geocode was not successful for the following reason: " + status);
+				}
+			});
+		}
 	}
 	
 </script>
