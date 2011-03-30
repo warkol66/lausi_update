@@ -14,15 +14,15 @@
 		</p>
 			<p>
 				<label for="street">Calle</label>
-				<input name="street" type="text" id="street" title="street" value="|-$address->getstreet()-|" size="45" maxlength="100" />
+				<input name="street" type="text" id="street" title="street" value="|-$address->getstreet()-|" size="45" maxlength="100" onChange="$('button_edit_address').disable()" />
 			</p>
 			<p>
 				<label for="number">Número</label>
-				<input name="number" type="text" id="number" title="number" value="|-$address->getnumber()-|" size="12" />
+				<input name="number" type="text" id="number" title="number" value="|-$address->getnumber()-|" size="12" onChange="$('button_edit_address').disable()" />
 			</p>
 			<p>
 				<label for="intersection">Intersección</label>
-				<input name="intersection" type="text" id="intersection" title="intersection" value="|-$address->getintersection()-|" size="45" maxlength="100" />
+				<input name="intersection" type="text" id="intersection" title="intersection" value="|-$address->getintersection()-|" size="45" maxlength="100" onChange="$('button_edit_address').disable()" />
 			</p>
 			<p>
 				<label for="nickname">Nombre De Fantasía</label>
@@ -46,7 +46,7 @@
 		</p>
 			<p>
 				<label for="regionId">Barrio</label>
-				<select id="regionId" name="regionId" title="regionId">
+				<select id="regionId" name="regionId" title="regionId" onChange="$('button_edit_address').disable()">
 					<option value="">Seleccione un Barrio</option>
 									|-foreach from=$regionIdValues item=object-|
 									<option value="|-$object->getid()-|" |-if $address->getregionId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getname()-|</option>
@@ -95,8 +95,8 @@
 					|-/if-|
 				|-/if-|
 				
-				<input type="submit" id="button_edit_address" name="button_edit_address" title="Aceptar" value="Aceptar" />
-				<input type="button" id="button_locate" value="Buscar" title="Buscar en Mapa" onClick="locate(this.form)"/>
+				<input type="submit" id="button_edit_address" name="button_edit_address" title="Aceptar" value="Aceptar" |-if $address->getId() eq ''-|disabled|-/if-|/>
+				<input type="button" id="button_locate" value="Buscar" title="Buscar en Mapa" onClick="locate(this.form); $('button_edit_address').enable()"/>
 			
 	</form>
 	<form action="Main.php" method="get">
@@ -269,13 +269,13 @@
 		    	$('longitude').value = results[0].geometry.location.lng();
 		    	var region = getNeighborhoodComponent(addressComponents).long_name;
 		    	selectRegion(region);
-		    	console.log(results[0]);
 	          }
 	        } else {
 	          alert("Geocoder failed due to: " + status);
 	        }
 	      });
 	    }
+	    $('button_edit_address').enable();
 	}
 	
 	function updateAddressInfoByResult(result) {
@@ -293,7 +293,7 @@
 		$('longitude').value = result.geometry.location.lng();
 		var region = getNeighborhoodComponent(addressComponents).long_name;
 		selectRegion(region);
-		console.log(result);
+		$('button_edit_address').enable();
 	}
 	
 	function getStreetComponent(addressComponents) {
