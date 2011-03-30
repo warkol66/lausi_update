@@ -67,7 +67,7 @@ class LausiAddressesMigrateToGoogleCodingAction extends BaseAction {
 		//Armamos la url para la consulta al servicio de geocoding de google
 		//ej: http://maps.google.com/maps/api/geocode/xml?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true_or_false
 		$url = 'http://maps.google.com/maps/api/geocode/json?';
-		$url .= 'address=' . $address->getNumber() .'+'. str_replace(' ', '+', $address->getStreet()) . ',+'. str_replace(' ', '+', $address->getRegion()->getName()) . ',+Buenos+Aires,+Argentina';
+		$url .= 'address=' . $address->getNumber() .'+'. str_replace(' ', '+', $address->getStreet()) . ',+'. str_replace(' ', '+', $address->getRegion()->getName()) . ',+Ciudad+Autonoma+de+Buenos+Aires,+Capital+Federal,+Argentina';
 		$url .= '&sensor=false';
 		
 		$response = json_decode(file_get_contents($url));
