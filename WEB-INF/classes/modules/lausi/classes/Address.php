@@ -197,7 +197,9 @@ class Address extends BaseAddress {
 		}
 		
 		public function getDistanceTo($otherAddress) {
-			return sqrt(pow($this->getLatitude() - $otherAddress->getLatitude(),2) + pow($this->getLongitude() - $otherAddress->getLongitude(),2));
+			//cada grado de longitud equivale a 110900 metros
+			//cada grado de latitud equivale a 90000
+			return sqrt(pow(($this->getLatitude() - $otherAddress->getLatitude()) * 90000,2)+ pow(($this->getLongitude() - $otherAddress->getLongitude()) * 110900,2));
 		}
 		          		
 		
