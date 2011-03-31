@@ -55,4 +55,16 @@ class BillboardQuery extends BaseBillboardQuery {
 		$this->select(array('CircuitId', 'Count', 'BillboardType', 'CircuitName'));
 		return $this;
 	}
+	
+	public function withDistanceTo($latitude_0, $longitude_0) {
+		//cada grado de longitud equivale a 110900 metros
+		//cada grado de latitud equivale a 90000
+		$this->withColumn('sqrt( pow((`longitude` - ' . $longitude_0 . ')*90000, 2) + pow((`latitude` - ' .$latitude_0. ')*110960, 2) )', 'Distance');
+	}
+	
+	public function filterByRadius($latitude_0, $longitude_0, $radiusFrom, $radiusTo) {
+		//cada grado de longitud equivale a 110900 metros
+		//cada grado de latitud equivale a 90000
+		$this->where('sqrt( pow((`longitude` - ' . $longitude_0 . ')*90000, 2) + pow((`latitude` - ' .$latitude_0. ')*110960, 2) ) BETWEEN '.$radiusFrom.' AND '.$radiusTo);
+	}
 } // BillboardQuery

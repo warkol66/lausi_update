@@ -290,10 +290,16 @@ class BillboardPeer extends BaseBillboardPeer {
     * @param string $fromDate fecha de inicio de disponibilidad
     * @param integer $duration disponibilidad de duracion
     */
-	public function getAllAvailable($criteria = null, $fromDate, $duration) {
-		//hacemos un ordenamiento random de los resultados de la consulta
-		$criteria->addAscendingOrderByColumn('RAND()');
-		return $criteria->filterByAvailable($fromDate, $duration)->find();
+	public function getAllAvailable(&$criteria = null, $fromDate, $duration) {
+		try {
+			//hacemos un ordenamiento random de los resultados de la consulta
+			$criteria->addAscendingOrderByColumn('RAND()');
+			return $criteria->filterByAvailable($fromDate, $duration)->find();
+		} catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
 	}
 	
 	private function getDistributionStructure($billboards) {
@@ -430,10 +436,8 @@ class BillboardPeer extends BaseBillboardPeer {
 		
 		$pending = BillboardPeer::distributeByAddress(&$available,$quantityToBePublished,2);
 		
-		if ($pending > 0) {
-			while ($pending > 0) {
-				$pending = BillboardPeer::distributeByAddress(&$available,$pending,1);
-			}
+		while ($pending > 0) {
+			$pending = BillboardPeer::distributeByAddress(&$available,$pending,1);
 		}
 		
 		return $available;
@@ -447,7 +451,7 @@ class BillboardPeer extends BaseBillboardPeer {
     * @param string $fromDate fecha de inicio de disponibilidad
     * @param integer $duration disponibilidad de duracion
     */
-   public function getAllAvailableOrdered($criteria = null,$fromDate, $duration, $quantity, $type) {
+   public function getAllAvailableOrdered(&$criteria = null,$fromDate, $duration, $quantity, $type) {
 
 		$result = BillboardPeer::getAllAvailable($criteria,$fromDate,$duration);
 
@@ -580,47 +584,45 @@ class BillboardPeer extends BaseBillboardPeer {
 	* @param integer $duration
     */
    public function getAllAvailableByLocation($quantity, $longitude_0 , $latitude_0, $radius, $fromDate, $duration, $type = null, $quantity) {
-
+   		$ranges = array(0, $radius, $radius * 1.3, $radius * 1.6, $radius * 2);
    		$criteria = new BillboardQuery();
    		
    		//si se pide un tipo especifico se agrega a la consulta
    		if ($type != null)
 	   		$criteria->add(BillboardPeer::TYPE,$type);
-	   	
-			//cada grado de longitud equivale a 110900 metros
-			//cada grado de latitud equivale a 90000
-			//el radio esta expresado en metros
-		  $deltaLatitude = $radius / 110960;
-			$deltaLongitude = $radius / 90000;
-	
-			$longitude_1 = $longitude_0 - $deltaLongitude;
-			$longitude_2 = $longitude_0 + $deltaLongitude;
-			$longitudeMin = min($longitude_1,$longitude_2);
-			$longitudeMax = max($longitude_1,$longitude_2);
-			$latitude_1 = $latitude_0 - $deltaLatitude;
-			$latitude_2 = $latitude_0 + $deltaLatitude;
-			$latitudeMin = min($latitude_1,$latitude_2);
-			$latitudeMax = max($latitude_1,$latitude_2);
-	
-	   	// TODO
-	   	// Rango de ubicacion geografica, Actualmente se verifica el cuadrante conformado por los 
-	   	// datos datos (coordenadas y distancia)
-	   	// Posible necesidad de modificacion si es un radio.
-	   	//
-	   	$criterionLongitude = $criteria->getNewCriterion(AddressPeer::LONGITUDE, $longitudeMin, Criteria::GREATER_EQUAL); 
-	   	$criterionLongitude->addAnd($criteria->getNewCriterion(AddressPeer::LONGITUDE, $longitudeMax, Criteria::LESS_EQUAL));
-
-	   	$criterionLatitude = $criteria->getNewCriterion(AddressPeer::LATITUDE, $latitudeMin, Criteria::GREATER_EQUAL);
-	   	$criterionLatitude->addAnd($criteria->getNewCriterion(AddressPeer::LATITUDE, $latitudeMax, Criteria::LESS_EQUAL));
-	   	
-		//los agregamos a la criteria
-		$criteria->add($criterionLatitude);
-		$criteria->add($criterionLongitude);
-
-		return BillboardPeer::getAllAvailableOrdered($criteria,$fromDate,$duration,$quantity,$type);	   	
-   	
+			
+		$prevCriteria = clone $criteria;
+		
+		$billboardsAvailable = array();
+		$pending = $quantity;	
+		
+		$i = 0;
+		
+		while ($pending > 0 && ($i < count($ranges) - 1) ) {
+			//Restauramos la criteria a un estado anterior a filtrar por radio.
+			$criteria = clone $prevCriteria;
+		
+			$radiusFrom = $ranges[$i];
+			$radiusTo = $ranges[$i+1];
+		
+			$criteria->filterByRadius($latitude_0, $longitude_0, $radiusFrom, $radiusTo);
+			
+			if ($i > 0)
+				$billboardsAvailable[] = 'Separator'.$i;
+				
+			$billboardsExtra = BillboardPeer::getAllAvailableOrdered($criteria,$fromDate,$duration,$pending,$type);
+			
+			//un array merge no funciona como corresponde porque tienen claves numericas.
+			foreach($billboardsExtra as $key => $billboardExtra) {
+				$billboardsAvailable[$key] = $billboardExtra;
+			}
+			$pending -= $criteria->count();
+			$i++;
+		}
+   		
+		return $billboardsAvailable;
    }
-
+   
   /**
    * Obtiene La cantidad total de carteleras.
    *
