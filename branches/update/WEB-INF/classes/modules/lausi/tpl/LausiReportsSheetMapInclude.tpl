@@ -1,8 +1,8 @@
 <fieldset>
 <legend>Recorrido</legend>
 <p>
-<input type="button" value="Generar Recorrido" onClick="generateDirections()" class="noPrint" />
-<input type="button" value="Limpiar" onClick="clearAll()" class="noPrint"/>
+<input id="generate_route" type="button" value="Generar Recorrido" onClick="generateDirections();this.hide();$('back_to_poly').show()" class="noPrint" />
+<input id="back_to_poly" type="button" value="Volver a polilinea" onClick="clearDirections();redrawPolyline($('addresses_list'));this.hide();$('generate_route').show()" class="noPrint" style="display:none;"/>
 </p>
 <p></p>
 <div>

@@ -154,6 +154,10 @@ function clearPolyLine() {
 
 function clearAll() {
 	clearPolyLine();
+	clearDirections();
+}
+
+function clearDirections() {
 	directionsDisplays.each(function(renderer) {
 		renderer.setMap(null);
 	});
