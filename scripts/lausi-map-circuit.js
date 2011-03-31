@@ -4,6 +4,9 @@ var directionsDisplays = [];
 var directionsService;
 var firstPath = {};
 
+//Lo usamos como indice invertido para buscar por marcador.
+var pathByPosition = {};
+
 function initializeMap() {
     var latlng = new google.maps.LatLng('-34.609', '-58.445');
     var myOptions = {
@@ -32,9 +35,27 @@ function displayMarker(position) {
     });
         
     google.maps.event.addListener(marker, 'click', function() {
-    	markerOnClick(marker);
+    	markerOnClick(this);
+  	});
+  	
+  	google.maps.event.addListener(marker, 'mouseover', function() {
+    	markerMouseOver(this);
+  	});
+  	
+  	google.maps.event.addListener(marker, 'mouseout', function() {
+    	markerMouseOut(this);
   	});
   	return marker;
+}
+
+function markerMouseOver(marker) {
+	marker.setIcon('images/available.gif');
+	$(pathByPosition[marker.position.toString()].lid).setStyle({'background': '#00ff00', 'textDecoration': 'underline'});
+}
+
+function markerMouseOut(marker) {
+	marker.setIcon('');
+	$(pathByPosition[marker.position.toString()].lid).setStyle({'background': 'transparent', 'textDecoration': 'none'});
 }
 
 function markerOnClick(marker) {
@@ -49,17 +70,15 @@ function markerOnClick(marker) {
 		i++;
 	}
 	
-	for (key in firstPath) {
-   		if (firstPath[key].position.equals(marker.getPosition())) {
-			$(key).toggle();
-			inFirstPath = true;
-			redrawPolyline($(key).parentNode);
-		}
-  	}
-
-	if (found) {
-		path.removeAt(i - 1);
-	} else if (!inFirstPath){
+	var li = pathByPosition[marker.position.toString()];
+	if (li != undefined) {
+		li = $(li.lid);
+		li.toggle();
+		inFirstPath = true;
+		redrawPolyline(li.parentNode);
+	}
+	
+	if (!inFirstPath){
 		// Because path is an MVCArray, we can simply append a new coordinate
   		// and it will automatically appear
   		path.push(marker.getPosition());
@@ -146,6 +165,7 @@ function redrawPolyline(list) {
 	var path = polyLine.getPath();
 	
 	lis.each(function(li) {
-		path.push(firstPath[li.id].position);
+		if (li.visible())
+			path.push(firstPath[li.id].position);
 	});
 }

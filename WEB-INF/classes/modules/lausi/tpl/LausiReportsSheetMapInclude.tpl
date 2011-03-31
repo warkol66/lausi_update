@@ -10,7 +10,7 @@
 	|-foreach from=$results item=result name=for_result-|
 		|-foreach from=$result.addresses item=byAddress name=for_byAddress-|
 			|-assign var=address value=$byAddress.address-|
-			<li id="address_|-$address->getId()-|" onMouseOver="firstPath[this.id].marker.setIcon('images/available.gif')" onMouseOut="firstPath[this.id].marker.setIcon('')">|-$address->getName()-|</li>
+			<li id="address_|-$address->getId()-|" onMouseOver="markerMouseOver(firstPath[this.id].marker)" onMouseOut="markerMouseOut(firstPath[this.id].marker)">|-$address->getName()-|</li>
 		|-/foreach-|
 	|-/foreach-|
 	</ol>
@@ -36,6 +36,7 @@
 			var marker = displayMarker(loc);
 			markerOnClick(marker);
 			firstPath['address_|-$address->getId()-|'] = {'position': loc, 'marker': marker};
+			pathByPosition[loc.toString()] = {'position': loc, 'lid': 'address_|-$address->getId()-|'};
 		|-/foreach-|
 	|-/foreach-|
 </script>
