@@ -4,7 +4,7 @@ var icons = {
 	available: 'images/marker_green.png', 
 	assigned: 'images/marker_blue.png',
 	partiallyAssigned: 'images/partiallyAssigned.png',
-	client: 'images/marker_red.png'
+	client: 'images/pin_green.png'
 };
 
 function initializeMap() {
