@@ -42,9 +42,9 @@
 			<forward name="success" path="LausiDistributeByCircuitPercentage.tpl" />
 		</action>
 
-		<action    path = "lausiDistributePropose"
-							 type = "LausiDistributeProposeAction"
-							 name = "lausiDistributePropose"
+		<action    path = "lausiDistributeProposeX"
+							 type = "LausiDistributeProposeXAction"
+							 name = "lausiDistributeProposeX"
 							scope = "request"
 					 validate = "true">
 			<forward name="success-by-region" path="LausiDistributeProposeByRegion.tpl" />

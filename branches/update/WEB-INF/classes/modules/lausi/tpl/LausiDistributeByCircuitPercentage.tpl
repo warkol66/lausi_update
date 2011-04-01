@@ -58,7 +58,7 @@ días	</p>
 		|-/foreach-|
 		</ul>
 	<p><input type="hidden" name="mode" value="circuitPercentage" /></p>
-	<p><input type="hidden" name="do" value="lausiDistributePropose"/></p>
+	<p><input type="hidden" name="do" value="lausiDistributeProposeX"/></p>
 	<p><input type="button" value="Desplegar opciones de Distribución" onClick="javascript:lausiProposeDistribution(this.form)"> <span id="msgbox"></span></p>
 </fieldset>
 </form>

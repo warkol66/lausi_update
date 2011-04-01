@@ -2,9 +2,9 @@
 
 require_once("ProposalGenerator.php");
 
-class LausiDistributeProposeAction extends BaseAction {
+class LausiDistributeProposeXAction extends BaseAction {
 
-	function LausiDistributeProposeAction() {
+	function LausiDistributeProposeXAction() {
 		;
 	}
 
