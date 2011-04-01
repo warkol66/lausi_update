@@ -1,9 +1,10 @@
 var map;
 var markers = [];
 var icons = {
-	available: 'images/available.png', 
-	assigned: 'images/assigned.png',
-	partiallyAssigned: 'images/partiallyAssigned.png'
+	available: 'images/marker_green.png', 
+	assigned: 'images/marker_blue.png',
+	partiallyAssigned: 'images/partiallyAssigned.png',
+	client: 'images/marker_red.png'
 };
 
 function initializeMap() {
@@ -41,4 +42,20 @@ function markAvailable(markerId) {
 
 function markPartiallyAssigned(markerId) {
 	markers[markerId].setIcon(icons['partiallyAssigned']);
+}
+
+function drawRing(center, radius, colorIndex) {
+	var strokeColors = ['#00ff00', '#0000ff', '#fffc00', '#ff0000'];
+	
+	if (colorIndex === undefined)
+		colorIndex = 0;
+	new google.maps.Circle({
+		center: center,
+		map: map,
+		radius: radius,
+		strokeColor: strokeColors[colorIndex],
+		strokeOpacity: 0.6,
+		fillColor: '#0000ff',
+		fillOpacity: 0.0
+	});
 }

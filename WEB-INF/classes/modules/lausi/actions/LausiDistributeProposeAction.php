@@ -96,6 +96,8 @@ class LausiDistributeProposeAction extends BaseAction {
 						$results[0]['options'] = $proposalGenerator->generateProposalForLocation($themeId, $longitude_0, $latitude_0 ,$radius, Common::convertToMysqlDateFormat($_POST['publishDate']), $_POST['duration'], $quantity);
 						$results[0]['quantity'] = $proposalGenerator->getQuantityByType(ThemePeer::get($themeId),$quantity);
 					}
+					$smarty->assign('radiusRanges', BillboardPeer::getRadiusRanges($radius));
+					$smarty->assign('clientAddress', $clientAddress);
 					$smarty->assign('results',$results);
 					return $mapping->findForwardConfig('success-by-location');
 					break;

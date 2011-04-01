@@ -1,11 +1,7 @@
 <?php
 
-require_once('ThemePeer.php');
-require_once('BillboardPeer.php');
-
 class ProposalGenerator {
-
-
+	
 	/**
 	 * Devuelve la cantidad de carteleras a buscar segun el tipo de motivos 
 	 * y la cantidad de afiches pedidos.

@@ -1,12 +1,5 @@
 <?php
 
-// The parent class
-require_once 'om/BaseBillboardPeer.php';
-
-// The object class
-include_once 'Billboard.php';
-
-require_once('AddressPeer.php');
 
 /**
  * Class BillboardPeer
@@ -104,6 +97,10 @@ class BillboardPeer extends BaseBillboardPeer {
 		
 		$this->groupByType = true;
 		
+	}
+	
+	public static function getRadiusRanges($radius) {
+		return array(0, $radius, $radius * 1.3, $radius * 1.6, $radius * 2);
 	}
 
   /**
@@ -584,7 +581,7 @@ class BillboardPeer extends BaseBillboardPeer {
 	* @param integer $duration
     */
    public function getAllAvailableByLocation($quantity, $longitude_0 , $latitude_0, $radius, $fromDate, $duration, $type = null, $quantity) {
-   		$ranges = array(0, $radius, $radius * 1.3, $radius * 1.6, $radius * 2);
+   		$ranges = BillboardPeer::getRadiusRanges($radius);
    		$criteria = new BillboardQuery();
    		
    		//si se pide un tipo especifico se agrega a la consulta
