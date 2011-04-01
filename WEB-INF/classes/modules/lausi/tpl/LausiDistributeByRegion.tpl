@@ -46,7 +46,7 @@ Luego haga click en "Desplegar opciones de Distribución" para obtener la propue
 		|-/foreach-|
 		</ul>
 	<p><input type="hidden" name="mode" value="region" /></p>
-	<p><input type="hidden" name="do" value="lausiDistributePropose"/></p>
+	<p><input type="hidden" name="do" value="lausiDistributeProposeX"/></p>
 	<p><input type="button" value="Desplegar opciones de Distribución" onClick="javascript:lausiProposeDistribution(this.form)"> <span id="msgbox"></span></p>
 </fieldset>	
 </form>
