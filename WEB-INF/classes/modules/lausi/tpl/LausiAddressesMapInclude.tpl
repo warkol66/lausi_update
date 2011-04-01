@@ -8,6 +8,7 @@
 <!-- fin mapa google -->
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="scripts/keydragzoom_packed.js"></script>
 <script type="text/javascript">
 	var map;
 	var geocoder;
@@ -25,6 +26,17 @@
 	      mapTypeId: google.maps.MapTypeId.ROADMAP
 	    }
 	    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	    map.enableKeyDragZoom({
+                boxStyle: {
+                  border: "thick blue",
+                  backgroundColor: "blue",
+                  opacity: 0.3
+                },
+                paneStyle: {
+                  backgroundColor: "grey",
+                  opacity: 0.1
+                }
+        });
 	    
 	    |-if $address->getId() ne ''-|
 			displayMarker(latlng);

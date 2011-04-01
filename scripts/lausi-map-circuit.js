@@ -15,6 +15,17 @@ function initializeMap() {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	map.enableKeyDragZoom({
+		boxStyle: {
+			border: "thick blue",
+			backgroundColor: "blue",
+			opacity: 0.3
+		},
+		paneStyle: {
+			backgroundColor: "grey",
+			opacity: 0.1
+		}
+	});
     
     var polyOptions = {
 	    strokeColor: '#0000ff',
