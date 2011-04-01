@@ -1,9 +1,9 @@
 var map;
 var markers = [];
 var icons = {
-	available: 'images/available.gif', 
-	assigned: 'images/assigned.gif',
-	partiallyAssigned: 'images/partiallyAssigned.gif'
+	available: 'images/available.png', 
+	assigned: 'images/assigned.png',
+	partiallyAssigned: 'images/partiallyAssigned.png'
 };
 
 function initializeMap() {
