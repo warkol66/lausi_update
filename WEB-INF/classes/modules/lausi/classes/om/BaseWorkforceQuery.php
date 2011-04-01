@@ -413,6 +413,23 @@ abstract class BaseWorkforceQuery extends ModelCriteria
 	}
 
 	/**
+	 * Filter the query by a related Circuit object
+	 * using the lausi_workforceCircuit table as cross reference
+	 *
+	 * @param     Circuit $circuit the related object to use as filter
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    WorkforceQuery The current query, for fluid interface
+	 */
+	public function filterByCircuit($circuit, $comparison = Criteria::EQUAL)
+	{
+		return $this
+			->useWorkforceCircuitQuery()
+				->filterByCircuit($circuit, $comparison)
+			->endUse();
+	}
+	
+	/**
 	 * Exclude object from result
 	 *
 	 * @param     Workforce $workforce Object to remove from the list of results

@@ -9,15 +9,19 @@
 			<fieldset title="Formulario de edición de datos de un circuito">
 				<p>
 					<label for="name">Nombre</label>
-					<input type="text" id="name" name="name" value="|-$circuit->getname()-|" title="name" maxlength="100" />
+					<input type="text" id="name" name="circuit[name]" value="|-$circuit->getname()-|" title="name" maxlength="100" />
+				</p>
+				<p>
+					<label for="color">Color</label>
+					<input type="text" id="color" name="circuit[color]" value="|-$circuit->getColor()-|" title="name" maxlength="100" />
 				</p>
 				<p>
 					<label for="description">Descripción</label>
-					<textarea name="description" cols="45" rows="6" wrap="VIRTUAL" id="description">|-$circuit->getdescription()-|</textarea>
+					<textarea name="circuit[description]" cols="45" rows="6" wrap="VIRTUAL" id="description">|-$circuit->getdescription()-|</textarea>
 				</p>
 				<p>
 					<label for="limitsDescription">Límites</label>
-					<textarea name="limitsDescription" cols="45" rows="6" wrap="VIRTUAL" id="limitsDescription">|-$circuit->getlimitsDescription()-|</textarea>
+					<textarea name="circuit[limitsDescription]" cols="45" rows="6" wrap="VIRTUAL" id="limitsDescription">|-$circuit->getlimitsDescription()-|</textarea>
 				</p>
 				
 				<div id="points_container" style="display:none;">

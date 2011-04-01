@@ -32,6 +32,7 @@ CREATE TABLE `lausi_circuit`
 	`description` TEXT COMMENT 'descripcion del circuito',
 	`limitsDescription` TEXT COMMENT 'descripcion de los limites del circuito',
 	`orderBy` INTEGER COMMENT 'Orden del Circuito',
+	`color` VARCHAR(7) COMMENT 'Color del Circuito para mostrar en mapa',
 	PRIMARY KEY (`id`)
 ) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Base de Circuitos';
 

@@ -65,6 +65,11 @@ abstract class BaseWorkforce extends BaseObject  implements Persistent
 	protected $collAdvertisements;
 
 	/**
+	 * @var        array Circuit[] Collection to store aggregation of Circuit objects.
+	 */
+	protected $collCircuits;
+
+	/**
 	 * Flag to prevent endless save loop, if this object is referenced
 	 * by another object which falls in this transaction.
 	 * @var        boolean
@@ -396,6 +401,7 @@ abstract class BaseWorkforce extends BaseObject  implements Persistent
 
 			$this->collAdvertisements = null;
 
+			$this->collCircuits = null;
 		} // if (deep)
 	}
 
@@ -1255,6 +1261,119 @@ abstract class BaseWorkforce extends BaseObject  implements Persistent
 		$query->joinWith('Theme', $join_behavior);
 
 		return $this->getAdvertisements($query, $con);
+	}
+
+	/**
+	 * Clears out the collCircuits collection
+	 *
+	 * This does not modify the database; however, it will remove any associated objects, causing
+	 * them to be refetched by subsequent calls to accessor method.
+	 *
+	 * @return     void
+	 * @see        addCircuits()
+	 */
+	public function clearCircuits()
+	{
+		$this->collCircuits = null; // important to set this to NULL since that means it is uninitialized
+	}
+
+	/**
+	 * Initializes the collCircuits collection.
+	 *
+	 * By default this just sets the collCircuits collection to an empty collection (like clearCircuits());
+	 * however, you may wish to override this method in your stub class to provide setting appropriate
+	 * to your application -- for example, setting the initial array to the values stored in database.
+	 *
+	 * @return     void
+	 */
+	public function initCircuits()
+	{
+		$this->collCircuits = new PropelObjectCollection();
+		$this->collCircuits->setModel('Circuit');
+	}
+
+	/**
+	 * Gets a collection of Circuit objects related by a many-to-many relationship
+	 * to the current object by way of the lausi_workforceCircuit cross-reference table.
+	 *
+	 * If the $criteria is not null, it is used to always fetch the results from the database.
+	 * Otherwise the results are fetched from the database the first time, then cached.
+	 * Next time the same method is called without $criteria, the cached collection is returned.
+	 * If this Workforce is new, it will return
+	 * an empty collection or the current collection; the criteria is ignored on a new object.
+	 *
+	 * @param      Criteria $criteria Optional query object to filter the query
+	 * @param      PropelPDO $con Optional connection object
+	 *
+	 * @return     PropelCollection|array Circuit[] List of Circuit objects
+	 */
+	public function getCircuits($criteria = null, PropelPDO $con = null)
+	{
+		if(null === $this->collCircuits || null !== $criteria) {
+			if ($this->isNew() && null === $this->collCircuits) {
+				// return empty collection
+				$this->initCircuits();
+			} else {
+				$collCircuits = CircuitQuery::create(null, $criteria)
+					->filterByWorkforce($this)
+					->find($con);
+				if (null !== $criteria) {
+					return $collCircuits;
+				}
+				$this->collCircuits = $collCircuits;
+			}
+		}
+		return $this->collCircuits;
+	}
+
+	/**
+	 * Gets the number of Circuit objects related by a many-to-many relationship
+	 * to the current object by way of the lausi_workforceCircuit cross-reference table.
+	 *
+	 * @param      Criteria $criteria Optional query object to filter the query
+	 * @param      boolean $distinct Set to true to force count distinct
+	 * @param      PropelPDO $con Optional connection object
+	 *
+	 * @return     int the number of related Circuit objects
+	 */
+	public function countCircuits($criteria = null, $distinct = false, PropelPDO $con = null)
+	{
+		if(null === $this->collCircuits || null !== $criteria) {
+			if ($this->isNew() && null === $this->collCircuits) {
+				return 0;
+			} else {
+				$query = CircuitQuery::create(null, $criteria);
+				if($distinct) {
+					$query->distinct();
+				}
+				return $query
+					->filterByWorkforce($this)
+					->count($con);
+			}
+		} else {
+			return count($this->collCircuits);
+		}
+	}
+
+	/**
+	 * Associate a Circuit object to this object
+	 * through the lausi_workforceCircuit cross reference table.
+	 *
+	 * @param      Circuit $circuit The WorkforceCircuit object to relate
+	 * @return     void
+	 */
+	public function addCircuit($circuit)
+	{
+		if ($this->collCircuits === null) {
+			$this->initCircuits();
+		}
+		if (!$this->collCircuits->contains($circuit)) { // only add it if the **same** object is not already associated
+			$workforceCircuit = new WorkforceCircuit();
+			$workforceCircuit->setCircuit($circuit);
+			$this->addWorkforceCircuit($workforceCircuit);
+
+			$this->collCircuits[]= $circuit;
+		}
 	}
 
 	/**

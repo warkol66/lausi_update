@@ -82,6 +82,9 @@ class LausiCircuitsEditAction extends BaseAction {
 			$smarty->assign("action","create");
 		}
 		
+		//Esto es para dibujar los demas circuitos como referencia
+		$smarty->assign("circuits",CircuitPeer::getAll());
+		
 		$smarty->assign("circuit",$circuit);
 		
 		$circuitPoints = $circuit->getCircuitPoints();

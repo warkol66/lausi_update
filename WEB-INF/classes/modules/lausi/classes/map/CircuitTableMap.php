@@ -42,6 +42,7 @@ class CircuitTableMap extends TableMap {
 		$this->addColumn('DESCRIPTION', 'Description', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('LIMITSDESCRIPTION', 'Limitsdescription', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('ORDERBY', 'Orderby', 'INTEGER', false, null, null);
+		$this->addColumn('COLOR', 'Color', 'VARCHAR', false, 7, null);
 		// validators
 	} // initialize()
 
@@ -54,6 +55,7 @@ class CircuitTableMap extends TableMap {
     $this->addRelation('WorkforceCircuit', 'WorkforceCircuit', RelationMap::ONE_TO_MANY, array('id' => 'circuitId', ), null, null);
     $this->addRelation('Address', 'Address', RelationMap::ONE_TO_MANY, array('id' => 'circuitId', ), null, null);
     $this->addRelation('ClientAddress', 'ClientAddress', RelationMap::ONE_TO_MANY, array('id' => 'circuitId', ), null, null);
+    $this->addRelation('Workforce', 'Workforce', RelationMap::MANY_TO_MANY, array(), null, null);
 	} // buildRelations()
 
 } // CircuitTableMap

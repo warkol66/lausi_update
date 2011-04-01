@@ -91,4 +91,13 @@ class AdvertisementQuery extends BaseAdvertisementQuery {
 		return $this;
 	}
 
+	public function filterByCircuit($circuit) {
+		return $this
+			->join('Billboard')
+			->join('Billboard.Address')
+			->useQuery('Address')
+				->filterByCircuit($circuit)
+			->endUse();
+	}
+
 } // AdvertisementQuery

@@ -55,6 +55,12 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 	protected $orderby;
 
 	/**
+	 * The value for the color field.
+	 * @var        string
+	 */
+	protected $color;
+
+	/**
 	 * @var        array CircuitPoint[] Collection to store aggregation of CircuitPoint objects.
 	 */
 	protected $collCircuitPoints;
@@ -73,6 +79,11 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 	 * @var        array ClientAddress[] Collection to store aggregation of ClientAddress objects.
 	 */
 	protected $collClientAddresss;
+
+	/**
+	 * @var        array Workforce[] Collection to store aggregation of Workforce objects.
+	 */
+	protected $collWorkforces;
 
 	/**
 	 * Flag to prevent endless save loop, if this object is referenced
@@ -136,6 +147,16 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 	public function getOrderby()
 	{
 		return $this->orderby;
+	}
+
+	/**
+	 * Get the [color] column value.
+	 * Color del Circuito para mostrar en mapa
+	 * @return     string
+	 */
+	public function getColor()
+	{
+		return $this->color;
 	}
 
 	/**
@@ -239,6 +260,26 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 	} // setOrderby()
 
 	/**
+	 * Set the value of [color] column.
+	 * Color del Circuito para mostrar en mapa
+	 * @param      string $v new value
+	 * @return     Circuit The current object (for fluent API support)
+	 */
+	public function setColor($v)
+	{
+		if ($v !== null) {
+			$v = (string) $v;
+		}
+
+		if ($this->color !== $v) {
+			$this->color = $v;
+			$this->modifiedColumns[] = CircuitPeer::COLOR;
+		}
+
+		return $this;
+	} // setColor()
+
+	/**
 	 * Indicates whether the columns in this object are only set to default values.
 	 *
 	 * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -275,6 +316,7 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 			$this->description = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
 			$this->limitsdescription = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
 			$this->orderby = ($row[$startcol + 4] !== null) ? (int) $row[$startcol + 4] : null;
+			$this->color = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -283,7 +325,7 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 5; // 5 = CircuitPeer::NUM_COLUMNS - CircuitPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 6; // 6 = CircuitPeer::NUM_COLUMNS - CircuitPeer::NUM_LAZY_LOAD_COLUMNS).
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Circuit object", $e);
@@ -353,6 +395,7 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 
 			$this->collClientAddresss = null;
 
+			$this->collWorkforces = null;
 		} // if (deep)
 	}
 
@@ -669,6 +712,9 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 			case 4:
 				return $this->getOrderby();
 				break;
+			case 5:
+				return $this->getColor();
+				break;
 			default:
 				return null;
 				break;
@@ -703,6 +749,7 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 			$keys[2] => $this->getDescription(),
 			$keys[3] => $this->getLimitsdescription(),
 			$keys[4] => $this->getOrderby(),
+			$keys[5] => $this->getColor(),
 		);
 		if ($includeForeignObjects) {
 			if (null !== $this->collCircuitPoints) {
@@ -763,6 +810,9 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 			case 4:
 				$this->setOrderby($value);
 				break;
+			case 5:
+				$this->setColor($value);
+				break;
 		} // switch()
 	}
 
@@ -792,6 +842,7 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 		if (array_key_exists($keys[2], $arr)) $this->setDescription($arr[$keys[2]]);
 		if (array_key_exists($keys[3], $arr)) $this->setLimitsdescription($arr[$keys[3]]);
 		if (array_key_exists($keys[4], $arr)) $this->setOrderby($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setColor($arr[$keys[5]]);
 	}
 
 	/**
@@ -808,6 +859,7 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 		if ($this->isColumnModified(CircuitPeer::DESCRIPTION)) $criteria->add(CircuitPeer::DESCRIPTION, $this->description);
 		if ($this->isColumnModified(CircuitPeer::LIMITSDESCRIPTION)) $criteria->add(CircuitPeer::LIMITSDESCRIPTION, $this->limitsdescription);
 		if ($this->isColumnModified(CircuitPeer::ORDERBY)) $criteria->add(CircuitPeer::ORDERBY, $this->orderby);
+		if ($this->isColumnModified(CircuitPeer::COLOR)) $criteria->add(CircuitPeer::COLOR, $this->color);
 
 		return $criteria;
 	}
@@ -874,6 +926,7 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 		$copyObj->setDescription($this->description);
 		$copyObj->setLimitsdescription($this->limitsdescription);
 		$copyObj->setOrderby($this->orderby);
+		$copyObj->setColor($this->color);
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of
@@ -1511,6 +1564,119 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 	}
 
 	/**
+	 * Clears out the collWorkforces collection
+	 *
+	 * This does not modify the database; however, it will remove any associated objects, causing
+	 * them to be refetched by subsequent calls to accessor method.
+	 *
+	 * @return     void
+	 * @see        addWorkforces()
+	 */
+	public function clearWorkforces()
+	{
+		$this->collWorkforces = null; // important to set this to NULL since that means it is uninitialized
+	}
+
+	/**
+	 * Initializes the collWorkforces collection.
+	 *
+	 * By default this just sets the collWorkforces collection to an empty collection (like clearWorkforces());
+	 * however, you may wish to override this method in your stub class to provide setting appropriate
+	 * to your application -- for example, setting the initial array to the values stored in database.
+	 *
+	 * @return     void
+	 */
+	public function initWorkforces()
+	{
+		$this->collWorkforces = new PropelObjectCollection();
+		$this->collWorkforces->setModel('Workforce');
+	}
+
+	/**
+	 * Gets a collection of Workforce objects related by a many-to-many relationship
+	 * to the current object by way of the lausi_workforceCircuit cross-reference table.
+	 *
+	 * If the $criteria is not null, it is used to always fetch the results from the database.
+	 * Otherwise the results are fetched from the database the first time, then cached.
+	 * Next time the same method is called without $criteria, the cached collection is returned.
+	 * If this Circuit is new, it will return
+	 * an empty collection or the current collection; the criteria is ignored on a new object.
+	 *
+	 * @param      Criteria $criteria Optional query object to filter the query
+	 * @param      PropelPDO $con Optional connection object
+	 *
+	 * @return     PropelCollection|array Workforce[] List of Workforce objects
+	 */
+	public function getWorkforces($criteria = null, PropelPDO $con = null)
+	{
+		if(null === $this->collWorkforces || null !== $criteria) {
+			if ($this->isNew() && null === $this->collWorkforces) {
+				// return empty collection
+				$this->initWorkforces();
+			} else {
+				$collWorkforces = WorkforceQuery::create(null, $criteria)
+					->filterByCircuit($this)
+					->find($con);
+				if (null !== $criteria) {
+					return $collWorkforces;
+				}
+				$this->collWorkforces = $collWorkforces;
+			}
+		}
+		return $this->collWorkforces;
+	}
+
+	/**
+	 * Gets the number of Workforce objects related by a many-to-many relationship
+	 * to the current object by way of the lausi_workforceCircuit cross-reference table.
+	 *
+	 * @param      Criteria $criteria Optional query object to filter the query
+	 * @param      boolean $distinct Set to true to force count distinct
+	 * @param      PropelPDO $con Optional connection object
+	 *
+	 * @return     int the number of related Workforce objects
+	 */
+	public function countWorkforces($criteria = null, $distinct = false, PropelPDO $con = null)
+	{
+		if(null === $this->collWorkforces || null !== $criteria) {
+			if ($this->isNew() && null === $this->collWorkforces) {
+				return 0;
+			} else {
+				$query = WorkforceQuery::create(null, $criteria);
+				if($distinct) {
+					$query->distinct();
+				}
+				return $query
+					->filterByCircuit($this)
+					->count($con);
+			}
+		} else {
+			return count($this->collWorkforces);
+		}
+	}
+
+	/**
+	 * Associate a Workforce object to this object
+	 * through the lausi_workforceCircuit cross reference table.
+	 *
+	 * @param      Workforce $workforce The WorkforceCircuit object to relate
+	 * @return     void
+	 */
+	public function addWorkforce($workforce)
+	{
+		if ($this->collWorkforces === null) {
+			$this->initWorkforces();
+		}
+		if (!$this->collWorkforces->contains($workforce)) { // only add it if the **same** object is not already associated
+			$workforceCircuit = new WorkforceCircuit();
+			$workforceCircuit->setWorkforce($workforce);
+			$this->addWorkforceCircuit($workforceCircuit);
+
+			$this->collWorkforces[]= $workforce;
+		}
+	}
+
+	/**
 	 * Clears the current object and sets all attributes to their default values
 	 */
 	public function clear()
@@ -1520,6 +1686,7 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 		$this->description = null;
 		$this->limitsdescription = null;
 		$this->orderby = null;
+		$this->color = null;
 		$this->alreadyInSave = false;
 		$this->alreadyInValidation = false;
 		$this->clearAllReferences();

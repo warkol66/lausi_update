@@ -79,8 +79,8 @@ class LausiAddressesEditAction extends BaseAction {
 		}
 		
 		$smarty->assign("address",$address);			
-		$smarty->assign("regionIdValues",RegionPeer::getAll());
-		$smarty->assign("circuitIdValues",CircuitPeer::getAll());
+		$smarty->assign("regions",RegionPeer::getAll());
+		$smarty->assign("circuits",CircuitPeer::getAll());
 
 		$url = "Main.php?do=lausiAddressesList";
 		foreach ($filters as $key => $value)
