@@ -14,4 +14,17 @@
 		|-/if-|
 		|-/foreach-|
 	|-/foreach-|
+	
+	|-if $clientAddress ne '' && $clientAddress->getId() ne ''-|
+		displayMarker(|-$clientAddress->getId()-|, new google.maps.LatLng('|-$clientAddress->getLatitude()-|', '|-$clientAddress->getLongitude()-|'), 'client', function(marker){});
+		
+		|-if $radiusRanges ne '' && $radiusRanges|@count > 2-|
+			|-foreach from=$radiusRanges item=radius key=from-|
+				|-math equation="x+1" x=$from assign=to-|
+				|-if $to < $radiusRanges|@count-|
+					drawRing(new google.maps.LatLng('|-$clientAddress->getLatitude()-|', '|-$clientAddress->getLongitude()-|'), |-$radiusRanges[$to]-|, |-$from-|);
+				|-/if-|
+			|-/foreach-|
+		|-/if-|
+	|-/if-|
 </script>
