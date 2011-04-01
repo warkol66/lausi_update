@@ -49,7 +49,7 @@ function displayMarker(position) {
 }
 
 function markerMouseOver(marker) {
-	marker.setIcon('images/available.gif');
+	marker.setIcon('images/available.png');
 	$(pathByPosition[marker.position.toString()].lid).setStyle({'background': '#00ff00', 'textDecoration': 'underline'});
 }
 
