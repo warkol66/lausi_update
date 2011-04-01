@@ -1,8 +1,5 @@
 <?php
 
-require_once 'om/BaseClientAddress.php';
-
-
 /**
  * Skeleton subclass for representing a row from the 'lausi_clientAddress' table.
  *
@@ -19,5 +16,18 @@ require_once 'om/BaseClientAddress.php';
  * @package    lausi
  */
 class ClientAddress extends BaseClientAddress {
+
+	function getName() {
+	
+/*TODO Agregar Nickname a dicrecciones de clientes
+		$nickname = $this->getNickname();
+		if (!empty($nickname))
+			return $nickname;
+*/				
+		if ($this->getNumber() != 0)
+			return $this->getStreet()." ".$this->getNumber();
+		else
+			return $this->getStreet()." y ".$this->getIntersection();
+	}
 
 } // ClientAddress
