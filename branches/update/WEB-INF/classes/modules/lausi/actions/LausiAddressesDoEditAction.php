@@ -26,8 +26,10 @@ class LausiAddressesDoEditAction extends BaseAction {
 
 		if ($_POST["action"] == "edit") {
 			//estoy editando un address existente
-			$latitude = Common::convertToMysqlNumericFormat($_POST["latitude"]);
-			$longitude = Common::convertToMysqlNumericFormat($_POST["longitude"]);
+//			$latitude = Common::convertToMysqlNumericFormat($_POST["latitude"]);
+//			$longitude = Common::convertToMysqlNumericFormat($_POST["longitude"]);
+			$latitude = $_POST["latitude"];
+			$longitude = $_POST["longitude"];
 			AddressPeer::update($_POST["id"],$_POST["street"],$_POST["number"],$_POST["rating"],$_POST["intersection"],$_POST["owner"],$latitude,$longitude,$_POST["regionId"],$_POST["ownerPhone"],$_POST["circuitId"],$_POST['nickname']);
       		
       //caso de redireccionamiento desde opciones de busqueda de addressesList
@@ -48,8 +50,10 @@ class LausiAddressesDoEditAction extends BaseAction {
 		}
 		else {
 		  //estoy creando un nuevo address
-			$latitude = Common::convertToMysqlNumericFormat($_POST["latitude"]);
-			$longitude = Common::convertToMysqlNumericFormat($_POST["longitude"]);
+//			$latitude = Common::convertToMysqlNumericFormat($_POST["latitude"]);
+//			$longitude = Common::convertToMysqlNumericFormat($_POST["longitude"]);
+			$latitude = $_POST["latitude"];
+			$longitude = $_POST["longitude"];
 			$address = AddressPeer::create($_POST["street"],$_POST["number"],$_POST["rating"],$_POST["intersection"],$_POST["owner"],$latitude,$longitude,$_POST["regionId"],$_POST["ownerPhone"],$_POST["circuitId"],$_POST['nickname']);
 			
 			if ( $address == false ) {
