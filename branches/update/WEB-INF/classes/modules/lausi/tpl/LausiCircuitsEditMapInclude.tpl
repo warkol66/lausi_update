@@ -25,8 +25,14 @@
 		polyLine.getPath().push(loc);
 	|-/foreach-|
 	
+	|-if $circuit->getColor() ne ''-|
+		polygon.setOptions({fillColor:'|-$circuit->getColor()-|'});
+	|-/if-|
+	
 	|-if $circuitPoints|@count > 2-|
 		closePolygon();
 	|-/if-|
+	
+	|-include file="LausiCircuitsDraw.tpl"-|
 </script>
 </fieldset>

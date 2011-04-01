@@ -44,7 +44,7 @@ function initializeMap() {
   	});
   	
   	polygon = new google.maps.Polygon({
-		fillOpacity: 0.2,
+		fillOpacity: 0.1,
 		fillColor: '#0000ff'
 	});
 	google.maps.event.addListener(polygon, 'click', function(ev) {

@@ -39,7 +39,7 @@
 				<label for="regionId">Barrio</label>
 				<select id="regionId" name="regionId" title="regionId" onChange="$('button_edit_address').disable()">
 					<option value="">Seleccione un Barrio</option>
-									|-foreach from=$regionIdValues item=object-|
+									|-foreach from=$regions item=object-|
 									<option value="|-$object->getid()-|" |-if $address->getregionId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getname()-|</option>
 									|-/foreach-|
 								</select>
@@ -48,7 +48,7 @@
 				<label for="circuitId">Circuito</label>
 				<select id="circuitId" name="circuitId" title="circuitId">
 					<option value="">Seleccione un Circuito</option>
-									|-foreach from=$circuitIdValues item=object-|
+									|-foreach from=$circuits item=object-|
 									<option value="|-$object->getid()-|" |-if $address->getcircuitId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getname()-|</option>
 									|-/foreach-|
 								</select>

@@ -1,9 +1,5 @@
 <?php
 
-require_once 'om/BaseCircuit.php';
-require_once('WorkforceCircuit.php');
-require_once('AdvertisementPeer.php');
-
 /**
  * Skeleton subclass for representing a row from the 'lausi_circuit' table.
  *
@@ -21,20 +17,22 @@ require_once('AdvertisementPeer.php');
  */
 class Circuit extends BaseCircuit {
 
-	public function getWorkforces() {
-		
-		$criteria = new Criteria();
-		$criteria->add(WorkforceCircuitPeer::CIRCUITID,$this->getId());
-		$relationships = WorkforceCircuitPeer::doSelect($criteria);
-		
-		$elements = array();
-		
-		foreach($relationships as $relationship)
-			array_push($elements,$relationship->getWorkforce());
-		
-		return $elements;
+	public function save(PropelPDO $con = null) {
+		try {
+			if ($this->validate()) { 
+				parent::save($con);
+				return true;
+			} else {
+				return false;
+			}
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
 	}
-	
+
 	public function getSheetsDistributed($themeId) {
 		//duplicador
 		$duplicator = 1;
@@ -43,26 +41,16 @@ class Circuit extends BaseCircuit {
 		//regla de negocio, las motivos dobles tienen dos afiches, los sextuples 1.
 		if ($type == ThemePeer::TYPE_DOBLE)
 			$duplicator = 2;
-		require_once('AdvertisementPeer.php');
-		
-		$cond = new Criteria();
-		$cond->addJoin(AdvertisementPeer::BILLBOARDID,BillboardPeer::ID,Criteria::INNER_JOIN);
-		$cond->addJoin(BillboardPeer::ADDRESSID,AddressPeer::ID,Criteria::INNER_JOIN);
-		$cond->addJoin(AdvertisementPeer::THEMEID,ThemePeer::ID,Criteria::INNER_JOIN);
-		$cond->add(ThemePeer::TYPE,$type);
-		$cond->add(AddressPeer::CIRCUITID,$this->getId());
-		$cond->add(ThemePeer::ID,$themeId);
-		
-		$count = AdvertisementPeer::doCount($cond);
+			
+		$count = AdvertisementQuery::create()
+			->filterByCircuit($this)
+			->filterByTheme($theme)
+			->count();
 		
 		return $count * $duplicator;
-		
 	}
 	
 	public function getAvailableTodayCount($theme) {
-		
-		require_once('BillboardPeer.php');
-		require_once('AddressPeer.php');
 		
 		$criteria = new Criteria();
 		$criteria->add(BillboardPeer::TYPE,$theme->getType());
@@ -102,9 +90,5 @@ class Circuit extends BaseCircuit {
 		}
 		
 		return $count;
-		
-		
 	}
-
-
 } // Circuit

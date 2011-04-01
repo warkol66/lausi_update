@@ -26,7 +26,7 @@ abstract class BaseCircuitPeer {
 	const TM_CLASS = 'CircuitTableMap';
 	
 	/** The total number of columns. */
-	const NUM_COLUMNS = 5;
+	const NUM_COLUMNS = 6;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -45,6 +45,9 @@ abstract class BaseCircuitPeer {
 
 	/** the column name for the ORDERBY field */
 	const ORDERBY = 'lausi_circuit.ORDERBY';
+
+	/** the column name for the COLOR field */
+	const COLOR = 'lausi_circuit.COLOR';
 
 	/** The default string format for model objects of the related table **/
 	const DEFAULT_STRING_FORMAT = 'YAML';
@@ -65,12 +68,12 @@ abstract class BaseCircuitPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	protected static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Name', 'Description', 'Limitsdescription', 'Orderby', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'name', 'description', 'limitsdescription', 'orderby', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::NAME, self::DESCRIPTION, self::LIMITSDESCRIPTION, self::ORDERBY, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'NAME', 'DESCRIPTION', 'LIMITSDESCRIPTION', 'ORDERBY', ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'name', 'description', 'limitsDescription', 'orderBy', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Name', 'Description', 'Limitsdescription', 'Orderby', 'Color', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'name', 'description', 'limitsdescription', 'orderby', 'color', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::NAME, self::DESCRIPTION, self::LIMITSDESCRIPTION, self::ORDERBY, self::COLOR, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'NAME', 'DESCRIPTION', 'LIMITSDESCRIPTION', 'ORDERBY', 'COLOR', ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'name', 'description', 'limitsDescription', 'orderBy', 'color', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
 	);
 
 	/**
@@ -80,12 +83,12 @@ abstract class BaseCircuitPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	protected static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Name' => 1, 'Description' => 2, 'Limitsdescription' => 3, 'Orderby' => 4, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'name' => 1, 'description' => 2, 'limitsdescription' => 3, 'orderby' => 4, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::NAME => 1, self::DESCRIPTION => 2, self::LIMITSDESCRIPTION => 3, self::ORDERBY => 4, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'NAME' => 1, 'DESCRIPTION' => 2, 'LIMITSDESCRIPTION' => 3, 'ORDERBY' => 4, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'name' => 1, 'description' => 2, 'limitsDescription' => 3, 'orderBy' => 4, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Name' => 1, 'Description' => 2, 'Limitsdescription' => 3, 'Orderby' => 4, 'Color' => 5, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'name' => 1, 'description' => 2, 'limitsdescription' => 3, 'orderby' => 4, 'color' => 5, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::NAME => 1, self::DESCRIPTION => 2, self::LIMITSDESCRIPTION => 3, self::ORDERBY => 4, self::COLOR => 5, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'NAME' => 1, 'DESCRIPTION' => 2, 'LIMITSDESCRIPTION' => 3, 'ORDERBY' => 4, 'COLOR' => 5, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'name' => 1, 'description' => 2, 'limitsDescription' => 3, 'orderBy' => 4, 'color' => 5, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
 	);
 
 	/**
@@ -162,12 +165,14 @@ abstract class BaseCircuitPeer {
 			$criteria->addSelectColumn(CircuitPeer::DESCRIPTION);
 			$criteria->addSelectColumn(CircuitPeer::LIMITSDESCRIPTION);
 			$criteria->addSelectColumn(CircuitPeer::ORDERBY);
+			$criteria->addSelectColumn(CircuitPeer::COLOR);
 		} else {
 			$criteria->addSelectColumn($alias . '.ID');
 			$criteria->addSelectColumn($alias . '.NAME');
 			$criteria->addSelectColumn($alias . '.DESCRIPTION');
 			$criteria->addSelectColumn($alias . '.LIMITSDESCRIPTION');
 			$criteria->addSelectColumn($alias . '.ORDERBY');
+			$criteria->addSelectColumn($alias . '.COLOR');
 		}
 	}
 

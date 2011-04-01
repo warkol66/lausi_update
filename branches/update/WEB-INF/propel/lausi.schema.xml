@@ -33,6 +33,7 @@
 		<column name="description" type="LONGVARCHAR" description="descripcion del circuito" />
 		<column name="limitsDescription" type="LONGVARCHAR" description="descripcion de los limites del circuito" />
 		<column name="orderBy" type="INTEGER" description="Orden del Circuito" />
+		<column name="color" type="VARCHAR" size="7" description="Color del Circuito para mostrar en mapa" />
 		
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
@@ -60,7 +61,7 @@
 	</table>
 
 <!-- Una misma fuerza de Trabajo de relaciona con varios circuitos -->
-	<table phpName="WorkforceCircuit" name="lausi_workforceCircuit">
+	<table phpName="WorkforceCircuit" name="lausi_workforceCircuit" isCrossRef="true">
 		<column name="workforceId" type="INTEGER" required="true" primaryKey="true"/>
 		<column name="circuitId" type="INTEGER" required="true" primaryKey="true"/>
 	

@@ -11,12 +11,14 @@
  * @method     CircuitQuery orderByDescription($order = Criteria::ASC) Order by the description column
  * @method     CircuitQuery orderByLimitsdescription($order = Criteria::ASC) Order by the limitsDescription column
  * @method     CircuitQuery orderByOrderby($order = Criteria::ASC) Order by the orderBy column
+ * @method     CircuitQuery orderByColor($order = Criteria::ASC) Order by the color column
  *
  * @method     CircuitQuery groupById() Group by the id column
  * @method     CircuitQuery groupByName() Group by the name column
  * @method     CircuitQuery groupByDescription() Group by the description column
  * @method     CircuitQuery groupByLimitsdescription() Group by the limitsDescription column
  * @method     CircuitQuery groupByOrderby() Group by the orderBy column
+ * @method     CircuitQuery groupByColor() Group by the color column
  *
  * @method     CircuitQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     CircuitQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -46,12 +48,14 @@
  * @method     Circuit findOneByDescription(string $description) Return the first Circuit filtered by the description column
  * @method     Circuit findOneByLimitsdescription(string $limitsDescription) Return the first Circuit filtered by the limitsDescription column
  * @method     Circuit findOneByOrderby(int $orderBy) Return the first Circuit filtered by the orderBy column
+ * @method     Circuit findOneByColor(string $color) Return the first Circuit filtered by the color column
  *
  * @method     array findById(int $id) Return Circuit objects filtered by the id column
  * @method     array findByName(string $name) Return Circuit objects filtered by the name column
  * @method     array findByDescription(string $description) Return Circuit objects filtered by the description column
  * @method     array findByLimitsdescription(string $limitsDescription) Return Circuit objects filtered by the limitsDescription column
  * @method     array findByOrderby(int $orderBy) Return Circuit objects filtered by the orderBy column
+ * @method     array findByColor(string $color) Return Circuit objects filtered by the color column
  *
  * @package    propel.generator.lausi.classes.om
  */
@@ -273,6 +277,28 @@ abstract class BaseCircuitQuery extends ModelCriteria
 			}
 		}
 		return $this->addUsingAlias(CircuitPeer::ORDERBY, $orderby, $comparison);
+	}
+
+	/**
+	 * Filter the query on the color column
+	 * 
+	 * @param     string $color The value to use as filter.
+	 *            Accepts wildcards (* and % trigger a LIKE)
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    CircuitQuery The current query, for fluid interface
+	 */
+	public function filterByColor($color = null, $comparison = null)
+	{
+		if (null === $comparison) {
+			if (is_array($color)) {
+				$comparison = Criteria::IN;
+			} elseif (preg_match('/[\%\*]/', $color)) {
+				$color = str_replace('*', '%', $color);
+				$comparison = Criteria::LIKE;
+			}
+		}
+		return $this->addUsingAlias(CircuitPeer::COLOR, $color, $comparison);
 	}
 
 	/**
@@ -567,6 +593,23 @@ abstract class BaseCircuitQuery extends ModelCriteria
 			->useQuery($relationAlias ? $relationAlias : 'ClientAddress', 'ClientAddressQuery');
 	}
 
+	/**
+	 * Filter the query by a related Workforce object
+	 * using the lausi_workforceCircuit table as cross reference
+	 *
+	 * @param     Workforce $workforce the related object to use as filter
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    CircuitQuery The current query, for fluid interface
+	 */
+	public function filterByWorkforce($workforce, $comparison = Criteria::EQUAL)
+	{
+		return $this
+			->useWorkforceCircuitQuery()
+				->filterByWorkforce($workforce, $comparison)
+			->endUse();
+	}
+	
 	/**
 	 * Exclude object from result
 	 *

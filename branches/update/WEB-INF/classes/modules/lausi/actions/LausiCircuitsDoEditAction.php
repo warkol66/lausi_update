@@ -47,22 +47,21 @@ class LausiCircuitsDoEditAction extends BaseAction {
 		if ( $_POST["action"] == "edit" ) {
 			$circuit = CircuitPeer::get($_POST["id"]);
 			//estoy editando un circuit existente
-			CircuitPeer::update($_POST["id"],$_POST["name"],$_POST["description"],$_POST["limitsDescription"]);
+			$smarty->assign("action","edit");
 		}
 		else {
+			$circuit = new Circuit;
 		  	//estoy creando un nuevo circuit
-			if ( !CircuitPeer::create($_POST["name"],$_POST["description"],$_POST["limitsDescription"]) ) {
-				$circuit = new Circuit();
-				$circuit->setid($_POST["id"]);
-				$circuit->setname($_POST["name"]);
-				$circuit->setdescription($_POST["description"]);
-				$circuit->setlimitsDescription($_POST["limitsDescription"]);
-				$smarty->assign("circuit",$circuit);	
-				$smarty->assign("action","create");
-				$smarty->assign("message","error");
-				return $mapping->findForwardConfig('failure');
-      		}
+		  	$smarty->assign("action","create");
 		}
+		
+		Common::setObjectFromParams($circuit, $_POST['circuit']);
+		
+		if ( !$circuit->save() ) {
+			$smarty->assign("circuit",$circuit);	
+			$smarty->assign("message","error");
+			return $mapping->findForwardConfig('failure');
+      	}
 		
 		CircuitPointQuery::create()->filterByCircuit($circuit)->delete();
 		

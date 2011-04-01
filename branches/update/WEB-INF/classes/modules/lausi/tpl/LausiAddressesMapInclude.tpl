@@ -47,6 +47,8 @@
 	    	displayMarker(evnt.latLng);
 	    	updateAddressInfoByPosition(evnt.latLng);
 	  	});
+	  	
+	  	|-include file="LausiCircuitsDraw.tpl"-|
 	}
 	
 	function displayMarker(position) {
