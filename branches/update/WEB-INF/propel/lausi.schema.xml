@@ -40,6 +40,24 @@
 		</vendor>
 
 	</table>
+	
+	<table phpName="CircuitPoint" name="lausi_circuitPoint" description="Puntos que conforman el perimetro de los circuitos">
+	
+		<column name="id" type="INTEGER"  required="true" description="Id de Circuito" primaryKey="true" autoIncrement="true"  />
+		<column name="circuitId" type="INTEGER" required="true"/>
+		<column name="latitude" type="FLOAT" description="latitud" />
+		<column name="longitude" type="FLOAT" description="longitud" />
+		
+		<foreign-key foreignTable="lausi_circuit">
+			<reference local="circuitId" foreign="id"/>
+		</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
 
 <!-- Una misma fuerza de Trabajo de relaciona con varios circuitos -->
 	<table phpName="WorkforceCircuit" name="lausi_workforceCircuit">

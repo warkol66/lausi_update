@@ -55,6 +55,11 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 	protected $orderby;
 
 	/**
+	 * @var        array CircuitPoint[] Collection to store aggregation of CircuitPoint objects.
+	 */
+	protected $collCircuitPoints;
+
+	/**
 	 * @var        array WorkforceCircuit[] Collection to store aggregation of WorkforceCircuit objects.
 	 */
 	protected $collWorkforceCircuits;
@@ -340,6 +345,8 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 
 		if ($deep) {  // also de-associate any related objects?
 
+			$this->collCircuitPoints = null;
+
 			$this->collWorkforceCircuits = null;
 
 			$this->collAddresss = null;
@@ -479,6 +486,14 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 				$this->resetModified(); // [HL] After being saved an object is no longer 'modified'
 			}
 
+			if ($this->collCircuitPoints !== null) {
+				foreach ($this->collCircuitPoints as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
 			if ($this->collWorkforceCircuits !== null) {
 				foreach ($this->collWorkforceCircuits as $referrerFK) {
 					if (!$referrerFK->isDeleted()) {
@@ -573,6 +588,14 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 				$failureMap = array_merge($failureMap, $retval);
 			}
 
+
+				if ($this->collCircuitPoints !== null) {
+					foreach ($this->collCircuitPoints as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
 
 				if ($this->collWorkforceCircuits !== null) {
 					foreach ($this->collWorkforceCircuits as $referrerFK) {
@@ -682,6 +705,9 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 			$keys[4] => $this->getOrderby(),
 		);
 		if ($includeForeignObjects) {
+			if (null !== $this->collCircuitPoints) {
+				$result['CircuitPoints'] = $this->collCircuitPoints->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+			}
 			if (null !== $this->collWorkforceCircuits) {
 				$result['WorkforceCircuits'] = $this->collWorkforceCircuits->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
 			}
@@ -854,6 +880,12 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 			// the getter/setter methods for fkey referrer objects.
 			$copyObj->setNew(false);
 
+			foreach ($this->getCircuitPoints() as $relObj) {
+				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+					$copyObj->addCircuitPoint($relObj->copy($deepCopy));
+				}
+			}
+
 			foreach ($this->getWorkforceCircuits() as $relObj) {
 				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
 					$copyObj->addWorkforceCircuit($relObj->copy($deepCopy));
@@ -916,6 +948,121 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 			self::$peer = new CircuitPeer();
 		}
 		return self::$peer;
+	}
+
+	/**
+	 * Clears out the collCircuitPoints collection
+	 *
+	 * This does not modify the database; however, it will remove any associated objects, causing
+	 * them to be refetched by subsequent calls to accessor method.
+	 *
+	 * @return     void
+	 * @see        addCircuitPoints()
+	 */
+	public function clearCircuitPoints()
+	{
+		$this->collCircuitPoints = null; // important to set this to NULL since that means it is uninitialized
+	}
+
+	/**
+	 * Initializes the collCircuitPoints collection.
+	 *
+	 * By default this just sets the collCircuitPoints collection to an empty array (like clearcollCircuitPoints());
+	 * however, you may wish to override this method in your stub class to provide setting appropriate
+	 * to your application -- for example, setting the initial array to the values stored in database.
+	 *
+	 * @param      boolean $overrideExisting If set to true, the method call initializes
+	 *                                        the collection even if it is not empty
+	 *
+	 * @return     void
+	 */
+	public function initCircuitPoints($overrideExisting = true)
+	{
+		if (null !== $this->collCircuitPoints && !$overrideExisting) {
+			return;
+		}
+		$this->collCircuitPoints = new PropelObjectCollection();
+		$this->collCircuitPoints->setModel('CircuitPoint');
+	}
+
+	/**
+	 * Gets an array of CircuitPoint objects which contain a foreign key that references this object.
+	 *
+	 * If the $criteria is not null, it is used to always fetch the results from the database.
+	 * Otherwise the results are fetched from the database the first time, then cached.
+	 * Next time the same method is called without $criteria, the cached collection is returned.
+	 * If this Circuit is new, it will return
+	 * an empty collection or the current collection; the criteria is ignored on a new object.
+	 *
+	 * @param      Criteria $criteria optional Criteria object to narrow the query
+	 * @param      PropelPDO $con optional connection object
+	 * @return     PropelCollection|array CircuitPoint[] List of CircuitPoint objects
+	 * @throws     PropelException
+	 */
+	public function getCircuitPoints($criteria = null, PropelPDO $con = null)
+	{
+		if(null === $this->collCircuitPoints || null !== $criteria) {
+			if ($this->isNew() && null === $this->collCircuitPoints) {
+				// return empty collection
+				$this->initCircuitPoints();
+			} else {
+				$collCircuitPoints = CircuitPointQuery::create(null, $criteria)
+					->filterByCircuit($this)
+					->find($con);
+				if (null !== $criteria) {
+					return $collCircuitPoints;
+				}
+				$this->collCircuitPoints = $collCircuitPoints;
+			}
+		}
+		return $this->collCircuitPoints;
+	}
+
+	/**
+	 * Returns the number of related CircuitPoint objects.
+	 *
+	 * @param      Criteria $criteria
+	 * @param      boolean $distinct
+	 * @param      PropelPDO $con
+	 * @return     int Count of related CircuitPoint objects.
+	 * @throws     PropelException
+	 */
+	public function countCircuitPoints(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+	{
+		if(null === $this->collCircuitPoints || null !== $criteria) {
+			if ($this->isNew() && null === $this->collCircuitPoints) {
+				return 0;
+			} else {
+				$query = CircuitPointQuery::create(null, $criteria);
+				if($distinct) {
+					$query->distinct();
+				}
+				return $query
+					->filterByCircuit($this)
+					->count($con);
+			}
+		} else {
+			return count($this->collCircuitPoints);
+		}
+	}
+
+	/**
+	 * Method called to associate a CircuitPoint object to this object
+	 * through the CircuitPoint foreign key attribute.
+	 *
+	 * @param      CircuitPoint $l CircuitPoint
+	 * @return     void
+	 * @throws     PropelException
+	 */
+	public function addCircuitPoint(CircuitPoint $l)
+	{
+		if ($this->collCircuitPoints === null) {
+			$this->initCircuitPoints();
+		}
+		if (!$this->collCircuitPoints->contains($l)) { // only add it if the **same** object is not already associated
+			$this->collCircuitPoints[]= $l;
+			$l->setCircuit($this);
+		}
 	}
 
 	/**
@@ -1393,6 +1540,11 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 	public function clearAllReferences($deep = false)
 	{
 		if ($deep) {
+			if ($this->collCircuitPoints) {
+				foreach ($this->collCircuitPoints as $o) {
+					$o->clearAllReferences($deep);
+				}
+			}
 			if ($this->collWorkforceCircuits) {
 				foreach ($this->collWorkforceCircuits as $o) {
 					$o->clearAllReferences($deep);
@@ -1410,6 +1562,10 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 			}
 		} // if ($deep)
 
+		if ($this->collCircuitPoints instanceof PropelCollection) {
+			$this->collCircuitPoints->clearIterator();
+		}
+		$this->collCircuitPoints = null;
 		if ($this->collWorkforceCircuits instanceof PropelCollection) {
 			$this->collWorkforceCircuits->clearIterator();
 		}

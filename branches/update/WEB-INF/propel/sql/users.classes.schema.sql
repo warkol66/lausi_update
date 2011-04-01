@@ -34,7 +34,7 @@ CREATE TABLE `users_user`
 	CONSTRAINT `users_user_FK_1`
 		FOREIGN KEY (`levelId`)
 		REFERENCES `users_level` (`id`)
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Users';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Users';
 
 -- ---------------------------------------------------------------------
 -- users_userGroup
@@ -55,7 +55,7 @@ CREATE TABLE `users_userGroup`
 		FOREIGN KEY (`groupId`)
 		REFERENCES `users_group` (`id`)
 		ON DELETE CASCADE
-) ENGINE=InnoDB COMMENT='Users / Groups';
+) ENGINE=MyISAM COMMENT='Users / Groups';
 
 -- ---------------------------------------------------------------------
 -- users_group
@@ -72,7 +72,7 @@ CREATE TABLE `users_group`
 	`bitLevel` INTEGER COMMENT 'Nivel',
 	PRIMARY KEY (`id`),
 	UNIQUE INDEX `users_group_U_1` (`name`)
-) ENGINE=InnoDB COMMENT='Groups';
+) ENGINE=MyISAM COMMENT='Groups';
 
 -- ---------------------------------------------------------------------
 -- users_level
@@ -87,7 +87,7 @@ CREATE TABLE `users_level`
 	`bitLevel` INTEGER COMMENT 'Bit del nivel',
 	PRIMARY KEY (`id`),
 	UNIQUE INDEX `users_level_U_1` (`name`)
-) ENGINE=InnoDB COMMENT='Levels';
+) ENGINE=MyISAM COMMENT='Levels';
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;

@@ -1,10 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("CircuitPeer.php");
-require_once("WorkforcePeer.php");
-
-
 /**
  * Funcion de Comparacion para calcular la diferencia entre dos arrays de workforces
  * @todo ver de mover a Common, se probo y no se pudo
@@ -69,7 +64,6 @@ class LausiCircuitsEditAction extends BaseAction {
     	if ( !empty($_GET["id"]) ) {
 			//voy a editar un circuit
 			$circuit = CircuitPeer::get($_GET["id"]);
-			$smarty->assign("circuit",$circuit);
 			
 			//buscamos todos los workforces posibles y los actuales
 			$currentWorkforces = $circuit->getWorkforces();
@@ -84,10 +78,14 @@ class LausiCircuitsEditAction extends BaseAction {
 		else {
 			//voy a crear un circuit nuevo
 			$circuit = new Circuit();
-			$smarty->assign("circuit",$circuit);			
-												
+						
 			$smarty->assign("action","create");
 		}
+		
+		$smarty->assign("circuit",$circuit);
+		
+		$circuitPoints = $circuit->getCircuitPoints();
+		$smarty->assign("circuitPoints",$circuitPoints);
 
 		$smarty->assign("message",$_GET["message"]);
 

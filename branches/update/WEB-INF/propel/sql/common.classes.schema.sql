@@ -29,7 +29,7 @@ CREATE TABLE `actionLogs_log`
 	CONSTRAINT `actionLogs_log_FK_2`
 		FOREIGN KEY (`action`)
 		REFERENCES `security_action` (`action`)
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='logs de acciones del sistema';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='logs de acciones del sistema';
 
 -- ---------------------------------------------------------------------
 -- actionLogs_label
@@ -45,7 +45,7 @@ CREATE TABLE `actionLogs_label`
 	`language` VARCHAR(100) COMMENT 'idioma de la etiqueta',
 	`forward` VARCHAR(100) COMMENT 'tipo de accion de la etiqueta',
 	PRIMARY KEY (`id`,`action`)
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Etiquetas de los logs';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Etiquetas de los logs';
 
 -- ---------------------------------------------------------------------
 -- common_menuItem
@@ -62,7 +62,7 @@ CREATE TABLE `common_menuItem`
 	`parentId` INTEGER COMMENT 'Id item padre',
 	`newWindow` BOOL DEFAULT 0 NOT NULL COMMENT 'Abrir el enlace en nueva ventana',
 	PRIMARY KEY (`id`)
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Items de los menues dinamicos';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Items de los menues dinamicos';
 
 -- ---------------------------------------------------------------------
 -- common_menuItemInfo
@@ -84,7 +84,7 @@ CREATE TABLE `common_menuItemInfo`
 		FOREIGN KEY (`menuItemId`)
 		REFERENCES `common_menuItem` (`id`)
 		ON DELETE CASCADE
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Items de los menues dinamicos';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Items de los menues dinamicos';
 
 -- ---------------------------------------------------------------------
 -- common_alertSubscription
@@ -123,7 +123,7 @@ CREATE TABLE `common_alertSubscription`
 		FOREIGN KEY (`entityBooleanFieldUniqueName`)
 		REFERENCES `modules_entityField` (`uniqueName`)
 		ON DELETE CASCADE
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Suscripciones de alerta';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Suscripciones de alerta';
 
 -- ---------------------------------------------------------------------
 -- common_alertSubscriptionUser
@@ -145,7 +145,7 @@ CREATE TABLE `common_alertSubscriptionUser`
 		FOREIGN KEY (`userId`)
 		REFERENCES `users_user` (`id`)
 		ON DELETE CASCADE
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Relacion AlertSubscription - User';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Relacion AlertSubscription - User';
 
 -- ---------------------------------------------------------------------
 -- common_scheduleSubscription
@@ -184,7 +184,7 @@ CREATE TABLE `common_scheduleSubscription`
 		FOREIGN KEY (`entityBooleanFieldUniqueName`)
 		REFERENCES `modules_entityField` (`uniqueName`)
 		ON DELETE CASCADE
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Suscripciones de schedulea';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Suscripciones de schedulea';
 
 -- ---------------------------------------------------------------------
 -- common_scheduleSubscriptionUser
@@ -206,7 +206,7 @@ CREATE TABLE `common_scheduleSubscriptionUser`
 		FOREIGN KEY (`userId`)
 		REFERENCES `users_user` (`id`)
 		ON DELETE CASCADE
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Relacion ScheduleSubscription - User';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Relacion ScheduleSubscription - User';
 
 -- ---------------------------------------------------------------------
 -- common_internalMail
@@ -234,7 +234,7 @@ CREATE TABLE `common_internalMail`
 	CONSTRAINT `common_internalMail_FK_1`
 		FOREIGN KEY (`replyId`)
 		REFERENCES `common_internalMail` (`id`)
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Mensajes internos';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Mensajes internos';
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;

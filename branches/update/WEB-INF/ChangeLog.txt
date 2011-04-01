@@ -1,4 +1,26 @@
 ﻿==============================
+Revisión 88 - Fecha 201100401
+------------------------------
+-- ---------------------------------------------------------------------
+-- lausi_circuitPoint
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `lausi_circuitPoint`;
+
+CREATE TABLE `lausi_circuitPoint`
+(
+	`id` INTEGER NOT NULL AUTO_INCREMENT COMMENT 'Id de Circuito',
+	`circuitId` INTEGER NOT NULL,
+	`latitude` FLOAT COMMENT 'latitud',
+	`longitude` FLOAT COMMENT 'longitud',
+	PRIMARY KEY (`id`),
+	INDEX `lausi_circuitPoint_FI_1` (`circuitId`),
+	CONSTRAINT `lausi_circuitPoint_FK_1`
+		FOREIGN KEY (`circuitId`)
+		REFERENCES `lausi_circuit` (`id`)
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Puntos que conforman el perimetro de los circuitos';
+
+==============================
 Revisión 48 - Fecha 201100328
 ------------------------------
 #ATENCION: es importante ejecutar estas dos consultas en el orden en que están escritas.

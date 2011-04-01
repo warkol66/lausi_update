@@ -16,7 +16,7 @@ CREATE TABLE `modules_module`
 	`alwaysActive` TINYINT DEFAULT 0 NOT NULL COMMENT 'Modulo siempre activo',
 	`hasCategories` TINYINT DEFAULT 0 NOT NULL COMMENT 'El Modulo tiene categorias relacionadas?',
 	PRIMARY KEY (`name`)
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT=' Registro de modulos';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT=' Registro de modulos';
 
 -- ---------------------------------------------------------------------
 -- modules_dependency
@@ -33,7 +33,7 @@ CREATE TABLE `modules_dependency`
 		FOREIGN KEY (`moduleName`)
 		REFERENCES `modules_module` (`name`)
 		ON DELETE CASCADE
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Dependencia de modulos ';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Dependencia de modulos ';
 
 -- ---------------------------------------------------------------------
 -- modules_label
@@ -54,7 +54,7 @@ CREATE TABLE `modules_label`
 		FOREIGN KEY (`name`)
 		REFERENCES `modules_module` (`name`)
 		ON DELETE CASCADE
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Etiquetas de modulos ';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Etiquetas de modulos ';
 
 -- ---------------------------------------------------------------------
 -- modules_entity
@@ -83,7 +83,7 @@ CREATE TABLE `modules_entity`
 	CONSTRAINT `modules_entity_FK_2`
 		FOREIGN KEY (`scopeFieldUniqueName`)
 		REFERENCES `modules_entityField` (`uniqueName`)
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Entidades de modulos ';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Entidades de modulos ';
 
 -- ---------------------------------------------------------------------
 -- modules_entityField
@@ -131,7 +131,7 @@ CREATE TABLE `modules_entityField`
 		FOREIGN KEY (`foreignKeyRemote`)
 		REFERENCES `modules_entityField` (`uniqueName`)
 		ON DELETE SET NULL
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Campos de las entidades de modulos';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Campos de las entidades de modulos';
 
 -- ---------------------------------------------------------------------
 -- modules_entityFieldValidation
@@ -150,7 +150,7 @@ CREATE TABLE `modules_entityFieldValidation`
 		FOREIGN KEY (`entityFieldUniqueName`)
 		REFERENCES `modules_entityField` (`uniqueName`)
 		ON DELETE CASCADE
-) ENGINE=InnoDB COMMENT='Validaciones de los campos de las entidades de modulos ';
+) ENGINE=MyISAM COMMENT='Validaciones de los campos de las entidades de modulos ';
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;

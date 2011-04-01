@@ -20,7 +20,7 @@
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 <script type="text/javascript" src="scripts/keydragzoom_packed.js"></script>
-<script type="text/javascript" src="scripts/lausi-map-circuit.js"></script>
+<script type="text/javascript" src="scripts/lausi-map-route-sheets.js"></script>
 
 <script type="text/javascript" language="javascript">
 	initializeMap();

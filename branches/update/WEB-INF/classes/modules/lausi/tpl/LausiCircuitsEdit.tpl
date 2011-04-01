@@ -19,6 +19,16 @@
 					<label for="limitsDescription">Límites</label>
 					<textarea name="limitsDescription" cols="45" rows="6" wrap="VIRTUAL" id="limitsDescription">|-$circuit->getlimitsDescription()-|</textarea>
 				</p>
+				
+				<div id="points_container" style="display:none;">
+					|-foreach from=$circuitPoints key=key item=point-|
+					<div id="point_|-$key-|">
+						<input type="hidden" id="point_|-$key-|_latitude" name="circuitPoints[point_|-$key-|][params][latitude]" value="|-$point->getLatitude()-|" />
+						<input type="hidden" id="point_|-$key-|_longitude" name="circuitPoints[point_|-$key-|][params][longitude]" value="|-$point->getLongitude()-|" />
+						<input type="hidden" id="point_|-$key-|_circuitId" name="circuitPoints[point_|-$key-|][params][circuitId]" value="|-$point->getCircuitId()-|" />
+					</div>
+					|-/foreach-|
+				</div>
 				<p>
 					|-if $action eq "edit"-|
 					<input type="hidden" name="id" id="id" value="|-$circuit->getid()-|" />
@@ -65,3 +75,5 @@
 		</p>			
 	</div>
 |-/if-|
+
+|-include file="LausiCircuitsEditMapInclude.tpl"-|
