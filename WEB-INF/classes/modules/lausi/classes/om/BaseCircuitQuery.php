@@ -22,6 +22,10 @@
  * @method     CircuitQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     CircuitQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
+ * @method     CircuitQuery leftJoinCircuitPoint($relationAlias = null) Adds a LEFT JOIN clause to the query using the CircuitPoint relation
+ * @method     CircuitQuery rightJoinCircuitPoint($relationAlias = null) Adds a RIGHT JOIN clause to the query using the CircuitPoint relation
+ * @method     CircuitQuery innerJoinCircuitPoint($relationAlias = null) Adds a INNER JOIN clause to the query using the CircuitPoint relation
+ *
  * @method     CircuitQuery leftJoinWorkforceCircuit($relationAlias = null) Adds a LEFT JOIN clause to the query using the WorkforceCircuit relation
  * @method     CircuitQuery rightJoinWorkforceCircuit($relationAlias = null) Adds a RIGHT JOIN clause to the query using the WorkforceCircuit relation
  * @method     CircuitQuery innerJoinWorkforceCircuit($relationAlias = null) Adds a INNER JOIN clause to the query using the WorkforceCircuit relation
@@ -269,6 +273,79 @@ abstract class BaseCircuitQuery extends ModelCriteria
 			}
 		}
 		return $this->addUsingAlias(CircuitPeer::ORDERBY, $orderby, $comparison);
+	}
+
+	/**
+	 * Filter the query by a related CircuitPoint object
+	 *
+	 * @param     CircuitPoint $circuitPoint  the related object to use as filter
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    CircuitQuery The current query, for fluid interface
+	 */
+	public function filterByCircuitPoint($circuitPoint, $comparison = null)
+	{
+		if ($circuitPoint instanceof CircuitPoint) {
+			return $this
+				->addUsingAlias(CircuitPeer::ID, $circuitPoint->getCircuitid(), $comparison);
+		} elseif ($circuitPoint instanceof PropelCollection) {
+			return $this
+				->useCircuitPointQuery()
+					->filterByPrimaryKeys($circuitPoint->getPrimaryKeys())
+				->endUse();
+		} else {
+			throw new PropelException('filterByCircuitPoint() only accepts arguments of type CircuitPoint or PropelCollection');
+		}
+	}
+
+	/**
+	 * Adds a JOIN clause to the query using the CircuitPoint relation
+	 * 
+	 * @param     string $relationAlias optional alias for the relation
+	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+	 *
+	 * @return    CircuitQuery The current query, for fluid interface
+	 */
+	public function joinCircuitPoint($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+	{
+		$tableMap = $this->getTableMap();
+		$relationMap = $tableMap->getRelation('CircuitPoint');
+		
+		// create a ModelJoin object for this join
+		$join = new ModelJoin();
+		$join->setJoinType($joinType);
+		$join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+		if ($previousJoin = $this->getPreviousJoin()) {
+			$join->setPreviousJoin($previousJoin);
+		}
+		
+		// add the ModelJoin to the current object
+		if($relationAlias) {
+			$this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+			$this->addJoinObject($join, $relationAlias);
+		} else {
+			$this->addJoinObject($join, 'CircuitPoint');
+		}
+		
+		return $this;
+	}
+
+	/**
+	 * Use the CircuitPoint relation CircuitPoint object
+	 *
+	 * @see       useQuery()
+	 * 
+	 * @param     string $relationAlias optional alias for the relation,
+	 *                                   to be used as main alias in the secondary query
+	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+	 *
+	 * @return    CircuitPointQuery A secondary query class using the current class as primary query
+	 */
+	public function useCircuitPointQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+	{
+		return $this
+			->joinCircuitPoint($relationAlias, $joinType)
+			->useQuery($relationAlias ? $relationAlias : 'CircuitPoint', 'CircuitPointQuery');
 	}
 
 	/**

@@ -17,7 +17,7 @@ CREATE TABLE `lausi_workforce`
 	`workInHeight` TINYINT COMMENT 'Trabaja en altura',
 	`deleted_at` DATETIME,
 	PRIMARY KEY (`id`)
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Base de Fuerza de Trabajo';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Base de Fuerza de Trabajo';
 
 -- ---------------------------------------------------------------------
 -- lausi_circuit
@@ -33,7 +33,26 @@ CREATE TABLE `lausi_circuit`
 	`limitsDescription` TEXT COMMENT 'descripcion de los limites del circuito',
 	`orderBy` INTEGER COMMENT 'Orden del Circuito',
 	PRIMARY KEY (`id`)
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Base de Circuitos';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Base de Circuitos';
+
+-- ---------------------------------------------------------------------
+-- lausi_circuitPoint
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `lausi_circuitPoint`;
+
+CREATE TABLE `lausi_circuitPoint`
+(
+	`id` INTEGER NOT NULL AUTO_INCREMENT COMMENT 'Id de Circuito',
+	`circuitId` INTEGER NOT NULL,
+	`latitude` FLOAT COMMENT 'latitud',
+	`longitude` FLOAT COMMENT 'longitud',
+	PRIMARY KEY (`id`),
+	INDEX `lausi_circuitPoint_FI_1` (`circuitId`),
+	CONSTRAINT `lausi_circuitPoint_FK_1`
+		FOREIGN KEY (`circuitId`)
+		REFERENCES `lausi_circuit` (`id`)
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Puntos que conforman el perimetro de los circuitos';
 
 -- ---------------------------------------------------------------------
 -- lausi_workforceCircuit
@@ -53,7 +72,7 @@ CREATE TABLE `lausi_workforceCircuit`
 	CONSTRAINT `lausi_workforceCircuit_FK_2`
 		FOREIGN KEY (`circuitId`)
 		REFERENCES `lausi_circuit` (`id`)
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci';
 
 -- ---------------------------------------------------------------------
 -- lausi_region
@@ -67,7 +86,7 @@ CREATE TABLE `lausi_region`
 	`name` VARCHAR(100) NOT NULL COMMENT 'Name',
 	PRIMARY KEY (`id`),
 	UNIQUE INDEX `lausi_region_U_1` (`name`)
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Barrios';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Barrios';
 
 -- ---------------------------------------------------------------------
 -- lausi_address
@@ -99,7 +118,7 @@ CREATE TABLE `lausi_address`
 	CONSTRAINT `lausi_address_FK_2`
 		FOREIGN KEY (`regionId`)
 		REFERENCES `lausi_region` (`id`)
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Base de Direcciones';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Base de Direcciones';
 
 -- ---------------------------------------------------------------------
 -- lausi_client
@@ -113,7 +132,7 @@ CREATE TABLE `lausi_client`
 	`name` VARCHAR(100) NOT NULL COMMENT 'Nombre del cliente',
 	`contact` VARCHAR(100) COMMENT 'contacto del cliente',
 	PRIMARY KEY (`id`)
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Base de Clientes';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Base de Clientes';
 
 -- ---------------------------------------------------------------------
 -- lausi_clientAddress
@@ -146,7 +165,7 @@ CREATE TABLE `lausi_clientAddress`
 	CONSTRAINT `lausi_clientAddress_FK_3`
 		FOREIGN KEY (`regionId`)
 		REFERENCES `lausi_region` (`id`)
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Base de Direcciones de Clientes';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Base de Direcciones de Clientes';
 
 -- ---------------------------------------------------------------------
 -- lausi_billboard
@@ -169,7 +188,7 @@ CREATE TABLE `lausi_billboard`
 		FOREIGN KEY (`addressId`)
 		REFERENCES `lausi_address` (`id`)
 		ON DELETE CASCADE
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Base de Activos (Carteleras)';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Base de Activos (Carteleras)';
 
 -- ---------------------------------------------------------------------
 -- lausi_theme
@@ -193,7 +212,7 @@ CREATE TABLE `lausi_theme`
 	CONSTRAINT `lausi_theme_FK_1`
 		FOREIGN KEY (`clientId`)
 		REFERENCES `lausi_client` (`id`)
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Base de Motivos';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Base de Motivos';
 
 -- ---------------------------------------------------------------------
 -- lausi_advertisement
@@ -224,7 +243,7 @@ CREATE TABLE `lausi_advertisement`
 	CONSTRAINT `lausi_advertisement_FK_3`
 		FOREIGN KEY (`workforceId`)
 		REFERENCES `lausi_workforce` (`id`)
-) ENGINE=InnoDB CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Base de Avisos';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Base de Avisos';
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;

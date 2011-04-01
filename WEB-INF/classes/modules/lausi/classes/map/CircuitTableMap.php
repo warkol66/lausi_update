@@ -50,6 +50,7 @@ class CircuitTableMap extends TableMap {
 	 */
 	public function buildRelations()
 	{
+    $this->addRelation('CircuitPoint', 'CircuitPoint', RelationMap::ONE_TO_MANY, array('id' => 'circuitId', ), null, null);
     $this->addRelation('WorkforceCircuit', 'WorkforceCircuit', RelationMap::ONE_TO_MANY, array('id' => 'circuitId', ), null, null);
     $this->addRelation('Address', 'Address', RelationMap::ONE_TO_MANY, array('id' => 'circuitId', ), null, null);
     $this->addRelation('ClientAddress', 'ClientAddress', RelationMap::ONE_TO_MANY, array('id' => 'circuitId', ), null, null);
