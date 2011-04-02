@@ -1,11 +1,5 @@
 <?php
 
-// The parent class
-require_once 'om/BaseWorkforcePeer.php';
-
-// The object class
-include_once 'Workforce.php';
-
 /**
  * Class WorkforcePeer
  *
@@ -100,6 +94,24 @@ class WorkforcePeer extends BaseWorkforcePeer {
 		return $alls;
   }
   
+  /**
+  * Obtiene todos los workforces que no están asignados aun circuito.
+	*
+	*	@return array Collección de workforces asignables a un circuito
+  */
+	function getCircuitCandidates($circuit) {
+		$assignedWorforces = $circuit->getWorkforces();
+		$assignedIds = array();
+		foreach ($assignedWorforces as $assignedWorforce)
+			$assignedIds[] = $assignedWorforce->getId();
+
+		$candidates = WorkforceQuery::create();
+		$candidates->add(WorkforcePeer::ID, $assignedIds, Criteria::NOT_IN);
+		$candidates = $candidates->find();
+
+		return $candidates;
+  }
+
   /**
   * Obtiene todos los workforces paginados.
   *

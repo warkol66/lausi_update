@@ -9,19 +9,18 @@
 			<fieldset title="Formulario de edición de datos de un circuito">
 				<p>
 					<label for="name">Nombre</label>
-					<input type="text" id="name" name="circuit[name]" value="|-$circuit->getname()-|" title="name" maxlength="100" />
+					<input name="circuit[name]" type="text" id="name" title="name" value="|-$circuit->getname()-|" size="30" maxlength="100" />
 				</p>
-				<p>
+			<p><script type="text/javascript" src="scripts/jscolor.js"></script>
 					<label for="color">Color</label>
-					<input type="text" id="color" name="circuit[color]" value="|-$circuit->getColor()-|" title="name" maxlength="100" />
-				</p>
+					<input name="circuit[color]" type="text" id="color" title="name" value="|-$circuit->getColor()-|" size="10" maxlength="7" class="color {hash:true, pickerPosition:'top'}" />
 				<p>
 					<label for="description">Descripción</label>
-					<textarea name="circuit[description]" cols="45" rows="6" wrap="VIRTUAL" id="description">|-$circuit->getdescription()-|</textarea>
+					<textarea name="circuit[description]" cols="65" rows="3" wrap="VIRTUAL" id="description">|-$circuit->getdescription()-|</textarea>
 				</p>
 				<p>
 					<label for="limitsDescription">Límites</label>
-					<textarea name="circuit[limitsDescription]" cols="45" rows="6" wrap="VIRTUAL" id="limitsDescription">|-$circuit->getlimitsDescription()-|</textarea>
+					<textarea name="circuit[limitsDescription]" cols="65" rows="3" wrap="VIRTUAL" id="limitsDescription">|-$circuit->getlimitsDescription()-|</textarea>
 				</p>
 				
 				<div id="points_container" style="display:none;">
@@ -49,8 +48,8 @@
 	<div >
 		<p><span id="msgbox"></span></p>
 	</div>
-	
 	<div id="workforceCircuit">
+<fieldset><legend>Contratistas</legend>	
 		<form id='workforceAdder' method="post">				
 			<p>
 				<select name="workforceId">
@@ -76,7 +75,8 @@
 			</li> 
 			|-/foreach-|
 			</ul>
-		</p>			
+		</p>
+		</fieldset>		
 	</div>
 |-/if-|
 
