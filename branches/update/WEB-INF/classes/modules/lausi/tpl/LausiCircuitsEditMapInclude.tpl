@@ -1,5 +1,5 @@
 <fieldset>
-<legend>Perímetro</legend>
+<legend>Circuito</legend>
 
 <div id="point_dummy_container">
 	<div id="point_dummy">
@@ -26,7 +26,7 @@
 	|-/foreach-|
 	
 	|-if $circuit->getColor() ne ''-|
-		polygon.setOptions({fillColor:'|-$circuit->getColor()-|'});
+		polygon.setOptions({fillColor:'|-$circuit->getColor()-|',strokeColor: '|-$circuit->getColor()-|'});
 	|-/if-|
 	
 	|-if $circuitPoints|@count > 2-|

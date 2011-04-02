@@ -4,11 +4,11 @@
 		var polygonDrawing = new google.maps.Polygon({
 			map: map,
 			clickable: false,
-			fillOpacity: 0.05,
-			strokeOpacity: 0.15
+			fillOpacity: 0.15,
+			strokeOpacity: 0.25
 		});
 		|-if $circuit->getColor() ne ''-|
-			polygonDrawing.setOptions({fillColor: '|-$circuit->getColor()-|'});
+			polygonDrawing.setOptions({fillColor: '|-$circuit->getColor()-|',strokeColor: '|-$circuit->getColor()-|'});
 		|-/if-|
 		var pathForPolygon = polygonDrawing.getPath();
 		|-foreach from=$circuit->getCircuitPoints() item=circuitPoint-|
