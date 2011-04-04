@@ -1,9 +1,6 @@
 <?php
 
-require_once("BaseAction.php");
 require_once("ReportGenerator.php");
-require_once("BillboardPeer.php");
-require_once('ThemePeer.php');
 
 class LausiReportsSheetsLocationAction extends BaseAction {
 

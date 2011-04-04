@@ -1,8 +1,6 @@
 <?php
 
-require_once("BaseAction.php");
 require_once("ReportGenerator.php");
-require_once("CircuitPeer.php");
 
 class LausiReportsRouteSheetAction extends BaseAction {
 
@@ -48,8 +46,6 @@ class LausiReportsRouteSheetAction extends BaseAction {
 		$section = "Advertisements";
 		$smarty->assign("section",$section);				
 
-		require_once('ThemePeer.php');
-		require_once('WorkforcePeer.php');
 		$smarty->assign('themes',ThemePeer::getAllActive(ThemePeer::TYPE_SEXTUPLE));
 		$smarty->assign('workforces',WorkforcePeer::getAll());
 
