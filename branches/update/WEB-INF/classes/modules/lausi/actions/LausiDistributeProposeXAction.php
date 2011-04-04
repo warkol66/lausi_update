@@ -93,6 +93,7 @@ class LausiDistributeProposeXAction extends BaseAction {
 						$radius = $_POST['byLocation']['radius'];
 						$description = $clientAddress->getName() . " - Distancia Limite: $radius m";
 						$results[0]['description'] = $description;
+						$results[0]['radius'] = $radius;
 						$results[0]['options'] = $proposalGenerator->generateProposalForLocation($themeId, $longitude_0, $latitude_0 ,$radius, Common::convertToMysqlDateFormat($_POST['publishDate']), $_POST['duration'], $quantity);
 						$results[0]['quantity'] = $proposalGenerator->getQuantityByType(ThemePeer::get($themeId),$quantity);
 					}
