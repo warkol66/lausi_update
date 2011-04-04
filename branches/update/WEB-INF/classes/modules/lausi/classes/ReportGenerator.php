@@ -35,6 +35,21 @@
 					
 				array_push($results[$theme->getId()]['adverts'],$advert);		
 			}
+			
+			foreach ($results as $key => $result) {
+				$adverts = new PropelObjectCollection;
+				$adverts->setModel('Advertisement'); 
+				$adverts->setData($result['adverts']);
+				
+				$addresses = AddressQuery::create()->filterByAdvertisement($adverts)->find();
+				$results[$key]['addresses'] = array();
+				
+				foreach ($addresses as $address) {
+					array_push($results[$key]['addresses'], array('address'=>$address));
+				}
+			}
+			
+			$results = $this->orderResults($results);
 			return $results;
 		}
 	
@@ -248,32 +263,43 @@
 		 * Devuelve una arreglo conteniendo todos los resultados pero ordenados en forma aproximada
 		 * por proximidad.
 		 */
-		protected function orderResults($results) {
+		public static function orderResults($results) {
 			$orderedResults = $results;
 			
 			foreach ($results as $key => $result) {
-				$orderedResults[$key]['addresses'] = array();
 				$addresses = $result['addresses'];
-				//Primero tomamos un punto de partida al azar.
-				$idx = 0; //rand(0, count($addresses)); Me parece que no está bueno tan al azar
-				//el arreglo no esta indexado en forma continua
-				$keys = array_keys($addresses);
-				$idx = $keys[$idx];
-				$orderedResults[$key]['addresses'][$idx] = $addresses[$idx];
-				unset($addresses[$idx]);
-				
-				//elemento que usamos como fijo para obtener el más cercano.
-				$pivot = $orderedResults[$key]['addresses'][$idx];
-				
-				//Mientras queden elementos por ordenar.
-				while (count($addresses) > 0) {
-					$idx = $this->getIndexOfClosestTo($pivot, $addresses);
-					$orderedResults[$key]['addresses'][$idx] = $addresses[$idx];
-					$pivot = $addresses[$idx];
-					unset($addresses[$idx]);
-				}
+				$orderedResults[$key]['addresses'] = ReportGenerator::orderAddresses($addresses);
 			}
 			return $orderedResults;
+		}
+		
+		/**
+		 * Devuelve una arreglo conteniendo todas las direcciones pero ordenadas en forma aproximada
+		 * por proximidad.
+		 */		
+		public static function orderAddresses($addresses) {
+			$orderedAddresses = array();
+			
+			//Primero tomamos un punto de partida al azar.
+			$idx = 0; //rand(0, count($addresses)); Me parece que no está bueno tan al azar
+			//el arreglo no esta indexado en forma continua
+			$keys = array_keys($addresses);
+			$idx = $keys[$idx];
+			$orderedAddresses[$idx] = $addresses[$idx];
+			unset($addresses[$idx]);
+			
+			//elemento que usamos como fijo para obtener el más cercano.
+			$pivot = $orderedAddresses[$idx];
+			
+			//Mientras queden elementos por ordenar.
+			while (count($addresses) > 0) {
+				$idx = ReportGenerator::getIndexOfClosestTo($pivot, $addresses);
+				$orderedAddresses[$idx] = $addresses[$idx];
+				$pivot = $addresses[$idx];
+				unset($addresses[$idx]);
+			}
+			
+			return $orderedAddresses;
 		}
 		
 		/**
@@ -281,7 +307,7 @@
 		 * 
 		 * $results es pasado por referencia por una cuestion de performance, pero no va a ser modificado.
 		 */
-		protected function getIndexOfClosestTo($pivot, &$addresses) {
+		protected static function getIndexOfClosestTo($pivot, &$addresses) {
 			$minIdx = 0;
 			$minDistance = -1;
 			
