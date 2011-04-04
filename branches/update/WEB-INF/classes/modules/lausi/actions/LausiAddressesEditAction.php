@@ -54,7 +54,6 @@ class LausiAddressesEditAction extends BaseAction {
 				
 				if (empty($groupByTheme[$themeId]['theme']))
 					$groupByTheme[$themeId]['theme'] = $advert->getTheme();
-				
 			}
 			
 			//disponibilidades

@@ -1,10 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("AddressPeer.php");
-require_once("CircuitPeer.php");
-require_once("MigrationPeer.php");
-
 class LausiAddressesDoImportAction extends BaseAction {
 
 
@@ -57,6 +52,7 @@ class LausiAddressesDoImportAction extends BaseAction {
 			$address = array();
 			$address["street"] = $addressesArray["street"][$i];
 			$address["number"] = $addressesArray["number"][$i];
+			$address["rating"] = 0;
 			$address["intersection"] = $addressesArray["intersection"][$i];
 			$address["latitude"] = $addressesArray["latitude"][$i];
 			$address["longitude"] = $addressesArray["longitude"][$i];
@@ -73,7 +69,7 @@ class LausiAddressesDoImportAction extends BaseAction {
 		}
 		
 		foreach ($addresses as $address) {
-			AddressPeer::createWithBillboards($address["street"],$address["number"],0,$address["intersection"],'',$address["latitude"],$address["longitude"],$address["regionId"],'',$address["circuitId"],$address["totalBillboardsDobles"],$address["totalBillboardsSextuples"]);									
+			AddressPeer::createWithBillboards($address, $address["totalBillboardsDobles"],$address["totalBillboardsSextuples"]);									
 		}
 
 		return $mapping->findForwardConfig('success');

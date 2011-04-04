@@ -1,7 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-
 class LausiAddressesImportAction extends BaseAction {
 
 
@@ -50,5 +48,4 @@ class LausiAddressesImportAction extends BaseAction {
 
 		return $mapping->findForwardConfig('success');
 	}
-
 }

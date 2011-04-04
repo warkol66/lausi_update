@@ -1,10 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("AddressPeer.php");
-require_once("RegionPeer.php");
-require_once("CircuitPeer.php");
-
 class LausiAddressesOrderXAction extends BaseAction {
 
 
@@ -57,7 +52,6 @@ class LausiAddressesOrderXAction extends BaseAction {
  	
  		$addressPeer = new AddressPeer();
 
-
 		parse_str($_POST['data']);
 
 		for ($pos = 0; $pos < count($addressesList); $pos++) {
@@ -66,5 +60,4 @@ class LausiAddressesOrderXAction extends BaseAction {
 
 		return $mapping->findForwardConfig('success');
 	}
-
 }

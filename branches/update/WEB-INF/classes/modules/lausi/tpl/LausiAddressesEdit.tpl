@@ -13,31 +13,31 @@
 			Ingrese los datos de la dirección
 		</p>
 			<p>
-				<label for="street">Calle</label>
-				<input name="street" type="text" id="street" title="street" value="|-$address->getstreet()-|" size="45" maxlength="100" onChange="$('button_edit_address').disable()" />
+				<label for="address[street]">Calle</label>
+				<input name="address[street]" type="text" id="street" title="street" value="|-$address->getstreet()-|" size="45" maxlength="100" onChange="$('button_edit_address').disable()" />
 			</p>
 			<p>
-				<label for="number">Número</label>
-				<input name="number" type="text" id="number" title="number" value="|-$address->getnumber()-|" size="12" onChange="$('button_edit_address').disable()" />
+				<label for="address[number]">Número</label>
+				<input name="address[number]" type="text" id="number" title="number" value="|-$address->getnumber()-|" size="12" onChange="$('button_edit_address').disable()" />
 			</p>
 			<p>
-				<label for="intersection">Intersección</label>
-				<input name="intersection" type="text" id="intersection" title="intersection" value="|-$address->getintersection()-|" size="45" maxlength="100" onChange="$('button_edit_address').disable()" />
+				<label for="address[intersection]">Intersección</label>
+				<input name="address[intersection]" type="text" id="intersection" title="intersection" value="|-$address->getintersection()-|" size="45" maxlength="100" onChange="$('button_edit_address').disable()" />
 			</p>
 			<p><input type="button" id="button_locate" value="Buscar en Mapa" title="Buscar en Mapa" onClick="locate(this.form); $('button_edit_address').enable()"/></p>
 			<p>
-				<label for="nickname">Nombre De Fantasía</label>
-				<input name="nickname" type="text" id="number" title="number" value="|-$address->getNickname()-|" size="45" />
+				<label for="address[nickname]">Nombre De Fantasía</label>
+				<input name="address[nickname]" type="text" id="number" title="number" value="|-$address->getNickname()-|" size="45" />
 			</p>			
 			<p>
-				<input name="latitude" type="hidden" id="latitude" title="latitude" value="|-$address->getlatitude()|system_numeric_format:8-|" size="20" />
+				<input name="address[latitude]" type="hidden" id="latitude" title="latitude" value="|-$address->getlatitude()|system_numeric_format:8-|" size="20" />
 			</p>
 			<p>
-				<input name="longitude" type="hidden" id="longitude" title="longitude" value="|-$address->getlongitude()|system_numeric_format:8-|" size="20" />
+				<input name="address[longitude]" type="hidden" id="longitude" title="longitude" value="|-$address->getlongitude()|system_numeric_format:8-|" size="20" />
 			</p>
 			<p>
-				<label for="regionId">Barrio</label>
-				<select id="regionId" name="regionId" title="regionId" onChange="$('button_edit_address').disable()">
+				<label for="address[regionId]">Barrio</label>
+				<select id="regionId" name="address[regionId]" title="regionId" onChange="$('button_edit_address').disable()">
 					<option value="">Seleccione un Barrio</option>
 									|-foreach from=$regions item=object-|
 									<option value="|-$object->getid()-|" |-if $address->getregionId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getname()-|</option>
@@ -45,8 +45,8 @@
 								</select>
 		</p>
 			<p>
-				<label for="circuitId">Circuito</label>
-				<select id="circuitId" name="circuitId" title="circuitId">
+				<label for="address[circuitId]">Circuito</label>
+				<select id="circuitId" name="address[circuitId]" title="circuitId">
 					<option value="">Seleccione un Circuito</option>
 									|-foreach from=$circuits item=object-|
 									<option value="|-$object->getid()-|" |-if $address->getcircuitId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getname()-|</option>
@@ -54,16 +54,16 @@
 								</select>
 		</p>
 			<p>
-				<label for="owner">Dueño</label>
-				<input name="owner" type="text" id="owner" title="owner" value="|-$address->getowner()-|" size="45" maxlength="100" />
+				<label for="address[owner]">Dueño</label>
+				<input name="address[owner]" type="text" id="owner" title="owner" value="|-$address->getowner()-|" size="45" maxlength="100" />
 			</p>
 			<p>
-				<label for="ownerPhone">Tel. Dueño</label>
-				<input name="ownerPhone" type="text" id="ownerPhone" title="ownerPhone" value="|-$address->getownerPhone()-|" size="30" maxlength="100" />
+				<label for="address[ownerPhone]">Tel. Dueño</label>
+				<input name="address[ownerPhone]" type="text" id="ownerPhone" title="ownerPhone" value="|-$address->getownerPhone()-|" size="30" maxlength="100" />
 			</p>
 		<p>
-				<label for="rating">Valoración</label>
-					<select name="rating" id="rating" >
+				<label for="address[rating]">Valoración</label>
+					<select name="address[rating]" id="rating" >
 						<option value="0" |-0|selected:$address->getRating()-|>Seleccione Valoración</option>
 						<option value="1" |-1|selected:$address->getRating()-|>Premium</option>
 						<option value="2" |-2|selected:$address->getRating()-|>Superior</option>
@@ -91,23 +91,7 @@
 	<h2>|-$address->getName()-|</h2>
 	<h1>Carteleras y Motivos en la Dirección</h1>
 	<form action="Main.php" method="get">
-			|-if isset($filters)-|
-				|-if isset($filters.circuitId)-|
-					<input type="hidden" name="filters[circuitId]" value="|-$filters.circuitId-|"></input>
-				|-/if-|
-				|-if isset($filters.regionId)-|
-					<input type="hidden" name="filters[regionId]" value="|-$filters.regionId-|"></input>
-				|-/if-|
-				|-if isset($filters.rating)-|
-					<input type="hidden" name="filters[rating]" value="|-$filters.rating-|"></input>
-				|-/if-|
-				|-if isset($filters.streetName)-|
-					<input type="hidden" name="filters[streetName]" value="|-$filters.streetName-|"></input>
-				|-/if-|
-				|-if isset($filters.page)-|
-					<input type="hidden" name="filters[page]" value="|-$filters.page-|"></input>
-				|-/if-|
-			|-/if-|
+			|-include file="FiltersRedirectInclude.tpl"-|
 			<input type="hidden" name="addressId" value="|-$address->getId()-|" id="addressId" />
 			<input type="hidden" name="do" value="lausiAdvertisementsEdit" />
 			<input type="submit" value="Crear Aviso en Dirección" />
@@ -117,26 +101,10 @@
 
 |-if isset($billboards)-|
 	<form action="Main.php" method="get">
-		|-if isset($filters)-|
-			|-if isset($filters.circuitId)-|
-				<input type="hidden" name="filters[circuitId]" value="|-$filters.circuitId-|"></input>
-			|-/if-|
-			|-if isset($filters.regionId)-|
-				<input type="hidden" name="filters[regionId]" value="|-$filters.regionId-|"></input>
-			|-/if-|
-			|-if isset($filters.rating)-|
-				<input type="hidden" name="filters[rating]" value="|-$filters.rating-|"></input>
-			|-/if-|
-			|-if isset($filters.streetName)-|
-				<input type="hidden" name="filters[streetName]" value="|-$filters.streetName-|"></input>
-			|-/if-|
-			|-if isset($filters.page)-|
-				<input type="hidden" name="filters[page]" value="|-$filters.page-|"></input>
-			|-/if-|
-		|-/if-|
+		|-include file="FiltersRedirectInclude.tpl"-|
 		<input type="hidden" name="addressId" value="|-$address->getId()-|" id="addressId">
 		<input type="hidden" name="do" value="lausiBillboardsList">
-	<input type="submit" value="Editar Carteleras de la Dirección">
+		<input type="submit" value="Editar Carteleras de la Dirección">
 	</form>
 	<h3>Motivos en la Dirección</h3>
 	<fieldset>

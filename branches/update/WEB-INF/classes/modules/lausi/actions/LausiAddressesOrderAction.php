@@ -1,10 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("AddressPeer.php");
-require_once("RegionPeer.php");
-require_once("CircuitPeer.php");
-
 class LausiAddressesOrderAction extends BaseAction {
 
 
@@ -58,14 +53,12 @@ class LausiAddressesOrderAction extends BaseAction {
  			$addressPeer->setCircuitId($_GET['circuitId']);
  			$smarty->assign('circuitId',$_GET['circuitId']);
 			
-			$addresses = $addressPeer->getAllFilter();
+			$addresses = $addressPeer->getAllFiltered();
 			$smarty->assign("addresses",$addresses);
-			
  		} 		
 		
 		$smarty->assign("message",$_GET["message"]);
 
 		return $mapping->findForwardConfig('success');
 	}
-
 }

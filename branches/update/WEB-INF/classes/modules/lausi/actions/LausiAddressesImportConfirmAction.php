@@ -1,10 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("AddressPeer.php");
-require_once("RegionPeer.php");
-require_once("MigrationPeer.php");
-
 class LausiAddressesImportConfirmAction extends BaseAction {
 
 

@@ -80,7 +80,7 @@ class LausiThemesRotateAction extends BaseAction {
  		}
 
 		//obtenemos las direcciones para el selector
-		$smarty->assign('addresses',$addressPeer->getAllFilter());
+		$smarty->assign('addresses',$addressPeer->getAllFiltered());
 		
 		return $mapping->findForwardConfig('success');
 	}
