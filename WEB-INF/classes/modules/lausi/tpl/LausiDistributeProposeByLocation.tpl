@@ -32,13 +32,13 @@
 		<tbody>
 		|-foreach from=$result.options item=byAddress name=for_byAddress-|
 		|-if $byAddress eq 'Separator1'-|
-			<tr class="thFillTitle"><td colspan="3">Resultados en un 30% más de radio</td></tr>
+			<tr class="thFillTitle"><td colspan="3">Resultados en un 30% más de radio (hasta |-math equation="x*1.3" x=$result.radius-| m)</td></tr>
 			<tr  class="nopaddingCell">
 		|-elseif $byAddress eq 'Separator2'-|	
-			<tr class="thFillTitle"><td colspan="3">Resultados entre un 30% y un 60% más de radio</td></tr>
+			<tr class="thFillTitle"><td colspan="3">Resultados entre un 30% y un 60% más de radio (de |-math equation="x*1.3" x=$result.radius-| hasta |-math equation="x*1.6" x=$result.radius-| m)</td></tr>
 			<tr  class="nopaddingCell">	
 		|-elseif $byAddress eq 'Separator3'-|	
-			<tr class="thFillTitle"><td colspan="3">Resultados entre un 60% y un 100% más de radio</td></tr>
+			<tr class="thFillTitle"><td colspan="3">Resultados entre un 60% y un 100% más de radio (de |-math equation="x*1.6" x=$result.radius-| hasta |-math equation="x*2" x=$result.radius-| m)</td></tr>
 			<tr  class="nopaddingCell">	
 		|-else-|
 			|-assign var=address value=$byAddress.address-|
