@@ -1,11 +1,5 @@
 <?php
 
-// The parent class
-require_once 'om/BaseAddressPeer.php';
-
-// The object class
-include_once 'Address.php';
-
 /**
  * Class AddressPeer
  *
@@ -13,23 +7,29 @@ include_once 'Address.php';
  */
 class AddressPeer extends BaseAddressPeer {
 
-
 	//opciones de busqueda
-	private $regionId;
-	private $circuitId;
-	private $rating;
-	private $streetName;
+	private $searchRegionId;
+	private $searchBillboardType;
+	private $searchCircuitId;
+	private $searchRating;
+	private $searchStreetName;
 	
+	//mapea las condiciones del filtro
+	var $filterConditions = array(
+		"searchRegionId"=>"setSearchRegionId",
+		"searchBillboardType"=>"setSearchBillboardType",
+		"searchCircuitId"=>"setSearchCircuitId",
+		"searchRating"=>"setSearchRating",
+		"searchStreetName"=>"setSearchStreetName",
+	);
 	
 	/**
 	 * Especifica un Barrio para limitar una busqueda
 	 * @param integer id de barrio
 	 *
 	 */
-	public function setRegionId($regionId) {
-		
-		$this->regionId = $regionId;
-		
+	public function setSearchRegionId($searchRegionId) {
+		$this->searchRegionId = $searchRegionId;
 	}
 
 	/**
@@ -37,10 +37,8 @@ class AddressPeer extends BaseAddressPeer {
 	 * @param integer tipo de catelera
 	 *
 	 */
-	public function setBillboardType($type) {
-		
-		$this->billboardType = $type;
-		
+	public function setSearchBillboardType($searchBillboardType) {
+		$this->searchBillboardType = $searchBillboardType;
 	}
 
 	/**
@@ -48,10 +46,8 @@ class AddressPeer extends BaseAddressPeer {
 	 * @param integer id de circuit
 	 *
 	 */	
-	public function setCircuitId($circuitId) {
-		
-		$this->circuitId = $circuitId;
-		
+	public function setSearchCircuitId($searchCircuitId) {
+		$this->searchCircuitId = $searchCircuitId;
 	}
 	
 	/**
@@ -59,10 +55,8 @@ class AddressPeer extends BaseAddressPeer {
 	 * @param integer codigo de valoracion
 	 *
 	 */	
-	public function setRating($rating) {
-		
-		$this->rating = $rating;
-		
+	public function setSearchRating($searchRating) {
+		$this->searchRating = $searchRating;
 	}
 	
 	/**
@@ -70,9 +64,8 @@ class AddressPeer extends BaseAddressPeer {
 	 * @param string nombre de calle o aproximacion
 	 *
 	 */	
-	public function setStreetName($streetName) {
-		
-		$this->streetName = $streetName;
+	public function setSearchStreetName($searchStreetName) {
+		$this->searchStreetName = $searchStreetName;
 	}
 	
 	/**
@@ -81,88 +74,42 @@ class AddressPeer extends BaseAddressPeer {
 	 *
 	 * @return Criteria instancia de criteria
 	 */
-	private function generateFilterCriteria() {
+	private function getSearchCriteria() {
+		$criteria = new AddressQuery();
 		
-		$criteria = new Criteria();
+		if ($this->searchRating)
+			$criteria->filterByRating($this->searchRating);
 		
-		if (isset($this->rating))
-			$criteria->add(AddressPeer::RATING,$this->rating);
-		
-		if (isset($this->circuitId)) {
-			$criteria->add(AddressPeer::CIRCUITID,$this->circuitId);
-			$criteria->addAscendingOrderByColumn(AddressPeer::ORDERCIRCUIT);
+		if ($this->searchCircuitId) {
+			$criteria->filterByCircuitId($this->searchCircuitId)
+					 ->orderByOrdercircuit();
 		}	
-		if (isset($this->regionId))
-			$criteria->add(AddressPeer::REGIONID,$this->regionId);
+		if ($this->searchRegionId)
+			$criteria->filterByRegionId($this->searchRegionId);
 		
-		if (isset($this->streetName)) {
-			$criterionStreet = $criteria->getNewCriterion(AddressPeer::STREET,"%" . $this->streetName . "%",Criteria::LIKE);
-			$criterionNickname = $criteria->getNewCriterion(AddressPeer::NICKNAME,"%" . $this->streetName . "%",Criteria::LIKE);
-			$criterionStreet->addOr($criterionNickname);
-
-			$criteria->add($criterionStreet);
+		if ($this->searchStreetName) {
+			$criteria->filterByStreet("%" . $this->searchStreetName . "%", Criteria::LIKE)
+					 ->_or()
+					 ->filterByNickname("%" . $this->searchStreetName . "%", Criteria::LIKE);
 		}
 		
-		if (isset($this->billboardType) && ($this->billboardType > 0)) {
-			$criteria->addJoin(AddressPeer::ID,BillboardPeer::ADDRESSID,Criteria::INNER_JOIN);
-			$criteria->add(BillboardPeer::TYPE,$this->billboardType);
-			$criteria->setDistinct();
+		if ($this->searchBillboardType && ($this->searchBillboardType > 0)) {
+			$criteria->join('Billboard')
+					 ->useQuery('Billboard')
+						->filterByType($this->searchBillboardType)
+					 ->endUse()
+					 ->distinct();
 		}
 		
-		
-		$criteria->addJoin(AddressPeer::CIRCUITID,CircuitPeer::ID,Criteria::LEFT_JOIN);
+		$criteria->join('Circuit', Criteria::LEFT_JOIN);
 
 		//ordenamiento por default pedidos
-		$criteria->addAscendingOrderByColumn(AddressPeer::STREET);
-		$criteria->addAscendingOrderByColumn(CircuitPeer::NAME);
+		$criteria->orderByStreet();
+		$criteria->orderBy('Circuit.Name');
 		
 		return $criteria;
-		
 	}
 
-
-  /**
-  * Obtiene la cantidad de filas por pagina por defecto en los listado paginados.
-  *
-  * @return int Cantidad de filas por pagina
-  */
-  function getRowsPerPage() {
-    global $system;
-    return $system["config"]["system"]["rowsPerPage"];
-  }
-
-  /**
-  * Crea un address nuevo.
-  *
-  * @param string $street street del address
-  * @param int $number number del address
-  * @param int $rating rating del address
-  * @param string $intersection intersection del address
-  * @param string $owner owner del address
-  * @param float $latitude latitude del address
-  * @param float $longitude longitude del address
-  * @param int $regionId regionId del address
-  * @param string $ownerPhone ownerPhone del address
-  * @param int $circuitId circuitId del address
-  * @param Connection $con [optional] Conexion a la db  
-  * @return Address instance si se creo el address correctamente, false sino
-	*/
-	function create($street,$number,$rating,$intersection,$owner,$latitude,$longitude,$regionId,$ownerPhone,$circuitId,$nickname,$con = null) {
-    	$addressObj = new Address();
-    	$addressObj->setstreet($street);
-		$addressObj->setnumber($number);
-		$addressObj->setrating($rating);
-		$addressObj->setintersection($intersection);
-		$addressObj->setowner($owner);
-		$addressObj->setlatitude($latitude);
-		$addressObj->setlongitude($longitude);
-		$addressObj->setregionId($regionId);
-		$addressObj->setownerPhone($ownerPhone);
-		$addressObj->setcircuitId($circuitId);
-		$addressObj->setNickname($nickname);
-		$addressObj->save($con);
-		return $addressObj;
-	}
 	
   /**
   * Crea un address nuevo, con sus carteleras.
@@ -182,8 +129,10 @@ class AddressPeer extends BaseAddressPeer {
   * @param Connection $con [optional] Conexion a la db  
   * @return Address instance si se creo el address correctamente, false sino
 	*/	
-	function createWithBillboards($street,$number,$rating,$intersection,$owner,$latitude,$longitude,$regionId,$ownerPhone,$circuitId,$totalBillboardsDobles,$totalBillboardsSextuples,$con = null) {
-		$address = AddressPeer::create($street,$number,$rating,$intersection,$owner,$latitude,$longitude,$regionId,$ownerPhone,$circuitId,$con);
+	function createWithBillboards($params,$totalBillboardsDobles,$totalBillboardsSextuples) {
+		$address = new Address;
+		Common::setObjectFromParams($address, $params);
+		$address->save();	
 		$address->createBillboards($totalBillboardsDobles,$totalBillboardsSextuples);
 
 		return $address;	
@@ -262,48 +211,13 @@ class AddressPeer extends BaseAddressPeer {
 	}		
 
   /**
-  * Actualiza la informacion de un address.
+  * Elimina un address a partir de los valores de la clave.
   *
   * @param int $id id del address
-  * @param string $street street del address
-  * @param int $number number del address
-  * @param int $rating rating del address
-  * @param string $intersection intersection del address
-  * @param string $owner owner del address
-  * @param float $latitude latitude del address
-  * @param float $longitude longitude del address
-  * @param int $regionId regionId del address
-  * @param string $ownerPhone ownerPhone del address
-  * @param int $circuitId circuitId del address
-  * @return boolean true si se actualizo la informacion correctamente, false sino
-	*/
-  function update($id,$street,$number,$rating,$intersection,$owner,$latitude,$longitude,$regionId,$ownerPhone,$circuitId,$nickname) {
-  	$addressObj = AddressPeer::retrieveByPK($id);
-    $addressObj->setstreet($street);
-    $addressObj->setnumber($number);
-    $addressObj->setrating($rating);
-    $addressObj->setintersection($intersection);
-    $addressObj->setowner($owner);
-    $addressObj->setlatitude($latitude);
-    $addressObj->setlongitude($longitude);
-    $addressObj->setregionId($regionId);
-    $addressObj->setownerPhone($ownerPhone);
-    $addressObj->setcircuitId($circuitId);
-	$addressObj->setNickname($nickname);
-    $addressObj->save();
-		return true;
-  }
-
-	/**
-	* Elimina un address a partir de los valores de la clave.
-	*
-  * @param int $id id del address
-	*	@return boolean true si se elimino correctamente el address, false sino
-	*/
+  *	@return boolean true si se elimino correctamente el address, false sino
+  */
   function delete($id) {
-  	$addressObj = AddressPeer::retrieveByPK($id);
-    $addressObj->delete();
-		return true;
+  	return AddressQuery::create()->filterByPrimaryKey($id)->delete();
   }
 
   /**
@@ -313,8 +227,7 @@ class AddressPeer extends BaseAddressPeer {
   * @return array Informacion del address
   */
   function get($id) {
-		$addressObj = AddressPeer::retrieveByPK($id);
-    return $addressObj;
+  	return AddressQuery::create()->findPk($id);
   }
   
   /**
@@ -325,14 +238,10 @@ class AddressPeer extends BaseAddressPeer {
   * @return boolean true si existe la dirección, false si no existe
   */  
   function exists($street,$number) {
-  	$criteria = new Criteria();
-	$criteria->add(AddressPeer::STREET,$street);
-	$criteria->add(AddressPeer::NUMBER,$number);
-	$result = AddressPeer::doSelect($criteria);
-	if (count($result)>0)
-		return true;
-	else
-		return false;
+  	return AddressQuery::create()
+  		->filterByStreet($street)
+		->filterByNumber($number)
+		->count > 0;
   }
   
   /**
@@ -343,12 +252,12 @@ class AddressPeer extends BaseAddressPeer {
   * @return Address dirección
   */    
   function getByStreet($street,$number) {
-	$criteria = new Criteria();
-	$sql = '( REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(lausi_address.street,"á","a"),"é","e"),"í","i"),"ó","o"),"ú","u") = "'.$street.'" )';
-	$criteria->add(AddressPeer::STREET,$sql,Criteria::CUSTOM);
-	$criteria->add(AddressPeer::NUMBER,$number);
-	$address = AddressPeer::doSelectOne($criteria); 
-	return $address; 
+  	$sql = '( REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(lausi_address.street,"á","a"),"é","e"),"í","i"),"ó","o"),"ú","u") = "'.$street.'" )';
+	
+  	return AddressQuery::create()
+		->where($sql)
+		->filterByNumber($number)
+		->findOne();
   }
   
   /**
@@ -359,12 +268,12 @@ class AddressPeer extends BaseAddressPeer {
   * @return Address dirección
   */    
   function getLikeStreet($street,$number) {
-	$criteria = new Criteria();
-	$sql = '( REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(lausi_address.street,"á","a"),"é","e"),"í","i"),"ó","o"),"ú","u") LIKE "'.$street.'%" )';
-	$criteria->add(AddressPeer::STREET,$sql,Criteria::CUSTOM);
-	$criteria->add(AddressPeer::NUMBER,$number);
-	$address = AddressPeer::doSelectOne($criteria); 
-	return $address; 
+  	$sql = '( REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(lausi_address.street,"á","a"),"é","e"),"í","i"),"ó","o"),"ú","u") LIKE "'.$street.'%" )';
+	
+  	return AddressQuery::create()
+		->where($sql)
+		->filterByNumber($number)
+		->findOne();
   }  
   
   /**
@@ -375,50 +284,43 @@ class AddressPeer extends BaseAddressPeer {
   * @return Address dirección
   */    
   function getByStreetAndIntersection($street,$intersection) {
-	$criteria = new Criteria();
-	$sql = '( REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(lausi_address.street,"á","a"),"é","e"),"í","i"),"ó","o"),"ú","u") = "'.$street.'" )';
-	$criteria->add(AddressPeer::STREET,$sql,Criteria::CUSTOM);
-	$sql = '( REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(lausi_address.intersection,"á","a"),"é","e"),"í","i"),"ó","o"),"ú","u") like "%'.$intersection.'%" )';	
-	$criteria->add(AddressPeer::INTERSECTION,$sql,Criteria::CUSTOM);
-	$address = AddressPeer::doSelectOne($criteria); 
-	return $address; 
+  	$sql1 = '( REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(lausi_address.street,"á","a"),"é","e"),"í","i"),"ó","o"),"ú","u") = "'.$street.'" )';
+	$sql2 = '( REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(lausi_address.intersection,"á","a"),"é","e"),"í","i"),"ó","o"),"ú","u") like "%'.$intersection.'%" )';
+	
+  	return AddressQuery::create()
+		->where($sql1)
+		->where($sql2)
+		->findOne();
   }  
 
-  /**
-  * Obtiene todos los addresses.
-	*
-	*	@return array Informacion sobre todos los addresses
-  */
+	/**
+	 * Obtiene todos los addresses.
+	 *
+	 *	@return array Informacion sobre todos los addresses
+	 */
 	function getAll($criteria = null) {
-	
-		if ($criteria == null)		
-			$cond = new Criteria();
-		else
-			$cond = $criteria;
-			
-		$alls = AddressPeer::doSelect($cond);
-		return $alls;
-  }
+		return AddressQuery(null, $criteria)->find();
+	}
   
-  /**
-  * Obtiene todos los addresses paginados.
-  *
-  * @param int $page [optional] Numero de pagina actual
-  * @param int $perPage [optional] Cantidad de filas por pagina
-  *	@return array Informacion sobre todos los addresses
-  */
-  function getAllPaginated($page=1,$perPage=-1,$criteria = null) {  
-    if ($perPage == -1)
-      $perPage = 	AddressPeer::getRowsPerPage();
-    if (empty($page))
-      $page = 1;
-    if ($criteria == null)
-    	$cond = new Criteria();
-    else 
-    	$cond = $criteria;
-    $pager = new PropelPager($cond,"AddressPeer", "doSelect",$page,$perPage);
-    return $pager;
-   }
+	/**
+	 * Obtiene todos los addresses paginados.
+	 *
+	 * @param int $page [optional] Numero de pagina actual
+	 * @param int $perPage [optional] Cantidad de filas por pagina
+	 *	@return array Informacion sobre todos los addresses
+	 */
+	function getAllPaginated($page=1,$perPage=-1,$criteria = null) {  
+		if ($perPage == -1)
+			$perPage = 	Common::getRowsPerPage();
+		if (empty($page))
+			$page = 1;
+		if ($criteria == null)
+			$cond = new AddressQuery();
+		else 
+			$cond = $criteria;
+		$pager = new PropelPager($cond,"AddressPeer", "doSelect",$page,$perPage);
+		return $pager;
+	}
 
 	/**
 	* Obtiene todos los addresses paginados aplicando el filtro correspondiente.
@@ -431,7 +333,7 @@ class AddressPeer extends BaseAddressPeer {
 		if (empty($page))
 			$page = 1;
 
-		$criteria = $this->generateFilterCriteria();
+		$criteria = $this->getSearchCriteria();
 		return $this->getAllPaginated($page,$perPage,$criteria);
 	}
 
@@ -440,11 +342,9 @@ class AddressPeer extends BaseAddressPeer {
 	*
 	*	@return array Informacion sobre todos los addresses
 	*/
-	public function getAllFilter() {
-		
-		$criteria = $this->generateFilterCriteria();
+	public function getAllFiltered() {
+		$criteria = $this->getSearchCriteria();
 		return $this->getAll($criteria);
-		
 	}
 	
 	public function changeAddressOrderCircuit($addressId,$position) {
@@ -453,13 +353,10 @@ class AddressPeer extends BaseAddressPeer {
 		try {
 			$address->setOrderCircuit($position);
 			$address->save();
-		}
-		catch (Exception $exp) {
+		} catch (Exception $exp) {
 			return false;
 		}
 		
 		return true;
-
 	}
-
 }

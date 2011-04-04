@@ -91,6 +91,13 @@ class AdvertisementQuery extends BaseAdvertisementQuery {
 		return $this;
 	}
 
+	public function filterByAddress($address) {
+		return $this->join('Billboard')
+					->useQuery('Billboard')
+						->filterByAddress($address)
+					->endUse();
+	}
+
 	public function filterByCircuit($circuit) {
 		return $this
 			->join('Billboard')
@@ -98,6 +105,12 @@ class AdvertisementQuery extends BaseAdvertisementQuery {
 			->useQuery('Address')
 				->filterByCircuit($circuit)
 			->endUse();
+	}
+	
+	public function filterToBePublished($date,$themeId) {
+		return $this
+			->filterByThemeId($themeId)
+			->filterByPublishDate($date);
 	}
 
 } // AdvertisementQuery

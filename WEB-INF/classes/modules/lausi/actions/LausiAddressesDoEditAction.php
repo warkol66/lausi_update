@@ -22,73 +22,48 @@ class LausiAddressesDoEditAction extends BaseAction {
 		$module = "Lausi";
 		$smarty->assign("module",$module);
 		$section = "Addresses";
-		$smarty->assign("section",$section);		
+		$smarty->assign("section",$section);
+		
+		$params = $_POST['address'];	
+		
+		$filters = $_POST['filters'];	
 
 		if ($_POST["action"] == "edit") {
 			//estoy editando un address existente
-//			$latitude = Common::convertToMysqlNumericFormat($_POST["latitude"]);
-//			$longitude = Common::convertToMysqlNumericFormat($_POST["longitude"]);
-			$latitude = $_POST["latitude"];
-			$longitude = $_POST["longitude"];
-			AddressPeer::update($_POST["id"],$_POST["street"],$_POST["number"],$_POST["rating"],$_POST["intersection"],$_POST["owner"],$latitude,$longitude,$_POST["regionId"],$_POST["ownerPhone"],$_POST["circuitId"],$_POST['nickname']);
-      		
-      //caso de redireccionamiento desde opciones de busqueda de addressesList
-			if (isset($_POST['filters'])) {
-				$filters = $_POST['filters'];
-				$myRedirectConfig = $mapping->findForwardConfig('success');
-   				$myRedirectPath = $myRedirectConfig->getpath();
-				foreach ($filters as $key => $value)
-					$myRedirectPath .= "&filters[$key]=$value";
-				$fc = new ForwardConfig($myRedirectPath, True);
-				return $fc;
-				
-			}
-
-      		
-      		
-			return $mapping->findForwardConfig('success');
-		}
-		else {
-		  //estoy creando un nuevo address
-//			$latitude = Common::convertToMysqlNumericFormat($_POST["latitude"]);
-//			$longitude = Common::convertToMysqlNumericFormat($_POST["longitude"]);
-			$latitude = $_POST["latitude"];
-			$longitude = $_POST["longitude"];
-			$address = AddressPeer::create($_POST["street"],$_POST["number"],$_POST["rating"],$_POST["intersection"],$_POST["owner"],$latitude,$longitude,$_POST["regionId"],$_POST["ownerPhone"],$_POST["circuitId"],$_POST['nickname']);
+			$address = AddressPeer::get($_POST["id"]);
+      		$myRedirectConfig = $mapping->findForwardConfig('success');
 			
-			if ( $address == false ) {
-				$address = new Address();
-				$address->setid($_POST["id"]);
-				$address->setstreet($_POST["street"]);
-				$address->setnumber($_POST["number"]);
-				$address->setrating($_POST["rating"]);
-				$address->setintersection($_POST["intersection"]);
-				$address->setowner($_POST["owner"]);
-				$address->setlatitude($_POST["latitude"]);
-				$address->setlongitude($_POST["longitude"]);
-				$address->setregionId($_POST["regionId"]);
-				require_once("RegionPeer.php");		
-				$smarty->assign("regionIdValues",RegionPeer::getAll());
-				$address->setownerPhone($_POST["ownerPhone"]);
-				$address->setcircuitId($_POST["circuitId"]);
-				require_once("CircuitPeer.php");		
-				$smarty->assign("circuitIdValues",CircuitPeer::getAll());
-				$smarty->assign("address",$address);	
-				$smarty->assign("action","create");
-				$smarty->assign("message","error");
-				return $mapping->findForwardConfig('failure');
-      		}
-
-			$smarty->assign('address',$address);
-			
+		} else {
+			//estoy creando un nuevo address
+			$address = new Address;
 			$myRedirectConfig = $mapping->findForwardConfig('success-creation');
+			
 			$myRedirectPath = $myRedirectConfig->getpath();
 			$queryData = '&id='. $address->getId();
 			$myRedirectPath .= $queryData;
-			$fc = new ForwardConfig($myRedirectPath, True);
-			return $fc;
+			$myRedirectConfig = new ForwardConfig($myRedirectPath, True);
+		}
+		
+		Common::setObjectFromParams($address, $params);
+
+		if (!$address->save()) {
+			$smarty->assign("circuitIdValues",CircuitPeer::getAll());
+			$smarty->assign("address",$address);	
+			$smarty->assign("action","create");
+			$smarty->assign("message","error");
+			return $mapping->findForwardConfig('failure');
+		}
+		
+		//caso de redireccionamiento desde opciones de busqueda de addressesList
+		if (!empty($filters) && count($filters)) {
+   			$myRedirectPath = $myRedirectConfig->getpath();
+			foreach ($filters as $key => $value)
+				$myRedirectPath .= "&filters[$key]=$value";
+			$myRedirectConfig = new ForwardConfig($myRedirectPath, True);
 		}
 
-	}
+		$smarty->assign('address',$address);
 
+		return $myRedirectConfig;
+	}
 }

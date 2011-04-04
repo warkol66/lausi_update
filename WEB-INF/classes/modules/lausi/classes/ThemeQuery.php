@@ -14,5 +14,16 @@
  * @package    propel.generator.lausi.classes
  */
 class ThemeQuery extends BaseThemeQuery {
-
+	public function filterByAddress($address) {
+		return $this->join('Advertisement')
+					->useQuery('Advertisement')
+						->filterByAddress($address)
+					->endUse()
+					->distinct();
+	}
+	
+	public function filterByCurrent() {
+		return $this->join('Advertisement')
+					->where('(CURDATE() >= lausi_advertisement.publishDate) AND (CURDATE() <= DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY))');
+	}
 } // ThemeQuery
