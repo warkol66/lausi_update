@@ -46,8 +46,8 @@
 	
 		<column name="id" type="INTEGER"  required="true" description="Id de Circuito" primaryKey="true" autoIncrement="true"  />
 		<column name="circuitId" type="INTEGER" required="true"/>
-		<column name="latitude" type="FLOAT" description="latitud" />
-		<column name="longitude" type="FLOAT" description="longitud" />
+		<column name="latitude" type="NUMERIC" size="12" scale="9" description="latitud" />
+		<column name="longitude" type="NUMERIC" size="12" scale="9" description="longitud" />
 		
 		<foreign-key foreignTable="lausi_circuit">
 			<reference local="circuitId" foreign="id"/>
@@ -106,8 +106,8 @@
 		<column name="rating" type="INTEGER" description="Valoracion de la calle" />
 		<column name="intersection" type="VARCHAR" size="100" description="cruce con otra calle de la direccion" />
 		<column name="owner" type="VARCHAR" size="100" description="duenio de la direccion" />
-		<column name="latitude" type="FLOAT" description="latitud de la direccion" />
-		<column name="longitude" type="FLOAT" description="longitud de la direccion" />
+		<column name="latitude" type="NUMERIC" size="12" scale="9" description="latitud de la direccion" />
+		<column name="longitude" type="NUMERIC" size="12" scale="9" description="longitud de la direccion" />
 		<column name="regionId" type="INTEGER" description="barrio de la direccion" />
 		<column name="ownerPhone" type="VARCHAR" size="100" description="telefono de contacto" />
 		<column name="orderCircuit" type="INTEGER" default="0" description="ordenamiento por proximidad en el circuito entre direcciones" />
@@ -150,8 +150,8 @@
 		<column name="street" type="VARCHAR" size="100"  required="true" description="Nombre de la direccion del cliente" />
 		<column name="number" type="INTEGER" description="numero de la direccion del cliente" />	
 		<column name="intersection" type="VARCHAR" size="100" description="cruce con otra calle de la direccion del cliente" />
-		<column name="latitude" type="FLOAT"  description="latitud de la direccion del cliente" />
-		<column name="longitude" type="FLOAT" description="longitud de la direccion del cliente" />
+		<column name="latitude" type="NUMERIC" size="12" scale="9" description="latitud de la direccion del cliente" />
+		<column name="longitude" type="NUMERIC" size="12" scale="9" description="longitud de la direccion del cliente" />
 		<column name="type" type="VARCHAR" size="100" description="tipo de la direccion del cliente" />
 		<column name="circuitId" type="INTEGER" description="circuito al que pertenece la direccion del cliente" />
 		<column name="clientId" type="INTEGER"  required="true" description="Id del cliente de esa direccion" />
