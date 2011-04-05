@@ -18,20 +18,12 @@ class BillboardQuery extends BaseBillboardQuery {
 	public function filterByAvailable($fromDate,$duration) {
 		$this->join('Address', Criteria::INNER_JOIN);
 		
-		$fromDate = new DateTime($fromDate);
-		$toDate = new DateTime($fromDate->format('Y-m-d'));
-		$toDate->modify("+$duration days");
-		
-		$fromDate = $fromDate->format('Y-m-d');
-		$toDate = $toDate->format('Y-m-d');
-		
 		//Esta subquery lo que hace es agregar una cuenta de la cantidad de advertisements asociados
 		//al billboard cuyo rango temporal de validez tiene alguna intersección con el rango temporal
 		//pasado por parámetro.
 		$subQuery = AdvertisementQuery::create()
 			->where(AdvertisementPeer::BILLBOARDID .' = ' . BillboardPeer::ID)
-			->where(AdvertisementPeer::PUBLISHDATE . " <= '$toDate'")
-			->where("DATE_ADD(" . AdvertisementPeer::PUBLISHDATE . ",INTERVAL " . AdvertisementPeer::DURATION. " DAY) >= '$fromDate'")
+			->filterByPublished($fromDate, $duration)
 			->clearSelectColumns()
 			->addSelectColumn('COUNT(*)');
 		$subQuery->setPrimaryTableName(AdvertisementPeer::TABLE_NAME);

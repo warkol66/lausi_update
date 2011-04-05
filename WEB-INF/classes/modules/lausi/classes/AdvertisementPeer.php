@@ -1,14 +1,5 @@
 <?php
 
-// The parent class
-require_once 'om/BaseAdvertisementPeer.php';
-
-// The object class
-include_once 'Advertisement.php';
-
-require_once('BillboardPeer.php');
-require_once('AddressPeer.php');
-
 /**
  * Class AdvertisementPeer
  *
@@ -17,27 +8,38 @@ require_once('AddressPeer.php');
 class AdvertisementPeer extends BaseAdvertisementPeer {
 
 	//opciones para la busqueda personalizada
-	private $clientId;
-	private $themeId;
-	private $circuitId;
-	private $type;
-	private $workforceId = '';
-	private $fromDate;
-	private $toDate;
+	private $searchClientId;
+	private $searchThemeId;
+	private $searchCircuitId;
+	private $searchType;
+	private $searchWorkforceId = '';
+	private $searchFromDate;
+	private $searchToDate;
+	private $searchExactDate;
+	
 	private $allThemes = false;
-	private $exactDate;
 	private $groupByAddressAndTheme = true;
 	private $orderByCircuitOrder = false;
+	
+	//mapea las condiciones del filtro
+	var $filterConditions = array(
+		"searchClientId"=>"setSearchClientId",
+		"searchThemeId"=>"setSearchThemeId",
+		"searchCircuitId"=>"setSearchCircuitId",
+		"searchType"=>"setSearchType",
+		"searchWorkforceId"=>"setSearchWorkforceId",
+		"searchFromDate"=>"setSearchFromDate",
+		"searchToDate"=>"setSearchToDate",
+		"searchExactDate"=>"setSearchExactDate",
+	);
 	
 	/**
 	 * Especifica un Client Id para una busqueda personalizada.
 	 *
 	 * @param $clientId integer id de cliente
 	 */
-	public function setClientId($clientId) {
-		
-		$this->clientId = $clientId;
-		
+	public function setSearchClientId($searchClientId) {
+		$this->searchClientId = $searchClientId;
 	}
 	
 	/**
@@ -45,9 +47,7 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 	 *
 	 */	
 	public function orderByCircuitOrder() {
-		
 		$this->orderByCircuitOrder = true;
-		
 	}
 	
 	/**
@@ -55,10 +55,8 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 	 *
 	 * @param $themeId integer id de theme
 	 */
-	public function setThemeId($themeId) {
-		
-		$this->themeId = $themeId;
-		
+	public function setSearchThemeId($searchThemeId) {
+		$this->searchThemeId = $searchThemeId;
 	}
 
 	/**
@@ -66,9 +64,9 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 	 *
 	 * @param $circuitId integer id de circuit
 	 */
-	public function setCircuitId($circuitId) {
+	public function setSearchCircuitId($searchCircuitId) {
 		
-		$this->circuitId = $circuitId;
+		$this->searchCircuitId = $searchCircuitId;
 		
 	}
 
@@ -77,9 +75,9 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 	 *
 	 * @param $type integer id de type
 	 */
-	public function setType($type) {
+	public function setSearchType($searchType) {
 		
-		$this->type = $type;
+		$this->searchType = $searchType;
 		
 	}
 
@@ -88,9 +86,9 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 	 *
 	 * @param $workforceId integer id de workforce
 	 */
-	public function setWorkforceId($workforceId) {
+	public function setSearchWorkforceId($searchWorkforceId) {
 		
-		$this->workforceId = $workforceId;
+		$this->searchWorkforceId = $searchWorkforceId;
 		
 	}
 
@@ -99,9 +97,9 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 	 *
 	 * @param $fromDate string YYYY-MM-DD
 	 */
-	public function setFromDate($fromDate) {
+	public function setSearchFromDate($searchFromDate) {
 		
-		$this->fromDate = $fromDate;
+		$this->searchFromDate = $searchFromDate;
 		
 	}
 	
@@ -110,9 +108,9 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 	 *
 	 * @param $fromDate string YYYY-MM-DD
 	 */
-	public function setExactDate($exactDate) {
+	public function setSearchExactDate($searchExactDate) {
 		
-		$this->exactDate = $exactDate;
+		$this->searchExactDate = $searchExactDate;
 		
 	}	
 
@@ -121,9 +119,9 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 	 *
 	 * @param $toDate string YYYY-MM-DD
 	 */
-	public function setToDate($toDate) {
+	public function setSearchToDate($searchToDate) {
 		
-		$this->toDate = $toDate;
+		$this->searchToDate = $searchToDate;
 		
 	}
 	
@@ -169,217 +167,28 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 		$this->forReport = 1;
 	}			
 
-
-  /**
-  * Obtiene la cantidad de filas por pagina por defecto en los listado paginados.
-  *
-  * @return int Cantidad de filas por pagina
-  */
-  function getRowsPerPage() {
-    global $system;
-    return $system["config"]["system"]["rowsPerPage"];
-  }
-
-  /**
-  * Crea un advertisement nuevo.
-  *
-  * @param string $date date del advertisement
-  * @param string $publishDate publishDate del advertisement
-  * @param int $duration duration del advertisement
-  * @param int $billboardId billboardId del advertisement
-  * @param int $themeId themeId del advertisement
-  * @return boolean true si se creo el advertisement correctamente, false sino
-	*/
-	function create($date,$publishDate,$duration,$billboardId,$themeId) {
-		//echo "date:".$date."pub".$publishDate."dur".$duration."billId".$billboardId."themeId".$themeId;
-		//no se puede crear un advertisement que no tenga establecidas sus relaciones 
-		if (empty($themeId) || empty($publishDate) || empty($billboardId) || empty($duration))
-			return false;
-		
-		require_once('ThemePeer.php');
-		
-		//la cartelera y el theme deben ser compatibles
-		$billboard = BillboardPeer::get($billboardId);
-		$theme = ThemePeer::get($themeId);
-		
-		//verificamos si la cartelera y el motivo son compatibles
-		if ($billboard->getType() != $theme->getType())
-			return false;
-			
-		//verificamos que no haya solapamiento.
-		if (AdvertisementPeer::hasOverlapping($publishDate,$duration,$billboardId))
-	  		return false;		
-
-		try {
-		  $advertisementObj = new Advertisement();
-		  $advertisementObj->setdate($date);
-		  $advertisementObj->setpublishDate($publishDate);
-		  $advertisementObj->setduration($duration);
-		  $advertisementObj->setbillboardId($billboardId);
-		  $advertisementObj->setthemeId($themeId);
-		  $advertisementObj->save();
-		  return true;
-		} catch (PropelException $exp) {
-		  return false;
-		}      
-	}
-	
-  /**
-  * Crea un advertisement nuevo.
-  *
-  * @param string $date date del advertisement
-  * @param string $publishDate publishDate del advertisement
-  * @param int $duration duration del advertisement
-  * @param int $billboardId billboardId del advertisement
-  * @param int $themeId themeId del advertisement
-  * @return boolean true si se creo el advertisement correctamente, false sino
-	*/
-	function createWithErrorDetail($date,$publishDate,$duration,$billboardId,$themeId) {
-		//echo "date:".$date."pub".$publishDate."dur".$duration."billId".$billboardId."themeId".$themeId;
-		//no se puede crear un advertisement que no tenga establecidas sus relaciones 
-		if (empty($themeId) || empty($publishDate) || empty($billboardId) || empty($duration))
-			return -1;
-
-		//la cartelera y el theme deben ser compatibles
-		$billboard = BillboardPeer::get($billboardId);
-		$theme = ThemePeer::get($themeId);
-
-		//verificamos si la cartelera y el motivo son compatibles
-		if ($billboard->getType() != $theme->getType())
-			return -2;
-
-		//verificamos que no haya solapamiento.
-		if (AdvertisementPeer::hasOverlapping($publishDate,$duration,$billboardId))
-			return -3;		
-
-		try {
-		  $advertisementObj = new Advertisement();
-		  $advertisementObj->setdate($date);
-		  $advertisementObj->setpublishDate($publishDate);
-		  $advertisementObj->setduration($duration);
-		  $advertisementObj->setbillboardId($billboardId);
-		  $advertisementObj->setthemeId($themeId);
-		  $advertisementObj->save();
-		  return 0;
-		} catch (PropelException $exp) {
-		  return -4;
-		}      
-	}	
-
 	private function hasOverlapping($publishDate,$duration,$billboardId,$advertId = null) {
+		$criteria = new AdvertisementQuery();		
 		
-		$criteria = new Criteria();
-
-		$publishDate = str_replace('-','/',$publishDate);	
+		$criteria->filterByPublished($publishDate, $duration);
+		$criteria->filterByBillboardId($billboardId);
 		
-		$fromDate = $publishDate;
-		//FIX por bug en distribucion
-		//TODO ver que hacer con el tema de fechas
-		
-		ereg("([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})", $date, $splitDate);
-		$year = $splitDate[1];
-		$month = $splitDate[2];
-		$day = $splitDate[3];
-
-		$timestamp = mktime(0,0,0,$month,$day+$duration,$year);
-		$endDate =  date('Y/m/d',$timestamp);
-		
-
-		//Caso fecha de publicacion sea menor a la de inicio del periodo y fecha de finalizacion del aviso sea menor a la fecha de finalizacion del periodo
-		$sql .= "(((('" . $fromDate . "' >= lausi_advertisement.publishDate) AND ";
-		$sql .=	"('" . $endDate ."' >=  DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY)) AND";
-		$sql .=	"('" . $fromDate ."' <  DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY))) OR ";
-
-		//Caso fecha de publicacion sea mayor a la de inicio del periodo y fecha de finalizacion del aviso sea mayor a la fecha de finalizacion del periodo
-		$sql .= "(('" . $fromDate . "' <= lausi_advertisement.publishDate) AND ";
-		$sql .= "('" . $endDate . "' >= lausi_advertisement.publishDate) AND ";
-		$sql .=	"('" . $endDate ."' < DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY))) OR ";
-
-		//Caso fecha de publicacion sea mayor igual a la de inicio del periodo y fecha de finalizacion del aviso sea menor igual a la fecha de finalizacion del periodo
-		$sql .= "(('" . $fromDate . "' <= lausi_advertisement.publishDate) AND ";
-		$sql .=	"('" . $endDate ."' >= DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY))) OR";
-
-		//Caso fecha de publicacion sea menor a la de inicio del periodo y fecha de finalizacion del aviso sea mayor a la fecha de finalizacion del periodo
-		$sql .= "(('" . $fromDate . "' >= lausi_advertisement.publishDate) AND ";
-		$sql .=	"('" . $endDate ."' < DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY)))) ) = 0";
-
-
-		$criteria->add(AdvertisementPeer::PUBLISHDATE,$sql,Criteria::CUSTOM);
-		$criteria->add(AdvertisementPeer::BILLBOARDID,$billboardId);
+		//Si tenemos $advertId, nos fijamos que al menos uno de los resultados sea distinto
+		//del $advertId indicado.
+		if ($advertId != null)
+			$criteria->filterById($advertId, Criteria::NOT_EQUAL);
 	  	
-	  	$adverts = AdvertisementPeer::doSelect($criteria);
-	  	
-	  	if ($advertId == null && !empty($adverts))
-	  		return true;
-	  	
-	  	if (!empty($adverts)) {
-	  		
-	  		foreach($adverts as $advert) {
-	  			if ($advert->getId() != $advertId) {
-	  				return true;
-	  			}
-	  				
-	  		}
-	  		
-	  	}
-
-		return false;
+	  	return $criteria->count() > 0;
 	}
 
   /**
-  * Actualiza la informacion de un advertisement.
+  * Elimina un advertisement a partir de los valores de la clave.
   *
   * @param int $id id del advertisement
-  * @param string $date date del advertisement
-  * @param string $publishDate publishDate del advertisement
-  * @param int $duration duration del advertisement
-  * @param int $billboardId billboardId del advertisement
-  * @param int $themeId themeId del advertisement
-  * @return boolean true si se actualizo la informacion correctamente, false sino
-	*/
-  function update($id,$date,$publishDate,$duration,$billboardId,$themeId) {
-
-
-	//no se puede actualizar un advertisement que no tenga establecidas sus relaciones 
-	if (empty($themeId) || empty($publishDate) || empty($billboardId) || empty($duration))
-		return false;
-		
-	//la cartelera y el theme deben ser compatibles
-	$billboard = BillboardPeer::get($billboardId);
-	$theme = ThemePeer::get($themeId);
-		
-	//verificamos si la cartelera y el motivo son compatibles
-	if ($billboard->getType() != $theme->getType())
-			return false;
-  
-	//verificamos si hay solapamiento
-  	if (AdvertisementPeer::hasOverlapping($publishDate,$duration,$billboardId,$id))
-  		return false;
-  	 
-    try {
-      $advertisementObj = AdvertisementPeer::retrieveByPK($id);
-      $advertisementObj->setdate($date);
-      $advertisementObj->setpublishDate($publishDate);
-      $advertisementObj->setduration($duration);
-      $advertisementObj->setbillboardId($billboardId);
-      $advertisementObj->setthemeId($themeId);
-      $advertisementObj->save();
-      return true;
-    } catch (PropelException $exp) {
-      return false;
-    }      
-  }
-
-	/**
-	* Elimina un advertisement a partir de los valores de la clave.
-	*
-  * @param int $id id del advertisement
-	*	@return boolean true si se elimino correctamente el advertisement, false sino
-	*/
+  *	@return boolean true si se elimino correctamente el advertisement, false sino
+  */
   function delete($id) {
-  	$advertisementObj = AdvertisementPeer::retrieveByPK($id);
-    $advertisementObj->delete();
-		return true;
+  	return AdvertisementQuery::create()->filterByPrimaryKey($id)->delete();
   }
 
   /**
@@ -389,19 +198,16 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
   * @return array Informacion del advertisement
   */
   function get($id) {
-		$advertisementObj = AdvertisementPeer::retrieveByPK($id);
-    return $advertisementObj;
+  	return AdvertisementQuery::create()->findPk($id);
   }
 
   /**
   * Obtiene todos los advertisements.
-	*
-	*	@return array Informacion sobre todos los advertisements
+  *
+  *	@return array Informacion sobre todos los advertisements
   */
-	function getAll() {
-		$cond = new Criteria();
-		$alls = AdvertisementPeer::doSelect($cond);
-		return $alls;
+  function getAll() {
+	return AdvertisementQuery::create()->find();
   }
   
   /**
@@ -416,92 +222,80 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
       $perPage = 	AdvertisementPeer::getRowsPerPage();
     if (empty($page))
       $page = 1;
-    $cond = new Criteria();     
+    $cond = new AdvertisementQuery();     
     
     $pager = new PropelPager($cond,"AdvertisementPeer", "doSelect",$page,$perPage);
     return $pager;
    }    
 
-	public function generateFilterCriteria() {
+	public function getSearchCriteria() {
+		$criteria = new AdvertisementQuery();
 		
-		require_once('ThemePeer.php');
-		
-		$criteria = new Criteria();
-		
-		$criteria->addJoin(AdvertisementPeer::BILLBOARDID,BillboardPeer::ID,Criteria::INNER_JOIN);
-		$criteria->addJoin(AdvertisementPeer::THEMEID,ThemePeer::ID,Criteria::INNER_JOIN);
-		$criteria->addJoin(BillboardPeer::ADDRESSID,AddressPeer::ID,Criteria::INNER_JOIN);
-		$criteria->addJoin(AddressPeer::CIRCUITID,CircuitPeer::ID,Criteria::INNER_JOIN);
+		$criteria->join('Billboard',Criteria::INNER_JOIN);
+		$criteria->join('Theme',Criteria::INNER_JOIN);
+		$criteria->join('Billboard.Address',Criteria::INNER_JOIN);
+		$criteria->join('Address.Circuit',Criteria::INNER_JOIN);
 		
 		//condicion que solo se consideran los aviso relacionados a motivos activos
-		
 		if (!$this->allThemes)
-			$criteria->add(ThemePeer::ACTIVE,1);
+			$criteria->useQuery('Theme')
+						->filterByActive(1)
+					 ->endUse();
 		
-		if (!empty($this->clientId)) {
-			$criteria->add(ThemePeer::CLIENTID,$this->clientId);
+		if (!empty($this->searchClientId)) {
+			$criteria->useQuery('Theme')
+						->filterByClientId($this->searchClientId)
+					 ->endUse();
 		}
 		
-		if (!empty($this->themeId)) {
-			$criteria->add(AdvertisementPeer::THEMEID,$this->themeId);
+		if (!empty($this->searchThemeId)) {
+			$criteria->filterByThemeId($this->searchThemeId);
 		}
 
-		if (!empty($this->type)) {
-			$criteria->add(BillboardPeer::TYPE,$this->type);
+		if (!empty($this->searchType)) {
+			$criteria->useQuery('Billboard')
+						->filterByType($this->searchType)
+					 ->endUse();
 		}
 
-		if (!empty($this->circuitId)) {
-			$criteria->add(AddressPeer::CIRCUITID,$this->circuitId);
+		if (!empty($this->searchCircuitId)) {
+			$criteria->useQuery('Address')
+						->filterByType($this->searchCircuitId)
+					 ->endUse();
 		}
 
-		if ($this->workforceId >= 0 && $this->forReport !=1) {
+		if ($this->searchWorkforceId >= 0 && $this->forReport !=1) {
 			//las workforce solo son para sextuples
-			$criteria->add(AdvertisementPeer::WORKFORCEID,$this->workforceId);
+			$criteria->filterByWorkforceId($this->searchWorkforceId);
 		}
 	
-		if (!empty($this->fromDate)) {			
-			
-			$sql = '('. "'" . $this->fromDate . "'" .' >= lausi_advertisement.publishDate) AND ('. "'" . $this->fromDate . "'" .' <= DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY))';
-
-			$criteria->add(AdvertisementPeer::PUBLISHDATE,$sql,Criteria::CUSTOM);
-
+		if (!empty($this->searchFromDate)) {			
+			$sql = '('. "'" . $this->searchFromDate . "'" .' >= lausi_advertisement.publishDate) AND ('. "'" . $this->searchFromDate . "'" .' <= DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY))';
+			$criteria->where($sql);
 		}
 		
 		if ($this->orderByCircuitOrder) {
-			$criteria->addAscendingOrderByColumn(CircuitPeer::ORDERBY);
+			$criteria->useQuery('Circuit')
+						->orderByOrderBy()
+					 ->endUse();
 		}
 		
-		if (!empty($this->toDate)) {
-
-			$sql = '('. "'" . $this->toDate . "'" .' >= lausi_advertisement.publishDate) AND ('. "'" . $this->fromDate . "'" .' <= DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY))';
-
-			$criteria->add(AdvertisementPeer::PUBLISHDATE,$sql,Criteria::CUSTOM);
+		if (!empty($this->searchToDate)) {
+			$sql = '('. "'" . $this->searchToDate . "'" .' >= lausi_advertisement.publishDate) AND ('. "'" . $this->searchToDate . "'" .' <= DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY))';
+			$criteria->where($sql);
 		}
 		
-		if (!empty($this->exactDate)) {		
-			$criteria->add(AdvertisementPeer::PUBLISHDATE,$this->exactDate);
-
+		if (!empty($this->searchExactDate)) {		
+			$criteria->filterByPublishDate($this->searchExactDate);
 		}
 		
 		if ($this->groupByAddressAndTheme) {
-				$criteria->addGroupByColumn(BillboardPeer::ADDRESSID);
-				$criteria->addGroupByColumn(AdvertisementPeer::THEMEID);
-				$criteria->addAsColumn("themes","count(".AdvertisementPeer::ID.")");
-		}		
-		
+			$criteria->groupBy('Billboard.Addressid');
+			$criteria->groupBy('Advertisement.Themeid');
+			$criteria->withColumn("count(".AdvertisementPeer::ID.")", "themesCount");
+		}
 		return $criteria;
 	}
-
-  function doCountRS($criteria) {
-	
-	/* @var $copy Criteria */
-	$copy = clone $criteria;
-
-	$count = count(AdvertisementPeer::doSelect($copy));
-	
-	return $count;
-
-  }
 
   /**
   * Obtiene todos los advertisements paginados.
@@ -512,66 +306,28 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
   *	@return array Informacion sobre todos los advertisements
   */
   function getAllPaginatedFiltered($page=1,$perPage=-1) {  
-    if ($perPage == -1)
-      $perPage = 	AdvertisementPeer::getRowsPerPage();
+	if ($perPage == -1)
+      $perPage = 	Common::getRowsPerPage();
     if (empty($page))
       $page = 1;
 
-    $cond = $this->generateFilterCriteria();	    
-    
-	if ($this->groupByAddressAndTheme) {
-		$pager = new PropelPager($cond,"AdvertisementPeer", "doSelectRS",$page,$perPage);
-		$pager->setPeerCountMethod('doCountRS');
-	}
-	else {
-    	$pager = new PropelPager($cond,"AdvertisementPeer", "doSelect",$page,$perPage);
-	}	
+    $cond = $this->getSearchCriteria();	    
+
+    $pager = new PropelPager($cond,"AdvertisementPeer", "doSelect",$page,$perPage);
     return $pager;
    }    
    
-   function hydrateResult($rs) {
-	
-		$n = AdvertisementPeer::NUM_COLUMNS;
-		$results = array();
-		while($rs->next()) {
-			$adv = new Advertisement();
-			$adv->hydrate($rs);
-			$themeCount = $rs->getInt($n+1);
-			//$themeCount = $rs->getString('themes');
-			$adv->themes = $themeCount;
-			$results[] = $adv;
-		}	   
-		return $results;
-   }
-
-
 	/**
 	* Obtiene todos los advertisements vigentes para una cierta direccion.
 	*   @param integer Id de la direccion
 	*	@return array Informacion sobre todos los advertisements
 	*/
 	function getAllCurrentByAddress($addressId) {
-
-		$cond = new Criteria();
-		$cond->addJoin(AdvertisementPeer::BILLBOARDID,BillboardPeer::ID,Criteria::INNER_JOIN);
-		$cond->addJoin(BillboardPeer::ADDRESSID,AddressPeer::ID,Criteria::INNER_JOIN);
-		$cond->add(AddressPeer::ID,$addressId);
-		$today = date('Y-m-d');
-		$sql = '('. "'" . $today . "'" .' >= lausi_advertisement.publishDate) AND ('. "'" . $today . "'" .' <= DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY))';
-		$cond->add(AdvertisementPeer::PUBLISHDATE,$sql,Criteria::CUSTOM);
+		$address = AddressPeer::get($addressId);
 		
-
-		try {
-			
-			$alls = AdvertisementPeer::doSelect($cond);
-			
-		}
-		catch (PropelException $exp) {
-			$alls = array();			
-		}
-
-		return $alls;
-
+		return AdvertisementQuery::create()
+			->filterByCurrent()
+			->filterByAddress($address);
 	}
 	
 	/**
@@ -592,8 +348,7 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 			return false;	
 
 		$newDuration = $extension + ($advert->getDuration());
-		$billboard = $advert->getBillboard();
-		$billboardId = $billboard->getId();
+		$billboardId = $advert->getBillboardId();
 		
 		if (AdvertisementPeer::hasOverlapping($advert->getPublishDate(),$newDuration,$billboardId,$advert->getId())) {
 			return false;
@@ -650,32 +405,13 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 	 *
 	 */
 	function getAllByThemeCount($themeId=0) {
-		
-		$criteria = new Criteria();
-		$criteria->add(AdvertisementPeer::THEMEID,$themeId);
-		$value = AdvertisementPeer::doCount($criteria);
-		return $value;
+		return AdvertisementQuery::create()
+			->filterByThemeId($themeId)
+			->count();
 	}
 	
 	function getAllFiltered() {
-		
-		$criteria = $this->generateFilterCriteria();
-
-		if ($this->groupByAddressAndTheme) {
-			$count = count(AdvertisementPeer::doSelect($criteria));
-			$pager = new PropelPager($criteria,"AdvertisementPeer", "doSelectRS",1,$count);
-			$pager->setPeerCountMethod('doCountRS');
-
-			$advertisements = $pager->getResult();
-			$result = $this->hydrateResult($advertisements);
-		}
-		else {
-			$result = AdvertisementPeer::doSelect($criteria);
-		}	
-
-		return $result;
-
+		$criteria = $this->getSearchCriteria();
+		return $criteria->find();
 	}
-
-
 }

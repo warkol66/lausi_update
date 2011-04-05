@@ -18,50 +18,50 @@
 		<legend>Reportes</legend>
 		<form action="Main.php" method="get">
 			<p>
-				<label for="themeId">Motivo</label>
-				<select name="themeId">
+				<label for="filters[searchThemeId]">Motivo</label>
+				<select name="filters[searchThemeId]">
 						<option value="">Seleccione un Motivo</option>
 					|-foreach from=$themes item=theme name=for_themes-|
-						<option value="|-$theme->getId()-|" |-if isset($themeId) and $themeId eq $theme->getId()-|selected="selected"|-/if-|>|-$theme->getName()-| - |-$theme->getShortName()-|</option>
+						<option value="|-$theme->getId()-|" |-$theme->getId()|selected:$filters.searchThemeId-|>|-$theme->getName()-| - |-$theme->getShortName()-|</option>
 					|-/foreach-|
 				</select>
 			</p>
 			<p>
-				<label for="clientId">Cliente</label>
-				<select name="clientId">
+				<label for="filters[searchClientId]">Cliente</label>
+				<select name="filters[searchClientId]">
 					<option value="">Seleccione un Cliente</option>
 					|-foreach from=$clients item=client name=for_clients-|
-						<option value="|-$client->getId()-|" |-if isset($clientId) and $clientId eq $client->getId()-|selected="selected"|-/if-|>|-$client->getName()-|</option>
+						<option value="|-$client->getId()-|" |-$client->getId()|selected:$filters.searchClientId-|>|-$client->getName()-|</option>
 					|-/foreach-|
 				</select>
 			</p>
 |- if $clientReport neq 1-|
 			<p>
-				<label for="type">Tipo de Cartelera</label>
-				<select name="type" id="type" >
-					<option value="0" |-if isset($type) and $type eq 0-|selected="selected"|-/if-|>Seleccione Tipo de Cartelera</option>
-					<option value="1" |-if isset($type) and $type eq 1-|selected="selected"|-/if-|>Doble</option>
-					<option value="2" |-if isset($type) and $type eq 2-|selected="selected"|-/if-|>Séxtuple</option>
+				<label for="filters[searchType]">Tipo de Cartelera</label>
+				<select name="filters[searchType]" id="type" >
+					<option value="0" |-0|selected:$filters.searchType-|>Seleccione Tipo de Cartelera</option>
+					<option value="1" |-1|selected:$filters.searchType-|>Doble</option>
+					<option value="2" |-2|selected:$filters.searchType-|>Séxtuple</option>
 				</select>
 			</p>
 			<p>
-				<label for="circuitId">Circuito</label>
-				<select name="circuitId">
+				<label for="filters[searchCircuitId]">Circuito</label>
+				<select name="filters[searchCircuitId]">
 					<option value="">Seleccione un Circuito</option>
 					|-foreach from=$circuits item=circuit name=for_circuits-|
-						<option value="|-$circuit->getId()-|" |-if isset($circuitId) and $circuitId eq $circuit->getId()-|selected="selected"|-/if-|>|-$circuit->getName()-|</option>
+						<option value="|-$circuit->getId()-|" |-$circuit->getId()|selected:$filters.searchCircuitId-|>|-$circuit->getName()-|</option>
 					|-/foreach-|
 				</select>
 			</p>
 |-/if-|			
 			<p>
-				<label for="fromDate">Fecha Desde</label>
-				<input name="fromDate" type="text" id="fromDate" title="fromDate" value="|-$fromDate|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<label for="filters[searchFromDate]">Fecha Desde</label>
+				<input name="filters[searchFromDate]" type="text" id="fromDate" title="fromDate" value="|-$fromDate|date_format:"%d-%m-%Y"-|" size="12" /> 
 				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('fromDate', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			<p>
-				<label for="toDate">Fecha Hasta</label>
-				<input name="toDate" type="text" id="toDate" title="toDate" value="|-$toDate|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<label for="filters[searchToDate]">Fecha Hasta</label>
+				<input name="filters[searchToDate]" type="text" id="toDate" title="toDate" value="|-$toDate|date_format:"%d-%m-%Y"-|" size="12" /> 
 				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('toDate', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 |- if $clientReport neq 1-|			
@@ -103,7 +103,7 @@
 			<thead>
 				|-if $printReport eq ''-|
 				<tr>
-					 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit" class="addLink">Agregar Aviso</a></div></th>
+					 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit|-include file='FiltersRedirectUrlInclude.tpl' filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Aviso</a></div></th>
 				</tr>
 				|-/if-|
 				<tr>
@@ -128,19 +128,19 @@
 					</td>
 					|-if $onlyAddresses eq ''-|
 					<td>
-						|-$advertisement->themes-|
+						|-$advertisement->getThemesCount()-|
 					</td>
 					|-/if-|
 				</tr>
 			|-/foreach-|						
-				|-if $pager neq '' and $pager->getTotalPages() gt 1-|
+				|-if $pager neq '' and $pager->haveToPaginate()-|
 				<tr> 
-					<td colspan="3" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
+					<td colspan="3" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 				</tr>
 				|-/if-|								
 				|-if $printReport eq ''-|
 				<tr>
-					 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit" class="addLink">Agregar Aviso</a></div></th>
+					 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit|-include file='FiltersRedirectUrlInclude.tpl' filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Aviso</a></div></th>
 				</tr>
 				|-/if-|
 			</tbody>
@@ -150,7 +150,7 @@
 			<thead>
 				|-if $printReport eq ''-|
 				<tr>
-					 <th colspan="9" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit" class="addLink">Agregar Aviso</a></div></th>
+					 <th colspan="9" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit|-include file='FiltersRedirectUrlInclude.tpl' filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Aviso</a></div></th>
 				</tr>
 				|-/if-|
 				<tr>
@@ -217,14 +217,14 @@
 				|-/if-|
 				</tr>
 			|-/foreach-|						
-			|-if $pager neq '' and $pager->getTotalPages() gt 1-|
+			|-if $pager neq '' and $pager->haveToPaginate()-|
 				<tr> 
-					<td colspan="9" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
+					<td colspan="9" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 				</tr>							
 			|-/if-|						
 				|-if $printReport eq ''-|
 				<tr>
-					 <th colspan="9" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit" class="addLink">Agregar Aviso</a></div></th>
+					 <th colspan="9" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit|-include file='FiltersRedirectUrlInclude.tpl' filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Aviso</a></div></th>
 				</tr>
 				|-/if-|
 			</tbody>

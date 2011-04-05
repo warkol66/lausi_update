@@ -4,21 +4,21 @@
 	<form name="form_add_advertisement" id="form_add_advertisement" action="Main.php" method="post">
 		<fieldset title="Formulario de edición de datos de un advertisement">
 			<p>
-				<label for="publishDate">Fecha de Publicación</label>
-				<input name="publishDate" type="text" id="publishDate" title="publishDate" value="" size="12" /> 
+				<label for="advertisement[publishDate]">Fecha de Publicación</label>
+				<input name="advertisement[publishDate]" type="text" id="publishDate" title="publishDate" value="" size="12" /> 
 				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('publishDate', false, 'ymd', '-');" title="Seleccione la fecha">
 			</p>
 			<p>
-				<label for="duration">Duración</label>
-				<input name="duration" type="text" id="duration" title="duration" value="" size="4" />
+				<label for="advertisement[duration]">Duración</label>
+				<input name="advertisement[duration]" type="text" id="duration" title="duration" value="" size="4" />
 			</p>
 			<p>
 				<label for="quantity">Cantidad de Afiches</label>
 				<input type="input" name="quantity" value="" id="quantity">
 			</p>
 			<p>
-				<label for="themeId">Motivo</label>
-				<select id="themeId" name="themeId" title="themeId">
+				<label for="advertisement[themeId]">Motivo</label>
+				<select id="themeId" name="advertisement[themeId]" title="themeId">
 					<option value="">Seleccione un Motivo</option>
 									|-foreach from=$themes item=object-|
 									<option value="|-$object->getid()-|">|-$object->getname()-|&nbsp;&nbsp;&nbsp;</option>

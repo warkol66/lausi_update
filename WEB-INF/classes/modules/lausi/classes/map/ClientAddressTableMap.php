@@ -41,8 +41,8 @@ class ClientAddressTableMap extends TableMap {
 		$this->addColumn('STREET', 'Street', 'VARCHAR', true, 100, null);
 		$this->addColumn('NUMBER', 'Number', 'INTEGER', false, null, null);
 		$this->addColumn('INTERSECTION', 'Intersection', 'VARCHAR', false, 100, null);
-		$this->addColumn('LATITUDE', 'Latitude', 'FLOAT', false, null, null);
-		$this->addColumn('LONGITUDE', 'Longitude', 'FLOAT', false, null, null);
+		$this->addColumn('LATITUDE', 'Latitude', 'NUMERIC', false, 12, null);
+		$this->addColumn('LONGITUDE', 'Longitude', 'NUMERIC', false, 12, null);
 		$this->addColumn('TYPE', 'Type', 'VARCHAR', false, 100, null);
 		$this->addForeignKey('CIRCUITID', 'Circuitid', 'INTEGER', 'lausi_circuit', 'ID', false, null, null);
 		$this->addForeignKey('CLIENTID', 'Clientid', 'INTEGER', 'lausi_client', 'ID', true, null, null);

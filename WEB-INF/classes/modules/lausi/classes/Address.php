@@ -12,7 +12,23 @@
  * @package    lausi
  */
 class Address extends BaseAddress {
-	
+
+	public function save(PropelPDO $con = null) {
+		try {
+			if ($this->validate()) { 
+				parent::save($con);
+				return true;
+			} else {
+				return false;
+			}
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
+	}
+		
 	function __toString() {
 		$nickname = $this->getNickname();
 		if (!empty($nickname)) {

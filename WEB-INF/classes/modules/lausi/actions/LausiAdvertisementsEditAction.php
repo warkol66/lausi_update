@@ -1,8 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("AdvertisementPeer.php");
-
 class LausiAdvertisementsEditAction extends BaseAction {
 
 
@@ -31,7 +28,7 @@ class LausiAdvertisementsEditAction extends BaseAction {
 	*/
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+    	BaseAction::execute($mapping, $form, $request, $response);
 
 		//////////
 		// Access the Smarty PlugIn instance
@@ -48,44 +45,28 @@ class LausiAdvertisementsEditAction extends BaseAction {
 		$smarty->assign("section",$section);
 
     	if ( !empty($_GET["id"]) ) {
-			//voy a editar un advertisement
-
 			$advertisement = AdvertisementPeer::get($_GET["id"]);
-
 			$smarty->assign("advertisement",$advertisement);
-			require_once("BillboardPeer.php");
-				
-			$smarty->assign("billboardIdValues",BillboardPeer::getAll());
-			require_once("ThemePeer.php");		
-			$smarty->assign("themeIdValues",ThemePeer::getAllActive());
-
 	    	$smarty->assign("action","edit");
-		}
-		else {
-			//voy a crear un advertisement nuevo
+		} else {
 			$advertisement = new Advertisement();
 			$smarty->assign("advertisement",$advertisement);			
-			require_once("BillboardPeer.php");		
-
-			if (!empty($_GET['addressId'])) {
-				$address = AddressPeer::get($_GET['addressId']);
-				if ($address != null)
-					$billboards = $address->getBillboards();
-				else
-					$billboards = BillboardPeer::getAll();
-			}
-			else { 
-				$billboards = BillboardPeer::getAll();
-			}
-			
-			$smarty->assign("billboardIdValues",$billboards);
-			
-			require_once("ThemePeer.php");		
-			$smarty->assign("themeIdValues",ThemePeer::getAllActive());
-
 			$smarty->assign("action","create");
 		}
-
+		
+		if (!empty($_GET['addressId'])) {
+			$address = AddressPeer::get($_GET['addressId']);
+			if ($address != null)
+				$billboards = $address->getBillboards();
+			else
+				$billboards = BillboardPeer::getAll();
+		} else { 
+			$billboards = BillboardPeer::getAll();
+		}
+		
+		$smarty->assign("advertisement",$advertisement);
+		$smarty->assign("billboardIdValues",$billboards);
+		$smarty->assign("themeIdValues",ThemePeer::getAllActive());
 		$smarty->assign("message",$_GET["message"]);
 
 		return $mapping->findForwardConfig('success');

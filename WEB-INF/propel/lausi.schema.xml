@@ -248,6 +248,22 @@
 			<reference local="workforceId" foreign="id"/>
 		</foreign-key>
 		
+		<validator column="publishDate">
+  			<rule name="required" message="Es necesario especificar la fecha de publicación." />
+		</validator>	
+			
+		<validator column="duration">
+  			<rule name="required" message="Es necesario especificar la duración de la publicación." />
+		</validator>
+		
+		<validator column="billboardId">
+  			<rule name="required" message="Es necesario especificar una cartelera." />
+		</validator>
+
+		<validator column="themeId">
+  			<rule name="required" message="Es necesario especificar un motivo." />
+		</validator>
+		
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>

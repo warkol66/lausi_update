@@ -45,6 +45,10 @@ class AdvertisementTableMap extends TableMap {
 		$this->addForeignKey('THEMEID', 'Themeid', 'INTEGER', 'lausi_theme', 'ID', true, null, null);
 		$this->addForeignKey('WORKFORCEID', 'Workforceid', 'INTEGER', 'lausi_workforce', 'ID', false, null, 0);
 		// validators
+		$this->addValidator('PUBLISHDATE', 'required', 'propel.validator.RequiredValidator', '', 'Es necesario especificar la fecha de publicación.');
+		$this->addValidator('DURATION', 'required', 'propel.validator.RequiredValidator', '', 'Es necesario especificar la duración de la publicación.');
+		$this->addValidator('BILLBOARDID', 'required', 'propel.validator.RequiredValidator', '', 'Es necesario especificar una cartelera.');
+		$this->addValidator('THEMEID', 'required', 'propel.validator.RequiredValidator', '', 'Es necesario especificar un motivo.');
 	} // initialize()
 
 	/**

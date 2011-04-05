@@ -1,8 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("AdvertisementPeer.php");
-
 class lausiAddAdvertOnAddressXAction extends BaseAction {
 
 
@@ -47,21 +44,20 @@ class lausiAddAdvertOnAddressXAction extends BaseAction {
 		$section = "Advertisements";
 		$smarty->assign("section",$section);
 		
-		//por ser una action ajax.		
-		$this->template->template = "template_ajax.tpl";
+		$params = $_POST['advertisement'];
 		
-		if (empty($_POST['addressId']) || empty($_POST['quantity']) || empty($_POST['themeId']) || empty($_POST['duration']) || empty($_POST['publishDate']))
+		if (empty($_POST['addressId']) || empty($_POST['quantity']) || empty($params['themeId']) || empty($params['duration']) || empty($params['publishDate']))
 				return $mapping->findForwardConfig('failure');
 				
-		$criteria = new Criteria();
+		$params['date'] = $params['publishDate'];
 		
-		$theme = ThemePeer::get($_POST['themeId']);
+		$theme = ThemePeer::get($params['themeId']);
 		
 		$quantity = $_POST['quantity'];
 		if ($theme->getType() == ThemePeer::TYPE_DOBLE)
 			$quantity = ceil($quantity/2);
 		
-		$result = BillboardPeer::getAllAvailableByAddress($_POST['addressId'],$_POST['publishDate'],$_POST['duration'],$quantity,$theme->getType());
+		$result = BillboardPeer::getAllAvailableByAddress($_POST['addressId'],$params['publishDate'],$params['duration'],$quantity,$theme->getType());
 
 		$billboards = $result[$_POST['addressId']]['elements'];
 		
@@ -69,8 +65,11 @@ class lausiAddAdvertOnAddressXAction extends BaseAction {
 		$count = 0;
 			
 		foreach ($billboards as  $billboard) {
-			if (!AdvertisementPeer::create($_POST['publishDate'],$_POST['publishDate'],$_POST['duration'],$billboard->getId(),$_POST['themeId'])) {
-			$count++;
+			$advert = new Advertisement;
+			$params['billboardId'] = $billboard->getId();
+			Common::setObjectFromParams($advert, $params);
+			if ($advert->save()) {
+				$count++;
 			}
 		}
 

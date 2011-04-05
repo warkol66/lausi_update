@@ -29,13 +29,13 @@
  *
  * @method     CircuitPoint findOneById(int $id) Return the first CircuitPoint filtered by the id column
  * @method     CircuitPoint findOneByCircuitid(int $circuitId) Return the first CircuitPoint filtered by the circuitId column
- * @method     CircuitPoint findOneByLatitude(double $latitude) Return the first CircuitPoint filtered by the latitude column
- * @method     CircuitPoint findOneByLongitude(double $longitude) Return the first CircuitPoint filtered by the longitude column
+ * @method     CircuitPoint findOneByLatitude(string $latitude) Return the first CircuitPoint filtered by the latitude column
+ * @method     CircuitPoint findOneByLongitude(string $longitude) Return the first CircuitPoint filtered by the longitude column
  *
  * @method     array findById(int $id) Return CircuitPoint objects filtered by the id column
  * @method     array findByCircuitid(int $circuitId) Return CircuitPoint objects filtered by the circuitId column
- * @method     array findByLatitude(double $latitude) Return CircuitPoint objects filtered by the latitude column
- * @method     array findByLongitude(double $longitude) Return CircuitPoint objects filtered by the longitude column
+ * @method     array findByLatitude(string $latitude) Return CircuitPoint objects filtered by the latitude column
+ * @method     array findByLongitude(string $longitude) Return CircuitPoint objects filtered by the longitude column
  *
  * @package    propel.generator.lausi.classes.om
  */
@@ -196,7 +196,7 @@ abstract class BaseCircuitPointQuery extends ModelCriteria
 	/**
 	 * Filter the query on the latitude column
 	 * 
-	 * @param     double|array $latitude The value to use as filter.
+	 * @param     string|array $latitude The value to use as filter.
 	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
@@ -227,7 +227,7 @@ abstract class BaseCircuitPointQuery extends ModelCriteria
 	/**
 	 * Filter the query on the longitude column
 	 * 
-	 * @param     double|array $longitude The value to use as filter.
+	 * @param     string|array $longitude The value to use as filter.
 	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *

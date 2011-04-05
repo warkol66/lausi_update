@@ -1,11 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("ThemePeer.php");
-require_once("AddressPeer.php");
-require_once("AdvertisementPeer.php");
-require_once("ProposalGenerator.php");
-
 class LausiThemesRotateXAction extends BaseAction {
 
 
@@ -34,7 +28,7 @@ class LausiThemesRotateXAction extends BaseAction {
 	*/
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+    	BaseAction::execute($mapping, $form, $request, $response);
 
 		//////////
 		// Access the Smarty PlugIn instance
@@ -44,10 +38,6 @@ class LausiThemesRotateXAction extends BaseAction {
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
-
-		//por ser una action ajax.		
-		$this->template->template = "template_ajax.tpl";
-
 
 		$module = "Lausi";
 		$smarty->assign("module",$module);
@@ -59,25 +49,21 @@ class LausiThemesRotateXAction extends BaseAction {
 			$smarty->assign('advertId', $_POST['advertId']);
 			//obtenemos el actual.
 			$advert = AdvertisementPeer::get($_POST['advertId']);
-			$theme = $advert->getTheme();
 			
 			//creamos la nueva publicacion del motivo en un direccion
-			if (!AdvertisementPeer::create($advert->getDate(),$advert->getPublishDate(),$advert->getDuration(),$_POST['billboardId'],$theme->getId())) {
+			$newAdvert = $advert->copy();
+			$newAdvert->setBillboardId($_POST['billboardId']);
+			if (!$newAdvert->save()) {
 				//no se ha podido crear
 				return $mapping->findForwardConfig('failure');
-	
 			}
 			
 			//se realizo la rotacion, eliminamos la otra cartelera.			
 			AdvertisementPeer::delete($_POST['advertId']);
 			
 			$smarty->assign('advertId',$_POST['advertId']);
-			
 		}
 		
 		return $mapping->findForwardConfig('success');
-		
-		
 	}
-
 }
