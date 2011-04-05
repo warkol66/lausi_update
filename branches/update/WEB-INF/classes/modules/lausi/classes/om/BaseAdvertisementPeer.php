@@ -1666,6 +1666,18 @@ abstract class BaseAdvertisementPeer {
 			}
 		} else {
 
+		if ($obj->isNew() || $obj->isColumnModified(AdvertisementPeer::PUBLISHDATE))
+			$columns[AdvertisementPeer::PUBLISHDATE] = $obj->getPublishdate();
+
+		if ($obj->isNew() || $obj->isColumnModified(AdvertisementPeer::DURATION))
+			$columns[AdvertisementPeer::DURATION] = $obj->getDuration();
+
+		if ($obj->isNew() || $obj->isColumnModified(AdvertisementPeer::BILLBOARDID))
+			$columns[AdvertisementPeer::BILLBOARDID] = $obj->getBillboardid();
+
+		if ($obj->isNew() || $obj->isColumnModified(AdvertisementPeer::THEMEID))
+			$columns[AdvertisementPeer::THEMEID] = $obj->getThemeid();
+
 		}
 
 		return BasePeer::doValidate(AdvertisementPeer::DATABASE_NAME, AdvertisementPeer::TABLE_NAME, $columns);

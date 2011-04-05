@@ -1,12 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("AdvertisementPeer.php");
-require_once("ThemePeer.php");
-require_once("ClientPeer.php");
-require_once("WorkforcePeer.php");
-require_once("CircuitPeer.php");
-
 class LausiAdvertisementsListAction extends BaseAction {
 
 
@@ -61,6 +54,9 @@ class LausiAdvertisementsListAction extends BaseAction {
  		$smarty->assign('workforces',WorkforcePeer::getAll());
  		$smarty->assign('circuits',CircuitPeer::getAll());
 		$smarty->assign("clientReport",$_GET['clientReport']);
+		
+		$filters = $_GET['filters'];
+		$this->applyFilters($advertisementPeer, $filters, $smarty);
    		
 		//ordenamiento especial para reporte de clientes
 		if ($_GET['clientReport'] == 1) {
@@ -68,49 +64,12 @@ class LausiAdvertisementsListAction extends BaseAction {
 		}
 
 		$smarty->assign("message",$_GET["message"]);
- 		
 		
+		//Las que vienen a continuación no se consideran opciones de filtrado
 		if (empty($_GET['reportMode'])) {
-			
 			return $mapping->findForwardConfig('success');
-	
 		}
 		
-		//aplicacion de opciones de filtrado 
- 		if (!empty($_GET['clientId'])) {
- 			$advertisementPeer->setClientId($_GET['clientId']);
- 			$smarty->assign('clientId',$_GET['clientId']);
- 		}		
- 		if (!empty($_GET['themeId'])) {
- 			$advertisementPeer->setThemeId($_GET['themeId']);
- 			$smarty->assign('themeId',$_GET['themeId']);
- 		}
-
- 		if (!empty($_GET['circuitId'])) {
- 			$advertisementPeer->setCircuitId($_GET['circuitId']);
- 			$smarty->assign('circuitId',$_GET['circuitId']);
- 		}
-
- 		if (!empty($_GET['type'])) {
- 			$advertisementPeer->setType($_GET['type']);
- 			$smarty->assign('type',$_GET['type']);
- 		}
-
- 		if (!empty($_GET['workforceId'])) {
- 			$advertisementPeer->setWorkforceId($_GET['workforceId']);
- 			$smarty->assign('workforceId',$_GET['workforceId']);
- 		}
- 		
- 		if (!empty($_GET['fromDate'])) {
- 			$advertisementPeer->setFromDate(Common::convertToMysqlDateFormat($_GET['fromDate']));
- 			$smarty->assign('fromDate',$_GET['fromDate']);
- 		} 		
-
- 		if (!empty($_GET['toDate'])) {
- 			$advertisementPeer->setToDate(Common::convertToMysqlDateFormat($_GET['toDate']));
- 			$smarty->assign('toDate',$_GET['toDate']);
- 		}
- 		
  		if (!empty($_GET['allThemes'])) {
  			$advertisementPeer->setAllThemes();
  			$smarty->assign('allThemes',$_GET['allThemes']);
@@ -127,18 +86,19 @@ class LausiAdvertisementsListAction extends BaseAction {
 
 
 		if ($_GET['reportMode'] == 'normal') {
-			$pager = $advertisementPeer->getAllPaginatedFiltered($_GET["page"]);
+			$pager = Common::getAllPaginatedFiltered($advertisementPeer, $_GET["page"]);
 
-			$advertisements = $pager->getResult();
-			if ($advertisementPeer->getGroupByAddressAndTheme())
-				$advertisements = $advertisementPeer->hydrateResult($advertisements);
+			$advertisements = $pager->getResults();
 
 			$smarty->assign("pager",$pager);
-			$url = "Main.php?do=lausiAdvertisementsList&submitFilter=1&toDate=". $_GET['toDate'] . "&fromDate=" . $_GET['fromDate'] . "&workforceId=" . $_GET['workforceId'] . "&type=" . $_GET['type'] . "&circuitId=" . $_GET['circuitId'] . "&themeId=" . $_GET['themeId'] . "&clientId=" . $_GET['clientId'] . "&allThemes=" . $_GET['allThemes'] . "&noGroupByAddressAndTheme=" . $_GET['noGroupByAddressAndTheme'] . "&onlyAddresses=" . $_GET['onlyAddresses'] . "&clientReport=".$_GET['clientReport'] . "&reportMode=" . $_GET['reportMode'];
+
+			$url = "Main.php?do=lausiAdvertisementsList&submitFilter=1&allThemes=" . $_GET['allThemes'] . "&noGroupByAddressAndTheme=" . $_GET['noGroupByAddressAndTheme'] . "&onlyAddresses=" . $_GET['onlyAddresses'] . "&clientReport=".$_GET['clientReport'] . "&reportMode=" . $_GET['reportMode'];
+			foreach ($filters as $key => $value)
+				$url .= "&filters[$key]=$value";
+			
 			$smarty->assign("url",$url);	
 			$smarty->assign("groupByAddressAndTheme",$advertisementPeer->getGroupByAddressAndTheme());	
-		}
-		elseif ($_GET['reportMode'] == "xls") {
+		} elseif ($_GET['reportMode'] == "xls") {
 			$advertisements = $advertisementPeer->getAllFiltered();
 
 			$smarty->assign("advertisements",$advertisements);
@@ -154,8 +114,7 @@ class LausiAdvertisementsListAction extends BaseAction {
 			$excel = new ExcelManagement();			
 			$excel->sendXlsFromXml($xml);
 			die;
-		}
-		else{
+		} else {
 			//es un reporte para impresion
 			$this->template->template = "TemplatePrint.tpl";
 			$advertisements = $advertisementPeer->getAllFiltered();

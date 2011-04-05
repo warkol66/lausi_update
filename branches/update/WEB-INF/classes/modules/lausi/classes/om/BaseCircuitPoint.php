@@ -38,13 +38,13 @@ abstract class BaseCircuitPoint extends BaseObject  implements Persistent
 
 	/**
 	 * The value for the latitude field.
-	 * @var        double
+	 * @var        string
 	 */
 	protected $latitude;
 
 	/**
 	 * The value for the longitude field.
-	 * @var        double
+	 * @var        string
 	 */
 	protected $longitude;
 
@@ -90,7 +90,7 @@ abstract class BaseCircuitPoint extends BaseObject  implements Persistent
 	/**
 	 * Get the [latitude] column value.
 	 * latitud
-	 * @return     double
+	 * @return     string
 	 */
 	public function getLatitude()
 	{
@@ -100,7 +100,7 @@ abstract class BaseCircuitPoint extends BaseObject  implements Persistent
 	/**
 	 * Get the [longitude] column value.
 	 * longitud
-	 * @return     double
+	 * @return     string
 	 */
 	public function getLongitude()
 	{
@@ -154,13 +154,13 @@ abstract class BaseCircuitPoint extends BaseObject  implements Persistent
 	/**
 	 * Set the value of [latitude] column.
 	 * latitud
-	 * @param      double $v new value
+	 * @param      string $v new value
 	 * @return     CircuitPoint The current object (for fluent API support)
 	 */
 	public function setLatitude($v)
 	{
 		if ($v !== null) {
-			$v = (double) $v;
+			$v = (string) $v;
 		}
 
 		if ($this->latitude !== $v) {
@@ -174,13 +174,13 @@ abstract class BaseCircuitPoint extends BaseObject  implements Persistent
 	/**
 	 * Set the value of [longitude] column.
 	 * longitud
-	 * @param      double $v new value
+	 * @param      string $v new value
 	 * @return     CircuitPoint The current object (for fluent API support)
 	 */
 	public function setLongitude($v)
 	{
 		if ($v !== null) {
-			$v = (double) $v;
+			$v = (string) $v;
 		}
 
 		if ($this->longitude !== $v) {
@@ -225,8 +225,8 @@ abstract class BaseCircuitPoint extends BaseObject  implements Persistent
 
 			$this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
 			$this->circuitid = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
-			$this->latitude = ($row[$startcol + 2] !== null) ? (double) $row[$startcol + 2] : null;
-			$this->longitude = ($row[$startcol + 3] !== null) ? (double) $row[$startcol + 3] : null;
+			$this->latitude = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
+			$this->longitude = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
 			$this->resetModified();
 
 			$this->setNew(false);

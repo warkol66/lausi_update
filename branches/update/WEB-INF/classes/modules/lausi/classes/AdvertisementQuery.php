@@ -112,5 +112,20 @@ class AdvertisementQuery extends BaseAdvertisementQuery {
 			->filterByThemeId($themeId)
 			->filterByPublishDate($date);
 	}
+	
+	public function filterByPublished($fromDate,$duration) {
+		$fromDate = new DateTime($fromDate);
+		$toDate = new DateTime($fromDate->format('Y-m-d'));
+		$toDate->modify("+$duration days");
+		
+		$fromDate = $fromDate->format('Y-m-d');
+		$toDate = $toDate->format('Y-m-d');
+		
+		//Importante no usar parametros bindeados, porque en algunos casos se usa para obtener un sql plano
+		//para ser agregado en un subselect.
+		return $this
+			->where(AdvertisementPeer::PUBLISHDATE . " <= '$toDate'")
+			->where("DATE_ADD(" . AdvertisementPeer::PUBLISHDATE . ",INTERVAL " . AdvertisementPeer::DURATION. " DAY) >= '$fromDate'");
+	}
 
 } // AdvertisementQuery

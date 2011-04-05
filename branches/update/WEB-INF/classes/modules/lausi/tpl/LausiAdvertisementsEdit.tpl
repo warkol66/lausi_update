@@ -9,22 +9,22 @@
 		<fieldset title="Formulario de edición de datos de un advertisement">
 			<legend>Aviso</legend>
 			<p>
-				<label for="date">Fecha</label>
-				<input name="date" type="text" id="date" title="date" value="|-$advertisement->getdate()-|" size="12" /> 
+				<label for="advertisement[date]">Fecha</label>
+				<input name="advertisement[date]" type="text" id="date" title="date" value="|-$advertisement->getdate()-|" size="12" /> 
 				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('date', false, 'ymd', '-');" title="Seleccione la fecha">
 			</p>
 			<p>
-				<label for="publishDate">Publicación</label>
-				<input name="publishDate" type="text" id="publishDate" title="publishDate" value="|-$advertisement->getpublishDate()-|" size="12" /> 
+				<label for="advertisement[publishDate]">Publicación</label>
+				<input name="advertisement[publishDate]" type="text" id="publishDate" title="publishDate" value="|-$advertisement->getpublishDate()-|" size="12" /> 
 				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('publishDate', false, 'ymd', '-');" title="Seleccione la fecha">
 			</p>
 			<p>
-				<label for="duration">Duración</label>
-				<input name="duration" type="text" id="duration" title="duration" value="|-$advertisement->getduration()-|" size="4" />
+				<label for="advertisement[duration]">Duración</label>
+				<input name="advertisement[duration]" type="text" id="duration" title="duration" value="|-$advertisement->getduration()-|" size="4" />
 			</p>
 			<p>
-				<label for="billboardId">Cartelera</label>
-				<select id="billboardId" name="billboardId" title="billboardId">
+				<label for="advertisement[billboardId]">Cartelera</label>
+				<select id="billboardId" name="advertisement[billboardId]" title="billboardId">
 					<option value="">Seleccione una Cartelera</option>
 									|-foreach from=$billboardIdValues item=object-|
 									
@@ -33,8 +33,8 @@
 								</select>
 							</p>
 			<p>
-				<label for="themeId">Motivo</label>
-				<select id="themeId" name="themeId" title="themeId">
+				<label for="advertisement[themeId]">Motivo</label>
+				<select id="themeId" name="advertisement[themeId]" title="themeId">
 					<option value="">Seleccione un Motivo</option>
 									|-foreach from=$themeIdValues item=object-|
 									<option value="|-$object->getid()-|" |-if $advertisement->getthemeId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getname()-|&nbsp;&nbsp;&nbsp;</option>
@@ -42,9 +42,7 @@
 								</select>
 							</p>
 			<p>
-				|-if $action eq "edit"-|
 				<input type="hidden" name="id" id="id" value="|-$advertisement->getid()-|" />
-				|-/if-|
 				<input type="hidden" name="action" id="action" value="|-$action-|" />
 				<input type="hidden" name="do" id="do" value="lausiAdvertisementsDoEdit" />
 				<input type="submit" id="button_edit_advertisement" name="button_edit_advertisement" title="Aceptar" value="Aceptar"/>

@@ -1,8 +1,5 @@
 <?php
 
-require_once 'om/BaseAdvertisement.php';
-
-
 /**
  * Skeleton subclass for representing a row from the 'lausi_advertisement' table.
  *
@@ -19,34 +16,68 @@ require_once 'om/BaseAdvertisement.php';
  * @package    lausi
  */
 class Advertisement extends BaseAdvertisement {
-
+		
+	public function save(PropelPDO $con = null) {
+		try {
+			if ($this->validate()) { 
+				parent::save($con);
+				return true;
+			} else {
+				return false;
+			}
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
+	}
+	
+	public function validate() {
+		$res = parent::validate();
+		if (!$res)
+			return $res;
+		
+		//la cartelera y el theme deben ser compatibles
+		$billboard = $this->getBillboard();
+		$theme = $this->getTheme();
+		
+		//verificamos si la cartelera y el motivo son compatibles
+		if ($billboard->getType() != $theme->getType())
+			return false;
+			
+		$id = $this->getId();
+		if (empty($id))
+			$id = null;
+		//verificamos que no haya solapamiento.
+		if (AdvertisementPeer::hasOverlapping($publishDate, $duration, $billboardId, $id))
+	  		return false;	
+	}
+	
 	/**
 	 * Devuelve la fecha de finalizacion de un Aviso.
 	 *
-	 * @param string YYYY-MM-DD
-	 *
+	 * @param string $format, formato con el que se devuelve la fecha, cualquier 
+	 * formato aceptado por DateTime::format(). Si se especifica null, se devuelve un DateTime.
+	 * Por defecto es 'Y/m/d'
+	 * 
+	 * @return string o DateTime $date, fecha de finalizacion del aviso.
 	 */
-	public function getEndDate() {
+	public function getEndDate($format = 'Y/m/d') {
+		$date = $this->getPublishDate(null);
+		$date->modify('+'.$this->getDuration().'days');
 		
-		$date = $this->getPublishDate();
-
-		ereg("([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})", $date, $splitDate);
-		$year = $splitDate[1];
-		$month = $splitDate[2];
-		$day = $splitDate[3];
-		
-		$timestamp = mktime(0,0,0,$month,$day+$this->getDuration(),$year);
-		return date('Y/m/d',$timestamp);
-		
+		if ($format === null)
+			return $date;
+			
+		return $date->format($format);
 	}
 	
 	public function assignWorkforce($workforce) {
-		
-		$this->setWorkforceId($workforce->getId());
+		$this->setWorkforce($workforce);
 		try {
-		$this->save();
-		}
-		catch (PropelException $exp) {
+			$this->save();
+		} catch (PropelException $exp) {
 			return false;
 		}
 		
@@ -54,17 +85,15 @@ class Advertisement extends BaseAdvertisement {
 	}
 	
 	public function clearWorkforce() {
-		
 		$this->setWorkforceId(0);
 		try {
-		$this->save();
+			$this->save();
 		}
 		catch (PropelException $exp) {
 			return false;
 		}
 		
 		return true;
-		
 	}
 
 } // Advertisement

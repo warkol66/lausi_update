@@ -1176,5 +1176,16 @@ class Common {
 		$smarty->assign("filters",$filters);
 		return $smarty;
 	}
+	
+	public static function getAllPaginatedFiltered($peer, $page=1, $perPage=-1) {  
+		if ($perPage == -1)
+	      $perPage = 	Common::getRowsPerPage();
+	    if (empty($page))
+	      $page = 1;
+	
+	    $cond = $peer->getSearchCriteria();	    
+	    $pager = $cond->paginate($page,$perPage);
+	    return $pager;
+	}
 
 } // end of class

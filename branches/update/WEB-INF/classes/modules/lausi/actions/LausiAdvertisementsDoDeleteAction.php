@@ -1,8 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("AdvertisementPeer.php");
-
 class LausiAdvertisementsDoDeleteAction extends BaseAction {
 
 
@@ -31,7 +28,7 @@ class LausiAdvertisementsDoDeleteAction extends BaseAction {
 	*/
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+    	BaseAction::execute($mapping, $form, $request, $response);
 
 		//////////
 		// Access the Smarty PlugIn instance
@@ -52,5 +49,4 @@ class LausiAdvertisementsDoDeleteAction extends BaseAction {
 		return $mapping->findForwardConfig('success');
 
 	}
-
 }

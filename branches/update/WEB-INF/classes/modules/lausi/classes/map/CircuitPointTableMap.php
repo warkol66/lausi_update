@@ -39,8 +39,8 @@ class CircuitPointTableMap extends TableMap {
 		// columns
 		$this->addPrimaryKey('ID', 'Id', 'INTEGER', true, null, null);
 		$this->addForeignKey('CIRCUITID', 'Circuitid', 'INTEGER', 'lausi_circuit', 'ID', true, null, null);
-		$this->addColumn('LATITUDE', 'Latitude', 'FLOAT', false, null, null);
-		$this->addColumn('LONGITUDE', 'Longitude', 'FLOAT', false, null, null);
+		$this->addColumn('LATITUDE', 'Latitude', 'NUMERIC', false, 12, null);
+		$this->addColumn('LONGITUDE', 'Longitude', 'NUMERIC', false, 12, null);
 		// validators
 	} // initialize()
 

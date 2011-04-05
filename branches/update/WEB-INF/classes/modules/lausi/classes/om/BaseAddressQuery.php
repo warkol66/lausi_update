@@ -59,8 +59,8 @@
  * @method     Address findOneByRating(int $rating) Return the first Address filtered by the rating column
  * @method     Address findOneByIntersection(string $intersection) Return the first Address filtered by the intersection column
  * @method     Address findOneByOwner(string $owner) Return the first Address filtered by the owner column
- * @method     Address findOneByLatitude(double $latitude) Return the first Address filtered by the latitude column
- * @method     Address findOneByLongitude(double $longitude) Return the first Address filtered by the longitude column
+ * @method     Address findOneByLatitude(string $latitude) Return the first Address filtered by the latitude column
+ * @method     Address findOneByLongitude(string $longitude) Return the first Address filtered by the longitude column
  * @method     Address findOneByRegionid(int $regionId) Return the first Address filtered by the regionId column
  * @method     Address findOneByOwnerphone(string $ownerPhone) Return the first Address filtered by the ownerPhone column
  * @method     Address findOneByOrdercircuit(int $orderCircuit) Return the first Address filtered by the orderCircuit column
@@ -73,8 +73,8 @@
  * @method     array findByRating(int $rating) Return Address objects filtered by the rating column
  * @method     array findByIntersection(string $intersection) Return Address objects filtered by the intersection column
  * @method     array findByOwner(string $owner) Return Address objects filtered by the owner column
- * @method     array findByLatitude(double $latitude) Return Address objects filtered by the latitude column
- * @method     array findByLongitude(double $longitude) Return Address objects filtered by the longitude column
+ * @method     array findByLatitude(string $latitude) Return Address objects filtered by the latitude column
+ * @method     array findByLongitude(string $longitude) Return Address objects filtered by the longitude column
  * @method     array findByRegionid(int $regionId) Return Address objects filtered by the regionId column
  * @method     array findByOwnerphone(string $ownerPhone) Return Address objects filtered by the ownerPhone column
  * @method     array findByOrdercircuit(int $orderCircuit) Return Address objects filtered by the orderCircuit column
@@ -337,7 +337,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 	/**
 	 * Filter the query on the latitude column
 	 * 
-	 * @param     double|array $latitude The value to use as filter.
+	 * @param     string|array $latitude The value to use as filter.
 	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
@@ -368,7 +368,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 	/**
 	 * Filter the query on the longitude column
 	 * 
-	 * @param     double|array $longitude The value to use as filter.
+	 * @param     string|array $longitude The value to use as filter.
 	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *

@@ -62,13 +62,13 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 
 	/**
 	 * The value for the latitude field.
-	 * @var        double
+	 * @var        string
 	 */
 	protected $latitude;
 
 	/**
 	 * The value for the longitude field.
-	 * @var        double
+	 * @var        string
 	 */
 	protected $longitude;
 
@@ -218,7 +218,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	/**
 	 * Get the [latitude] column value.
 	 * latitud de la direccion
-	 * @return     double
+	 * @return     string
 	 */
 	public function getLatitude()
 	{
@@ -228,7 +228,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	/**
 	 * Get the [longitude] column value.
 	 * longitud de la direccion
-	 * @return     double
+	 * @return     string
 	 */
 	public function getLongitude()
 	{
@@ -408,13 +408,13 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	/**
 	 * Set the value of [latitude] column.
 	 * latitud de la direccion
-	 * @param      double $v new value
+	 * @param      string $v new value
 	 * @return     Address The current object (for fluent API support)
 	 */
 	public function setLatitude($v)
 	{
 		if ($v !== null) {
-			$v = (double) $v;
+			$v = (string) $v;
 		}
 
 		if ($this->latitude !== $v) {
@@ -428,13 +428,13 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	/**
 	 * Set the value of [longitude] column.
 	 * longitud de la direccion
-	 * @param      double $v new value
+	 * @param      string $v new value
 	 * @return     Address The current object (for fluent API support)
 	 */
 	public function setLongitude($v)
 	{
 		if ($v !== null) {
-			$v = (double) $v;
+			$v = (string) $v;
 		}
 
 		if ($this->longitude !== $v) {
@@ -599,8 +599,8 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 			$this->rating = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
 			$this->intersection = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
 			$this->owner = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
-			$this->latitude = ($row[$startcol + 6] !== null) ? (double) $row[$startcol + 6] : null;
-			$this->longitude = ($row[$startcol + 7] !== null) ? (double) $row[$startcol + 7] : null;
+			$this->latitude = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
+			$this->longitude = ($row[$startcol + 7] !== null) ? (string) $row[$startcol + 7] : null;
 			$this->regionid = ($row[$startcol + 8] !== null) ? (int) $row[$startcol + 8] : null;
 			$this->ownerphone = ($row[$startcol + 9] !== null) ? (string) $row[$startcol + 9] : null;
 			$this->ordercircuit = ($row[$startcol + 10] !== null) ? (int) $row[$startcol + 10] : null;

@@ -1,11 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("AdvertisementPeer.php");
-require_once("ThemePeer.php");
-require_once('RegionPeer.php');
-require_once('CircuitPeer.php');
-
 class LausiDoDistributeXAction extends BaseAction {
 
 
@@ -52,18 +46,25 @@ class LausiDoDistributeXAction extends BaseAction {
 		$module = "Lausi";
 		$smarty->assign("module",$module);
 
-
 		if (isset($_POST['themeId']) && isset($_POST['publishDate']) && isset($_POST['duration'])) {
-				
 				$toDistribute = $_POST['toDistribute'];
 				
+				$advertisementParams = array(
+					'date' => date("Y-M-d"),
+					'publishDate' => $_POST['publishDate'],
+					'duration' => $_POST['duration'],
+					'themeId' => $_POST['themeId']
+				);
+				
 				foreach($toDistribute as $billboardId) {
-					
-					$res = AdvertisementPeer::create(date("Y-M-d"),$_POST['publishDate'],$_POST['duration'],$billboardId,$_POST['themeId']);
-					
+					$advertisementParams['billboardId'] = $billboardId;
+					$advert = new Advertisement;
+					Common::setObjectFromParams($advert, $advertisementParams);
+					$res = $advert->save();
 				}
 			
 		}
+		
 		//casos particulares de subtotales
 		if ($_POST['circuit']) {
 			//obtengo los totales por circuito 
@@ -74,11 +75,9 @@ class LausiDoDistributeXAction extends BaseAction {
 			}
 			
 			$smarty->assign('mode','circuit');
-			
 		}
 		
 		if ($_POST['region']) {
-			
 			//obtengo los totales por circuito 
 			$regions = RegionPeer::getAll();
 			$result = array();
@@ -87,11 +86,7 @@ class LausiDoDistributeXAction extends BaseAction {
 			}
 			
 			$smarty->assign('mode','region');
-
-
 		}
-		
-		
 		
 		$smarty->assign('result',$result);
 		
@@ -102,5 +97,4 @@ class LausiDoDistributeXAction extends BaseAction {
 		
 		return $mapping->findForwardConfig('success');
 	}
-
 }

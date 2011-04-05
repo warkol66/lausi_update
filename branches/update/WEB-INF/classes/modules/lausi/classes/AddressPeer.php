@@ -20,7 +20,7 @@ class AddressPeer extends BaseAddressPeer {
 		"searchBillboardType"=>"setSearchBillboardType",
 		"searchCircuitId"=>"setSearchCircuitId",
 		"searchRating"=>"setSearchRating",
-		"searchStreetName"=>"setSearchStreetName",
+		"searchStreetName"=>"setSearchStreetName"
 	);
 	
 	/**

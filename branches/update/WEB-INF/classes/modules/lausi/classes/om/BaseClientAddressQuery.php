@@ -51,8 +51,8 @@
  * @method     ClientAddress findOneByStreet(string $street) Return the first ClientAddress filtered by the street column
  * @method     ClientAddress findOneByNumber(int $number) Return the first ClientAddress filtered by the number column
  * @method     ClientAddress findOneByIntersection(string $intersection) Return the first ClientAddress filtered by the intersection column
- * @method     ClientAddress findOneByLatitude(double $latitude) Return the first ClientAddress filtered by the latitude column
- * @method     ClientAddress findOneByLongitude(double $longitude) Return the first ClientAddress filtered by the longitude column
+ * @method     ClientAddress findOneByLatitude(string $latitude) Return the first ClientAddress filtered by the latitude column
+ * @method     ClientAddress findOneByLongitude(string $longitude) Return the first ClientAddress filtered by the longitude column
  * @method     ClientAddress findOneByType(string $type) Return the first ClientAddress filtered by the type column
  * @method     ClientAddress findOneByCircuitid(int $circuitId) Return the first ClientAddress filtered by the circuitId column
  * @method     ClientAddress findOneByClientid(int $clientId) Return the first ClientAddress filtered by the clientId column
@@ -62,8 +62,8 @@
  * @method     array findByStreet(string $street) Return ClientAddress objects filtered by the street column
  * @method     array findByNumber(int $number) Return ClientAddress objects filtered by the number column
  * @method     array findByIntersection(string $intersection) Return ClientAddress objects filtered by the intersection column
- * @method     array findByLatitude(double $latitude) Return ClientAddress objects filtered by the latitude column
- * @method     array findByLongitude(double $longitude) Return ClientAddress objects filtered by the longitude column
+ * @method     array findByLatitude(string $latitude) Return ClientAddress objects filtered by the latitude column
+ * @method     array findByLongitude(string $longitude) Return ClientAddress objects filtered by the longitude column
  * @method     array findByType(string $type) Return ClientAddress objects filtered by the type column
  * @method     array findByCircuitid(int $circuitId) Return ClientAddress objects filtered by the circuitId column
  * @method     array findByClientid(int $clientId) Return ClientAddress objects filtered by the clientId column
@@ -272,7 +272,7 @@ abstract class BaseClientAddressQuery extends ModelCriteria
 	/**
 	 * Filter the query on the latitude column
 	 * 
-	 * @param     double|array $latitude The value to use as filter.
+	 * @param     string|array $latitude The value to use as filter.
 	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
@@ -303,7 +303,7 @@ abstract class BaseClientAddressQuery extends ModelCriteria
 	/**
 	 * Filter the query on the longitude column
 	 * 
-	 * @param     double|array $longitude The value to use as filter.
+	 * @param     string|array $longitude The value to use as filter.
 	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *

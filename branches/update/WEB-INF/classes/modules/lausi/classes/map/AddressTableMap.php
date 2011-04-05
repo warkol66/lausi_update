@@ -43,8 +43,8 @@ class AddressTableMap extends TableMap {
 		$this->addColumn('RATING', 'Rating', 'INTEGER', false, null, null);
 		$this->addColumn('INTERSECTION', 'Intersection', 'VARCHAR', false, 100, null);
 		$this->addColumn('OWNER', 'Owner', 'VARCHAR', false, 100, null);
-		$this->addColumn('LATITUDE', 'Latitude', 'FLOAT', false, null, null);
-		$this->addColumn('LONGITUDE', 'Longitude', 'FLOAT', false, null, null);
+		$this->addColumn('LATITUDE', 'Latitude', 'NUMERIC', false, 12, null);
+		$this->addColumn('LONGITUDE', 'Longitude', 'NUMERIC', false, 12, null);
 		$this->addForeignKey('REGIONID', 'Regionid', 'INTEGER', 'lausi_region', 'ID', false, null, null);
 		$this->addColumn('OWNERPHONE', 'Ownerphone', 'VARCHAR', false, 100, null);
 		$this->addColumn('ORDERCIRCUIT', 'Ordercircuit', 'INTEGER', false, null, 0);

@@ -1,8 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("AdvertisementPeer.php");
-
 class LausiAdvertisementsDoEditAction extends BaseAction {
 
 
@@ -45,38 +42,29 @@ class LausiAdvertisementsDoEditAction extends BaseAction {
 		$module = "Lausi";
 		$smarty->assign("module",$module);
 		$section = "Advertisements";
-		$smarty->assign("section",$section);		
-
-		if ( $_POST["action"] == "edit" ) {
-			//estoy editando un advertisement existente
-			if (!AdvertisementPeer::update($_POST["id"],$_POST["date"],$_POST["publishDate"],$_POST["duration"],$_POST["billboardId"],$_POST["themeId"]));
-   				return $mapping->findForwardConfig('failure-overlapping');
-			return $mapping->findForwardConfig('success');
-		}
-		else {
-		  //estoy creando un nuevo advertisement
-
-			if ( !AdvertisementPeer::create($_POST["date"],$_POST["publishDate"],$_POST["duration"],$_POST["billboardId"],$_POST["themeId"]) ) {
-				$advertisement = new Advertisement();
-				$advertisement->setid($_POST["id"]);
-				$advertisement->setdate($_POST["date"]);
-				$advertisement->setpublishDate($_POST["publishDate"]);
-				$advertisement->setduration($_POST["duration"]);
-				$advertisement->setbillboardId($_POST["billboardId"]);
-				require_once("BillboardPeer.php");		
-				$smarty->assign("billboardIdValues",BillboardPeer::getAll());
-				$advertisement->setthemeId($_POST["themeId"]);
-				require_once("ThemePeer.php");		
-				$smarty->assign("themeIdValues",ThemePeer::getAllActive());
-				$smarty->assign("advertisement",$advertisement);	
-				$smarty->assign("action","create");
-				$smarty->assign("message","error");
-				return $mapping->findForwardConfig('failure');
-			}
-
-			return $mapping->findForwardConfig('success');
+		$smarty->assign("section",$section);	
+		
+		$params = $_POST["advertisement"];
+		
+		if ( !empty($_POST["id"]) ) {
+			$advert = AdvertisementPeer::get($_POST["id"]);
+		} else {
+			$advert = new Advertisement;
 		}
 
+		Common::setObjectFromParams($advert, $params);
+		
+		if (!$advert->save()) {
+			if (!$advert->isNew())
+				return $mapping->findForwardConfig('failure-overlapping');
+			$smarty->assign("billboardIdValues",BillboardPeer::getAll());
+			$smarty->assign("themeIdValues",ThemePeer::getAllActive());
+			$smarty->assign("advertisement",$advert);	
+			$smarty->assign("action","create");
+			$smarty->assign("message","error");
+			return $mapping->findForwardConfig('failure');
+		}
+		
+		return $mapping->findForwardConfig('success');
 	}
-
 }
