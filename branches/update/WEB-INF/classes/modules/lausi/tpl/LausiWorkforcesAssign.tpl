@@ -37,17 +37,17 @@
 		<legend>Seleccione una Fecha a administrar</legend>
 		<form action="Main.php" method="get" id="workforceAdvertisementFinder">
 			<p>
-				<label for="themeId">Motivo</label>
-				<select name="themeId">
+				<label for="filters[searchThemeId]">Motivo</label>
+				<select name="filters[searchThemeId]">
 						<option value="">Seleccione un Motivo</option>
 					|-foreach from=$themes item=theme name=for_themes-|
-						<option value="|-$theme->getId()-|" |-if isset($themeId) and $themeId eq $theme->getId()-|selected="selected"|-/if-|>|-$theme->getName()-| - |-$theme->getShortName()-|</option>
+						<option value="|-$theme->getId()-|" |-$theme->getId()|selected:$filters.searchThemeId-|>|-$theme->getName()-| - |-$theme->getShortName()-|</option>
 					|-/foreach-|
 				</select>
 			</p>			
 			<p>
-				<label for="fromDate">Fecha inicio</label>
-				<input name="fromDate" type="text" id="fromDate" title="fromDate" value="|-if $fromDate neq ''-||-$fromDate-||-else-||-$smarty.now|date_format:"%d-%m-%Y"-||-/if-|" size="12" /> 
+				<label for="filters[searchFromDate]">Fecha inicio</label>
+				<input name="filters[searchFromDate]" type="text" id="fromDate" title="fromDate" value="|-if $filters.searchFromDate neq ''-||-$filters.searchFromDate|date_format:"%d-%m-%Y"-||-else-||-$smarty.now|date_format:"%d-%m-%Y"-||-/if-|" size="12" /> 
 				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('fromDate', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			<p>
