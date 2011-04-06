@@ -1,12 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("AddressPeer.php");
-require_once("BillboardPeer.php");
-require_once("ThemePeer.php");
-require_once("CircuitPeer.php");
-require_once("RegionPeer.php");
-
 class LausiReportsAddressesAction extends BaseAction {
 
 
@@ -35,7 +28,7 @@ class LausiReportsAddressesAction extends BaseAction {
 	*/
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+    	BaseAction::execute($mapping, $form, $request, $response);
 
 		//////////
 		// Access the Smarty PlugIn instance
@@ -59,7 +52,7 @@ class LausiReportsAddressesAction extends BaseAction {
 		
 			//procesamos las opciones de filtrado que pueden llegar a haberse aplicado
 			if (!empty($_GET['type'])) {
-				$addressPeer->setBillboardType($_GET['type']);
+				$this->applyFilters($addressPeer,array('searchBillboardType'=>$_GET['type'], $smarty));
 				$smarty->assign('type',$_GET['type']); 			
 			}
 		
@@ -68,24 +61,18 @@ class LausiReportsAddressesAction extends BaseAction {
 			}
 		
 			if ($_GET['reportMode'] == 'normal') {
-		
-				$pager = $addressPeer->getAllPaginatedFiltered($_GET["page"]);
-				$smarty->assign("addresses",$pager->getResult());
+				$pager = Common::getAllPaginatedFiltered($addressPeer, $_GET["page"]);
+				$smarty->assign("addresses",$pager->getResults());
 				$smarty->assign("pager",$pager);
 				$url = "Main.php?do=lausiReportsAddresses&type=".$_GET['type']."&page=".$_GET['page']."&viewDetail=".$_GET['viewDetail']."&reportMode=".$_GET['reportMode'];
 				$smarty->assign("url",$url);
-
-   		}
-   		elseif ($_GET['reportMode'] == 'print') {
+   			} elseif ($_GET['reportMode'] == 'print') {
 				$this->template->template = "TemplatePrint.tpl";
-				$addresses = $addressPeer->getAllFilter($_GET["page"]);
+				$addresses = $addressPeer->getAllFiltered($_GET["page"]);
 				$smarty->assign("addresses",$addresses);
-			
-			}
-			elseif ($_GET['reportMode'] == 'xls') {
-						
-			$this->template->template = "TemplateCsv.tpl";
-				$addresses = $addressPeer->getAllFilter($_GET["page"]);
+			} elseif ($_GET['reportMode'] == 'xls') {
+				$this->template->template = "TemplateCsv.tpl";
+				$addresses = $addressPeer->getAllFiltered($_GET["page"]);
 				$smarty->assign("addresses",$addresses);
 
 				$forwardConfig = $mapping->findForwardConfig('xml');
@@ -95,14 +82,9 @@ class LausiReportsAddressesAction extends BaseAction {
 				$excel = new ExcelManagement();			
 				$excel->sendXlsFromXml($xml);
 				die;
-
 			}			
-			
-			
 	
 		}
-		
 		return $mapping->findForwardConfig('success');
 	}
-
 }
