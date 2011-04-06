@@ -39,6 +39,20 @@ class BillboardQuery extends BaseBillboardQuery {
 		return $this;
 	}
 	
+	public function filterByCircuitId($circuitId, $comparison = null) {
+		return $this->join('Address')
+					->useQuery('Address')
+						->filterByCircuitId($circuitId, $comparison)
+					->endUse();
+	}
+	
+	public function filterByCircuit($circuit, $comparison = null) {
+		return $this->join('Address')
+					->useQuery('Address')
+						->filterByCircuit($circuit, $comparison)
+					->endUse();
+	}
+	
 	public function selectFieldsForAvailableBillboardsReport() {
 		$this->withColumn(CircuitPeer::ID, 'CircuitId');
 		$this->withColumn(BillboardPeer::TYPE, 'BillboardType');
@@ -51,12 +65,19 @@ class BillboardQuery extends BaseBillboardQuery {
 	public function withDistanceTo($latitude_0, $longitude_0) {
 		//cada grado de longitud equivale a 110900 metros
 		//cada grado de latitud equivale a 90000
-		$this->withColumn('sqrt( pow((`longitude` - ' . $longitude_0 . ')*90000, 2) + pow((`latitude` - ' .$latitude_0. ')*110960, 2) )', 'Distance');
+		return $this->withColumn('sqrt( pow((`longitude` - ' . $longitude_0 . ')*90000, 2) + pow((`latitude` - ' .$latitude_0. ')*110960, 2) )', 'Distance');
 	}
 	
 	public function filterByRadius($latitude_0, $longitude_0, $radiusFrom, $radiusTo) {
 		//cada grado de longitud equivale a 110900 metros
 		//cada grado de latitud equivale a 90000
-		$this->where('sqrt( pow((`longitude` - ' . $longitude_0 . ')*90000, 2) + pow((`latitude` - ' .$latitude_0. ')*110960, 2) ) BETWEEN '.$radiusFrom.' AND '.$radiusTo);
+		return $this->where('sqrt( pow((`longitude` - ' . $longitude_0 . ')*90000, 2) + pow((`latitude` - ' .$latitude_0. ')*110960, 2) ) BETWEEN '.$radiusFrom.' AND '.$radiusTo);
+	}
+	
+	public function filterByTheme($theme, $comparison = null) {
+		return $this->join('Advertisement')
+			 ->useQuery('Advertisement')
+			 	->filterByTheme($theme, $comparison)
+			 ->endUse();
 	}
 } // BillboardQuery

@@ -17,9 +17,8 @@ class AdvertisementQuery extends BaseAdvertisementQuery {
 
 	public function filterByCurrent() {
 		$today = date('Y-m-d');
-		$this->withEndDate();
 		$this->filterByPublishDate(array('max'=>$today));
-		$this->filterByEndDate(array('min'=>$today));
+		$this->where("DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY) >= $today");
 		return $this;
 	}
 	

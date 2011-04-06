@@ -24,6 +24,24 @@ class ThemeQuery extends BaseThemeQuery {
 	
 	public function filterByCurrent() {
 		return $this->join('Advertisement')
-					->where('(CURDATE() >= lausi_advertisement.publishDate) AND (CURDATE() <= DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY))');
+					->useQuery('Advertisement')
+						->filterByCurrent()
+					->endUse();
+	}
+	
+	public function filterByBillboard($billboard) {
+		return $this->join('Advertisement')
+					->useQuery('Advertisement')
+						->filterByBillboard($billboard)
+					->endUse();
+	}
+	
+	public function selectFieldsForThemesReport() {
+		$this->withColumn(AdvertisementPeer::THEMEID, 'ThemeId');
+		$this->withColumn(ThemePeer::NAME, 'ThemeName');
+		$this->withColumn('DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY)', 'EndDate');
+		$this->withColumn('COUNT(*)', 'TotalAdvertisements');
+		$this->select(array('ThemeId', 'ThemeName', 'EndDate', 'TotalAdvertisements'));
+		return $this;
 	}
 } // ThemeQuery
