@@ -1,11 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("WorkforcePeer.php");
-require_once("AdvertisementPeer.php");
-require_once("CircuitPeer.php");
-require_once("ThemePeer.php");
-
 class LausiWorkforcesAssignAdminAction extends BaseAction {
 
 
@@ -56,29 +50,14 @@ class LausiWorkforcesAssignAdminAction extends BaseAction {
 		$smarty->assign("workforces",$workforces);
 		$smarty->assign("circuits",$circuits);
 		$smarty->assign("themes",$themes);
-
-		if (!empty($_GET['workforceId'])) {
 		
-			$assignedWorkforce = WorkforcePeer::get($_GET['workforceId']);
+		$filters = $_GET['filters'];
+
+		if (!empty($filters['searchWorkforceId'])) {
+			$assignedWorkforce = WorkforcePeer::get($filters['searchWorkforceId']);
 			$advertisementPeer = new AdvertisementPeer();
 			
-			$advertisementPeer->setWorkforceId($_GET['workforceId']);
-			
-			if (!empty($_GET['circuitId'])) {
-				$advertisementPeer->setCircuitId($_GET['circuitId']);
-				$circuit = CircuitPeer::get($_GET['circuitId']);
-				$smarty->assign('assignedCircuit',$circuit);
-			}
-			
-			if (!empty($_GET['fromDate'])) {
-				$advertisementPeer->setExactDate(Common::convertToMysqlDateFormat($_GET['fromDate']));
-				$smarty->assign('fromDate',$_GET['fromDate']);
-			}
-			
-			if (!empty($_GET['themeId'])) {
-	 			$advertisementPeer->setThemeId($_GET['themeId']);
-	 			$smarty->assign('themeId',$_GET['themeId']);
-	 		}
+			$this->applyFilters($advertisementPeer, $filters, $smarty);
 			
 			$assignedAdvertisements = $advertisementPeer->getAllFiltered();
 			
@@ -89,7 +68,6 @@ class LausiWorkforcesAssignAdminAction extends BaseAction {
 			$smarty->assign('assignedWorkforce',$assignedWorkforce);
 			$smarty->assign('notAssignedAdvertisements',$notAssignedAdvertisements);
 			$smarty->assign('assignedAdvertisements',$assignedAdvertisements);
-			
 		}
 		   
 		$smarty->assign("message",$_GET["message"]);
