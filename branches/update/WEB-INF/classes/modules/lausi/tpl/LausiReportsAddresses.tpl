@@ -66,9 +66,9 @@
 				|-/if-|
 			</tr>
 		|-/foreach-|					
-		|-if isset($pager) and $pager->getTotalPages() gt 1-|
+		|-if isset($pager) and $pager->haveToPaginate()-|
 			<tr> 
-				<td colspan="|-if isset($viewDetail)-||-if isset($type)-|2|-else-|3|-/if-||-else-|1|-/if-|" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
+				<td colspan="|-if isset($viewDetail)-||-if isset($type)-|2|-else-|3|-/if-||-else-|1|-/if-|" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 			</tr>							
 		|-/if-|
 		</tbody>

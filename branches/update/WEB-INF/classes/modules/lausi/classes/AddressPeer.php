@@ -74,7 +74,7 @@ class AddressPeer extends BaseAddressPeer {
 	 *
 	 * @return Criteria instancia de criteria
 	 */
-	private function getSearchCriteria() {
+	public function getSearchCriteria() {
 		$criteria = new AddressQuery();
 		
 		if ($this->searchRating)
