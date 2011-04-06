@@ -1,8 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("BillboardPeer.php");
-
 class LausiBillboardsDoEditAction extends BaseAction {
 
 
@@ -31,7 +28,7 @@ class LausiBillboardsDoEditAction extends BaseAction {
 	*/
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+    	BaseAction::execute($mapping, $form, $request, $response);
 
 		//////////
 		// Access the Smarty PlugIn instance
@@ -45,74 +42,50 @@ class LausiBillboardsDoEditAction extends BaseAction {
 		$module = "Lausi";
 		$smarty->assign("module",$module);
 		$section = "Billboards";
-		$smarty->assign("section",$section);		
+		$smarty->assign("section",$section);	
+		
+		$params = $_POST['billboard'];	
 
-		if ( $_POST["action"] == "edit" ) {
+		if ( !empty($_POST["id"]) ) {
 			//estoy editando un billboard existente
-			BillboardPeer::update($_POST["id"],$_POST["number"],$_POST["type"],$_POST["height"],$_POST["row"],$_POST["column"],$_POST["addressId"]);
+			$billboard = BillboardPeer::get($_POST["id"]);
 			
+			$redirectParams = array();
       		//caso de redireccionamiento desde opciones de busqueda de addressesList
-
 			if (isset($_POST['listRedirect'])) {
-				
-				$queryData = "";
-				//armamos la redireccion con los valores necesarios
-				foreach ($_POST['listRedirect'] as $key => $value) {
-					$queryData .= "&listRedirect[$key]=$value";
-				}
-			}			
+				$redirectParams = $_POST['listRedirect'];
+			}	
+			$redirectParams['addressId'] = $params["addressId"];		
       		
+			$myRedirectConfig = $this->addParamsToForwards($redirectParams, $mapping, 'success');
+		} else {
+			//estoy creando un nuevo billboard
+			$billboard = new Billboard;
 			$myRedirectConfig = $mapping->findForwardConfig('success');
-			$myRedirectPath = $myRedirectConfig->getpath();
-			$queryData .= '&addressId='.$_POST["addressId"];
-			$myRedirectPath .= $queryData;
-			$fc = new ForwardConfig($myRedirectPath, True);
-			return $fc;			
 		}
-		else {
-		  //estoy creando un nuevo billboard
-			
-			$billboard = BillboardPeer::create($_POST["number"],$_POST["type"],$_POST["height"],$_POST["row"],$_POST["column"],$_POST["addressId"]);
-			
-			if ( $billboard == false ) {
-				$billboard = new Billboard();
-				$billboard->setid($_POST["id"]);
-				$billboard->setnumber($_POST["number"]);
-				$billboard->settype($_POST["type"]);
-				$billboard->setheight($_POST["height"]);
-				$billboard->setrow($_POST["row"]);
-				$billboard->setcolumn($_POST["column"]);
-				$billboard->setaddressId($_POST["addressId"]);
-				require_once("AddressPeer.php");		
-				$smarty->assign("addressIdValues",AddressPeer::getAll());
-				$smarty->assign("billboard",$billboard);	
-				$smarty->assign("action","create");
-				$smarty->assign("message","error");
-				
-				//caso especial desde creacion desde address
-				if ($_POST['mode'] == 'ajax') {
-				
-					//por ser una action ajax.		
-					$this->template->template = "template_ajax.tpl";
-					return $mapping->findForwardConfig('failure-ajax');
-				}
-					
-				return $mapping->findForwardConfig('failure');
-      		}
 
+		Common::setObjectFromParams($billboard, $params);
+		
+		if (!$billboard->save()) {
+			$smarty->assign("addressIdValues",AddressPeer::getAll());
+			$smarty->assign("billboard",$billboard);	
+			$smarty->assign("action","create");
+			$smarty->assign("message","error");
+			
 			//caso especial desde creacion desde address
-				if ($_POST['mode'] == 'ajax') {
-				
-					//por ser una action ajax.		
-					$this->template->template = "template_ajax.tpl";					
-
-					$smarty->assign('billboard',$billboard);
-					return $mapping->findForwardConfig('success-ajax');
-				}
-				
-			return $mapping->findForwardConfig('success');
+			if ($this->isAjax())
+				return $mapping->findForwardConfig('failure-ajax');
+					
+			return $mapping->findForwardConfig('failure');
 		}
+		
+		//caso especial desde creacion desde address
+		if ($this->isAjax()) {
+			$smarty->assign('billboard',$billboard);
+			return $mapping->findForwardConfig('success-ajax');
+		}
+
+		return $myRedirectConfig;
 
 	}
-
 }

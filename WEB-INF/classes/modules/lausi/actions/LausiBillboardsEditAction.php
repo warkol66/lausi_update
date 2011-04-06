@@ -1,8 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("BillboardPeer.php");
-
 class LausiBillboardsEditAction extends BaseAction {
 
 
@@ -31,7 +28,7 @@ class LausiBillboardsEditAction extends BaseAction {
 	*/
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+    	BaseAction::execute($mapping, $form, $request, $response);
 
 		//////////
 		// Access the Smarty PlugIn instance
@@ -50,21 +47,15 @@ class LausiBillboardsEditAction extends BaseAction {
     	if ( !empty($_GET["id"]) ) {
 			//voy a editar un billboard
 			$billboard = BillboardPeer::get($_GET["id"]);
-			$smarty->assign("billboard",$billboard);
-			require_once("AddressPeer.php");		
-			$smarty->assign("addressIdValues",AddressPeer::getAll());
-
 	    	$smarty->assign("action","edit");
-		}
-		else {
+		} else {
 			//voy a crear un billboard nuevo
 			$billboard = new Billboard();
-			$smarty->assign("billboard",$billboard);			
-			require_once("AddressPeer.php");		
-			$smarty->assign("addressIdValues",AddressPeer::getAll());
-
 			$smarty->assign("action","create");
 		}
+		
+		$smarty->assign("billboard",$billboard);
+		$smarty->assign("addressIdValues",AddressPeer::getAll());
 
 		$smarty->assign("message",$_GET["message"]);
 		
@@ -74,5 +65,4 @@ class LausiBillboardsEditAction extends BaseAction {
 
 		return $mapping->findForwardConfig('success');
 	}
-
 }

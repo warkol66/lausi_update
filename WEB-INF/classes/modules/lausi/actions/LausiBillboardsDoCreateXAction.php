@@ -1,9 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("AddressPeer.php");
-require_once("BillboardPeer.php");
-
 class LausiBillboardsDoCreateXAction extends BaseAction {
 
 
@@ -46,35 +42,37 @@ class LausiBillboardsDoCreateXAction extends BaseAction {
 		$module = "Lausi";
 		$smarty->assign("module",$module);
 		$section = "Billboards";
-		$smarty->assign("section",$section);		
-
-		$address = AddressPeer::get($_POST["addressId"]);
-		$smarty->assign("address",$address);
-		$number = $address->getNextBillboardNumber();
-
-		$row = 0;
-		$quantity = 0;
+		$smarty->assign("section",$section);
 		
-		if ( empty($_POST["row"]) && empty($_POST["column"]) ) {
-			$_POST["row"] = 1;
-			$_POST["column"] = $_POST["quantity"];
+		$params = $_POST['billboard'];		
+
+		$address = AddressPeer::get($params["addressId"]);
+		$smarty->assign("address",$address);
+		
+		$params['number'] = $address->getNextBillboardNumber();
+
+		$row = $params["row"];
+		$quantity = $params["column"];
+		
+		if ( empty($params["row"]) && empty($params["column"]) ) {
+			$row = 1;
+			$column = $_POST["quantity"];
 		}
 		
-		while ( ($row < $_POST["row"]) && ($quantity < $_POST["quantity"]) ) {
-			$row++;
-			$column = 0;
-			while ( ($column < $_POST["column"]) && ($quantity < $_POST["quantity"]) ) {
-				$column++;
-				BillboardPeer::create($number,$_POST["type"],$_POST["height"],$row,$column,$_POST["addressId"]);	
+		
+		while ( ($params["row"] < $row) && ($quantity < $_POST["quantity"]) ) {
+			$params["row"]++;
+			$params["column"] = 0;
+			while ( ($params["column"] < $column) && ($quantity < $_POST["quantity"]) ) {
+				$params["column"]++;
+				$billboard = new Billboard;
+				Common::setObjectFromParams($billboard, $params);
+				$billboard->save();
 				$quantity++;
 				$number++;
 			}			
 		} 			
-		//por ser una action ajax.		
-		$this->template->template = "template_ajax.tpl";					
 
 		return $mapping->findForwardConfig('success');
-
 	}
-
 }
