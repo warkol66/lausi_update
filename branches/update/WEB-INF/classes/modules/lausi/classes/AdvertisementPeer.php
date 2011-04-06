@@ -276,7 +276,7 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 		
 		if ($this->orderByCircuitOrder) {
 			$criteria->useQuery('Circuit')
-						->orderByOrderBy()
+						->orderByOrderby()
 					 ->endUse();
 		}
 		
