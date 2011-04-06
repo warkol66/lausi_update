@@ -6,40 +6,40 @@
 	<form name="form_edit_billboard" id="form_edit_billboard" action="Main.php" method="post">
 		<p>Ingrese los datos de la Cartelera a |-if $action eq "edit"-|Editar|-else-|Crear|-/if-|</p>
 		
-				<legend>Cartelera</legend>
+			<legend>Cartelera</legend>
 			<p>
-				<label for="number">Número</label>
-				<input type="text" id="number" name="number" value="|-$billboard->getnumber()-|" title="number" />
+				<label for="billboard[number]">Número</label>
+				<input type="text" id="billboard[number]" name="number" value="|-$billboard->getnumber()-|" title="number" />
 			</p>
 			<p>
-				<label for="type">Tipo</label>
-				<select id="type" name="type">
+				<label for="billboard[type]">Tipo</label>
+				<select id="type" name="billboard[type]">
 					<option value="">Seleccione un Tipo</option>
 					<option value="1"|-if $billboard->getType() eq "1"-|selected="selected" |-/if-|>Doble</option>
 					<option value="2"|-if $billboard->getType() eq "2"-|selected="selected" |-/if-|>Séxtuple</option>
 				</select>									
 			</p>
 			<p>
-				<label for="height">En Altura</label>
-				<input type="checkbox" id="height" name="height" value="1"|-if $billboard->getheight() eq '1'-| checked="checked"|-/if-| />
+				<label for="billboard[height]">En Altura</label>
+				<input type="checkbox" id="height" name="billboard[height" value="1"|-if $billboard->getheight() eq '1'-| checked="checked"|-/if-| />
 			</p>
 			<p>
-				<label for="row">Fila</label>
-				<input type="text" id="row" name="row" value="|-$billboard->getrow()-|" title="row" />
+				<label for="billboard[row]">Fila</label>
+				<input type="text" id="row" name="billboard[row]" value="|-$billboard->getrow()-|" title="row" />
 			</p>
 			<p>
-				<label for="column">Columna</label>
-				<input type="text" id="column" name="column" value="|-$billboard->getcolumn()-|" title="column" />
+				<label for="billboard[column]">Columna</label>
+				<input type="text" id="column" name="billboard[column]" value="|-$billboard->getcolumn()-|" title="column" />
 			</p>
 			<p>
-				<label for="addressId">Dirección</label>
-				<select id="addressId" name="addressId" title="addressId">
+				<label for="billboard[addressId]">Dirección</label>
+				<select id="addressId" name="billboard[addressId]" title="addressId">
 					<option value="">Seleccione una Dirección</option>
-									|-foreach from=$addressIdValues item=object-|
-									<option value="|-$object->getid()-|" |-if $billboard->getaddressId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getname()-|</option>
-									|-/foreach-|
-								</select>
-							</p>
+					|-foreach from=$addressIdValues item=object-|
+						<option value="|-$object->getid()-|" |-if $billboard->getaddressId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getname()-|</option>
+					|-/foreach-|
+				</select>
+			</p>
 			<p>
 				
 				|-if isset($listRedirect)-|

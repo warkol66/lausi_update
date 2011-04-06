@@ -8,29 +8,37 @@
  */
 class BillboardPeer extends BaseBillboardPeer {
 
-  const TYPE_DOBLE = 1;
-  const TYPE_SEXTUPLE = 2;
+	const TYPE_DOBLE = 1;
+	const TYPE_SEXTUPLE = 2;
 
 	//opciones de busqueda
-	private $regionId;
-	private $circuitId;
-	private $type;
-	private $themeId;
-	private $rating;
-	private $groupByAddress = false;
-	private $groupByType = false;
-	private $workforceId;
+	private $searchRegionId;
+	private $searchCircuitId;
+	private $searchType;
+	private $searchWorkforceId;
+	private $searchThemeId;
+	private $searchRating;
+	private $searchGroupByAddress = false;
+	private $searchGroupByType = false;
 
-	
+	//mapea las condiciones del filtro
+	var $filterConditions = array(
+		"searchRegionId"=>"setSearchRegionId",
+		"searchCircuitId"=>"setSearchCircuitId",
+		"searchType"=>"setSearchType",
+		"searchWorkforceId"=>"setSearchWorkforceId",
+		"searchThemeId"=>"setSearchThemeId",
+		"searchRating"=>"setSearchRating",
+		"searchGroupByAddress"=>"setSearchGroupByAddress",
+		"searchGroupByType"=>"setSearchGroupByType"
+	);
 	/**
 	 * Especifica un Barrio para limitar una busqueda
 	 * @param integer id de barrio
 	 *
 	 */
-	public function setRegionId($regionId) {
-		
-		$this->regionId = $regionId;
-		
+	public function setSearchRegionId($searchRegionId) {
+		$this->searchRegionId = $searchRegionId;
 	}
 
 	/**
@@ -38,10 +46,8 @@ class BillboardPeer extends BaseBillboardPeer {
 	 * @param integer id de circuit
 	 *
 	 */	
-	public function setCircuitId($circuitId) {
-		
-		$this->circuitId = $circuitId;
-		
+	public function setSearchCircuitId($searchCircuitId) {
+		$this->searchCircuitId = $searchCircuitId;
 	}
 	
 	/**
@@ -49,235 +55,133 @@ class BillboardPeer extends BaseBillboardPeer {
 	 * @param integer codigo de valoracion
 	 *
 	 */	
-	public function setType($type) {
-		
-		$this->type = $type;
-		
+	public function setSearchType($searchType) {
+		$this->searchType = $searchType;
+	}
+	
+	/**
+	 * Especifica un operario para limitar una busqueda
+	 * @param integer id operario
+	 *
+	 */	
+	public function setSearchWorkforceId($searchWorkforceId) {
+		$this->searchWorkforceId = $searchWorkforceId;
 	}
 	
 	/**
 	 * Especifica un Motivo para limitar una busqueda
-	 * @param string nombre de calle o aproximacion
+	 * @param integer id de Motivo
 	 *
 	 */	
-	public function setThemeId($themeId) {
-		
-		$this->themeId = $themeId;
-		
+	public function setSearchThemeId($searchThemeId) {
+		$this->searchThemeId = $searchThemeId;
 	}
 
 	/**
 	 * Especifica un Rating para limitar una busqueda
-	 * @param integer id de barrio
+	 * @param integer Rating
 	 *
 	 */
-	public function setRating($rating) {
-		
-		$this->rating = $rating;
-		
+	public function setSearchRating($searchRating) {
+		$this->searchRating = $searchRating;
 	}
 	
 	/**
 	 * Especifica agrupamiento por direccion para una busqueda
 	 * 
-	 *
 	 */
-	public function setGroupByAddress() {
-		
-		$this->groupByAddress = true;
-		
+	public function setSearchGroupByAddress($searchGroupByAddress) {
+		$this->searchGroupByAddress = $searchGroupByAddress;
 	}
 
 	/**
 	 * Especifica agrupamiento por tipo para una busqueda
 	 * 
-	 *
 	 */
-	public function setGroupByType() {
-		
-		$this->groupByType = true;
-		
+	public function setSearchGroupByType() {
+		$this->searchGroupByType = $searchGroupByType;
 	}
 	
 	public static function getRadiusRanges($radius) {
 		return array(0, $radius, $radius * 1.3, $radius * 1.6, $radius * 2);
 	}
 
-  /**
-  * Obtiene la cantidad de filas por pagina por defecto en los listado paginados.
-  *
-  * @return int Cantidad de filas por pagina
-  */
-  function getRowsPerPage() {
-    global $system;
-    return $system["config"]["system"]["rowsPerPage"];
-  }
-
-  /**
-  * Crea un billboard nuevo.
-  *
-  * @param int $number number del billboard
-  * @param string $type type del billboard
-  * @param int $height height del billboard
-  * @param int $row row del billboard
-  * @param int $column column del billboard
-  * @param int $addressId addressId del billboard
-  * @return Billboard instance si se creo el billboard correctamente, false sino.
-	*/
-	function create($number,$type,$height,$row,$column,$addressId) {
-    try {
-      $billboardObj = new Billboard();
-      $billboardObj->setnumber($number);
-      $billboardObj->settype($type);
-      $billboardObj->setheight($height);
-      $billboardObj->setrow($row);
-      $billboardObj->setcolumn($column);
-      $billboardObj->setaddressId($addressId);
-      $billboardObj->save();
-      return $billboardObj;
-    } catch (PropelException $exp) {
-      return false;
-    }      
+	/**
+	 * Elimina un billboard a partir de los valores de la clave.
+	 *
+	 * @param int $id id del billboard
+	 *	@return boolean true si se elimino correctamente el billboard, false sino
+	 */
+	function delete($id) {
+		if (is_array($id))
+			return BillboardQuery::create()->filterByPrimaryKeys($id)->delete();
+		return BillboardQuery::create()->filterByPrimaryKey($id)->delete();
 	}
 
-  /**
-  * Actualiza la informacion de un billboard.
-  *
-  * @param int $id id del billboard
-  * @param int $number number del billboard
-  * @param string $type type del billboard
-  * @param int $height height del billboard
-  * @param int $row row del billboard
-  * @param int $column column del billboard
-  * @param int $addressId addressId del billboard
-  * @return boolean true si se actualizo la informacion correctamente, false sino
-	*/
-  function update($id,$number,$type,$height,$row,$column,$addressId) {
-    try {
-      $billboardObj = BillboardPeer::retrieveByPK($id);
-      $billboardObj->setnumber($number);
-      $billboardObj->settype($type);
-      $billboardObj->setheight($height);
-      $billboardObj->setrow($row);
-      $billboardObj->setcolumn($column);
-      $billboardObj->setaddressId($addressId);
-      $billboardObj->save();
-      return true;
-    } catch (PropelException $exp) {
-      return false;
-    }      
-  }
+	/**
+	 * Obtiene la informacion de un billboard.
+	 *
+	 * @param int $id id del billboard
+	 * @return array Informacion del billboard
+	 */
+	function get($id) {
+		if (is_array($id))
+			return BillboardQuery::create()->findPks($id);
+  		return BillboardQuery::create()->findPk($id);
+	}
 
 	/**
-	* Elimina un billboard a partir de los valores de la clave.
-	*
-  * @param int $id id del billboard
-	*	@return boolean true si se elimino correctamente el billboard, false sino
-	*/
-  function delete($id) {
-  	$billboardObj = BillboardPeer::retrieveByPK($id);
-    $billboardObj->delete();
-		return true;
-  }
-
-  /**
-  * Obtiene la informacion de un billboard.
-  *
-  * @param int $id id del billboard
-  * @return array Informacion del billboard
-  */
-  function get($id) {
-		$billboardObj = BillboardPeer::retrieveByPK($id);
-    return $billboardObj;
-  }
-
-  /**
-  * Obtiene todos los billboards.
-	*
-	*	@return array Informacion sobre todos los billboards
-  */
+	 * Obtiene todos los billboards.
+	 *
+	 * @return array Informacion sobre todos los billboards
+	 */
 	function getAll() {
-		$cond = new Criteria();
-		$alls = BillboardPeer::doSelect($cond);
-		return $alls;
-  }
+		return BillboardQuery::create()->find();
+	}
   
-  /**
-  * Obtiene todos los billboards paginados.
-  *
-  * @param int $page [optional] Numero de pagina actual
-  * @param int $perPage [optional] Cantidad de filas por pagina
-  *	@return array Informacion sobre todos los billboards
-  */
-  function getAllPaginated($page=1,$perPage=-1,$criteria = null) {  
-    if ($perPage == -1)
-      $perPage = 	BillboardPeer::getRowsPerPage();
-    if (empty($page))
-      $page = 1;
+	/**
+	 * Obtiene todos los billboards paginados.
+	 *
+	 * @param int $page [optional] Numero de pagina actual
+	 * @param int $perPage [optional] Cantidad de filas por pagina
+	 *	@return array Informacion sobre todos los billboards
+	 */
+	function getAllPaginated($page=1,$perPage=-1,$criteria = null) {  
+    	if ($perPage == -1)
+    		$perPage = Common::getRowsPerPage();
+    	if (empty($page))
+    		$page = 1;
 
-    if ($criteria == null)
-    	$cond = new Criteria();
-    else
-    	$cond = $criteria;
+    	if ($criteria == null)
+    		$cond = new BillboardQuery;
+    	else
+    		$cond = $criteria;
 
-    $pager = new PropelPager($cond,"BillboardPeer", "doSelect",$page,$perPage);
-    return $pager;
-   }
+    	$pager = new PropelPager($cond,"BillboardPeer", "doSelect",$page,$perPage);
+    	return $pager;
+	}
 
-   private function getAllAvailableCriteria($criteria,$fromDate,$duration) {
-	
+	/**
+	 * Deprecated, use BillboardQuery::filterByAvailable() instead
+	 */
+	private function getAllAvailableCriteria($criteria = null,$fromDate,$duration) {
 		if ($criteria == null) {
-			$criteria = new Criteria();
+			$criteria = new BillboardQuery;
 		}
-		
+		$criteria->filterByAvailable($fromDate,$duration);
 		//hacemos un ordenamiento random de los resultados de la consulta
 		$criteria->addAscendingOrderByColumn('RAND()');
-		$criteria->addJoin(BillboardPeer::ADDRESSID,AddressPeer::ID,Criteria::INNER_JOIN);
-						
-	   	//obtenemos todas las carteleras disponibles, para la peticion
-		//$result = BillboardPeer::doSelect($criteria);	
-		
-		//armamos la fecha final
-		ereg("([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})", $fromDate, $splitDate);
-		$year = $splitDate[1];
-		$month = $splitDate[2];
-		$day = $splitDate[3];
-		$timestamp = mktime(0,0,0,$month,$day+$duration,$year);
-    	$toDate = date('Y-m-d',$timestamp);
-	
-		$sql  = '(SELECT COUNT(*) from lausi_advertisement where lausi_advertisement.billboardId = lausi_billboard.id AND';
-		//Caso fecha de publicacion sea menor a la de inicio del periodo y fecha de finalizacion del aviso sea menor a la fecha de finalizacion del periodo
-    	$sql .= "((('" . $fromDate . "' >= lausi_advertisement.publishDate) AND ";
-		$sql .=	"('" . $toDate ."' >=  DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY)) AND";
-		$sql .=	"('" . $fromDate ."' <  DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY))) OR ";
-
-		//Caso fecha de publicacion sea mayor a la de inicio del periodo y fecha de finalizacion del aviso sea mayor a la fecha de finalizacion del periodo
-    	$sql .= "(('" . $fromDate . "' <= lausi_advertisement.publishDate) AND ";
-    	$sql .= "('" . $toDate . "' >= lausi_advertisement.publishDate) AND ";
-		$sql .=	"('" . $toDate ."' < DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY))) OR ";
-
-		//Caso fecha de publicacion sea mayor igual a la de inicio del periodo y fecha de finalizacion del aviso sea menor igual a la fecha de finalizacion del periodo
-    	$sql .= "(('" . $fromDate . "' <= lausi_advertisement.publishDate) AND ";
-		$sql .=	"('" . $toDate ."' >= DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY))) OR";
-
-		//Caso fecha de publicacion sea menor a la de inicio del periodo y fecha de finalizacion del aviso sea mayor a la fecha de finalizacion del periodo
-    	$sql .= "(('" . $fromDate . "' >= lausi_advertisement.publishDate) AND ";
-		$sql .=	"('" . $toDate ."' < DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY)))) ) = 0";
-
-		$criteria->add(BillboardPeer::ID,$sql,Criteria::CUSTOM);
 		
 		return $criteria;
-	
-   }
+	}
 
 	public function getAllAvailableCount($criteria = null, $fromDate, $duration) {
-
-		$criteria = BillboardPeer::getAllAvailableCriteria($criteria,$fromDate,$duration);
+		if ($criteria == null) {
+			$criteria = new BillboardQuery;
+		}
+		$criteria->filterByAvailable($fromDate,$duration);
 		
-		$count = BillboardPeer::doCount($criteria);
-		
-		return $count;
-
+		return $criteria->count();
 	}
 
 	/**
@@ -300,33 +204,24 @@ class BillboardPeer extends BaseBillboardPeer {
 	}
 	
 	private function getDistributionStructure($billboards) {
-
 		//devolvemos aquellos resultados que resultan disponibles realmente
 		$available = array();
-		
 		
 		foreach ($billboards as $billboard) {
 			$added = false;
 
 			//lo adicionamos
 			if (!isset($available[$billboard->getAddressId()])) {
-
 				$available[$billboard->getAddressId()] = array();
 				$available[$billboard->getAddressId()]['elements'] = array();
 				$available[$billboard->getAddressId()]['selected'] = 0;
 				$available[$billboard->getAddressId()]['address'] = $billboard->getAddress();
-				
 			}
 			
 			array_push($available[$billboard->getAddressId()]['elements'],$billboard);
-
 		}
-
-		
 		//seleccionamos de a dos en el orden de direccion que fue saliendo
-		
 		return $available;	
-		
 	}
 	
 	/**
@@ -337,14 +232,10 @@ class BillboardPeer extends BaseBillboardPeer {
 	 */
 	private function calculateQuantityToBePublished($availableCount,$quantityToBePublished) {
 		//Si quiero distribuir menos o lo mismo de lo disponible, no hay problemas con la cantidad
-		if ($availableCount >= $quantityToBePublished)
-			return $quantityToBePublished;
-		
-		//si la cantidad disponible es menor a lo que quiero distribuir
+		//Si la cantidad disponible es menor a lo que quiero distribuir
 		//solo puedo distribuir lo disponible
-
-		return $availableCount;
 		
+		return min($availableCount, $quantityToBePublished);
 	}
 	
 	/**
@@ -354,11 +245,9 @@ class BillboardPeer extends BaseBillboardPeer {
 	 * @param integer numero de carteleras a distribuir por direccion
 	 */ 
 	private function distributeByAddress($distributeStructure,$quantity,$numberByAddress = 1) {
-		
 		$pending = $quantity;
 
 		foreach ($distributeStructure as $key => $addressHolder) {
-
 			//si no hay pendientes, no sigo recorriendo
 			if ($pending <= 0)
 				break;
@@ -366,15 +255,12 @@ class BillboardPeer extends BaseBillboardPeer {
 			//si hay mas elementos en la direccion que la cantidad que tengo que 
 			//asignar por la direccion puedo realizar asignaciones
 			if (sizeof($addressHolder['elements']) >= $numberByAddress) {
-
 				$counter = $numberByAddress;
 				$position = 0;
 				while (($counter > 0) && ($position < (sizeof($addressHolder['elements'])))) {
-
 					$billboard = $addressHolder['elements'][$position];
 					
 					if (!$billboard->isChecked()) {
-											
 						//realizo la asignacion
 						$billboard->setChecked();
 						$distributeStructure[$key]['selected']++;
@@ -385,18 +271,13 @@ class BillboardPeer extends BaseBillboardPeer {
 						if ($numberByAddress == 2 && $pending == 1 && $counter == 0 && ($position < (sizeof($addressHolder['elements'])-1))) {
 							$counter++;
 						}
-						
-
 					}
 					$position++;
 				}
 			}
-
 		}
 
 		return $pending;
-		
-
 	}
 
 	/** 
@@ -405,7 +286,6 @@ class BillboardPeer extends BaseBillboardPeer {
 	 * @param array de instancias de Billboard
 	 */
 	private function distributeSextuples($quantity,$billboards) {
-
 		$available = BillboardPeer::getDistributionStructure($billboards);
 		
 		$quantityToBePublished = BillboardPeer::calculateQuantityToBePublished(sizeof($billboards),$quantity);
@@ -417,7 +297,6 @@ class BillboardPeer extends BaseBillboardPeer {
 		}
 
 		return $available;
-	
 	}
 
 	/** 
@@ -426,7 +305,6 @@ class BillboardPeer extends BaseBillboardPeer {
 	 * @param array de instancias de Billboard
 	 */	
 	private function distributeDoubles($quantity,$billboards) {
-
 		$available = BillboardPeer::getDistributionStructure($billboards);
 
 		$quantityToBePublished = BillboardPeer::calculateQuantityToBePublished(sizeof($billboards),$quantity);
@@ -438,7 +316,6 @@ class BillboardPeer extends BaseBillboardPeer {
 		}
 		
 		return $available;
-	
 	}	
  
    /**
@@ -449,7 +326,6 @@ class BillboardPeer extends BaseBillboardPeer {
     * @param integer $duration disponibilidad de duracion
     */
    public function getAllAvailableOrdered(&$criteria = null,$fromDate, $duration, $quantity, $type) {
-
 		$result = BillboardPeer::getAllAvailable($criteria,$fromDate,$duration);
 
 		$available = array();
@@ -460,9 +336,7 @@ class BillboardPeer extends BaseBillboardPeer {
 			$available = BillboardPeer::distributeSextuples($quantity,$result);
 		
 		return $available;
- 
    }
-
 
    /**
     * Obtiene todos los disponibles para una fecha y duracion
@@ -472,13 +346,11 @@ class BillboardPeer extends BaseBillboardPeer {
     * @param integer $duration disponibilidad de duracion
     */
    public function getAllAvailableOrderedByCircuitAndAddress($criteria = null,$fromDate, $duration, $quantity, $type) {
-
 		$available = BillboardPeer::getAllAvailableOrdered($criteria,$fromDate,$duration,$quantity,$type);
 
-		uasort($available,'comparison');
+		uasort($available,'BillboardPeer::comparisonByOrderCircuit');
 		
 		return $available;
- 
    }
 
    /**
@@ -486,19 +358,15 @@ class BillboardPeer extends BaseBillboardPeer {
     *
     */
    public function getAllAvailableByAddress($addressId, $quantity, $fromDate, $duration, $type = null) {
-   
    		$criteria = new BillboardQuery();
 	   	
-	   	$criteria->add(AddressPeer::ID,$addressId);
+	   	$criteria->filterByAddressId($addressId);
 	
 		//si se pide un tipo especifico se agrega a la consulta
    		if ($type != null)
-	   		$criteria->add(BillboardPeer::TYPE,$type);
-		
+			$criteria->filterByType($type);
 	   	
 		return BillboardPeer::getAllAvailableOrdered($criteria,$fromDate, $duration, $quantity, $type);
-
-   	
    }
    
    /**
@@ -511,18 +379,15 @@ class BillboardPeer extends BaseBillboardPeer {
 	* @param integer $duration 
     */
    public function getAllAvailableByRegion($regionId, $quantity, $fromDate, $duration, $type = null) {
-   
    		$criteria = new BillboardQuery();
    		
    		//si se pide un tipo especifico se agrega a la consulta
    		if ($type != null)
-	   		$criteria->add(BillboardPeer::TYPE,$type);
+	   		$criteria->filterByType($type);
 
-	   	$criteria->add(AddressPeer::REGIONID,$regionId);
+	   	$criteria->filterByRegionId($regionId);
 	   	
 		return BillboardPeer::getAllAvailableOrdered($criteria,$fromDate, $duration, $quantity, $type);
-
-   	
    }
    
    /**
@@ -535,17 +400,15 @@ class BillboardPeer extends BaseBillboardPeer {
 	* @param integer $duration
     */
    public function getAllAvailableByCircuit($circuitId, $fromDate, $duration, $quantity, $type = null) {
-   
    		$criteria = new BillboardQuery();
 	
    		//si se pide un tipo especifico se agrega a la consulta
    		if ($type != null)
-	   		$criteria->add(BillboardPeer::TYPE,$type);
+	   		$criteria->filterByType($type);
 	   	
-	   	$criteria->add(AddressPeer::CIRCUITID,$circuitId);
+	   	$criteria->filterByCircuitId($circuitId);
 	   	
 		return BillboardPeer::getAllAvailableOrderedByCircuitAndAddress($criteria,$fromDate, $duration, $quantity,$type);
-   	
    }
 
    /**
@@ -558,17 +421,15 @@ class BillboardPeer extends BaseBillboardPeer {
 	* @param integer $duration
     */
    public function getAllAvailableByRating($rating, $fromDate, $quantity, $duration, $type = null) {
-   
    		$criteria = new BillboardQuery();
    		
    		//si se pide un tipo especifico se agrega a la consulta
    		if ($type != null)
-	   		$criteria->add(BillboardPeer::TYPE,$type);
+	   		$criteria->filterByType($type);
 	
-	   	$criteria->add(AddressPeer::RATING,$rating);
+	   	$criteria->filterByRating($rating);
 	
 		return BillboardPeer::getAllAvailableOrdered($criteria,$fromDate,$duration,$quantity,$type);	   	
-   	
    }
    
    /**
@@ -586,7 +447,7 @@ class BillboardPeer extends BaseBillboardPeer {
    		
    		//si se pide un tipo especifico se agrega a la consulta
    		if ($type != null)
-	   		$criteria->add(BillboardPeer::TYPE,$type);
+	   		$criteria->filterByType($type);
 			
 		$prevCriteria = clone $criteria;
 		
@@ -626,11 +487,7 @@ class BillboardPeer extends BaseBillboardPeer {
    * @returns integer cantidad de carteleras total
    */
   public function getAllCount() {
-
-  		$criteria = new Criteria();
-  		$count = BillboardPeer::doCount($criteria);
-  		return $count;
-  	
+  		return BillboardQuery::create()->count();
   }
 
   /**
@@ -639,56 +496,49 @@ class BillboardPeer extends BaseBillboardPeer {
    * @returns integer cantidad de carteleras total en un circuito
    */
   public function getAllByCircuitCount($circuitId) {
-  	
-  		$criteria = new Criteria();
-  		$criteria->add(AddressPeer::CIRCUITID,$circuitId);
-  		$count = BillboardPeer::doCountJoinAddress($criteria);
-  		return $count;
-
-  	
+		return BillboardQuery::create()
+			->filterByCirctuitId($circuitId)
+			->count();
   }
   
-  	private function getFilterCriteria() {
-  
-  		
-  		$criteria = new Criteria();
-  		
+	public function getSearchCriteria() {
+  		$criteria = new BillboardQuery();
 	
-		$criteria->addJoin(BillboardPeer::ADDRESSID,AddressPeer::ID,Criteria::INNER_JOIN);	
+		$criteria->join('Address',Criteria::INNER_JOIN);
 		
-		
-		if (isset($this->regionId))
-			$criteria->add(AddressPeer::REGIONID,$this->regionId);
+		if (!empty($this->searchRegionId))
+			$criteria->useQuery('Address')
+						->filterByRegionId($this->searchRegionId)
+					 ->endUse();
 	
-		if (isset($this->circuitId))
-			$criteria->add(AddressPeer::CIRCUITID,$this->circuitId);
+		if (!empty($this->searchCircuitId))
+			$criteria->useQuery('Address')
+						->filterByCircuitId($this->searchCircuitId)
+					 ->endUse();
 
-		if (isset($this->type))
-			$criteria->add(BillboardPeer::TYPE,$this->type);		
+		if (!empty($this->searchType))
+			$criteria->filterByType($this->searchType);		
 
-		if (isset($this->rating))
-			$criteria->add(AddressPeer::RATING,$this->rating);
+		if (!empty($this->searchRating))
+			$criteria->useQuery('Address')
+						->filterByRating($this->searchRating)
+					 ->endUse();
 
-		if (isset($this->themeId)) {
-			$criteria->addJoin(BillboardPeer::ID,AdvertisementPeer::BILLBOARDID,Criteria::INNER_JOIN);
-			$criteria->addJoin(AdvertisementPeer::THEMEID,ThemePeer::ID,Criteria::INNER_JOIN);
-			$criteria->add(AdvertisementPeer::THEMEID,$this->themeId);
-			
-			$sql = '(CURDATE() >= lausi_advertisement.publishDate) AND (CURDATE() <= DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY))';
-			$criteria->add(AdvertisementPeer::PUBLISHDATE,$sql,Criteria::CUSTOM);
+		if (!empty($this->searchThemeId)) {
+			$criteria->join('Advertisement');
+			$criteria->useQuery('Advertisement')
+						->filterByThemeId($this->searchThemeId)
+						->filterByCurrent()
+					 ->endUse();
 		}
 		
-		if ($this->groupByAddress)
-			$criteria->addGroupByColumn(BillboardPeer::ADDRESSID);
+		if ($this->searchGroupByAddress)
+			$criteria->groupByAddressid();
   
-		if ($this->groupByType) {
-			if(!$this->groupByAddress)
-				$criteria->addGroupByColumn(BillboardPeer::ADDRESSID);
-			$criteria->addGroupByColumn(BillboardPeer::TYPE);			
+		if ($this->searchGroupByType) {
+			$criteria->groupByType();			
 		}
-  		
   		return $criteria;
-  		
   	}
   
 	/**
@@ -698,45 +548,39 @@ class BillboardPeer extends BaseBillboardPeer {
 	* @param int $perPage [optional] Cantidad de filas por pagina
 	*	@return array Informacion sobre todos los billboards
 	*/
-	public function getAllPaginatedFilter($page=1,$perPage=-1) {
+	public function getAllPaginatedFiltered($page=1,$perPage=-1) {
 	
 		if ($perPage == -1)
-			$perPage = 	BillboardPeer::getRowsPerPage();
+			$perPage = 	Common::getRowsPerPage();
 		if (empty($page))
 			$page = 1;
 		
 		//obtenemos la criteria para realizar el filtrado
-		$criteria = $this->getFilterCriteria();
+		$criteria = $this->getSearchCriteria();
 		
 		return $this->getAllPaginated($page,$perPage,$criteria);
 		
 	}
 	
 	public function getAllFiltered() {
-		
-		$cond = $this->getFilterCriteria();
-		$alls = BillboardPeer::doSelect($cond);
+		$cond = $this->getSearchCriteria();
+		$alls = $cond->find();
 		return $alls;
+	}
+	
+	public static function comparisonByOrderCircuit($a,$b) {
+		$addressA = $a['address'];
+		$addressB = $b['address'];
 		
+		if ($addressA->getOrderCircuit() == $addressB->getOrderCircuit())
+			return 0;
+	
+		if ($addressA->getOrderCircuit() < $addressB->getOrderCircuit())
+			return -1;
+		else
+			return 1;
 	}
   
-}
-
-function comparison($a,$b) {
-	
-	$addressA = $a['address'];
-	$addressB = $b['address'];
-	
-	if ($addressA->getOrderCircuit() < $addressB->getOrderCircuit())
-		return -1;
-
-	if ($addressA->getOrderCircuit() == $addressB->getOrderCircuit())
-		return 0;
-
-	if ($addressA->getOrderCircuit() > $addressB->getOrderCircuit())
-		return 1;
-
-	
 }
 
 ?>

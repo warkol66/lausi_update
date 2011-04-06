@@ -44,16 +44,17 @@ class LausiAddressesEditAction extends BaseAction {
 			$groupByTheme = array();
 			
 			foreach ($adverts as $advert) {
-				
+				$theme = $advert->getTheme();
 				$themeId = $advert->getThemeId();
-				
-				if (empty($groupByTheme[$themeId]))
-					$groupByTheme[$themeId]['adverts'] = array();
-				
-				array_push($groupByTheme[$themeId]['adverts'],$advert);
-				
-				if (empty($groupByTheme[$themeId]['theme']))
-					$groupByTheme[$themeId]['theme'] = $advert->getTheme();
+				if (!empty($theme)) {
+					if (empty($groupByTheme[$themeId]))
+						$groupByTheme[$themeId]['adverts'] = array();
+					
+					array_push($groupByTheme[$themeId]['adverts'],$advert);
+					
+					if (empty($groupByTheme[$themeId]['theme']))
+						$groupByTheme[$themeId]['theme'] = $advert->getTheme();
+				}
 			}
 			
 			//disponibilidades

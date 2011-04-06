@@ -1,8 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("BillboardPeer.php");
-
 class LausiBillboardsDoDeleteAction extends BaseAction {
 
 
@@ -31,7 +28,7 @@ class LausiBillboardsDoDeleteAction extends BaseAction {
 	*/
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+    	BaseAction::execute($mapping, $form, $request, $response);
 
 		//////////
 		// Access the Smarty PlugIn instance
@@ -48,50 +45,26 @@ class LausiBillboardsDoDeleteAction extends BaseAction {
 		$smarty->assign("section",$section);		
 
 		//caso de eliminacion de varias carteleras
-		if (isset($_POST['toDelete']) && !empty($_POST['toDelete'])) {
-			
-			$billboard = BillboardPeer::get($_POST['toDelete'][0]);
-			
-			$toDelete = $_POST['toDelete'];
-			foreach ($toDelete as $id) {
-				BillboardPeer::delete($id);
-			}
-			
-		}
-		else {
-		
-			$billboard = BillboardPeer::get($_POST["id"]);
-			if (!empty($billboard))
-				BillboardPeer::delete($_POST["id"]);
+		if (isset($_POST['toDelete']) && !empty($_POST['toDelete']) && count($_POST['toDelete'])) {
+			BillboardPeer::delete($_POST['toDelete']);
+		} else {
+			BillboardPeer::delete($_POST["id"]);
 		}
 		
-		if ($_POST['mode'] == 'ajax') {
-
-			//por ser una action ajax.		
-			$this->template->template = "template_ajax.tpl";
-
+		if ($this->isAjax()) {
 			$smarty->assign('billboardId',$_POST["id"]);
 			return $mapping->findForwardConfig('success-ajax');
 		}
 		
 		//caso de redireccionamiento desde opciones de busqueda de addressesList
-
 		if (isset($_POST['listRedirect'])) {
-			
 			$queryData = "";
 			//armamos la redireccion con los valores necesarios
 			foreach ($_POST['listRedirect'] as $key => $value) {
 				$queryData .= "&listRedirect[$key]=$value";
 			}
 		}
-		
-		$myRedirectConfig = $mapping->findForwardConfig('success');
-		$myRedirectPath = $myRedirectConfig->getpath();
-		$queryData .= '&addressId='.$billboard->getAddressId();
-		$myRedirectPath .= $queryData;
-		$fc = new ForwardConfig($myRedirectPath, True);
-		return $fc;				
 
+		return $this->addParamsToForwards(array('addressId'=>$billboard->getAddressId()), $mapping, 'success');
 	}
-
 }
