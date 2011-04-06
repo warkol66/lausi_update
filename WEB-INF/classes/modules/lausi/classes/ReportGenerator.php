@@ -109,42 +109,43 @@
 				return $results;
 		}
 		
-		public function getThemesReport($type=null,$circuit=null) {
-
-			$sql = "SELECT DISTINCT lausi_advertisement.themeId,COUNT(*),DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY) as endDate, lausi_theme.name FROM lausi_advertisement,lausi_theme  WHERE lausi_advertisement.themeId = lausi_theme.id GROUP BY themeId,publishDate,lausi_advertisement.duration";
-			$sqlPropel = "SELECT DISTINCT  lausi_advertisement.THEMEID, COUNT(*) as totalAdvertisements, DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY) as endDate, lausi_theme.NAME FROM lausi_theme INNER JOIN lausi_advertisement ON (lausi_theme.ID=lausi_advertisement.THEMEID) GROUP BY lausi_advertisement.THEMEID";
-			$criteria = new Criteria();
-
-
-			$criteria->setDistinct();
-			$criteria->addSelectColumn(AdvertisementPeer::THEMEID);
-			$criteria->addSelectColumn('COUNT(*) as totalAdvertisements');
-			$criteria->addSelectColumn('DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY) as endDate');
-			$criteria->addSelectColumn(ThemePeer::NAME);
-
-			$criteria->addGroupByColumn(AdvertisementPeer::THEMEID);
-			$criteria->addGroupByColumn(AdvertisementPeer::PUBLISHDATE);
-			$criteria->addGroupByColumn(AdvertisementPeer::DURATION);
-			$criteria->addJoin(ThemePeer::ID,AdvertisementPeer::THEMEID,Criteria::INNER_JOIN);
+		public function getThemesReport($type=null,$circuitId=null) {
+			
+			$criteria = new ThemeQuery;
+			
+			$criteria->join('Advertisement', Criteria::INNER_JOIN);
+			$criteria->distinct();
+			//el result set tendra registros con id de circuitm nombre de circuit, cuenta y tipo
+			$criteria->selectFieldsForThemesReport();
+			$criteria->groupBy('Advertisement.Themeid');
+			$criteria->groupBy('Advertisement.Publishdate');
+			$criteria->groupBy('Advertisement.Duration');
 			
 			if ($type != null)
-				$criteria->add(ThemePeer::TYPE,$type);
+				$criteria->filterByType($type);
 			
-			if ($circuit != null) {
-				$criteria->addJoin(AdvertisementPeer::BILLBOARDID,BillboardPeer::ID,Criteria::INNER_JOIN);			
-				$criteria->addJoin(BillboardPeer::ADDRESSID,AddressPeer::ID,Criteria::INNER_JOIN);
-				$criteria->add(AddressPeer::CIRCUITID,$circuit->getId());
+			$circuit = CircuitPeer::get($circuitId);	
+			if (!empty($circuit)) {
+				$criteria->useQuery('Advertisement')
+							->filterByCircuit($circuit)
+						 ->endUse();
 			}
-				
-			$resultSet = AdvertisementPeer::doSelectRS($criteria);
 			
+			try {
+				$resultSet = $criteria->find();
+			} catch (PropelException $exp) {
+				if (ConfigModule::get("global","showPropelExceptions"))
+					print_r($exp->getMessage());
+				return false;
+			}
+
 			$result = array();
-			while($resultSet->next()) {
+			foreach($resultSet as $row) {
 				$result = array();
-				$result['id'] = $resultSet->getInt(1);
-				$result['total'] = $resultSet->getInt(2);
-				$result['endDate'] = $resultSet->getString(3);
-				$result['name'] = $resultSet->getString(4);
+				$result['id'] = $row['ThemeId'];
+				$result['total'] = $row['TotalAdvertisements'];
+				$result['endDate'] = $row['EndDate'];
+				$result['name'] = $row['ThemeName'];
 
 				$today = strtotime(date("Y-m-d"));
 				$expiration = strtotime($result['endDate']);
@@ -227,18 +228,22 @@
 		}
 		
 		public function getThemeByCircuitReport($theme) {
+			$criteria = new BillboardQuery;
+			$criteria->join('Advertisement',Criteria::INNER_JOIN);
+			$criteria->useQuery('Advertisement')
+						->filterByCurrent()
+						->filterByTheme($theme)
+					 ->endUse();
 			
-			$criteria = new Criteria();
-			$criteria->addJoin(AdvertisementPeer::BILLBOARDID,BillboardPeer::ID,Criteria::INNER_JOIN);
-			$criteria->addJoin(BillboardPeer::ADDRESSID,AddressPeer::ID,Criteria::INNER_JOIN);
-			$criteria->add(AdvertisementPeer::THEMEID,$theme->getId());
-			$sql = '(CURDATE() >= lausi_advertisement.publishDate) AND (CURDATE() <= DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY))';
-			$criteria->add(AdvertisementPeer::PUBLISHDATE,$sql,Criteria::CUSTOM);		
-
-			$billboards = BillboardPeer::doSelect($criteria);
+			try {
+				$billboards = $criteria->find();
+			} catch (PropelException $exp) {
+				if (ConfigModule::get("global","showPropelExceptions"))
+					print_r($exp->getMessage());
+				return false;
+			}
 
 			$results = array();
-			
 			foreach ($billboards as $billboard) {
 				$address = $billboard->getAddress();
 				$circuit = $address->getCircuit();
@@ -254,7 +259,6 @@
 				}
 
 				$results[$circuit->getId()]['addresses'][$address->getId()]['count'] = $results[$circuit->getId()]['addresses'][$address->getId()]['count'] + 1;
-				
 			}
 			return $results;
 		}
