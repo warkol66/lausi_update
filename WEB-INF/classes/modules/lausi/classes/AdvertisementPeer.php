@@ -327,7 +327,8 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 		
 		return AdvertisementQuery::create()
 			->filterByCurrent()
-			->filterByAddress($address);
+			->filterByAddress($address)
+			->find();
 	}
 	
 	/**
