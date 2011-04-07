@@ -134,7 +134,7 @@ class Billboard extends BaseBillboard {
 			$adverts = AdvertisementQuery::create()
 				->filterByBillboard($this)
 				->filterByPublishDate(array('max'=>$date))
-				->orderByPublishDate('desc')
+				->orderByPublishdate('desc')
 				->limit(2)
 				->find();
 				
