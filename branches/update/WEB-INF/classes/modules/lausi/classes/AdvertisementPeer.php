@@ -152,7 +152,7 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 		$this->forReport = 1;
 	}			
 
-	private function hasOverlapping($publishDate,$duration,$billboardId,$advertId = null) {
+	public function hasOverlapping($publishDate,$duration,$billboardId,$advertId = null) {
 		$criteria = new AdvertisementQuery();		
 		
 		$criteria->filterByPublished($publishDate, $duration);
