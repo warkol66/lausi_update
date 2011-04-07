@@ -310,6 +310,8 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 	*/
 	function getAllCurrentByAddress($addressId) {
 		$address = AddressPeer::get($addressId);
+		if (empty($address))
+			return false;
 		
 		return AdvertisementQuery::create()
 			->filterByCurrent()

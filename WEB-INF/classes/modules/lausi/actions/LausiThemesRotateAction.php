@@ -46,7 +46,7 @@ class LausiThemesRotateAction extends BaseAction {
 		
 		$filters = $_GET['filters'];
 		
-		if (isset($_GET['addressId'])) {
+		if (!empty($_GET['addressId'])) {
 			$smarty->assign('addressId',$_GET['addressId']);
 			$advertisements = AdvertisementPeer::getAllCurrentByAddress($_GET['addressId']);
 			$smarty->assign('advertisements',$advertisements);
