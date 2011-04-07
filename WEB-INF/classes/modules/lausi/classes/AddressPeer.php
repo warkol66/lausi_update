@@ -299,7 +299,7 @@ class AddressPeer extends BaseAddressPeer {
 	 *	@return array Informacion sobre todos los addresses
 	 */
 	function getAll($criteria = null) {
-		return AddressQuery(null, $criteria)->find();
+		return AddressQuery::create(null, $criteria)->find();
 	}
   
 	/**
