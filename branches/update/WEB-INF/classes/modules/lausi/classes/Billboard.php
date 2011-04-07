@@ -114,7 +114,7 @@ class Billboard extends BaseBillboard {
 			$advert = AdvertisementQuery::create()
 				->filterByCurrent()
 				->filterByBillboard($this)
-				->orderByPublishDate('desc')
+				->orderByPublishdate('desc')
 				->findOne();
 			
 			if (empty($advert))
