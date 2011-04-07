@@ -191,6 +191,10 @@
 			<reference local="addressId" foreign="id"/>
 		</foreign-key>
 		
+		<validator column="addressId">
+  			<rule name="required" message="Es necesario especificar una direccion." />
+		</validator>
+		
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
@@ -240,11 +244,11 @@
 			<reference local="billboardId" foreign="id"/>
 		</foreign-key>
 	
-		<foreign-key foreignTable="lausi_theme">
+		<foreign-key foreignTable="lausi_theme" onDelete="cascade">
 			<reference local="themeId" foreign="id"/>
 		</foreign-key>
 		
-		<foreign-key foreignTable="lausi_workforce">
+		<foreign-key foreignTable="lausi_workforce" onDelete="setnull">
 			<reference local="workforceId" foreign="id"/>
 		</foreign-key>
 		
