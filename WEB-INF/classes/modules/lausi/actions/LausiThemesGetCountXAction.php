@@ -1,10 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("ThemePeer.php");
-require_once('RegionPeer.php');
-require_once('CircuitPeer.php');
-
 class LausiThemesGetCountXAction extends BaseAction {
 
 
@@ -49,9 +44,6 @@ class LausiThemesGetCountXAction extends BaseAction {
 		$section = "Themes";
 		$smarty->assign("section",$section);		
 
-		//por ser una action ajax.		
-		$this->template->template = "template_ajax.tpl";
-
     	$theme = ThemePeer::get($_POST["themeId"]);
 		$count = $theme->getSheetsDistributed();
 		$pendingCount = $theme->getSheetsToBeDistributed();
@@ -75,7 +67,6 @@ class LausiThemesGetCountXAction extends BaseAction {
 		
 		
 		if ($_POST['region']) {
-			
 			//obtengo los totales por circuito 
 			$regions = RegionPeer::getAll();
 			$result = array();
@@ -83,8 +74,6 @@ class LausiThemesGetCountXAction extends BaseAction {
 				$result[$region->getId()]['sheetsDistributed'] = $region->getSheetsDistributed($_POST['themeId']);
 				$result[$region->getId()]['billboardsAvailable'] = $region->getAvailableTodayCount($theme);
 			}
-
-
 		}
 		
 		if (isset($result))
