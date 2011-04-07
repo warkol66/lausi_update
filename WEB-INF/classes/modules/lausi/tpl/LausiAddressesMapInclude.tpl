@@ -2,7 +2,10 @@
 <div id="map_container" style="display:none">
 	<div id="map_canvas"></div>
 	<div><ul id="directions_results"></ul></div>
-	<p><input id="hide_map" type="button" value="Ocultar mapa" title="Ocultar mapa" onClick="$('map_container').hide();$('show_map').show()"/></p>
+	<br />
+	<p>
+		<input id="hide_map" type="button" value="Ocultar mapa" title="Ocultar mapa" onClick="$('map_container').hide();$('show_map').show()"/>
+	</p>
 </div>
 <p><input id="show_map" type="button" value="Mostrar mapa" title="Mostrar mapa" onClick="$('map_container').show(); this.hide()" style="display:none;"/></p>
 <!-- fin mapa google -->

@@ -83,7 +83,12 @@
 				<input type='button' onClick='location.href="Main.php?do=lausiAddressesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Cancelar' title="Regresar al listado de carteleras"/>
 				</p>
 	</form>
+	
+	|-include file="LausiAddressesMapInclude.tpl" -|
+	
 	</fieldset>	
+	
+	
 	
 |-if isset($listRedirect) || $address->getId() ne ''-|
 
@@ -133,5 +138,3 @@
 |-/if-|
 
 </div>
-
-|-include file="LausiAddressesMapInclude.tpl" -|
