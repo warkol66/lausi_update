@@ -7,28 +7,28 @@
 <legend>Formulario de rotación de motivos</legend>
 	<form action="Main.php" method="get" id="searchForm">
 		<p>
-			<label for="region">Barrio</label>
-			<select id="regionIdForm" name="regionId">
+			<label for="filters[searchRegionId]">Barrio</label>
+			<select name="filters[searchRegionId]">
 				<option value="">Seleccione un Barrio</option>
 				|-foreach from=$regions item=region name=for_regions-|
-					<option value="|-$region->getId()-|" |-if isset($regionId) and $regionId eq $region->getId()-|selected="selected"|-/if-|>|-$region->getName()-|</option>
+					<option value="|-$region->getId()-|" |-$region->getId()|selected:$filters.searchRegionId-|>|-$region->getName()-|</option>
 				|-/foreach-|
-			</select>
-		</p>	
+				</select>
+		</p>
 		<p>
-			<label for="circuit">Circuito</label>
-			<select id="circuitIdForm" name="circuitId">
+			<label for="filters[searchCircuitId]">Circuito</label>
+			<select name="filters[searchCircuitId]">
 				<option value="">Seleccione un circuito</option>
 				|-foreach from=$circuits item=circuit name=for_circuit-|
-					<option value="|-$circuit->getId()-|" |-if isset($circuitId) and $circuitId eq $circuit->getId()-|selected="selected"|-/if-|>|-$circuit->getName()-|</option>
+					<option value="|-$circuit->getId()-|" |-$circuit->getId()|selected:$filters.searchCircuitId-|>|-$circuit->getName()-|</option>
 				|-/foreach-|
 			</select>				
 		</p>
 		<p>
-			<label for="addressText">Nombre de Dirección</label>
-			<input id="addressTextForm" type="text" name="addressText" value="|-if isset($addressText)-||-$addressText-||-/if-|"/>
+			<label for="filters[searchStreetName]">Nombre de Calle</label>
+			<input type="text" name="filters[searchStreetName]" value="|-$filters.searchStreetName-|" />
 		</p>		
-|-if $regionId neq '' or $circuitId neq '' or $addressText neq ''-|
+|-if $filters ne '' and $filters|@count gt 0-|
 	|-if $addresses|@count gt 0-|
 		<p>
 			<label for="addressId">Dirección</label>

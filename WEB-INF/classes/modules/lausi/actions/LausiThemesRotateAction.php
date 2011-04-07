@@ -1,12 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("ThemePeer.php");
-require_once("AddressPeer.php");
-require_once("AdvertisementPeer.php");
-require_once("RegionPeer.php");
-require_once("CircuitPeer.php");
-
 class LausiThemesRotateAction extends BaseAction {
 
 
@@ -51,38 +44,24 @@ class LausiThemesRotateAction extends BaseAction {
 		$section = "Themes";
 		$smarty->assign("section",$section);
 		
+		$filters = $_GET['filters'];
+		
 		if (isset($_GET['addressId'])) {
-
 			$smarty->assign('addressId',$_GET['addressId']);
 			$advertisements = AdvertisementPeer::getAllCurrentByAddress($_GET['addressId']);
 			$smarty->assign('advertisements',$advertisements);
-			
 		}
 
 		//opciones de filtrado de direccion
 		$smarty->assign('circuits',CircuitPeer::getAll());		
 		$smarty->assign('regions',RegionPeer::getAll());
 
-		$addressPeer = new AddressPeer();
-
- 		if (!empty($_GET['regionId'])) {
- 			$addressPeer->setRegionId($_GET['regionId']);
- 			$smarty->assign('regionId',$_GET['regionId']);
- 		}
-
- 		if (!empty($_GET['circuitId'])) {
- 			$addressPeer->setCircuitId($_GET['circuitId']);
- 			$smarty->assign('circuitId',$_GET['circuitId']);
- 		}
- 		if (!empty($_GET['addressText'])) {
- 			$addressPeer->setStreetName($_GET['addressText']);
- 			$smarty->assign('addressText',$_GET['addressText']);
- 		}
+		$addressPeer = new AddressPeer;
+		
+		$this->applyFilters($addressPeer, $filters, $smarty);
 
 		//obtenemos las direcciones para el selector
 		$smarty->assign('addresses',$addressPeer->getAllFiltered());
-		
 		return $mapping->findForwardConfig('success');
 	}
-
 }

@@ -45,6 +45,7 @@ class BillboardTableMap extends TableMap {
 		$this->addColumn('BILLBOARDCOLUMN', 'Billboardcolumn', 'INTEGER', false, null, null);
 		$this->addForeignKey('ADDRESSID', 'Addressid', 'INTEGER', 'lausi_address', 'ID', true, null, null);
 		// validators
+		$this->addValidator('ADDRESSID', 'required', 'propel.validator.RequiredValidator', '', 'Es necesario especificar una direccion.');
 	} // initialize()
 
 	/**

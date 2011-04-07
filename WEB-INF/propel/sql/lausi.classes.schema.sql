@@ -240,10 +240,12 @@ CREATE TABLE `lausi_advertisement`
 		ON DELETE CASCADE,
 	CONSTRAINT `lausi_advertisement_FK_2`
 		FOREIGN KEY (`themeId`)
-		REFERENCES `lausi_theme` (`id`),
+		REFERENCES `lausi_theme` (`id`)
+		ON DELETE CASCADE,
 	CONSTRAINT `lausi_advertisement_FK_3`
 		FOREIGN KEY (`workforceId`)
 		REFERENCES `lausi_workforce` (`id`)
+		ON DELETE SET NULL
 ) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Base de Avisos';
 
 # This restores the fkey checks, after having unset them earlier
