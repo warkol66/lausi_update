@@ -51,13 +51,11 @@ class Circuit extends BaseCircuit {
 	}
 	
 	public function getAvailableTodayCount($theme) {
-		
-		$criteria = new Criteria();
-		$criteria->add(BillboardPeer::TYPE,$theme->getType());
-		$criteria->add(AddressPeer::CIRCUITID,$this->getId());
+		$criteria = new BillboardQuery;
+		$criteria->filterByType($theme->getType());
+		$criteria->filterByCircuit($this);
 		
 		return BillboardPeer::getAllAvailableCount($criteria,date("Y-m-d"),1);
-		
 	}
 	
 	public function getBillboardsCount($type = null) {
@@ -74,20 +72,16 @@ class Circuit extends BaseCircuit {
 	 * Indica la cantidad de carteleras ocupadas por un theme el dia de hoy en el circuito
 	 */
 	public function getBillboardsOccupiedByThemeTodayCount($theme) {
-
-		$criteria = new Criteria();
-		$criteria->addJoin(AdvertisementPeer::BILLBOARDID,BillboardPeer::ID,Criteria::INNER_JOIN);
-		$criteria->addJoin(BillboardPeer::ADDRESSID,AddressPeer::ID,Criteria::INNER_JOIN);
-		$criteria->add(AddressPeer::CIRCUITID,$this->getId());
-		$criteria->add(AdvertisementPeer::THEMEID,$theme->getId());
-		$sql = '(CURDATE() >= lausi_advertisement.publishDate) AND (CURDATE() <= DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY))';
-		$criteria->add(AdvertisementPeer::PUBLISHDATE,$sql,Criteria::CUSTOM);		
+		$criteria = BillboardQuery::create()
+			->join('Advertisement')
+			->filterByCircuit($this)
+			->filterByTheme($theme)
+			->useQuery('Advertisement')
+				->filterByCurrent()
+			->endUse()
+			->distinct();
 		
-		$count = BillboardPeer::doCount($criteria);
-
-		if ($count == '') {
-			$count = 0;
-		}
+		$count = $criteria->count();
 		
 		return $count;
 	}
