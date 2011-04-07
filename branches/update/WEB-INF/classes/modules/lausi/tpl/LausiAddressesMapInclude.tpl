@@ -159,17 +159,21 @@
 		//Convertimos el form en un objeto js para facilitar el análisis
 		var locationData = form.serialize(true);
 		
+		console.log(locationData);
+		
 		//Componemos la dirección para la busqueda de la siguiente manera:
 		//<calle> <numero>[, <barrio>], Buenos Aires, Argentina
-		var address = locationData.street;
+		var address = locationData['address[street]'];
 		
 		if (locationData.number != '')
-			address += ' ' + locationData.number;
+			address += ' ' + locationData['address[number]'];
 			
 		if (locationData.regionId != '')
-			address += ', ' + locationData.regionId;
+			address += ', ' + locationData['address[regionId]'];
 		
 		address += ', Ciudad Autonoma de Buenos Aires, Capital Federal, Argentina';
+		
+		console.log(address);
 		
 		if (geocoder) {
     		geocoder.geocode( { 'address': address}, function(results, status) {
