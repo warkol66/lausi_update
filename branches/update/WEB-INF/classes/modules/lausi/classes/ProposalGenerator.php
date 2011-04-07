@@ -11,13 +11,11 @@ class ProposalGenerator {
 	 * @return integer de carteleras
 	 */
     public function getQuantityByType($theme,$quantitySheets) {
-	
 		//regla de negocio, por cada cartelera doble van dos afiches.
 		if ($theme->getType() == ThemePeer::TYPE_DOBLE)
 			return ceil($quantitySheets/2);
 
 		return $quantitySheets;
-	
 	} 
 	
 	/**
@@ -29,27 +27,23 @@ class ProposalGenerator {
 	 * @param $duration duracion de la publicacion del motivo
      */
 	public function generateProposal($themeId, $dateFrom, $duration, $quantity = null) {
-
 		$theme = ThemePeer::get($themeId);
 
 		if ($quantity != null)
 			$quantity = $this->getQuantityByType($theme,$quantity);
 
 		$type = $theme->getType();
-		$criteria = new Criteria();
+		$criteria = new BillboardQuery();
 		
 		if ($type != null)
-   			$criteria->add(BillboardPeer::TYPE,$type);
+   			$criteria->filterByType($type);
 		
 		if ($quantity != null)
-	   		$criteria->setLimit($quantity);
+	   		$criteria->limit($quantity);
 	
 		$result = BillboardPeer::getAllAvailableOrdered($criteria,$dateFrom,$duration,$quantity,$type);
 		
-
-		
 		return $result;
-		
 	}
 
 	/**
@@ -62,7 +56,6 @@ class ProposalGenerator {
 	 * @param $duration duracion de la publicacion del motivo
 	 */
 	public function generateProposalForRegion($themeId, $regionId, $dateFrom, $duration, $quantity) {
-
 		$theme = ThemePeer::get($themeId);
 		$quantity = $this->getQuantityByType($theme,$quantity);		
 		$type = $theme->getType();
@@ -70,8 +63,6 @@ class ProposalGenerator {
 		$result = BillboardPeer::getAllAvailableByRegion($regionId,$quantity,$dateFrom,$duration,$type,$quantity);
 		
 		return $result;
-		
-		
 	}	
 
 	/**
@@ -84,7 +75,6 @@ class ProposalGenerator {
 	 * @param $duration duracion de la publicacion del motivo
 	 */
 	public function generateProposalForCircuit($themeId, $circuitId, $dateFrom, $duration, $quantity) {
-
 		$theme = ThemePeer::get($themeId);
 		$quantity = $this->getQuantityByType($theme,$quantity);		
 		$type = $theme->getType();
@@ -92,8 +82,6 @@ class ProposalGenerator {
 		$result = BillboardPeer::getAllAvailableByCircuit($circuitId,$dateFrom,$duration,$quantity,$type);
 			
 		return $result;
-		
-		
 	}	
 
 	/**
@@ -107,7 +95,6 @@ class ProposalGenerator {
 	 * @param integer $duration duracion de la publicacion del motivo
 	 */
 	public function generateProposalForRating($themeId, $rating, $dateFrom, $duration, $quantity) {
-
 		$theme = ThemePeer::get($themeId);
 		$quantity = $this->getQuantityByType($theme,$quantity);		
 		$type = $theme->getType();
@@ -115,8 +102,6 @@ class ProposalGenerator {
 		$result = BillboardPeer::getAllAvailableByRating($rating,$dateFrom,$quantity,$duration,$type,$quantity);
 		
 		return $result;
-		
-		
 	}	
 
 	/**
@@ -136,16 +121,13 @@ class ProposalGenerator {
 		$quantity = $this->getQuantityByType($theme,$quantity);
 		$type = $theme->getType();
 
-
 		$result = BillboardPeer::getAllAvailableByLocation($quantity,$longitude_0,$latitude_0,$radius,$fromDate,$duration,$type,$quantity);
 
 		if ($quantity == 0) {
 			return array();
 		}
-
 		
 		return $result;
-	
 	}	
 	
 	/**
@@ -159,7 +141,6 @@ class ProposalGenerator {
 	 * @param $duration duracion de la publicacion del motivo
 	 */
 	public function generateProposalForCircuitBillboardPercentage($themeId, $percentage, $circuitId, $dateFrom, $duration) {
-	
 		$theme = ThemePeer::get($themeId);
 		$type = $theme->getType();
 
@@ -177,8 +158,6 @@ class ProposalGenerator {
 		$result = BillboardPeer::getAllAvailableByCircuit($circuitId,$dateFrom,$duration,$quantity,$type,$quantity);
 		
 		return $result;
-		
-		
 	}	
 
 	/**
@@ -192,8 +171,6 @@ class ProposalGenerator {
 	 * @param $duration duracion de la publicacion del motivo
 	 */
 	public function generateProposalForCircuitPercentageTotal($themeId, $total, $percentage, $circuitId, $dateFrom, $duration) {
-		
-					
 		$theme = ThemePeer::get($themeId);
 		$type = $theme->getType();
 		
@@ -206,8 +183,6 @@ class ProposalGenerator {
 		$result = BillboardPeer::getAllAvailableByCircuit($circuitId,$dateFrom,$duration,$quantity,$type);
 			
 		return $result;
-		
-		
 	}		
 	
 }
