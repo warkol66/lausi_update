@@ -56,12 +56,12 @@
 |-/if-|			
 			<p>
 				<label for="filters[searchFromDate]">Fecha Desde</label>
-				<input name="filters[searchFromDate]" type="text" id="fromDate" title="fromDate" value="|-$filters.searchFromDate|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<input name="filters[searchFromDate]" type="text" id="fromDate" title="fromDate" value="|-$filters.searchFromDate|date_format-|" size="12" /> 
 				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[searchFromDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			<p>
 				<label for="filters[searchToDate]">Fecha Hasta</label>
-				<input name="filters[searchToDate]" type="text" id="toDate" title="toDate" value="|-$filters.searchToDate|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<input name="filters[searchToDate]" type="text" id="toDate" title="toDate" value="|-$filters.searchToDate|date_format-|" size="12" /> 
 				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[searchToDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 |- if $clientReport neq 1-|			
@@ -72,12 +72,12 @@
 |-/if-|			
 			<p>
 				<label>No Agrupar por Dirección y Motivo</label>
-				<input type="checkbox" name="noGroupByAddressAndTheme" value="1" |-if $noGroupByAddressAndTheme-|checked="checked"|-/if-|/>
+				<input type="checkbox" name="noGroupByAddressAndTheme" value="1" |-$noGroupByAddressAndTheme|checked:1-|/>
 			</p>
 |- if $clientReport eq 1-|	
 			<p>
 				<label>Solo direcciones por cliente</label>
-				<input type="checkbox" name="onlyAddresses" value="1" |-if $onlyAddresses eq 1-|checked="checked"|-/if-|/>
+				<input type="checkbox" name="onlyAddresses" value="1" |-$onlyAddresses|checked:1-|/>
 			</p>
 |-/if-|				
 			<p>
