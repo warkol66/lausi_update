@@ -980,6 +980,9 @@ abstract class BaseBillboardPeer {
 			}
 		} else {
 
+		if ($obj->isNew() || $obj->isColumnModified(BillboardPeer::ADDRESSID))
+			$columns[BillboardPeer::ADDRESSID] = $obj->getAddressid();
+
 		}
 
 		return BasePeer::doValidate(BillboardPeer::DATABASE_NAME, BillboardPeer::TABLE_NAME, $columns);

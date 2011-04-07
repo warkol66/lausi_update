@@ -51,8 +51,8 @@ class WorkforceTableMap extends TableMap {
 	public function buildRelations()
 	{
     $this->addRelation('WorkforceCircuit', 'WorkforceCircuit', RelationMap::ONE_TO_MANY, array('id' => 'workforceId', ), null, null);
-    $this->addRelation('Advertisement', 'Advertisement', RelationMap::ONE_TO_MANY, array('id' => 'workforceId', ), null, null);
-    $this->addRelation('Circuit', 'Circuit', RelationMap::MANY_TO_MANY, array(), null, null);
+    $this->addRelation('Advertisement', 'Advertisement', RelationMap::ONE_TO_MANY, array('id' => 'workforceId', ), 'SET NULL', null);
+    $this->addRelation('Circuit', 'Circuit', RelationMap::MANY_TO_MANY, array(), 'SET NULL', null);
 	} // buildRelations()
 
 	/**

@@ -57,8 +57,8 @@ class AdvertisementTableMap extends TableMap {
 	public function buildRelations()
 	{
     $this->addRelation('Billboard', 'Billboard', RelationMap::MANY_TO_ONE, array('billboardId' => 'id', ), 'CASCADE', null);
-    $this->addRelation('Theme', 'Theme', RelationMap::MANY_TO_ONE, array('themeId' => 'id', ), null, null);
-    $this->addRelation('Workforce', 'Workforce', RelationMap::MANY_TO_ONE, array('workforceId' => 'id', ), null, null);
+    $this->addRelation('Theme', 'Theme', RelationMap::MANY_TO_ONE, array('themeId' => 'id', ), 'CASCADE', null);
+    $this->addRelation('Workforce', 'Workforce', RelationMap::MANY_TO_ONE, array('workforceId' => 'id', ), 'SET NULL', null);
 	} // buildRelations()
 
 } // AdvertisementTableMap

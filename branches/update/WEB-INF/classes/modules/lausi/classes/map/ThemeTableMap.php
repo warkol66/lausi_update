@@ -55,7 +55,7 @@ class ThemeTableMap extends TableMap {
 	public function buildRelations()
 	{
     $this->addRelation('Client', 'Client', RelationMap::MANY_TO_ONE, array('clientId' => 'id', ), null, null);
-    $this->addRelation('Advertisement', 'Advertisement', RelationMap::ONE_TO_MANY, array('id' => 'themeId', ), null, null);
+    $this->addRelation('Advertisement', 'Advertisement', RelationMap::ONE_TO_MANY, array('id' => 'themeId', ), 'CASCADE', null);
 	} // buildRelations()
 
 } // ThemeTableMap
