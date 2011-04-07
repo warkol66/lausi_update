@@ -65,9 +65,7 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 	 * @param $circuitId integer id de circuit
 	 */
 	public function setSearchCircuitId($searchCircuitId) {
-		
 		$this->searchCircuitId = $searchCircuitId;
-		
 	}
 
 	/**
@@ -76,9 +74,7 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 	 * @param $type integer id de type
 	 */
 	public function setSearchType($searchType) {
-		
 		$this->searchType = $searchType;
-		
 	}
 
 	/**
@@ -87,9 +83,7 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 	 * @param $workforceId integer id de workforce
 	 */
 	public function setSearchWorkforceId($searchWorkforceId) {
-		
 		$this->searchWorkforceId = $searchWorkforceId;
-		
 	}
 
 	/**
@@ -98,9 +92,8 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 	 * @param $fromDate string YYYY-MM-DD
 	 */
 	public function setSearchFromDate($searchFromDate) {
-		
-		$this->searchFromDate = $searchFromDate;
-		
+		if (!empty($searchFromDate))
+			$this->searchFromDate = Common::convertToMysqlDateFormat($searchFromDate);
 	}
 	
 	/**
@@ -109,9 +102,8 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 	 * @param $fromDate string YYYY-MM-DD
 	 */
 	public function setSearchExactDate($searchExactDate) {
-		
-		$this->searchExactDate = $searchExactDate;
-		
+		if (!empty($searchExactDate))
+			$this->searchExactDate = Common::convertToMysqlDateFormat($searchExactDate);
 	}	
 
 	/**
@@ -120,9 +112,8 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 	 * @param $toDate string YYYY-MM-DD
 	 */
 	public function setSearchToDate($searchToDate) {
-		
-		$this->searchToDate = $searchToDate;
-		
+		if (!empty($searchToDate))
+			$this->searchToDate = Common::convertToMysqlDateFormat($searchToDate);
 	}
 	
 	/*
@@ -130,9 +121,7 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 	 *
 	 */
 	public function setAllThemes() {
-		
 		$this->allThemes = true;
-		
 	}
 	
 	/*
@@ -140,15 +129,11 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 	 *
 	 */
 	public function setNoGroupByAddressAndTheme() {
-
 		$this->groupByAddressAndTheme = false;
-
 	}	
 	
 	public function getGroupByAddressAndTheme() {
-
 		return $this->groupByAddressAndTheme;
-
 	}
 	
 	/**
@@ -294,6 +279,7 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 			$criteria->groupBy('Advertisement.Themeid');
 			$criteria->withColumn("count(".AdvertisementPeer::ID.")", "themesCount");
 		}
+		
 		return $criteria;
 	}
 
