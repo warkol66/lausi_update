@@ -48,7 +48,7 @@
 			<p>
 				<label for="filters[searchFromDate]">Fecha inicio</label>
 				<input name="filters[searchFromDate]" type="text" id="fromDate" title="fromDate" value="|-if $filters.searchFromDate neq ''-||-$filters.searchFromDate|date_format:"%d-%m-%Y"-||-else-||-$smarty.now|date_format:"%d-%m-%Y"-||-/if-|" size="12" /> 
-				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('fromDate', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[searchFromDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			<p>
 				<input type="hidden" name="do" value="lausiWorkforcesAssign" />
