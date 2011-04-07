@@ -1,10 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("ThemePeer.php");
-require_once("AddressPeer.php");
-require_once("AdvertisementPeer.php");
-
 class LausiThemesProposeRotationXAction extends BaseAction {
 
 
