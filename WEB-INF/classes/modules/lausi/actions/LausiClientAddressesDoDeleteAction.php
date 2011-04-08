@@ -1,8 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("ClientAddressPeer.php");
-
 class LausiClientAddressesDoDeleteAction extends BaseAction {
 
 
@@ -30,8 +27,7 @@ class LausiClientAddressesDoDeleteAction extends BaseAction {
 	* @returns ActionForward
 	*/
 	function execute($mapping, $form, &$request, &$response) {
-
-    BaseAction::execute($mapping, $form, $request, $response);
+    	BaseAction::execute($mapping, $form, $request, $response);
 
 		//////////
 		// Access the Smarty PlugIn instance
@@ -50,7 +46,5 @@ class LausiClientAddressesDoDeleteAction extends BaseAction {
     	ClientAddressPeer::delete($_POST["id"]);
 
 		return $mapping->findForwardConfig('success');
-
 	}
-
 }
