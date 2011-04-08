@@ -2,7 +2,12 @@ BaseMap = function() {
 	//Referencia al mapa
 	this.map;
 	
+	//Indica si se habilita el comportamiento que esté definido en el
+	//manejador del evento onClick del mapa.
 	this.mapClickable = false;
+	
+	//Indica si se pueden arrastrar los markers.
+	this.markersDraggables = false;
 	
 	//Referencias a los markers.
 	//id => marker
@@ -90,7 +95,8 @@ BaseMap = function() {
 		marker = new google.maps.Marker({
 	       	map: _this.map, 
 	       	position: position,
-	       	icon: icon
+	       	icon: icon,
+	       	draggable: _this.markersDraggables
 	    });
 	    
 	    google.maps.event.addListener(marker, 'click', function() {
@@ -137,6 +143,13 @@ BaseMap = function() {
 		}
 	}
 	
+	this.removeAllMarkers = function() {
+		var _this = this;
+		_this.markers.each(function(marker, id) {
+			_this.removeMarker(id);
+		})
+	}
+	
 	/**
 	 * Hace que el marker no se muestre en el mapa, pero conserva las referencias a él.
 	 */
@@ -165,6 +178,20 @@ BaseMap = function() {
 			if (showInfo)
 				_this.showMarkerInfo(markerId)
 		}
+	}
+	
+	this.hideAllMarkers = function() {
+		var _this = this;
+		_this.markers.each(function(marker, id) {
+			_this.hideMarker(id);
+		})
+	}
+	
+	this.showAllMarkers = function() {
+		var _this = this;
+		_this.markers.each(function(marker, id) {
+			_this.showMarker(id);
+		})
 	}
 	
 	/**
@@ -290,4 +317,20 @@ BaseMap = function() {
 	 * contenido del LausiCircuitsDraw.tpl
 	 */
 	this.drawCircuits = function() {}
+	
+	/**
+	 * Shortcut para que todos los markers existentes pasen a ser draggables o no draggables.
+	 * 
+	 * @param bool draggable, valor a imponer como draggable. true por defecto.
+	 */
+	this.setAllMarkersDraggable = function(daggable) {
+		var _this = this;
+		if (draggable === undefined)
+			draggable = true;
+			
+		_this.markersDraggables = daggable;
+		_this.markers.each(function(marker) {
+			marker.setDraggable(daggable);
+		})
+	}
 };
