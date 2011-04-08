@@ -24,6 +24,7 @@ BaseMap = function() {
 	
 	//Mapeo de tipos de markers con sus respectivos iconos.
 	this.icons = {
+		pinBlue: 'images/pin_blue.png',
 		available: 'images/marker_green.png', 
 		assigned: 'images/marker_blue.png',
 		partiallyAssigned: 'images/partiallyAssigned.png',
