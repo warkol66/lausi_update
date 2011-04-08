@@ -1,3 +1,9 @@
+|-if $result.radius gt 0-|
+	|-assign var=help value="distributionByDistance"-|
+|-else-|
+	|-assign var=help value="distribution"-|
+|-/if-|
+|-include file="LausiMapHelpInclude.tpl" help=$help-|
 <div id="map_canvas"></div>
 
 <script type="text/javascript" language="javascript">

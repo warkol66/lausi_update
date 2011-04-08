@@ -643,3 +643,17 @@ fieldset li {
 	width: 14px;
 	height: 14px;
 }
+
+#help {
+	display:block;
+	height:20px;
+	width:100%;
+	padding-right:50px;
+}
+#helpMap {
+	padding:10px;
+	float:left;
+	margin-bottom:10px;
+	position:absolute;
+	z-index:12000;
+}
