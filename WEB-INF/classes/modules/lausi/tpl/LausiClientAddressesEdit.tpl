@@ -8,8 +8,8 @@
 	<legend>Direcciones de Clientes</legend>
 <form name="form_edit_clientaddress" id="form_edit_clientaddress" action="Main.php" method="post">
 	<p>
-			<label for="clientId">Cliente</label>
-			<select id="clientId" name="clientId" title="clientId">
+			<label for="address[clientId]">Cliente</label>
+			<select id="clientId" name="address[clientId]" title="clientId">
 				<option value="">Seleccione un Cliente</option>
 								|-foreach from=$clientIdValues item=object-|
 								<option value="|-$object->getid()-|" |-if $clientaddress->getclientId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getname()-|</option>
@@ -17,31 +17,31 @@
 							</select>
 		</p>
 		<p>
-			<label for="street">Calle</label>
-			<input name="street" type="text" id="street" title="street" value="|-$clientaddress->getstreet()-|" size="45" maxlength="100" onChange="$('button_edit_address').disable()" />
+			<label for="address[street]">Calle</label>
+			<input name="address[street]" type="text" id="street" title="street" value="|-$clientaddress->getstreet()-|" size="45" maxlength="100" onChange="$('button_edit_address').disable()" />
 		</p>
 		<p>
-			<label for="number">Número</label>
-			<input name="number" type="text" id="number" title="number" value="|-$clientaddress->getnumber()-|" size="12" onChange="$('button_edit_address').disable()" />
+			<label for="address[number]">Número</label>
+			<input name="address[number]" type="text" id="number" title="number" value="|-$clientaddress->getnumber()-|" size="12" onChange="$('button_edit_address').disable()" />
 		</p>
 		<p>
-			<label for="intersection">Intersección</label>
-			<input name="intersection" type="text" id="intersection" title="intersection" value="|-$clientaddress->getintersection()-|" size="45" maxlength="100" onChange="$('button_edit_address').disable()" />
+			<label for="address[intersection]">Intersección</label>
+			<input name="address[intersection]" type="text" id="intersection" title="intersection" value="|-$clientaddress->getintersection()-|" size="45" maxlength="100" onChange="$('button_edit_address').disable()" />
 		</p>
-		<p><input type="button" id="button_locate" value="Buscar en Mapa" title="Buscar en Mapa" onClick="locate(this.form); $('button_edit_address').enable()"/></p>
+		<p><input type="button" id="button_locate" value="Buscar en Mapa" title="Buscar en Mapa" onClick="addressMap.locate(this.form); $('button_edit_address').enable()"/></p>
 		<p>
-			<input name="latitude" type="hidden" id="latitude" title="latitude" value="|-$clientaddress->getlatitude()|system_numeric_format:8-|" size="12" />
-		</p>
-		<p>
-			<input name="longitude" type="hidden" id="longitude" title="longitude" value="|-$clientaddress->getlongitude()|system_numeric_format:8-|" size="12" />
+			<input name="address[latitude]" type="hidden" id="latitude" title="latitude" value="|-$clientaddress->getlatitude()|system_numeric_format:8-|" size="12" />
 		</p>
 		<p>
-			<label for="type">Tipo</label>
-			<input type="text" id="type" name="type" value="|-$clientaddress->gettype()-|" title="type" maxlength="100" />
+			<input name="address[longitude]" type="hidden" id="longitude" title="longitude" value="|-$clientaddress->getlongitude()|system_numeric_format:8-|" size="12" />
 		</p>
 		<p>
-			<label for="circuitId">Circuito</label>
-			<select id="circuitId" name="circuitId" title="circuitId">
+			<label for="address[type]">Tipo</label>
+			<input type="text" id="type" name="address[type]" value="|-$clientaddress->gettype()-|" title="type" maxlength="100" />
+		</p>
+		<p>
+			<label for="address[circuitId]">Circuito</label>
+			<select id="circuitId" name="address[circuitId]" title="circuitId">
 				<option value="">Seleccione un Circuito</option>
 								|-foreach from=$circuitIdValues item=object-|
 								<option value="|-$object->getid()-|" |-if $clientaddress->getcircuitId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getname()-|</option>
@@ -50,8 +50,8 @@
 						</p>
 		
 		<p>
-			<label for="regionId">Barrio</label>
-			<select id="regionId" name="regionId" title="regionId" onChange="$('button_edit_address').disable()">
+			<label for="address[regionId]">Barrio</label>
+			<select id="regionId" name="address[regionId]" title="regionId" onChange="$('button_edit_address').disable()">
 				<option value="">Seleccione un Barrio</option>
 								|-foreach from=$regionIdValues item=object-|
 								<option value="|-$object->getid()-|" |-if $clientaddress->getregionId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getname()-|</option>

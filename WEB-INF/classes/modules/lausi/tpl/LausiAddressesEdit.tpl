@@ -24,7 +24,7 @@
 				<label for="address[intersection]">Intersección</label>
 				<input name="address[intersection]" type="text" id="intersection" title="intersection" value="|-$address->getintersection()-|" size="45" maxlength="100" onChange="$('button_edit_address').disable()" />
 			</p>
-			<p><input type="button" id="button_locate" value="Buscar en Mapa" title="Buscar en Mapa" onClick="locate(this.form); $('button_edit_address').enable()"/></p>
+			<p><input type="button" id="button_locate" value="Buscar en Mapa" title="Buscar en Mapa" onClick="addressMap.locate(this.form); $('button_edit_address').enable()"/></p>
 			<p>
 				<label for="address[nickname]">Nombre De Fantasía</label>
 				<input name="address[nickname]" type="text" id="number" title="number" value="|-$address->getNickname()-|" size="45" />

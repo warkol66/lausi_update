@@ -16,18 +16,41 @@
  * @package    lausi
  */
 class ClientAddress extends BaseClientAddress {
-
-	function getName() {
 	
-/*TODO Agregar Nickname a dicrecciones de clientes
+	public function save(PropelPDO $con = null) {
+		try {
+			if ($this->validate()) { 
+				parent::save($con);
+				return true;
+			} else {
+				return false;
+			}
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
+	}
+	
+	function __toString() {
+		/*TODO Agregar Nickname a dicrecciones de clientes
 		$nickname = $this->getNickname();
 		if (!empty($nickname))
 			return $nickname;
-*/				
+		*/	
+								
 		if ($this->getNumber() != 0)
-			return $this->getStreet()." ".$this->getNumber();
+           	return $this->getStreet()." ".$this->getNumber();
 		else
-			return $this->getStreet()." y ".$this->getIntersection();
+           	return $this->getStreet()." y ".$this->getIntersection();
+	}
+	
+	/**
+	 * Deprecated, usar __toString()
+	 */
+	function getName() {
+		return $this->__toString();
 	}
 
 } // ClientAddress
