@@ -42,6 +42,8 @@ BaseMap = function() {
 	      mapTypeId: google.maps.MapTypeId.ROADMAP
 	});
 	
+	this.autoincrementalIdx = 0;
+	
 	/**
 	 * Inicia y muestra el mapa.
 	 * 
@@ -92,6 +94,15 @@ BaseMap = function() {
 			icon = '';
 		else
 			icon = _this.icons[type];
+			
+		if (id === undefined) {
+			id = _this.autoincrementalIdx.toString();
+			_this.autoincrementalIdx++;
+		}
+		
+		marker = _this.markers[id];
+		if (marker != undefined)
+			_this.removeMarker(id);
 			
 		marker = new google.maps.Marker({
 	       	map: _this.map, 
@@ -148,7 +159,7 @@ BaseMap = function() {
 		var _this = this;
 		_this.markers.each(function(marker, id) {
 			_this.removeMarker(id);
-		})
+		});
 	}
 	
 	/**
@@ -160,7 +171,7 @@ BaseMap = function() {
 		if (marker != undefined) {
 			marker.setMap(null);
 			_this.hideMarkerInfo(markerId);
-		}
+		};
 	}
 	
 	/**
@@ -178,21 +189,21 @@ BaseMap = function() {
 			marker.setMap(_this.map);
 			if (showInfo)
 				_this.showMarkerInfo(markerId)
-		}
+		};
 	}
 	
 	this.hideAllMarkers = function() {
 		var _this = this;
 		_this.markers.each(function(marker, id) {
 			_this.hideMarker(id);
-		})
+		});
 	}
 	
 	this.showAllMarkers = function() {
 		var _this = this;
 		_this.markers.each(function(marker, id) {
 			_this.showMarker(id);
-		})
+		});
 	}
 	
 	/**
@@ -206,7 +217,9 @@ BaseMap = function() {
 		var marker = _this.markers[markerId];
 		if (marker === undefined)
 			return;
-		var infoWindow = new google.maps.InfoWindow();
+		var infoWindow = _this.infoWindows[markerId];
+		if (infoWindow === undefined) 
+			infoWindow = new google.maps.InfoWindow();
 		infoWindow.setContent(information);
 		_this.infoWindows[markerId] = infoWindow;
 	}
@@ -292,7 +305,7 @@ BaseMap = function() {
 	
 	this.markerOnClick = function(marker) {
 		var _this = this;
-		var markerId = _this.idsByPosition(marker.getPosition);
+		var markerId = _this.idsByPosition[marker.getPosition().toString()];
 		this.showMarkerInfo(markerId);
 	}
 	
@@ -307,7 +320,7 @@ BaseMap = function() {
 	this.markerOnMouseOut = function(marker) {}
 	
 	this.mapOnClick = function(map, mouseEvent) {
-		_this.displayMarker(mouseEvent.latLng);
+		this.displayMarker(undefined, mouseEvent.latLng);
 	}
 	
 	/// Fin de Event Handlers

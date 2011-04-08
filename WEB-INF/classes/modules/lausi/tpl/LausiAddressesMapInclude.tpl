@@ -13,18 +13,16 @@
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 <script type="text/javascript" src="scripts/keydragzoom_packed.js"></script>
+<script type="text/javascript" src="scripts/lausi-map-base.js"></script>
 <script type="text/javascript" src="scripts/lausi-map-address.js"></script>
 
 <script type="text/javascript">
 	var addressMap = new AddressMap();
 	var latlng = new google.maps.LatLng(|-if $address->getLatitude() ne '' && $address->getLongitude() ne ''-|'|-$address->getLatitude()-|', '|-$address->getLongitude()-|'|-else-|'-34.649', '-58.456'|-/if-|);
-	addressMap.mapOptions = {
-		zoom: |-if $address->getId() ne ''-|16|-else-|12|-/if-|,
-		center: latlng
-	};
+	addressMap.mapOptions.zoom = |-if $address->getId() ne ''-|16|-else-|12|-/if-|;
+	addressMap.mapOptions.zoom = latlng;
 	
 	addressMap.drawCircuits = function() {
-		var _this = this;
-		|-include file="LausiCircuitsDraw.tpl" mapJsVarName="_this"-|
+		|-include file="LausiCircuitsDraw.tpl"-|
 	}
 </script>

@@ -1,64 +1,40 @@
 AddressMap = function() {
-	this.map;
+	this.parent = new BaseMap;
+	this.inheritance = BaseMap;
+	this.inheritance();
+	
+	this.markerBeingDragIndex;
+	
 	this.geocoder;
-	this.infowindow = new google.maps.InfoWindow();
-	this.marker;
 	this.suggestions = [];
-	this.mapOptions = new Hash();
+	this.markersDraggables = true;
+	this.mapClickable = true;
 	
 	this.initializeMap = function(canvasId) {
 		var _this = this;
+		
+		_this.parent.initializeMap.call(_this, canvasId);
+		
 	    _this.directionsDisplay = new google.maps.DirectionsRenderer();
 	    _this.geocoder = new google.maps.Geocoder();
-	    var latlng = new google.maps.LatLng('-34.649', '-58.456');
-	    var myOptions = new Hash({
-	      zoom: 12,
-	      center: latlng,
-	      mapTypeId: google.maps.MapTypeId.ROADMAP
-	    });
-	    
-	    myOptions.update(_this.mapOptions);
-	    	
-	    _this.map = new google.maps.Map(document.getElementById(canvasId), myOptions.toObject());
-
-	    _this.map.enableKeyDragZoom({
-                boxStyle: {
-                  border: "thick blue",
-                  backgroundColor: "blue",
-                  opacity: 0.3
-                },
-                paneStyle: {
-                  backgroundColor: "grey",
-                  opacity: 0.1
-                }
-        });
-	    
-	  	google.maps.event.addListener(_this.map, 'click', function(evnt) {
-	  		_this.clearResultsList();
-	    	_this.displayMarker(evnt.latLng);
-	    	_this.updateAddressInfoByPosition(evnt.latLng);
-	  	});
 	}
 	
-	this.displayMarker = function(position) {
+	this.mapOnClick = function(map, mouseEvent) {
+		this.clearResultsList();
+	    this.displayMarker("unique", mouseEvent.latLng);
+	    this.updateAddressInfoByPosition(mouseEvent.latLng);
+	}
+	
+	this.markerOnDragstart = function(marker) {
+		this.markerBeingDragIndex = this.idsByPosition[marker.getPosition()];
+		this.idsByPosition.unset(marker.getPosition().toString());
+	}
+	
+	this.markerOnDragend = function(marker) {
 		var _this = this;
-		if (!_this.marker) {
-			_this.marker = new google.maps.Marker({
-	        	map: _this.map, 
-	        	position: position,
-	        	draggable: true
-	        });
-	        google.maps.event.addListener(_this.marker, 'click', function() {
-	    		_this.infowindow.open(_this.map, _this.marker);
-	  		});
-	  		
-		  	google.maps.event.addListener(_this.marker, 'dragend', function() {
-		  		_this.clearResultsList;
-		  		_this.updateAddressInfoByPosition(_this.marker.getPosition());
-		  	});
-	    } else {
-	    	_this.marker.setPosition(position);
-	    }
+		_this.idsByPosition[marker.getPosition().toString()] = _this.markerBeingDragIndex;
+		this.clearResultsList;
+		this.updateAddressInfoByPosition(marker.getPosition());
 	}
 	
 	this.updateAddressInfoByPosition = function(position) {
@@ -67,6 +43,9 @@ AddressMap = function() {
 	      _this.geocoder.geocode({'latLng': position}, function(results, status) {
 	        if (status == google.maps.GeocoderStatus.OK) {
 	          if (results[0]) {
+	          	var markerId = _this.idsByPosition[position.toString()];
+				_this.setMarkerInfo(markerId, results[0].formatted_address);
+				_this.showMarkerInfo(markerId);
 				_this.updateAddressInfoByResult(results[0]);
 	          }
 	        } else {
@@ -79,8 +58,6 @@ AddressMap = function() {
 	
 	this.updateAddressInfoByResult = function(result) {
 		var _this = this;
-		_this.infowindow.setContent(result.formatted_address);
-	    _this.infowindow.open(_this.map, _this.marker);
 	    
 	    var addressComponents = result.address_components;
 	    var routeComponent = _this.getComponent(addressComponents, 'route');
@@ -99,6 +76,10 @@ AddressMap = function() {
 			number = '';
 		}
 		$('number').value = number;
+		
+		var markerId = _this.idsByPosition[result.geometry.location.toString()];
+		_this.setMarkerInfo(markerId, result.formatted_address);
+		_this.showMarkerInfo(markerId);
 		
 		$('latitude').value = result.geometry.location.lat();
 		$('longitude').value = result.geometry.location.lng();
@@ -151,7 +132,6 @@ AddressMap = function() {
 		$('map_container').show();
 		if (!_this.map) {
 			_this.initializeMap('map_canvas');
-			_this.drawCircuits();
 		}
 		
 		_this.clearResultsList();
@@ -176,7 +156,7 @@ AddressMap = function() {
 	     		if (status == google.maps.GeocoderStatus.OK) {
 	     			_this.suggestions.clear();
 	    			var result = results[0];
-	    			_this.displayMarker(result.geometry.location);
+	    			_this.displayMarker("unique", result.geometry.location);
 	    			_this.updateAddressInfoByResult(result);
 	    			if (results.size() > 1)
 	    				_this.displayResultsList(results);
@@ -198,7 +178,7 @@ AddressMap = function() {
 			});
 			li.update(result.formatted_address);
 			li.onclick = function() {
-				_this.displayMarker(_this.suggestions['suggestion_'+idx].geometry.location);
+				_this.displayMarker("unique", _this.suggestions['suggestion_'+idx].geometry.location);
 				_this.updateAddressInfoByResult(_this.suggestions['suggestion_'+idx]);
 			};
 			resultsList.insert({bottom: li});
