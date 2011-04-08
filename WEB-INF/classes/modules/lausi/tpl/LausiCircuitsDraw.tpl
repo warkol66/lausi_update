@@ -1,4 +1,8 @@
+|-if $mapJsVarName ne ''-|
 var theMap = |-$mapJsVarName-|;
+|-else-|
+var theMap = this;
+|-/if-|
 |-foreach from=$circuits item=circuit-|
 	|-assign var=circuitPoints value=$circuit->getCircuitPoints()-|
 	|-if $circuitPoints ne '' && $circuitPoints|@count > 2-|
