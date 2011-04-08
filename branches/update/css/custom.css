@@ -1,6 +1,6 @@
 body {
 	background-color: #999999;
-	background-image: url(../images/bkg_panel.gif);
+	background-image: url(../images/bkg_panel.png);
 	background-position:top left;
 	background-repeat:repeat-x;
 	background-attachment: fixed;
@@ -74,13 +74,13 @@ body {
 	color: #333;
 }
 #footer { 
-	background-color: #122239;
+	background-color: #9ccc66;
 	border-bottom: solid 5px #0066cc;
 	border-left: solid 5px #0066cc;
 	border-right: solid 5px #0066cc;
 }
 #footer p{
-	color: #FFF;
+	color: #ffffff;
 }
 /* /wrapper -----------------------------------------------------------*/ 
 
@@ -557,3 +557,11 @@ legend {
 }
 
 
+#helpMap {
+	background-color:#FFFFFF;
+	border:#0066cc 1px solid;
+	-khtml-border-radius: 10px;
+	-opera-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}

@@ -1,11 +1,12 @@
 <h2>Configuración del Sistema</h2>
 <h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Dirección de Cliente</h1>				<div id="div_clientaddress">
-<form name="form_edit_clientaddress" id="form_edit_clientaddress" action="Main.php" method="post">
 	|-if $message eq "error"-|<span class="message_error">Ha ocurrido un error al intentar guardar la dirección de cliente</span>|-/if-|
 	<p>
 		Ingrese los datos de la dirección de cliente.
 	</p>
 	<fieldset title="Formulario de edición de datos de una dirección de cliente">
+	<legend>Direcciones de Clientes</legend>
+<form name="form_edit_clientaddress" id="form_edit_clientaddress" action="Main.php" method="post">
 	<p>
 			<label for="clientId">Cliente</label>
 			<select id="clientId" name="clientId" title="clientId">
@@ -64,8 +65,9 @@
 			<input type="hidden" name="action" id="action" value="|-$action-|" />
 			<input type="hidden" name="do" id="do" value="lausiClientAddressesDoEdit" />
 			<input type="submit" id="button_edit_address" name="button_edit_clientaddress" title="Aceptar" value="Aceptar" />
+			<input type='button' onClick='location.href="Main.php?do=lausiClientAddressesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Cancelar' title="Regresar al listado de direcciones de clientes"/>
 		</p>
-			</fieldset>
 </form>
-</div>
 |-include file="LausiAddressesMapInclude.tpl" address=$clientaddress-|
+			</fieldset>
+</div>

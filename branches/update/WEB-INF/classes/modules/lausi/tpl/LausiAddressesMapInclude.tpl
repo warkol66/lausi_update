@@ -1,5 +1,6 @@
 <!-- mapa google -->
 <div id="map_container" style="display:none">
+|-include file="LausiMapHelpInclude.tpl"-|
 	<div id="map_canvas"></div>
 	<div><ul id="directions_results"></ul></div>
 	<br />

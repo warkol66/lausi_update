@@ -1,6 +1,6 @@
 <fieldset>
 <legend>Circuito</legend>
-|-include file="LausiHelpInclude.tpl" help="circuit"-|
+|-include file="LausiMapHelpInclude.tpl" help="circuit"-|
 <div id="point_dummy_container">
 	<div id="point_dummy">
 		<input type="hidden" id="point_dummy_latitude" name="circuitPoints[point_dummy][params][latitude]" value="" />

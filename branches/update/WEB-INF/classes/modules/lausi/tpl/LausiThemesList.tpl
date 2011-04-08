@@ -63,7 +63,7 @@
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="lausiThemesActiveToggleX" />
 						<input type="hidden" name="themeId" value="|-$theme->getid()-|" />
-						<input type="checkbox" name="active" id="active_|-$theme->getId()-|"|-if $theme->getActive()-| checked="checked"|-/if-| onchange="javascript:lausiThemeActiveToggle(this.form);" />
+						<input type="checkbox" name="active" id="active_|-$theme->getId()-|" |-$theme->getActive()|checked:1-| onchange="javascript:lausiThemeActiveToggle(this.form);" />
 						<span id="msgbox_|-$theme->getId()-|"></span>
 					</form>
 				</td>
