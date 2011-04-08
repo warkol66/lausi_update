@@ -1,8 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("ClientAddressPeer.php");
-
 class LausiClientAddressesListAction extends BaseAction {
 
 
@@ -30,8 +27,7 @@ class LausiClientAddressesListAction extends BaseAction {
 	* @returns ActionForward
 	*/
 	function execute($mapping, $form, &$request, &$response) {
-
-    BaseAction::execute($mapping, $form, $request, $response);
+    	BaseAction::execute($mapping, $form, $request, $response);
 
 		//////////
 		// Access the Smarty PlugIn instance
@@ -57,5 +53,4 @@ class LausiClientAddressesListAction extends BaseAction {
 
 		return $mapping->findForwardConfig('success');
 	}
-
 }
