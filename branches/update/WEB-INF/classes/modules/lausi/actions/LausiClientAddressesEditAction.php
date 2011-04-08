@@ -1,8 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("ClientAddressPeer.php");
-
 class LausiClientAddressesEditAction extends BaseAction {
 
 
@@ -50,29 +47,20 @@ class LausiClientAddressesEditAction extends BaseAction {
     	if ( !empty($_GET["id"]) ) {
 			//voy a editar un clientaddress
 			$clientaddress = ClientAddressPeer::get($_GET["id"]);
-			$smarty->assign("clientaddress",$clientaddress);
-			require_once("CircuitPeer.php");		
-			$smarty->assign("circuitIdValues",CircuitPeer::getAll());
-			require_once("ClientPeer.php");		
-			$smarty->assign("clientIdValues",ClientPeer::getAll());
-			require_once("RegionPeer.php");		
-			$smarty->assign("regionIdValues",RegionPeer::getAll());
-
 	    	$smarty->assign("action","edit");
-		}
-		else {
+		} else {
 			//voy a crear un clientaddress nuevo
 			$clientaddress = new ClientAddress();
-			$smarty->assign("clientaddress",$clientaddress);			
-			require_once("CircuitPeer.php");		
-			$smarty->assign("circuitIdValues",CircuitPeer::getAll());
-			require_once("ClientPeer.php");		
-			$smarty->assign("clientIdValues",ClientPeer::getAll());
-			require_once("RegionPeer.php");		
-			$smarty->assign("regionIdValues",RegionPeer::getAll());
-
 			$smarty->assign("action","create");
 		}
+		
+		$smarty->assign("clientaddress",$clientaddress);			
+		$smarty->assign("circuitIdValues",CircuitPeer::getAll());
+		$smarty->assign("clientIdValues",ClientPeer::getAll());
+		$smarty->assign("regionIdValues",RegionPeer::getAll());
+		
+		//Esto es para dibujar los poligonos de los circuitos sobre el mapa
+		$smarty->assign("circuits",CircuitPeer::getAll());
 
 		$smarty->assign("message",$_GET["message"]);
 

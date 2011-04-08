@@ -70,9 +70,8 @@ class LausiAddressesEditAction extends BaseAction {
 			
 			$smarty->assign("groupByTheme",$groupByTheme);
 			
-	    $smarty->assign("action","edit");
-		}
-		else {
+	    	$smarty->assign("action","edit");
+		} else {
 			//voy a crear un address nuevo
 			$address = new Address();
 			$smarty->assign("action","create");

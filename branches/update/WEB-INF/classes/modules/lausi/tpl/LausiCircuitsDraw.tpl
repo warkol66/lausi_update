@@ -1,8 +1,9 @@
+var theMap = |-$mapJsVarName-|;
 |-foreach from=$circuits item=circuit-|
 	|-assign var=circuitPoints value=$circuit->getCircuitPoints()-|
 	|-if $circuitPoints ne '' && $circuitPoints|@count > 2-|
 		var polygonDrawing = new google.maps.Polygon({
-			map: map,
+			map: theMap.map,
 			clickable: false,
 			fillOpacity: 0.15,
 			strokeOpacity: 0.25

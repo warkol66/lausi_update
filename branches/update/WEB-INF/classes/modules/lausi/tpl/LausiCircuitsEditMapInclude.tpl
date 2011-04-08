@@ -16,23 +16,25 @@
 <script type="text/javascript" src="scripts/lausi-map-circuit.js"></script>
 
 <script type="text/javascript" language="javascript">
-	initializeMap();
+	var circuitMap = new CircuitMap();
+	
+	circuitMap.initializeMap("map_canvas");
 	
 	|-foreach from=$circuitPoints key=key item=point-|
 		var loc = new google.maps.LatLng('|-$point->getLatitude()-|', '|-$point->getLongitude()-|');
-		var marker = displayMarker(loc);
-		points[marker.position.toString()] = 'point_|-$key-|';
-		polyLine.getPath().push(loc);
+		var marker = circuitMap.displayMarker(loc);
+		circuitMap.points[marker.position.toString()] = 'point_|-$key-|';
+		circuitMap.polyLine.getPath().push(loc);
 	|-/foreach-|
 	
 	|-if $circuit->getColor() ne ''-|
-		polygon.setOptions({fillColor:'|-$circuit->getColor()-|',strokeColor: '|-$circuit->getColor()-|'});
+		circuitMap.polygon.setOptions({fillColor:'|-$circuit->getColor()-|',strokeColor: '|-$circuit->getColor()-|'});
 	|-/if-|
 	
 	|-if $circuitPoints|@count > 2-|
-		closePolygon();
+		circuitMap.closePolygon();
 	|-/if-|
 	
-	|-include file="LausiCircuitsDraw.tpl"-|
+	|-include file="LausiCircuitsDraw.tpl" mapJsVarName="circuitMap"-|
 </script>
 </fieldset>
