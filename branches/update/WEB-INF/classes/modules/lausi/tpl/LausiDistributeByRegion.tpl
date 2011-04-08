@@ -1,6 +1,7 @@
 <script type="text/javascript" language="javascript" src="scripts/lausi-distribution.js" ></script>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 <script type="text/javascript" src="scripts/keydragzoom_packed.js"></script>
+<script type="text/javascript" src="scripts/lausi-map-base.js"></script>
 <script type="text/javascript" src="scripts/lausi-map-distribution.js"></script>
 |-if not isset($ajax)-|
 <h2>Distribución de Motivos</h2>
@@ -57,4 +58,8 @@ Luego haga click en "Desplegar opciones de Distribución" para obtener la propue
 
 <script type="text/javascript">
 	lausiUpdateDistributeCountRegion();
+</script>
+
+<script type="text/javascript">
+	var distributionMap = new DistributionMap();
 </script>

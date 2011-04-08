@@ -7,7 +7,6 @@
 <div id="map_canvas"></div>
 
 <script type="text/javascript" language="javascript">
-	var distributionMap = new DistributionMap();
 	distributionMap.initializeMap('map_canvas');
 	
 	|-foreach from=$results item=result name=for_result-|
@@ -17,13 +16,13 @@
 		|-elseif $byAddress eq 'Separator3'-|	
 		|-else-|
 			|-assign var=address value=$byAddress.address-|
-			distributionMap.displayMarker(|-$address->getId()-|, new google.maps.LatLng('|-$address->getLatitude()-|', '|-$address->getLongitude()-|'), |-if $byAddress.selected == $byAddress.elements|@count-|'assigned'|-elseif $byAddress.selected == 0-|'available'|-else-|'partiallyAssigned'|-/if-|, function(marker){javascript:switch_vis('div_|-$address->getId()-|'); document.location.href = '#div_|-$address->getId()-|';});
+			distributionMap.displayMarker(|-$address->getId()-|, new google.maps.LatLng('|-$address->getLatitude()-|', '|-$address->getLongitude()-|'), |-if $byAddress.selected == $byAddress.elements|@count-|'assigned'|-elseif $byAddress.selected == 0-|'available'|-else-|'partiallyAssigned'|-/if-|);
 		|-/if-|
 		|-/foreach-|
 	|-/foreach-|
 	
 	|-if $clientAddress ne '' && $clientAddress->getId() ne ''-|
-		distributionMap.displayMarker(|-$clientAddress->getId()-|, new google.maps.LatLng('|-$clientAddress->getLatitude()-|', '|-$clientAddress->getLongitude()-|'), 'client', function(marker){});
+		distributionMap.displayMarker(|-$clientAddress->getId()-|, new google.maps.LatLng('|-$clientAddress->getLatitude()-|', '|-$clientAddress->getLongitude()-|'), 'client');
 		
 		|-if $radiusRanges ne '' && $radiusRanges|@count > 2-|
 			|-foreach from=$radiusRanges item=radius key=from-|
