@@ -1,5 +1,5 @@
 body {
-	background-color: #999999;
+	background-color: #e7ecf2;
 	background-image: url(../images/bkg_panel.png);
 	background-position:top left;
 	background-repeat:repeat-x;
@@ -87,6 +87,7 @@ body {
 /* content -----------------------------------------------------------*/ 
 #rightColumn h1{
 	color:#0066CC;
+	padding-bottom: 0px !Important;
 	border-bottom: solid 1px #0066cc;
 }
 #rightColumn h2{
@@ -94,6 +95,7 @@ body {
 }
 #rightColumn h3, h4 {
 	color:#0066CC;
+	margin-bottom: 5px !Important;
 }
 #rightColumn h2 a:link, #rightColumn h2 a:visited{
 	color: #003399;

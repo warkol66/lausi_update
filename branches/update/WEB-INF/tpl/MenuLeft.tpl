@@ -8,7 +8,7 @@
 			<li><a href="Main.php?do=lausiCircuitsList">Circuitos</a></li>
 			<li><a href="Main.php?do=lausiRegionsList">Barrios</a></li>
 			<li><a href="Main.php?do=lausiAddressesList">Direcciones</a></li>
-			<li><a href="Main.php?do=lausiAddressesOrder">Ordenamiento de Direcciones</a></li>
+			<!--<li><a href="Main.php?do=lausiAddressesOrder">Ordenamiento de Direcciones</a></li>-->
 			<li><a href="Main.php?do=lausiBillboardsList">Carteleras</a></li>
 			<li><a href="Main.php?do=lausiWorkforcesList">Contratistas</a></li>
 			<li><a href="Main.php?do=lausiWorkforcesAssignAdmin">Avisos Sextuples por Contratista</a></li>
