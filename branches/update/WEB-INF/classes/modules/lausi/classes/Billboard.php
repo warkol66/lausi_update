@@ -81,13 +81,15 @@ class Billboard extends BaseBillboard {
         }
         
 		/**
-		 * Indica si la cartelera esta disponible hoy
+		 * Indica si la cartelera esta disponible en una fecha pasada por parámetro
+		 * Se entiende que la cartelera está disponible si no tiene ningún aviso publicado en esa fecha.
 		 *
-		 * @return boolean devuelve true si esta disponible o la instancia que esta ocupando en este momento la cartelera
+		 * @param: DateTime $date, fecha por la que se filtra, por defecto es la fecha de hoy.
+		 * @return boolean devuelve true si esta disponible, false en caso contrario.
 		 */
-		public function isAvailableToday() {
+		public function isAvailableToday($date = null) {
 			return AdvertisementQuery::create()
-				->filterByCurrent()
+				->filterByCurrent($date)
 				->filterByBillboard($this)
 				->count() == 0;
 		}
