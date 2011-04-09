@@ -153,7 +153,7 @@
 			|-if not isset($themeId)-|
 				|-if not isset($filters.searchGroupByAddress) -|
 					<!--caso carteleras -->
-					<td>|-if ($billboard->isAvailableToday())-|No|-else-|Si (|-assign var=theme value=$billboard->getCurrentTheme()-||-if !empty($theme)-||-$theme->getName()-||-else-|-|-/if-|)|-/if-|</td>
+					<td>|-if ($billboard->isAvailableToday())-|Si|-else-|No (|-assign var=theme value=$billboard->getCurrentTheme()-||-if !empty($theme)-||-$theme->getName()-||-else-|-|-/if-|)|-/if-|</td>
 				|-else-|
 					<!--caso agrupado por direccion -->
 					<td>|-assign var=aThemes value=$currentAddress->getCurrentThemes()-|
