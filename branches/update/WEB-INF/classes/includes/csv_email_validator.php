@@ -1,7 +1,7 @@
 <?php
 
 	
-	require_once('../common.inc.php');
+	require_once('Common.class.php');
 
 	function usage() {
 		echo "Validador de Emails:\n";
