@@ -9,10 +9,10 @@ INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES
 INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'UsersDoLogin', 'User login error','eng','failure');
 INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'UsersPasswordRecovery', '','esp','success');
 INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'UsersPasswordRecovery', '','eng','success');
-INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'UsersDoPasswordRecovery', 'Recuperacion de Password Exitosa','esp','success');
-INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'UsersDoPasswordRecovery', 'Password recovery successful','eng','success');
-INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'UsersDoPasswordRecovery', 'Recuperacion de password fallida','esp','failure');
-INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'UsersDoPasswordRecovery', 'Password recovery failed','eng','failure');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'UsersPasswordDoRecovery', 'Recuperacion de Password Exitosa','esp','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'UsersPasswordDoRecovery', 'Password recovery successful','eng','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'UsersPasswordDoRecovery', 'Recuperacion de password fallida','esp','failure');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'UsersPasswordDoRecovery', 'Password recovery failed','eng','failure');
 INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'UsersWelcome', '','esp','success');
 INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'UsersWelcome', '','eng','success');
 INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'UsersLoginMaintenance', '','esp','success');

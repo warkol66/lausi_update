@@ -8,8 +8,8 @@ INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES
 INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES('UsersDoLogin', 'Inicio sesión de usuario exitoso', 'esp', 'success');
 INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES('UsersDoLogin', 'Inicio sesión de usuario erroneo', 'esp', 'failure');
 INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES('UsersDoLogout', 'Fin de sesión exitoso', 'esp', 'success');
-INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES('UsersDoPasswordRecovery', 'Recuperación de contraseña fallida', 'esp', 'failure');
-INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES('UsersDoPasswordRecovery', 'Recuperación de contraseña exitosa', 'esp', 'success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES('UsersPasswordDoRecovery', 'Recuperación de contraseña fallida', 'esp', 'failure');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES('UsersPasswordDoRecovery', 'Recuperación de contraseña exitosa', 'esp', 'success');
 INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES('UsersDoRemoveFromGroup', 'Usuario eliminado de grupo exitosamente', 'esp', 'success');
 INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES('UsersGroupsDoAddCategoryToGroup', 'Agregado de categoría a grupo exitoso', 'esp', 'success');
 INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES('UsersGroupsDoDelete', 'Grupo de usuarios eliminado exitosamente', 'esp', 'success');
