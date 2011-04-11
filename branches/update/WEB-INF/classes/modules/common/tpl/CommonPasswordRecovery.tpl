@@ -2,7 +2,7 @@
 <form method='post' action="Main.php?do=commonPasswordRecoverySendConfirmationRequest">
 	<div id="loginWrapper">
 	<!-- Begin Login --> 
-	<div id="login"><img src="images/passRecoveryTop.png" />
+	<div id="login">
 		 <!-- Begin LoginTop --> 
 		 <div id="loginTop"></div> 
 		 <!-- End LoginTop --> 
