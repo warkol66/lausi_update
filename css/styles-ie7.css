@@ -58,3 +58,8 @@ input.iconSetPrivileges, input.iconOwner, input.iconRead, input.iconUnread {
 	vertical-align: top;
 	overflow: hidden;
 }
+#loginButton { 
+	line-height: 999px;
+	vertical-align: top;
+	overflow: hidden;
+}

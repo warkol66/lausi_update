@@ -36,3 +36,19 @@
 fieldset {
 	margin-bottom: 3.5em; /*    2em ORIGINAL */
 }
+/* Image Buttons and Links */
+input.iconActivate, input.iconAdd, input.iconBack, input.iconBudget, input.iconDelete, input.iconDetail, input.iconDownload,
+input.iconEdit, input.iconEmail, input.iconFollow, input.iconGoTo, input.iconGraph, input.iconHelp, input.iconHistory, input.iconIndicator,
+input.iconInfo, input.iconManufacture, input.iconOrder, input.iconPassword, input.iconPlus, input.iconRestore, input.iconRestoreFromServer,
+input.iconSendMultiple, input.iconStoreInServer, input.iconStoreLocal, input.iconThumbnail, input.iconUpload,
+input.iconView, input.iconViewGantt, input.iconWeight, input.iconAddToCart, input.iconRemoveFromCart, input.iconUpdateCart,
+input.iconSetPrivileges, input.iconOwner, input.iconRead, input.iconUnread {
+	line-height: 999px;
+	vertical-align: top;
+	overflow: hidden;
+}
+#loginButton { 
+	line-height: 999px;
+	vertical-align: top;
+	overflow: hidden;
+}
