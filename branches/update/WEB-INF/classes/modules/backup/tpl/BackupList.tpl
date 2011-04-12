@@ -40,7 +40,7 @@
 	<p>Generar respaldo almacenado en el servidor &nbsp;&nbsp;
 	 <a href='Main.php?do=backupCreate' title='Generar respaldo de datos en servidor' class='textLinkButton'>Sólo datos&nbsp;&nbsp;&nbsp;<img src="images/clear.png" class='iconStoreInServer' /></a>	
 		&nbsp;&nbsp;
-		<a href='Main.php?do=backupCreate&amp;options[complete]=1' title='Generar respaldo completo en servidor, incluyendo datos y archivos del sistema.' class='textLinkButton'>Completo<img src="images/clear.png"  class='iconStoreInServer' /></a>
+		<a href='Main.php?do=backupCreate&amp;options[complete]=1' title='Generar respaldo completo en servidor, incluyendo datos y archivos del sistema.' class='textLinkButton'>Completo&nbsp;&nbsp;&nbsp;<img src="images/clear.png" class='iconStoreInServer' /></a>
 	</p>
 	<p>Generar respaldo para descargar &nbsp;&nbsp;
 <a href='Main.php?do=backupCreate&amp;options[toFile]=1' title='Generar respaldo de datos para descargar' class='textLinkButton'>Sólo datos&nbsp;&nbsp;&nbsp;<img src="images/clear.png" class='iconStoreLocal' /></a>
@@ -81,7 +81,7 @@
 		|-/if-|
 		|-foreach from=$filenames item=filename key=counter name=for_filenames-|
 			<tr>
-				<td><a href="Main.php?do=backupDownload&filename=|-$filename.name-|"><img src="images/clear.png"  class='iconDownload' /></a></td>
+				<td><a href="Main.php?do=backupDownload&filename=|-$filename.name-|" title="Descargar este respaldo"><img src="images/clear.png" class='iconDownload' /></a></td>
 				<td>|-$filename.name-|</td>
 				<td align="right" nowrap="nowrap">|-$filename.time|date_format:"%Y-%m-%d %H:%M:%S"|change_timezone|date_format:"%d-%m-%Y %H:%M:%S"-|</td>
 				<td align="right">|-$filename.size|number_format:3:",":"."-| kb</td>

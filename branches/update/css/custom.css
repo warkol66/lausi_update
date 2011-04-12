@@ -532,6 +532,7 @@ a.textLink:visited, a.textLink:active{
 	line-height: 1.85em;
 	padding: .25em .4em .3em .4em;
 	vertical-align: middle;
+	white-space: nowrap;
 }
 .textLinkButton:hover {
 	background-color: #a0a0a0;/*#d0d0d0; */

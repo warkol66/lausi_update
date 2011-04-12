@@ -33,17 +33,20 @@ input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hove
 .iconRead, .iconUnread {
 	background: url(../images/icons_all.png) no-repeat #f0f0f0;
 	border: solid 1px #ababab !Important;;
-	font-size: 0px !Important;
+	line-height: 999px;
+	vertical-align: top;
+	overflow: hidden;
 	width: 20px;
 	height: 20px;
 	color: transparent !Important;
 	outline: 0 none;
 	cursor: pointer;
 	vertical-align:top;
-	-khtml-border-radius: 2px;
-	-opera-border-radius: 2px;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
+	-khtml-border-radius: .2em;
+	-opera-border-radius: .2em;
+	-moz-border-radius: .2em;
+	-webkit-border-radius: .2em;
+	border-radius: .2em;
 }
 input.iconActivate, input.iconAdd, input.iconBack, input.iconBudget, input.iconDelete, input.iconDetail, input.iconDownload,
 input.iconEdit, input.iconEmail, input.iconFollow, input.iconGoTo, input.iconGraph, input.iconHelp, input.iconHistory, input.iconIndicator,
@@ -51,6 +54,7 @@ input.iconInfo, input.iconManufacture, input.iconOrder, input.iconPassword, inpu
 input.iconSendMultiple, input.iconStoreInServer, input.iconStoreLocal, input.iconThumbnail, input.iconUpload,
 input.iconView, input.iconViewGantt, input.iconWeight, input.iconAddToCart, input.iconRemoveFromCart, input.iconUpdateCart,
 input.iconSetPrivileges, input.iconOwner, input.iconRead, input.iconUnread {
+	font-size: 100%;
 	width: 22px;
 	height: 22px;
 	margin: 0;
@@ -60,10 +64,11 @@ input.iconSetPrivileges, input.iconOwner, input.iconRead, input.iconUnread {
 .disabled {
 	background: url(../images/icons_all_dis.png) no-repeat #f0f0f0;
 	border: solid 1px #ababab !Important;;
-	-khtml-border-radius: 2px;
-	-opera-border-radius: 2px;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
+	-khtml-border-radius: .2em;
+	-opera-border-radius: .2em;
+	-moz-border-radius: .2em;
+	-webkit-border-radius: .2em;
+	border-radius: .2em;
 }
 .iconEdit {
 	background-position: 0px 0px;
