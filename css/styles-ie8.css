@@ -17,6 +17,12 @@ fieldset {
 	margin-top: 2em;
 	margin-bottom: 3.5em; /*    2em ORIGINAL */
 }
+fieldset legend {
+	margin-top: -1.65em;
+	margin-left: -.1em;
+	padding-left: 2px;
+	padding-right: 2px;
+}
 .contentLi{
 	background-image:url(../images/bullet-2.gif);
 	background-position:0 8px;
@@ -35,10 +41,4 @@ div.autocomplete {
 	left:125px !Important;
 	width:350px  !Important;
 	z-index:9999 !Important;
-}
-fieldset legend {
-	margin-top: -1.65em;
-	margin-left: -.1em;
-	padding-left: 2px;
-	padding-right: 2px;
 }

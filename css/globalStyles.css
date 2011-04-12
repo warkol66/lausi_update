@@ -39,14 +39,44 @@ a.addLink:hover, a.addLink:active {
 /* /ADD   ----------------------------------------------*/
 
 /* SEARCH   -------------------------------------------*/
-a.searchLink:link, a.searchLink:active {
-	font-weight: bold;
-	padding: 0 5px 0 20px;
-	margin: 3px;
-	text-decoration: none;
+a.tdTitSearch{
+	display: block;
+	width: 22%;	
+	clear:right;
+	font-weight:bold;
+	text-align:left;
+	padding: 8px 5px 8px 30px;
 }
-a.searchLink:hover, a.searchLink:active {
-	text-decoration: none;
+.tdSearch{
+	width: 95%;
+	height: 40px;	
+	text-align:left;
+	padding: 4px;
+	vertical-align:middle;
+}
+#divSearch{
+	width: 80%;
+	float:left;
+	position:relative;
+	margin: 8px 0 0 30px;   /* ie */
+}
+.tdSearch input{
+	margin-top: 0;
+}
+.tdSearch img{
+	margin:0;
+}
+a.tdSearchButton:link, 
+a.tdSearchButton:visited  {
+	width:auto;
+	display:inline;
+	padding: 0px 5px;
+	margin: 0 0 0 3px;
+	font-weight:bold;
+	text-decoration:none;	
+}
+a.tdSearchButton:hover, 
+a.tdSearchButton:active  {
 }
 /* /SEARCH   -------------------------------------------*/
 
@@ -66,3 +96,35 @@ a.linkMailDelete,a.linkMailDelete:link {
 	text-decoration: none;
 }
 /* /MAILS   --------------------------------------------*/
+
+/*   TABLES   ------------------------------*/
+/*   OTROS LINKS   ------------------------*/
+
+/* posiciona el link de "AGREGAR NUEVA ..." y VOLVER */
+.rightLink{
+	float:right;
+	display:inline;
+	clear:left;
+}
+/* PAGINADO    ----------------------------*/
+.pages{	
+	height: 37px;
+	text-align:center;
+	vertical-align:middle;
+	font-weight:bold;
+}
+a.pageLink:link, a.pageLink:visited {
+	font-weight:normal;
+	text-decoration:underline;
+	margin: 0 2px;
+}
+a.pageLink:hover, a.pageLink:active {
+	font-weight:normal;
+	text-decoration:underline;
+	margin: 0 2px;
+}
+.tdFooter{
+	padding: 5px;
+	text-align:left;
+}
+/* /PAGINADO    ----------------------------*/

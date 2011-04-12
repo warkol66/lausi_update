@@ -216,12 +216,19 @@ a.addLink:hover, a.addLink:active {
 /* ADD   ----------------------------------------------*/
 
 /* SEARCH   -------------------------------------------*/
-.tdTitSearch{
+a.tdTitSearch{
 	background-color: #f4f6f3;
 	background-image:url(../images/icon_search.gif);
-	background-position:9px 0px;
+	background-position:11px 7px;
 	background-repeat:no-repeat;
-	color: #0066CC;
+	text-decoration: none;
+	color:#0054A4;
+}
+a.tdTitSearch:hover, a.tdTitSearch:active {
+	color:#009900;
+}
+a.tdTitSearch:visited {
+	color:#0054A4;
 }
 .tdSearch{
 	background-color: #f4f6f3;
@@ -295,3 +302,19 @@ a.linkMailForward {
 a.linkMailDelete {
 	background-image:url(../images/icon_mailDelete.png);
 }
+
+/* PAGINADO    ----------------------------*/
+.pages{	
+	background-color: #FFF;
+	color:#0066CC;
+}
+a.pageLink:link, a.pageLink:visited {
+	color:#666;
+}
+a.pageLink:hover, a.pageLink:active {
+	color:#0066CC;
+}
+.tdFooter{
+	background-color:#eaeee8;
+}
+/* /PAGINADO    ----------------------------*/

@@ -1,6 +1,6 @@
 <?php
 /*
- * Configuraci�n del Smarty Templates
+ * Configuración del Smarty Templates
  *
  * @package Config
  */
@@ -23,7 +23,8 @@ class SmartyOutputFilter{
 	 * @return string
 	 */
    	function smarty_add_template($html, &$smarty){
-   		if (!empty($GLOBALS[__FUNCTION__])){return $html;}
+   		if (!empty($GLOBALS[__FUNCTION__]))
+        return $html;
    		$GLOBALS[__FUNCTION__] = true;
    		$smarty->assign("centerHTML",$html);
    		$html = $smarty->fetch($this->template);   		
@@ -31,4 +32,3 @@ class SmartyOutputFilter{
    		return $html;
    	}
 }
-?>

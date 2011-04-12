@@ -1,12 +1,16 @@
-<h2>Configuración del Sistema</h2>
-<h1>Administrar Clientes</h1>
+<h2>Administración de Clientes</h2>
+<h1>Clientes del Sistema</h1>
+<p>A continuación se muestra el listado de clientes disponibles en el sistema. Para agregar un nuevo cliente, haga click en "Agregar cliente". Para modificar o eliminar un cliente, utilice los controles disponibles en la fila correspondiente al mismo.</p>
 <div id="div_clients">
-	|-if $message eq "ok"-|<div class="successMessage">Cliente guardado correctamente</div>|-/if-|
-	|-if $message eq "deleted_ok"-|<div class="successMessage">Cliente eliminado correctamente</div>|-/if-|
+	|-if $message eq "ok"-|
+		<div class="successMessage">Cliente guardado correctamente</div>
+	|-elseif $message eq "deleted_ok"-|
+		<div class="successMessage">Cliente eliminado correctamente</div>
+	|-/if-|
 	<table id="tabla-clients" border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 		<thead>
 			<tr>
-				 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiClientsEdit" class="addLink">Agregar Cliente</a></div></th>
+				 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiClientsEdit" class="addLink">Agregar cliente</a></div></th>
 			</tr>
 			<tr>
 				<th>Nombre</th>
@@ -39,7 +43,7 @@
 			</tr>							
 		|-/if-|						
 			<tr>
-				 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiClientsEdit" class="addLink">Agregar Cliente</a></div></th>
+				 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiClientsEdit" class="addLink">Agregar cliente</a></div></th>
 			</tr>
 		</tbody>
 	</table>

@@ -1,8 +1,12 @@
-<h2>Configuración del Sistema</h2>
-<h1>Dirección Importantes de Clientes</h1>
+<h2>Administración de Clientes</h2>
+<h1>Direcciones Importantes de Clientes</h1>
+<p>A continuación se muestra el listado de direcciones importantes de clientes disponibles en el sistema. Para agregar una nueva dirección, haga click en "Agregar Dirección de Cliente". Para modificar o eliminar una dirección, utilice los controles disponibles en la fila correspondiente a la misma.</p>
 <div id="div_clientaddresses">
-	|-if $message eq "ok"-|<div class="successMessage">Dirección de Cliente guardada correctamente</div>|-/if-|
-	|-if $message eq "deleted_ok"-|<div class="successMessage">Dirección de Cliente eliminada correctamente</div>|-/if-|
+	|-if $message eq "ok"-|
+		<div class="successMessage">Dirección de Cliente guardada correctamente</div>
+	|-elseif $message eq "deleted_ok"-|
+		<div class="successMessage">Dirección de Cliente eliminada correctamente</div>
+	|-/if-|
 	<table id="tabla-clientaddresses" width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 		<thead>
 			<tr>

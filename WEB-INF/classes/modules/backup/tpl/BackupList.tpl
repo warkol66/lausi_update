@@ -38,24 +38,26 @@
 	<fieldset class='nestedFieldset' title='Administrador de Respaldos'>
 	<legend>Administrar Respaldos</legend>
 	<p>Generar respaldo almacenado en el servidor &nbsp;&nbsp;
-		Completo <a href='Main.php?do=backupCreate&amp;options[complete]=1' title='Generar respaldo completo en servidor, incluyendo datos y archivos del sistema.'><img src="images/clear.png"  class='iconStoreInServer' /></a>&nbsp;&nbsp;
-	  Sólo datos <a href='Main.php?do=backupCreate' title='Generar respaldo de datos en servidor'><img src="images/clear.png"  class='iconStoreInServer' /></a>	</p>
-
-	<p>Generar respaldo para descargar&nbsp;&nbsp;		
-	Completo <a href='Main.php?do=backupCreate&amp;options[toFile]=1&amp;options[complete]=1' title='Generar respaldo completo en servidor, incluye datos y archivos del sistema.'><img src="images/clear.png"  class='iconStoreLocal' /></a>&nbsp;&nbsp;	  
-	Sólo datos <a href='Main.php?do=backupCreate&amp;options[toFile]=1' title='Generar respaldo de datos para descargar'><img src="images/clear.png"  class='iconStoreLocal' /></a>	</p>
-	<p>Restaurar respaldo desde una copia local &nbsp;&nbsp;<a href='javascript:showBackupLoader()' title='Seleccionar archivo local para restaurar'><img src="images/clear.png"  class='iconRestore' /></a></p>
+	 <a href='Main.php?do=backupCreate' title='Generar respaldo de datos en servidor' class='textLinkButton'>Sólo datos&nbsp;&nbsp;&nbsp;<img src="images/clear.png" class='iconStoreInServer' /></a>	
+		&nbsp;&nbsp;
+		<a href='Main.php?do=backupCreate&amp;options[complete]=1' title='Generar respaldo completo en servidor, incluyendo datos y archivos del sistema.' class='textLinkButton'>Completo<img src="images/clear.png"  class='iconStoreInServer' /></a>
+	</p>
+	<p>Generar respaldo para descargar &nbsp;&nbsp;
+<a href='Main.php?do=backupCreate&amp;options[toFile]=1' title='Generar respaldo de datos para descargar' class='textLinkButton'>Sólo datos&nbsp;&nbsp;&nbsp;<img src="images/clear.png" class='iconStoreLocal' /></a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href='Main.php?do=backupCreate&amp;options[toFile]=1&amp;options[complete]=1' title='Generar respaldo completo en servidor, incluye datos y archivos del sistema.' class='textLinkButton'>Completo&nbsp;&nbsp;&nbsp;<img src="images/clear.png"  class='iconStoreLocal' /></a>	  
+		</p>
+	<p>Restaurar respaldo desde una copia local <a href='javascript:switch_vis("backupLoader")' title='Seleccionar archivo local para restaurar' class='textLinkButton'>Seleccionar archivo&nbsp;&nbsp;&nbsp;<img src="images/clear.png" class='iconRestore' /></a></p>
 		<div id="backupLoader" style="display: none;">
-		<br />
 			<fieldset title='Formulario de carga de archivo de respaldo local'>
 			<legend>Restaurar respaldo desde copia local</legend>
 			<form id="backupLoaderForm" action="Main.php" method="post" enctype="multipart/form-data">
 				<p>A continuacion indique el archivo local a restaurar en el sistema:</p>
 				<p><label>Archivo: </label>
-					<input type="file" name="backup" value="" size="60" /></p>		
+					<input type="file" name="backup" value="" size="40" /></p>		
 				<input type="hidden" name="do" value="backupRestore" />
 				<p>
-					<input type="submit" value="Restaurar Backup Local" accept="txt/sql" onclick="return confirm('Esta opción reemplazará la información en el sistema por la información en este respaldo. ¿Está seguro que desea continuar?');"/>
+					<input type="submit" value="Restaurar respaldo local" accept="txt/sql" onclick="return confirm('Esta opción reemplazará la información en el sistema por la información en este respaldo. ¿Está seguro que desea continuar?');"/>
 					<input type="button" value="Cancelar" onClick="hideBackupLoader()"/>
 				</p>
 			</form>
@@ -81,9 +83,9 @@
 			<tr>
 				<td><a href="Main.php?do=backupDownload&filename=|-$filename.name-|"><img src="images/clear.png"  class='iconDownload' /></a></td>
 				<td>|-$filename.name-|</td>
-				<td align="right">|-$filename.time|date_format:"%Y-%m-%d %H:%M:%S"|change_timezone|date_format:"%d-%m-%Y %H:%M:%S"-|</td>
+				<td align="right" nowrap="nowrap">|-$filename.time|date_format:"%Y-%m-%d %H:%M:%S"|change_timezone|date_format:"%d-%m-%Y %H:%M:%S"-|</td>
 				<td align="right">|-$filename.size|number_format:3:",":"."-| kb</td>
-				<td nowrap>
+				<td nowrap="nowrap">
 					<input type="button" value="Enviar por mail" title="Enviar por mail" class="iconEmail" onClick='$("emailSend|-$counter-|").show(); $("backupAdmin|-$counter-|").hide(); $("backupDelete|-$counter-|").hide(); $("mail|-$counter-|").hide();' id="mail|-$counter-|" />
 					<form action="Main.php" style='display: none;' method="post" id='emailSend|-$counter-|'>
 						<input type="hidden" name="filename" value="|-$filename.name-|"  />

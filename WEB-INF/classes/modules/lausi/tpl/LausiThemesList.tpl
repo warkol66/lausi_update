@@ -1,22 +1,21 @@
-<h2>Configuración del Sistema</h2>
-<h1>Administración de Motivos</h1>
+<h2>Administración de Motivos</h2>
+<h1>Motivos disponibles en sistema</h1>
+<p>A continuación se muestra el listado de motivos disponibles en el sistema. Para agregar un nuevo motivo, haga click en "Agregar motivo". Para modificar o eliminar un motivo, utilice los controles disponibles en la fila correspondiente al mismo. Para activar o desactivar un motivo, puede marcar la casilla junto a los controles bal mismo; los motivos inactivos no se muestren en las opciones de motivos disponibles.</p>
 <div id="div_themes">
 |-if $message eq "ok"-|
 	<div class="successMessage">Motivo guardado correctamente</div>
 |-elseif $message eq "deleted_ok"-|
 	<div class="successMessage">Motivo eliminado correctamente</div>
 |-/if-|
-	<p>
-|-if $smarty.get.all eq 1-|
-		<a href='Main.php?do=lausiThemesList'>Mostrar sólo Activos</a>
-|-else-|
-		<a href='Main.php?do=lausiThemesList&all=1'>Mostrar Todos</a>
-|-/if-|
-	</p>
 	<table border="0" cellpadding="4" cellspacing="0" id="tabla-themes" class="tableTdBorders">
 		<thead>
 			<tr>
-				 <th colspan="11" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiThemesEdit" class="addLink">Agregar Motivo</a></div></th>
+				 <th colspan="11" class="thFillTitle">|-if $smarty.get.all eq 1-|
+	<input type="submit" value="Mostrar sólo motivos activos" onclick="location.href='Main.php?do=lausiThemesList'" />
+|-else-|
+	<input type="submit" value="Mostrar todos los motivos" onclick="location.href='Main.php?do=lausiThemesList&all=1'" />
+|-/if-|
+<div class="rightLink"><a href="Main.php?do=lausiThemesEdit" class="addLink">Agregar Motivo</a></div></th>
 			</tr>
 			<tr>
 				<th width="2%">Id</th>

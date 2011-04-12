@@ -1,9 +1,13 @@
 <h2>Configuración del Sistema</h2>
 <h1>Administrar Circuitos</h1>
+<p>A continuación se muestra el listado de circuitos disponibles en el sistema. Para agregar un nuevo circuito, haga click en "Agregar circuito". Para modificar o eliminar un circuito, utilice los controles disponibles en la fila correspondiente al mismo.</p>
 <div id="div_circuits">
-	|-if $message eq "ok"-|<div class="successMessage">Circuito guardado correctamente</div>|-/if-|
-	|-if $message eq "deleted_ok"-|<div class="successMessage">Circuito eliminado correctamente</div>|-/if-|
-	<table id="tabla-circuits" border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
+	|-if $message eq "ok"-|
+		<div class="successMessage">Circuito guardado correctamente</div>
+	|-elseif $message eq "deleted_ok"-|
+		<div class="successMessage">Circuito eliminado correctamente</div>
+	|-/if-|
+	<table id="tabla-circuits" border="0" cellpadding="5" cellspacing="0" class='tableTdBorders' width="100%">
 		<thead>
 			<tr>
 				 <th colspan="5" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiCircuitsEdit" class="addLink">Agregar Circuito</a></div></th>
