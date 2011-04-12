@@ -151,68 +151,6 @@ a.editarRight:hover, a.editarRight:active {
 /* /BOTON AGREGAR NUEVA ...  */
 
 
-	
-/* PAGINADO    ----------------------------*/
-.pages{	
-	background-color: #FFF;
-	color:#0066CC;
-}
-
-a.pageLink:link, a.pageLink:visited {
-	color:#666;
-}
-
-a.pageLink:hover, a.pageLink:active {
-	color:#0066CC;
-}
-
-
-.tdFooter{
-	background-color:#eaeee8;
-}
-
-
-
-/* SEARCH   -------------------------------------------*/
-.tdTitSearch{
-background-color: #f4f6f3;
-	background-image:url(../images/icon_search.gif);
-	background-position:8px 2px;
-	background-repeat:no-repeat;
-	color: #0066CC;
-}
-.tdSearch{
-	background-color: #f4f6f3;
-	color: #000000;
-}
-
-.tdSearch input{
-	color: #333;
-	border: solid 1px #a7a6aa;
-}
-
-.tdSearch img{
-}
-
-
-
-a.tdSearchButton:link, 
-a.tdSearchButton:visited  {
-	border: solid 1px #a7a6aa;
-	color: #333;
-	
-	background-image:url(../images/bot_bkg.gif);
-	background-position:left top;
-	background-repeat: repeat-x;	
-	background-color:#d2d0c3;
-}
-a.tdSearchButton:hover, 
-a.tdSearchButton:active  {
-	color: #FFFFFF;
-	background-color:#999999;
-	background-image: none;
-}
-
 /* -------------------------------------------------------------------*/ 
 
 /* MENU NAVEGACION   */
@@ -538,8 +476,8 @@ a.detail:hover{
 fieldset {  
 	background-color: #f7f7f8;
 }
-legend {  
-	color:#0066CC
+legend, fieldset legend, fieldset fieldset legend {  
+	color:#0066CC !Important;
 }
 .read {
 	color: Blue;
@@ -566,4 +504,39 @@ legend {
 	-opera-border-radius: 10px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
+}
+
+a.textLink {
+	color:#0054A4;
+}
+a.textLink:hover {
+	color: #00005B;
+}
+a.textLink:visited, a.textLink:active{
+	color:#0054A4;
+}
+.textLinkButton {
+	color:#0054A4;
+	background-color: #e0e0e0;
+	border: 1px outset #a0a0a0;/*#F0F0F0;*/
+	outline: 0 none;
+	cursor: pointer;
+	clear: right;
+	-khtml-border-radius: .2em;
+	-opera-border-radius: .2em;
+	-moz-border-radius: .2em;
+	-webkit-border-radius: .2em;
+	border-radius: .2em;
+	text-decoration: none;
+	display: inline;
+	line-height: 1.85em;
+	padding: .25em .4em .3em .4em;
+	vertical-align: middle;
+}
+.textLinkButton:hover {
+	background-color: #a0a0a0;/*#d0d0d0; */
+	border: outset 1px  #808080;
+}
+.textLinkButton:visited, a.textLink:active{
+	color:#0054A4;
 }

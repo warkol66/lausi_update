@@ -1,11 +1,12 @@
 <h2>Administración de Direcciones</h2>
 <h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Dirección</h1>
+<p>A continuación se muestra el formulario de datos de direcciones. Para ingresar una nueva dirección, escriba en el campo "Calle" el nombre o parte del nombre, y en "Número" la altura y pulse el botón "Buscar en mapa". El sistema le mostrará la dirección que mas se ajusta a los valores ingresados. Para direcciones con intersección o donde no se tenga el dato preciso, puede solicitar el Buscar en mapa&quot; para una dirección cercana, y mover manualmente el marcador hasta la ubicación de la cartelera.</p>
+<div id="div_address">
 |-if $message eq "created"-|
 	<div class="successMessage">Direccion creada correctamente, puede editar sus carteleras en la seccion inferior</div>
 |-elseif $message eq "error"-|
 	<div class="failureMessage">Ha ocurrido un error al intentar guardar la dirección</div>
 |-/if-|
-<div id="div_address">
 	<fieldset title="Formulario de edición de datos de una dirección">
 	<legend>Dirección</legend>
 	<form name="form_edit_address" id="form_edit_address" action="Main.php" method="post">
@@ -24,7 +25,8 @@
 				<label for="address[intersection]">Intersección</label>
 				<input name="address[intersection]" type="text" id="intersection" title="intersection" value="|-$address->getintersection()-|" size="45" maxlength="100" onChange="$('button_edit_address').disable()" />
 			</p>
-			<p><input type="button" id="button_locate" value="Buscar en Mapa" title="Buscar en Mapa" onClick="addressMap.locate(this.form); $('button_edit_address').enable()"/></p>
+			<p><input type="button" id="button_locate" value="Buscar en mapa" title="Buscar en Mapa" onClick="addressMap.locate(this.form); $('button_edit_address').enable()"/>
+			</p>
 			<p>
 				<label for="address[nickname]">Nombre De Fantasía</label>
 				<input name="address[nickname]" type="text" id="number" title="number" value="|-$address->getNickname()-|" size="45" />
@@ -81,7 +83,7 @@
 				|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 				<input type="submit" id="button_edit_address" name="button_edit_address" title="Aceptar" value="Aceptar" |-if $address->getId() eq ''-|disabled|-/if-|/>
 				<input type='button' onClick='location.href="Main.php?do=lausiAddressesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Cancelar' title="Regresar al listado de carteleras"/>
-				</p>
+		</p>
 	</form>
 	
 	|-include file="LausiAddressesMapInclude.tpl" -|

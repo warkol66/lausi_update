@@ -1,15 +1,19 @@
-<h2>Configuración del Sistema</h2>
-<h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Dirección de Cliente</h1>				<div id="div_clientaddress">
-	|-if $message eq "error"-|<span class="message_error">Ha ocurrido un error al intentar guardar la dirección de cliente</span>|-/if-|
+<h2>Administración de Clientes</h2>
+<h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Dirección de Cliente</h1>
+<p>A continuación se muestra el formulario de datos de direcciones de clientes. Para ingresar una nueva dirección, escriba en el campo "Calle" el nombre o parte del nombre, y en "Número" la altura y pulse el botón "Buscar en mapa". El sistema le mostrará la dirección que mas se ajusta a los valores ingresados. Para direcciones con intersección o donde no se tenga el dato preciso, puede solicitar el Buscar en mapa&quot; para una dirección cercana, y mover manualmente el marcador hasta la ubicación de la dirección.</p>
+<div id="div_clientaddress">
+	|-if $message eq "error"-|
+		<span class="message_error">Ha ocurrido un error al intentar guardar la dirección de cliente</span>
+	|-/if-|
+	<fieldset title="Formulario de edición de datos de una dirección de cliente">
+	<legend>Direcciones de Clientes</legend>
 	<p>
 		Ingrese los datos de la dirección de cliente.
 	</p>
-	<fieldset title="Formulario de edición de datos de una dirección de cliente">
-	<legend>Direcciones de Clientes</legend>
 <form name="form_edit_clientaddress" id="form_edit_clientaddress" action="Main.php" method="post">
 	<p>
 			<label for="address[clientId]">Cliente</label>
-			<select id="clientId" name="address[clientId]" title="clientId">
+			<select id="clientId" name="address[clientId]" title="Seleccione el cliente al que corresponde la dirección">
 				<option value="">Seleccione un Cliente</option>
 								|-foreach from=$clientIdValues item=object-|
 								<option value="|-$object->getid()-|" |-if $clientaddress->getclientId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getname()-|</option>
@@ -18,26 +22,22 @@
 		</p>
 		<p>
 			<label for="address[street]">Calle</label>
-			<input name="address[street]" type="text" id="street" title="street" value="|-$clientaddress->getstreet()-|" size="45" maxlength="100" onChange="$('button_edit_address').disable()" />
+			<input name="address[street]" type="text" id="street" title="Nombre de la calle" value="|-$clientaddress->getstreet()-|" size="45" maxlength="100" onChange="$('button_edit_address').disable()" />
 		</p>
 		<p>
 			<label for="address[number]">Número</label>
-			<input name="address[number]" type="text" id="number" title="number" value="|-$clientaddress->getnumber()-|" size="12" onChange="$('button_edit_address').disable()" />
+			<input name="address[number]" type="text" id="number" title="Altura" value="|-$clientaddress->getnumber()-|" size="12" onChange="$('button_edit_address').disable()" />
 		</p>
 		<p>
 			<label for="address[intersection]">Intersección</label>
-			<input name="address[intersection]" type="text" id="intersection" title="intersection" value="|-$clientaddress->getintersection()-|" size="45" maxlength="100" onChange="$('button_edit_address').disable()" />
+			<input name="address[intersection]" type="text" id="intersection" title="Intersección" value="|-$clientaddress->getintersection()-|" size="45" maxlength="100" onChange="$('button_edit_address').disable()" />
 		</p>
 		<p><input type="button" id="button_locate" value="Buscar en Mapa" title="Buscar en Mapa" onClick="addressMap.locate(this.form); $('button_edit_address').enable()"/></p>
-		<p>
 			<input name="address[latitude]" type="hidden" id="latitude" title="latitude" value="|-$clientaddress->getlatitude()|system_numeric_format:8-|" size="12" />
-		</p>
-		<p>
 			<input name="address[longitude]" type="hidden" id="longitude" title="longitude" value="|-$clientaddress->getlongitude()|system_numeric_format:8-|" size="12" />
-		</p>
 		<p>
 			<label for="address[type]">Tipo</label>
-			<input type="text" id="type" name="address[type]" value="|-$clientaddress->gettype()-|" title="type" maxlength="100" />
+			<input name="address[type]" type="text" id="type" title="type" value="|-$clientaddress->gettype()-|" size="50" maxlength="100" />
 		</p>
 		<p>
 			<label for="address[circuitId]">Circuito</label>
