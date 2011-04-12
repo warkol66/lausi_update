@@ -180,8 +180,17 @@ abstract class BaseAlertSubscriptionQuery extends ModelCriteria
 	/**
 	 * Filter the query on the id column
 	 * 
-	 * @param     int|array $id The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterById(1234); // WHERE id = 1234
+	 * $query->filterById(array(12, 34)); // WHERE id IN (12, 34)
+	 * $query->filterById(array('min' => 12)); // WHERE id > 12
+	 * </code>
+	 *
+	 * @param     mixed $id The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    AlertSubscriptionQuery The current query, for fluid interface
@@ -197,8 +206,14 @@ abstract class BaseAlertSubscriptionQuery extends ModelCriteria
 	/**
 	 * Filter the query on the name column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByName('fooValue');   // WHERE name = 'fooValue'
+	 * $query->filterByName('%fooValue%'); // WHERE name LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $name The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    AlertSubscriptionQuery The current query, for fluid interface
@@ -219,8 +234,14 @@ abstract class BaseAlertSubscriptionQuery extends ModelCriteria
 	/**
 	 * Filter the query on the entityName column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByEntityname('fooValue');   // WHERE entityName = 'fooValue'
+	 * $query->filterByEntityname('%fooValue%'); // WHERE entityName LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $entityname The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    AlertSubscriptionQuery The current query, for fluid interface
@@ -241,8 +262,14 @@ abstract class BaseAlertSubscriptionQuery extends ModelCriteria
 	/**
 	 * Filter the query on the entityDateFieldUniqueName column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByEntitydatefielduniquename('fooValue');   // WHERE entityDateFieldUniqueName = 'fooValue'
+	 * $query->filterByEntitydatefielduniquename('%fooValue%'); // WHERE entityDateFieldUniqueName LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $entitydatefielduniquename The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    AlertSubscriptionQuery The current query, for fluid interface
@@ -263,8 +290,14 @@ abstract class BaseAlertSubscriptionQuery extends ModelCriteria
 	/**
 	 * Filter the query on the entityBooleanFieldUniqueName column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByEntitybooleanfielduniquename('fooValue');   // WHERE entityBooleanFieldUniqueName = 'fooValue'
+	 * $query->filterByEntitybooleanfielduniquename('%fooValue%'); // WHERE entityBooleanFieldUniqueName LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $entitybooleanfielduniquename The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    AlertSubscriptionQuery The current query, for fluid interface
@@ -285,8 +318,17 @@ abstract class BaseAlertSubscriptionQuery extends ModelCriteria
 	/**
 	 * Filter the query on the anticipationDays column
 	 * 
-	 * @param     int|array $anticipationdays The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByAnticipationdays(1234); // WHERE anticipationDays = 1234
+	 * $query->filterByAnticipationdays(array(12, 34)); // WHERE anticipationDays IN (12, 34)
+	 * $query->filterByAnticipationdays(array('min' => 12)); // WHERE anticipationDays > 12
+	 * </code>
+	 *
+	 * @param     mixed $anticipationdays The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    AlertSubscriptionQuery The current query, for fluid interface
@@ -316,8 +358,14 @@ abstract class BaseAlertSubscriptionQuery extends ModelCriteria
 	/**
 	 * Filter the query on the entityNameFieldUniqueName column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByEntitynamefielduniquename('fooValue');   // WHERE entityNameFieldUniqueName = 'fooValue'
+	 * $query->filterByEntitynamefielduniquename('%fooValue%'); // WHERE entityNameFieldUniqueName LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $entitynamefielduniquename The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    AlertSubscriptionQuery The current query, for fluid interface
@@ -338,8 +386,14 @@ abstract class BaseAlertSubscriptionQuery extends ModelCriteria
 	/**
 	 * Filter the query on the extraRecipients column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByExtrarecipients('fooValue');   // WHERE extraRecipients = 'fooValue'
+	 * $query->filterByExtrarecipients('%fooValue%'); // WHERE extraRecipients LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $extrarecipients The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    AlertSubscriptionQuery The current query, for fluid interface

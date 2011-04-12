@@ -192,8 +192,14 @@ abstract class BaseModuleEntityQuery extends ModelCriteria
 	/**
 	 * Filter the query on the moduleName column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByModulename('fooValue');   // WHERE moduleName = 'fooValue'
+	 * $query->filterByModulename('%fooValue%'); // WHERE moduleName LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $modulename The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityQuery The current query, for fluid interface
@@ -214,8 +220,14 @@ abstract class BaseModuleEntityQuery extends ModelCriteria
 	/**
 	 * Filter the query on the name column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByName('fooValue');   // WHERE name = 'fooValue'
+	 * $query->filterByName('%fooValue%'); // WHERE name LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $name The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityQuery The current query, for fluid interface
@@ -236,8 +248,14 @@ abstract class BaseModuleEntityQuery extends ModelCriteria
 	/**
 	 * Filter the query on the phpName column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByPhpname('fooValue');   // WHERE phpName = 'fooValue'
+	 * $query->filterByPhpname('%fooValue%'); // WHERE phpName LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $phpname The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityQuery The current query, for fluid interface
@@ -258,8 +276,14 @@ abstract class BaseModuleEntityQuery extends ModelCriteria
 	/**
 	 * Filter the query on the description column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByDescription('fooValue');   // WHERE description = 'fooValue'
+	 * $query->filterByDescription('%fooValue%'); // WHERE description LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $description The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityQuery The current query, for fluid interface
@@ -280,8 +304,17 @@ abstract class BaseModuleEntityQuery extends ModelCriteria
 	/**
 	 * Filter the query on the softDelete column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterBySoftdelete(true); // WHERE softDelete = true
+	 * $query->filterBySoftdelete('yes'); // WHERE softDelete = true
+	 * </code>
+	 *
 	 * @param     boolean|string $softdelete The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityQuery The current query, for fluid interface
@@ -297,8 +330,17 @@ abstract class BaseModuleEntityQuery extends ModelCriteria
 	/**
 	 * Filter the query on the relation column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByRelation(true); // WHERE relation = true
+	 * $query->filterByRelation('yes'); // WHERE relation = true
+	 * </code>
+	 *
 	 * @param     boolean|string $relation The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityQuery The current query, for fluid interface
@@ -314,8 +356,17 @@ abstract class BaseModuleEntityQuery extends ModelCriteria
 	/**
 	 * Filter the query on the saveLog column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterBySavelog(true); // WHERE saveLog = true
+	 * $query->filterBySavelog('yes'); // WHERE saveLog = true
+	 * </code>
+	 *
 	 * @param     boolean|string $savelog The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityQuery The current query, for fluid interface
@@ -331,8 +382,17 @@ abstract class BaseModuleEntityQuery extends ModelCriteria
 	/**
 	 * Filter the query on the nestedset column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByNestedset(true); // WHERE nestedset = true
+	 * $query->filterByNestedset('yes'); // WHERE nestedset = true
+	 * </code>
+	 *
 	 * @param     boolean|string $nestedset The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityQuery The current query, for fluid interface
@@ -348,8 +408,14 @@ abstract class BaseModuleEntityQuery extends ModelCriteria
 	/**
 	 * Filter the query on the scopeFieldUniqueName column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByScopefielduniquename('fooValue');   // WHERE scopeFieldUniqueName = 'fooValue'
+	 * $query->filterByScopefielduniquename('%fooValue%'); // WHERE scopeFieldUniqueName LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $scopefielduniquename The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityQuery The current query, for fluid interface

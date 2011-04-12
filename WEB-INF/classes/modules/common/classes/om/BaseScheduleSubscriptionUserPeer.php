@@ -31,6 +31,9 @@ abstract class BaseScheduleSubscriptionUserPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 2;
+
 	/** the column name for the SCHEDULESUBSCRIPTIONID field */
 	const SCHEDULESUBSCRIPTIONID = 'common_scheduleSubscriptionUser.SCHEDULESUBSCRIPTIONID';
 
@@ -428,7 +431,7 @@ abstract class BaseScheduleSubscriptionUserPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + ScheduleSubscriptionUserPeer::NUM_COLUMNS;
+			$col = $startcol + ScheduleSubscriptionUserPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = ScheduleSubscriptionUserPeer::OM_CLASS;
 			$obj = new $cls();
@@ -557,7 +560,7 @@ abstract class BaseScheduleSubscriptionUserPeer {
 		}
 
 		ScheduleSubscriptionUserPeer::addSelectColumns($criteria);
-		$startcol = (ScheduleSubscriptionUserPeer::NUM_COLUMNS - ScheduleSubscriptionUserPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = ScheduleSubscriptionUserPeer::NUM_HYDRATE_COLUMNS;
 		ScheduleSubscriptionPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(ScheduleSubscriptionUserPeer::SCHEDULESUBSCRIPTIONID, ScheduleSubscriptionPeer::ID, $join_behavior);
@@ -623,7 +626,7 @@ abstract class BaseScheduleSubscriptionUserPeer {
 		}
 
 		ScheduleSubscriptionUserPeer::addSelectColumns($criteria);
-		$startcol = (ScheduleSubscriptionUserPeer::NUM_COLUMNS - ScheduleSubscriptionUserPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = ScheduleSubscriptionUserPeer::NUM_HYDRATE_COLUMNS;
 		UserPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(ScheduleSubscriptionUserPeer::USERID, UserPeer::ID, $join_behavior);
@@ -741,13 +744,13 @@ abstract class BaseScheduleSubscriptionUserPeer {
 		}
 
 		ScheduleSubscriptionUserPeer::addSelectColumns($criteria);
-		$startcol2 = (ScheduleSubscriptionUserPeer::NUM_COLUMNS - ScheduleSubscriptionUserPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = ScheduleSubscriptionUserPeer::NUM_HYDRATE_COLUMNS;
 
 		ScheduleSubscriptionPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (ScheduleSubscriptionPeer::NUM_COLUMNS - ScheduleSubscriptionPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + ScheduleSubscriptionPeer::NUM_HYDRATE_COLUMNS;
 
 		UserPeer::addSelectColumns($criteria);
-		$startcol4 = $startcol3 + (UserPeer::NUM_COLUMNS - UserPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol4 = $startcol3 + UserPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(ScheduleSubscriptionUserPeer::SCHEDULESUBSCRIPTIONID, ScheduleSubscriptionPeer::ID, $join_behavior);
 
@@ -935,10 +938,10 @@ abstract class BaseScheduleSubscriptionUserPeer {
 		}
 
 		ScheduleSubscriptionUserPeer::addSelectColumns($criteria);
-		$startcol2 = (ScheduleSubscriptionUserPeer::NUM_COLUMNS - ScheduleSubscriptionUserPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = ScheduleSubscriptionUserPeer::NUM_HYDRATE_COLUMNS;
 
 		UserPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (UserPeer::NUM_COLUMNS - UserPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + UserPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(ScheduleSubscriptionUserPeer::USERID, UserPeer::ID, $join_behavior);
 
@@ -1008,10 +1011,10 @@ abstract class BaseScheduleSubscriptionUserPeer {
 		}
 
 		ScheduleSubscriptionUserPeer::addSelectColumns($criteria);
-		$startcol2 = (ScheduleSubscriptionUserPeer::NUM_COLUMNS - ScheduleSubscriptionUserPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = ScheduleSubscriptionUserPeer::NUM_HYDRATE_COLUMNS;
 
 		ScheduleSubscriptionPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (ScheduleSubscriptionPeer::NUM_COLUMNS - ScheduleSubscriptionPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + ScheduleSubscriptionPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(ScheduleSubscriptionUserPeer::SCHEDULESUBSCRIPTIONID, ScheduleSubscriptionPeer::ID, $join_behavior);
 

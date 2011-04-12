@@ -31,6 +31,9 @@ abstract class BaseActionLogPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 9;
+
 	/** the column name for the ID field */
 	const ID = 'actionLogs_log.ID';
 
@@ -463,7 +466,7 @@ abstract class BaseActionLogPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + ActionLogPeer::NUM_COLUMNS;
+			$col = $startcol + ActionLogPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = ActionLogPeer::OM_CLASS;
 			$obj = new $cls();
@@ -592,7 +595,7 @@ abstract class BaseActionLogPeer {
 		}
 
 		ActionLogPeer::addSelectColumns($criteria);
-		$startcol = (ActionLogPeer::NUM_COLUMNS - ActionLogPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = ActionLogPeer::NUM_HYDRATE_COLUMNS;
 		UserPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(ActionLogPeer::USERID, UserPeer::ID, $join_behavior);
@@ -658,7 +661,7 @@ abstract class BaseActionLogPeer {
 		}
 
 		ActionLogPeer::addSelectColumns($criteria);
-		$startcol = (ActionLogPeer::NUM_COLUMNS - ActionLogPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = ActionLogPeer::NUM_HYDRATE_COLUMNS;
 		SecurityActionPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(ActionLogPeer::ACTION, SecurityActionPeer::ACTION, $join_behavior);
@@ -776,13 +779,13 @@ abstract class BaseActionLogPeer {
 		}
 
 		ActionLogPeer::addSelectColumns($criteria);
-		$startcol2 = (ActionLogPeer::NUM_COLUMNS - ActionLogPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = ActionLogPeer::NUM_HYDRATE_COLUMNS;
 
 		UserPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (UserPeer::NUM_COLUMNS - UserPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + UserPeer::NUM_HYDRATE_COLUMNS;
 
 		SecurityActionPeer::addSelectColumns($criteria);
-		$startcol4 = $startcol3 + (SecurityActionPeer::NUM_COLUMNS - SecurityActionPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol4 = $startcol3 + SecurityActionPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(ActionLogPeer::USERID, UserPeer::ID, $join_behavior);
 
@@ -970,10 +973,10 @@ abstract class BaseActionLogPeer {
 		}
 
 		ActionLogPeer::addSelectColumns($criteria);
-		$startcol2 = (ActionLogPeer::NUM_COLUMNS - ActionLogPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = ActionLogPeer::NUM_HYDRATE_COLUMNS;
 
 		SecurityActionPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (SecurityActionPeer::NUM_COLUMNS - SecurityActionPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + SecurityActionPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(ActionLogPeer::ACTION, SecurityActionPeer::ACTION, $join_behavior);
 
@@ -1043,10 +1046,10 @@ abstract class BaseActionLogPeer {
 		}
 
 		ActionLogPeer::addSelectColumns($criteria);
-		$startcol2 = (ActionLogPeer::NUM_COLUMNS - ActionLogPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = ActionLogPeer::NUM_HYDRATE_COLUMNS;
 
 		UserPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (UserPeer::NUM_COLUMNS - UserPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + UserPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(ActionLogPeer::USERID, UserPeer::ID, $join_behavior);
 

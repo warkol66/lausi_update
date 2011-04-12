@@ -31,6 +31,9 @@ abstract class BaseModuleEntityFieldValidationPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 4;
+
 	/** the column name for the ENTITYFIELDUNIQUENAME field */
 	const ENTITYFIELDUNIQUENAME = 'modules_entityFieldValidation.ENTITYFIELDUNIQUENAME';
 
@@ -438,7 +441,7 @@ abstract class BaseModuleEntityFieldValidationPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + ModuleEntityFieldValidationPeer::NUM_COLUMNS;
+			$col = $startcol + ModuleEntityFieldValidationPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = ModuleEntityFieldValidationPeer::OM_CLASS;
 			$obj = new $cls();
@@ -517,7 +520,7 @@ abstract class BaseModuleEntityFieldValidationPeer {
 		}
 
 		ModuleEntityFieldValidationPeer::addSelectColumns($criteria);
-		$startcol = (ModuleEntityFieldValidationPeer::NUM_COLUMNS - ModuleEntityFieldValidationPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = ModuleEntityFieldValidationPeer::NUM_HYDRATE_COLUMNS;
 		ModuleEntityFieldPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(ModuleEntityFieldValidationPeer::ENTITYFIELDUNIQUENAME, ModuleEntityFieldPeer::UNIQUENAME, $join_behavior);
@@ -633,10 +636,10 @@ abstract class BaseModuleEntityFieldValidationPeer {
 		}
 
 		ModuleEntityFieldValidationPeer::addSelectColumns($criteria);
-		$startcol2 = (ModuleEntityFieldValidationPeer::NUM_COLUMNS - ModuleEntityFieldValidationPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = ModuleEntityFieldValidationPeer::NUM_HYDRATE_COLUMNS;
 
 		ModuleEntityFieldPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (ModuleEntityFieldPeer::NUM_COLUMNS - ModuleEntityFieldPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + ModuleEntityFieldPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(ModuleEntityFieldValidationPeer::ENTITYFIELDUNIQUENAME, ModuleEntityFieldPeer::UNIQUENAME, $join_behavior);
 

@@ -226,15 +226,23 @@ abstract class BaseSecurityModule extends BaseObject  implements Persistent
 	} // setAccessregistrationuser()
 
 	/**
-	 * Set the value of [nochecklogin] column.
+	 * Sets the value of the [nochecklogin] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * Si no se chequea login ese modulo
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     SecurityModule The current object (for fluent API support)
 	 */
 	public function setNochecklogin($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->nochecklogin !== $v || $this->isNew()) {
@@ -294,7 +302,7 @@ abstract class BaseSecurityModule extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 5; // 5 = SecurityModulePeer::NUM_COLUMNS - SecurityModulePeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 5; // 5 = SecurityModulePeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating SecurityModule object", $e);
@@ -810,11 +818,11 @@ abstract class BaseSecurityModule extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setModule($this->module);
-		$copyObj->setAccess($this->access);
-		$copyObj->setAccessaffiliateuser($this->accessaffiliateuser);
-		$copyObj->setAccessregistrationuser($this->accessregistrationuser);
-		$copyObj->setNochecklogin($this->nochecklogin);
+		$copyObj->setModule($this->getModule());
+		$copyObj->setAccess($this->getAccess());
+		$copyObj->setAccessaffiliateuser($this->getAccessaffiliateuser());
+		$copyObj->setAccessregistrationuser($this->getAccessregistrationuser());
+		$copyObj->setNochecklogin($this->getNochecklogin());
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of

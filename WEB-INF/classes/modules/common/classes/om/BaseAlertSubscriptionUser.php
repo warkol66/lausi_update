@@ -170,7 +170,7 @@ abstract class BaseAlertSubscriptionUser extends BaseObject  implements Persiste
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 2; // 2 = AlertSubscriptionUserPeer::NUM_COLUMNS - AlertSubscriptionUserPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 2; // 2 = AlertSubscriptionUserPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating AlertSubscriptionUser object", $e);
@@ -696,8 +696,8 @@ abstract class BaseAlertSubscriptionUser extends BaseObject  implements Persiste
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setAlertsubscriptionid($this->alertsubscriptionid);
-		$copyObj->setUserid($this->userid);
+		$copyObj->setAlertsubscriptionid($this->getAlertsubscriptionid());
+		$copyObj->setUserid($this->getUserid());
 		if ($makeNew) {
 			$copyObj->setNew(true);
 		}

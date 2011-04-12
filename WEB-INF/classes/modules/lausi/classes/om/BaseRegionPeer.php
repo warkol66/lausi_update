@@ -31,6 +31,9 @@ abstract class BaseRegionPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 2;
+
 	/** the column name for the ID field */
 	const ID = 'lausi_region.ID';
 
@@ -428,7 +431,7 @@ abstract class BaseRegionPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + RegionPeer::NUM_COLUMNS;
+			$col = $startcol + RegionPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = RegionPeer::OM_CLASS;
 			$obj = new $cls();

@@ -170,7 +170,7 @@ abstract class BaseUserGroup extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 2; // 2 = UserGroupPeer::NUM_COLUMNS - UserGroupPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 2; // 2 = UserGroupPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating UserGroup object", $e);
@@ -696,8 +696,8 @@ abstract class BaseUserGroup extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setUserid($this->userid);
-		$copyObj->setGroupid($this->groupid);
+		$copyObj->setUserid($this->getUserid());
+		$copyObj->setGroupid($this->getGroupid());
 		if ($makeNew) {
 			$copyObj->setNew(true);
 		}

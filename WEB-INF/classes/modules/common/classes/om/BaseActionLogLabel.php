@@ -263,7 +263,7 @@ abstract class BaseActionLogLabel extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 5; // 5 = ActionLogLabelPeer::NUM_COLUMNS - ActionLogLabelPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 5; // 5 = ActionLogLabelPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating ActionLogLabel object", $e);
@@ -770,10 +770,10 @@ abstract class BaseActionLogLabel extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setAction($this->action);
-		$copyObj->setLabel($this->label);
-		$copyObj->setLanguage($this->language);
-		$copyObj->setForward($this->forward);
+		$copyObj->setAction($this->getAction());
+		$copyObj->setLabel($this->getLabel());
+		$copyObj->setLanguage($this->getLanguage());
+		$copyObj->setForward($this->getForward());
 		if ($makeNew) {
 			$copyObj->setNew(true);
 			$copyObj->setId(NULL); // this is a auto-increment column, so set to default value

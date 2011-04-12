@@ -31,6 +31,9 @@ abstract class BaseModulePeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 4;
+
 	/** the column name for the NAME field */
 	const NAME = 'modules_module.NAME';
 
@@ -444,7 +447,7 @@ abstract class BaseModulePeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + ModulePeer::NUM_COLUMNS;
+			$col = $startcol + ModulePeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = ModulePeer::OM_CLASS;
 			$obj = new $cls();

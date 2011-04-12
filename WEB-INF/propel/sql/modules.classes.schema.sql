@@ -49,7 +49,7 @@ CREATE TABLE `modules_label`
 	`description` VARCHAR(255) COMMENT 'Descripcion del modulo',
 	`language` VARCHAR(100) COMMENT 'idioma de la etiqueta',
 	PRIMARY KEY (`id`,`name`),
-	INDEX `modules_label_FI_1` (`name`(255)),
+	INDEX `modules_label_FI_1` (`name`),
 	CONSTRAINT `modules_label_FK_1`
 		FOREIGN KEY (`name`)
 		REFERENCES `modules_module` (`name`)
@@ -75,8 +75,8 @@ CREATE TABLE `modules_entity`
 	`scopeFieldUniqueName` VARCHAR(100) COMMENT 'Indica el campo que es usado como scope en el nestedset',
 	`behaviors` LONGBLOB COMMENT 'Indica los behaviors que tiene la entidad',
 	PRIMARY KEY (`name`),
-	INDEX `modules_entity_FI_1` (`moduleName`(50)),
-	INDEX `modules_entity_FI_2` (`scopeFieldUniqueName`(100)),
+	INDEX `modules_entity_FI_1` (`moduleName`),
+	INDEX `modules_entity_FI_2` (`scopeFieldUniqueName`),
 	CONSTRAINT `modules_entity_FK_1`
 		FOREIGN KEY (`moduleName`)
 		REFERENCES `modules_module` (`name`),
@@ -116,9 +116,9 @@ CREATE TABLE `modules_entityField`
 	`onDelete` VARCHAR(30) COMMENT 'Comportamiento onDelete',
 	`automatic` BOOL COMMENT 'Indica si es una columna autogenerada por un behavior',
 	PRIMARY KEY (`uniqueName`),
-	INDEX `modules_entityField_FI_1` (`entityName`(50)),
-	INDEX `modules_entityField_FI_2` (`foreignKeyTable`(50)),
-	INDEX `modules_entityField_FI_3` (`foreignKeyRemote`(100)),
+	INDEX `modules_entityField_FI_1` (`entityName`),
+	INDEX `modules_entityField_FI_2` (`foreignKeyTable`),
+	INDEX `modules_entityField_FI_3` (`foreignKeyRemote`),
 	CONSTRAINT `modules_entityField_FK_1`
 		FOREIGN KEY (`entityName`)
 		REFERENCES `modules_entity` (`name`)

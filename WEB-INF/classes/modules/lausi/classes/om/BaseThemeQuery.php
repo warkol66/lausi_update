@@ -172,8 +172,17 @@ abstract class BaseThemeQuery extends ModelCriteria
 	/**
 	 * Filter the query on the id column
 	 * 
-	 * @param     int|array $id The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterById(1234); // WHERE id = 1234
+	 * $query->filterById(array(12, 34)); // WHERE id IN (12, 34)
+	 * $query->filterById(array('min' => 12)); // WHERE id > 12
+	 * </code>
+	 *
+	 * @param     mixed $id The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ThemeQuery The current query, for fluid interface
@@ -189,8 +198,14 @@ abstract class BaseThemeQuery extends ModelCriteria
 	/**
 	 * Filter the query on the name column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByName('fooValue');   // WHERE name = 'fooValue'
+	 * $query->filterByName('%fooValue%'); // WHERE name LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $name The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ThemeQuery The current query, for fluid interface
@@ -211,8 +226,14 @@ abstract class BaseThemeQuery extends ModelCriteria
 	/**
 	 * Filter the query on the shortName column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByShortname('fooValue');   // WHERE shortName = 'fooValue'
+	 * $query->filterByShortname('%fooValue%'); // WHERE shortName LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $shortname The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ThemeQuery The current query, for fluid interface
@@ -233,8 +254,19 @@ abstract class BaseThemeQuery extends ModelCriteria
 	/**
 	 * Filter the query on the startDate column
 	 * 
-	 * @param     string|array $startdate The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByStartdate('2011-03-14'); // WHERE startDate = '2011-03-14'
+	 * $query->filterByStartdate('now'); // WHERE startDate = '2011-03-14'
+	 * $query->filterByStartdate(array('max' => 'yesterday')); // WHERE startDate > '2011-03-13'
+	 * </code>
+	 *
+	 * @param     mixed $startdate The value to use as filter.
+	 *              Values can be integers (unix timestamps), DateTime objects, or strings.
+	 *              Empty strings are treated as NULL.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ThemeQuery The current query, for fluid interface
@@ -264,8 +296,17 @@ abstract class BaseThemeQuery extends ModelCriteria
 	/**
 	 * Filter the query on the duration column
 	 * 
-	 * @param     int|array $duration The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByDuration(1234); // WHERE duration = 1234
+	 * $query->filterByDuration(array(12, 34)); // WHERE duration IN (12, 34)
+	 * $query->filterByDuration(array('min' => 12)); // WHERE duration > 12
+	 * </code>
+	 *
+	 * @param     mixed $duration The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ThemeQuery The current query, for fluid interface
@@ -295,8 +336,17 @@ abstract class BaseThemeQuery extends ModelCriteria
 	/**
 	 * Filter the query on the sheetsTotal column
 	 * 
-	 * @param     int|array $sheetstotal The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterBySheetstotal(1234); // WHERE sheetsTotal = 1234
+	 * $query->filterBySheetstotal(array(12, 34)); // WHERE sheetsTotal IN (12, 34)
+	 * $query->filterBySheetstotal(array('min' => 12)); // WHERE sheetsTotal > 12
+	 * </code>
+	 *
+	 * @param     mixed $sheetstotal The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ThemeQuery The current query, for fluid interface
@@ -326,8 +376,17 @@ abstract class BaseThemeQuery extends ModelCriteria
 	/**
 	 * Filter the query on the type column
 	 * 
-	 * @param     int|array $type The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByType(1234); // WHERE type = 1234
+	 * $query->filterByType(array(12, 34)); // WHERE type IN (12, 34)
+	 * $query->filterByType(array('min' => 12)); // WHERE type > 12
+	 * </code>
+	 *
+	 * @param     mixed $type The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ThemeQuery The current query, for fluid interface
@@ -357,8 +416,17 @@ abstract class BaseThemeQuery extends ModelCriteria
 	/**
 	 * Filter the query on the active column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByActive(true); // WHERE active = true
+	 * $query->filterByActive('yes'); // WHERE active = true
+	 * </code>
+	 *
 	 * @param     boolean|string $active The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ThemeQuery The current query, for fluid interface
@@ -374,8 +442,19 @@ abstract class BaseThemeQuery extends ModelCriteria
 	/**
 	 * Filter the query on the clientId column
 	 * 
-	 * @param     int|array $clientid The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByClientid(1234); // WHERE clientId = 1234
+	 * $query->filterByClientid(array(12, 34)); // WHERE clientId IN (12, 34)
+	 * $query->filterByClientid(array('min' => 12)); // WHERE clientId > 12
+	 * </code>
+	 *
+	 * @see       filterByClient()
+	 *
+	 * @param     mixed $clientid The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ThemeQuery The current query, for fluid interface

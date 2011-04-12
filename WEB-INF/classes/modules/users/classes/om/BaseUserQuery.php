@@ -220,8 +220,17 @@ abstract class BaseUserQuery extends ModelCriteria
 	/**
 	 * Filter the query on the id column
 	 * 
-	 * @param     int|array $id The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterById(1234); // WHERE id = 1234
+	 * $query->filterById(array(12, 34)); // WHERE id IN (12, 34)
+	 * $query->filterById(array('min' => 12)); // WHERE id > 12
+	 * </code>
+	 *
+	 * @param     mixed $id The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    UserQuery The current query, for fluid interface
@@ -237,8 +246,14 @@ abstract class BaseUserQuery extends ModelCriteria
 	/**
 	 * Filter the query on the username column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByUsername('fooValue');   // WHERE username = 'fooValue'
+	 * $query->filterByUsername('%fooValue%'); // WHERE username LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $username The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    UserQuery The current query, for fluid interface
@@ -259,8 +274,14 @@ abstract class BaseUserQuery extends ModelCriteria
 	/**
 	 * Filter the query on the password column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByPassword('fooValue');   // WHERE password = 'fooValue'
+	 * $query->filterByPassword('%fooValue%'); // WHERE password LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $password The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    UserQuery The current query, for fluid interface
@@ -281,8 +302,19 @@ abstract class BaseUserQuery extends ModelCriteria
 	/**
 	 * Filter the query on the passwordUpdated column
 	 * 
-	 * @param     string|array $passwordupdated The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByPasswordupdated('2011-03-14'); // WHERE passwordUpdated = '2011-03-14'
+	 * $query->filterByPasswordupdated('now'); // WHERE passwordUpdated = '2011-03-14'
+	 * $query->filterByPasswordupdated(array('max' => 'yesterday')); // WHERE passwordUpdated > '2011-03-13'
+	 * </code>
+	 *
+	 * @param     mixed $passwordupdated The value to use as filter.
+	 *              Values can be integers (unix timestamps), DateTime objects, or strings.
+	 *              Empty strings are treated as NULL.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    UserQuery The current query, for fluid interface
@@ -312,8 +344,17 @@ abstract class BaseUserQuery extends ModelCriteria
 	/**
 	 * Filter the query on the active column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByActive(true); // WHERE active = true
+	 * $query->filterByActive('yes'); // WHERE active = true
+	 * </code>
+	 *
 	 * @param     boolean|string $active The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    UserQuery The current query, for fluid interface
@@ -329,8 +370,19 @@ abstract class BaseUserQuery extends ModelCriteria
 	/**
 	 * Filter the query on the levelId column
 	 * 
-	 * @param     int|array $levelid The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByLevelid(1234); // WHERE levelId = 1234
+	 * $query->filterByLevelid(array(12, 34)); // WHERE levelId IN (12, 34)
+	 * $query->filterByLevelid(array('min' => 12)); // WHERE levelId > 12
+	 * </code>
+	 *
+	 * @see       filterByLevel()
+	 *
+	 * @param     mixed $levelid The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    UserQuery The current query, for fluid interface
@@ -360,8 +412,19 @@ abstract class BaseUserQuery extends ModelCriteria
 	/**
 	 * Filter the query on the lastLogin column
 	 * 
-	 * @param     string|array $lastlogin The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByLastlogin('2011-03-14'); // WHERE lastLogin = '2011-03-14'
+	 * $query->filterByLastlogin('now'); // WHERE lastLogin = '2011-03-14'
+	 * $query->filterByLastlogin(array('max' => 'yesterday')); // WHERE lastLogin > '2011-03-13'
+	 * </code>
+	 *
+	 * @param     mixed $lastlogin The value to use as filter.
+	 *              Values can be integers (unix timestamps), DateTime objects, or strings.
+	 *              Empty strings are treated as NULL.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    UserQuery The current query, for fluid interface
@@ -391,8 +454,14 @@ abstract class BaseUserQuery extends ModelCriteria
 	/**
 	 * Filter the query on the timezone column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByTimezone('fooValue');   // WHERE timezone = 'fooValue'
+	 * $query->filterByTimezone('%fooValue%'); // WHERE timezone LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $timezone The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    UserQuery The current query, for fluid interface
@@ -413,8 +482,14 @@ abstract class BaseUserQuery extends ModelCriteria
 	/**
 	 * Filter the query on the recoveryHash column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByRecoveryhash('fooValue');   // WHERE recoveryHash = 'fooValue'
+	 * $query->filterByRecoveryhash('%fooValue%'); // WHERE recoveryHash LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $recoveryhash The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    UserQuery The current query, for fluid interface
@@ -435,8 +510,19 @@ abstract class BaseUserQuery extends ModelCriteria
 	/**
 	 * Filter the query on the recoveryHashCreatedOn column
 	 * 
-	 * @param     string|array $recoveryhashcreatedon The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByRecoveryhashcreatedon('2011-03-14'); // WHERE recoveryHashCreatedOn = '2011-03-14'
+	 * $query->filterByRecoveryhashcreatedon('now'); // WHERE recoveryHashCreatedOn = '2011-03-14'
+	 * $query->filterByRecoveryhashcreatedon(array('max' => 'yesterday')); // WHERE recoveryHashCreatedOn > '2011-03-13'
+	 * </code>
+	 *
+	 * @param     mixed $recoveryhashcreatedon The value to use as filter.
+	 *              Values can be integers (unix timestamps), DateTime objects, or strings.
+	 *              Empty strings are treated as NULL.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    UserQuery The current query, for fluid interface
@@ -466,8 +552,14 @@ abstract class BaseUserQuery extends ModelCriteria
 	/**
 	 * Filter the query on the name column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByName('fooValue');   // WHERE name = 'fooValue'
+	 * $query->filterByName('%fooValue%'); // WHERE name LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $name The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    UserQuery The current query, for fluid interface
@@ -488,8 +580,14 @@ abstract class BaseUserQuery extends ModelCriteria
 	/**
 	 * Filter the query on the surname column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterBySurname('fooValue');   // WHERE surname = 'fooValue'
+	 * $query->filterBySurname('%fooValue%'); // WHERE surname LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $surname The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    UserQuery The current query, for fluid interface
@@ -510,8 +608,14 @@ abstract class BaseUserQuery extends ModelCriteria
 	/**
 	 * Filter the query on the mailAddress column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByMailaddress('fooValue');   // WHERE mailAddress = 'fooValue'
+	 * $query->filterByMailaddress('%fooValue%'); // WHERE mailAddress LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $mailaddress The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    UserQuery The current query, for fluid interface
@@ -532,8 +636,14 @@ abstract class BaseUserQuery extends ModelCriteria
 	/**
 	 * Filter the query on the mailAddressAlt column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByMailaddressalt('fooValue');   // WHERE mailAddressAlt = 'fooValue'
+	 * $query->filterByMailaddressalt('%fooValue%'); // WHERE mailAddressAlt LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $mailaddressalt The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    UserQuery The current query, for fluid interface
@@ -554,8 +664,19 @@ abstract class BaseUserQuery extends ModelCriteria
 	/**
 	 * Filter the query on the deleted_at column
 	 * 
-	 * @param     string|array $deletedAt The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByDeletedAt('2011-03-14'); // WHERE deleted_at = '2011-03-14'
+	 * $query->filterByDeletedAt('now'); // WHERE deleted_at = '2011-03-14'
+	 * $query->filterByDeletedAt(array('max' => 'yesterday')); // WHERE deleted_at > '2011-03-13'
+	 * </code>
+	 *
+	 * @param     mixed $deletedAt The value to use as filter.
+	 *              Values can be integers (unix timestamps), DateTime objects, or strings.
+	 *              Empty strings are treated as NULL.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    UserQuery The current query, for fluid interface
@@ -585,8 +706,19 @@ abstract class BaseUserQuery extends ModelCriteria
 	/**
 	 * Filter the query on the created_at column
 	 * 
-	 * @param     string|array $createdAt The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByCreatedAt('2011-03-14'); // WHERE created_at = '2011-03-14'
+	 * $query->filterByCreatedAt('now'); // WHERE created_at = '2011-03-14'
+	 * $query->filterByCreatedAt(array('max' => 'yesterday')); // WHERE created_at > '2011-03-13'
+	 * </code>
+	 *
+	 * @param     mixed $createdAt The value to use as filter.
+	 *              Values can be integers (unix timestamps), DateTime objects, or strings.
+	 *              Empty strings are treated as NULL.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    UserQuery The current query, for fluid interface
@@ -616,8 +748,19 @@ abstract class BaseUserQuery extends ModelCriteria
 	/**
 	 * Filter the query on the updated_at column
 	 * 
-	 * @param     string|array $updatedAt The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByUpdatedAt('2011-03-14'); // WHERE updated_at = '2011-03-14'
+	 * $query->filterByUpdatedAt('now'); // WHERE updated_at = '2011-03-14'
+	 * $query->filterByUpdatedAt(array('max' => 'yesterday')); // WHERE updated_at > '2011-03-13'
+	 * </code>
+	 *
+	 * @param     mixed $updatedAt The value to use as filter.
+	 *              Values can be integers (unix timestamps), DateTime objects, or strings.
+	 *              Empty strings are treated as NULL.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    UserQuery The current query, for fluid interface

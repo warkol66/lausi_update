@@ -21,7 +21,7 @@ CREATE TABLE `security_action`
 	`pair` VARCHAR(100) COMMENT 'Par del Action',
 	`noCheckLogin` TINYINT DEFAULT 0 COMMENT 'Si no se chequea login ese action',
 	PRIMARY KEY (`action`),
-	INDEX `security_action_FI_1` (`module`(100)),
+	INDEX `security_action_FI_1` (`module`),
 	CONSTRAINT `security_action_FK_1`
 		FOREIGN KEY (`module`)
 		REFERENCES `security_module` (`module`)

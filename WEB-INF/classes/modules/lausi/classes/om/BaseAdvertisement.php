@@ -266,45 +266,18 @@ abstract class BaseAdvertisement extends BaseObject  implements Persistent
 	/**
 	 * Sets the value of [date] column to a normalized version of the date/time value specified.
 	 * fecha de actualizacion del aviso
-	 * @param      mixed $v string, integer (timestamp), or DateTime value.  Empty string will
-	 *						be treated as NULL for temporal objects.
+	 * @param      mixed $v string, integer (timestamp), or DateTime value.
+	 *               Empty strings are treated as NULL.
 	 * @return     Advertisement The current object (for fluent API support)
 	 */
 	public function setDate($v)
 	{
-		// we treat '' as NULL for temporal objects because DateTime('') == DateTime('now')
-		// -- which is unexpected, to say the least.
-		if ($v === null || $v === '') {
-			$dt = null;
-		} elseif ($v instanceof DateTime) {
-			$dt = $v;
-		} else {
-			// some string/numeric value passed; we normalize that so that we can
-			// validate it.
-			try {
-				if (is_numeric($v)) { // if it's a unix timestamp
-					$dt = new DateTime('@'.$v, new DateTimeZone('UTC'));
-					// We have to explicitly specify and then change the time zone because of a
-					// DateTime bug: http://bugs.php.net/bug.php?id=43003
-					$dt->setTimeZone(new DateTimeZone(date_default_timezone_get()));
-				} else {
-					$dt = new DateTime($v);
-				}
-			} catch (Exception $x) {
-				throw new PropelException('Error parsing date/time value: ' . var_export($v, true), $x);
-			}
-		}
-
-		if ( $this->date !== null || $dt !== null ) {
-			// (nested ifs are a little easier to read in this case)
-
-			$currNorm = ($this->date !== null && $tmpDt = new DateTime($this->date)) ? $tmpDt->format('Y-m-d') : null;
-			$newNorm = ($dt !== null) ? $dt->format('Y-m-d') : null;
-
-			if ( ($currNorm !== $newNorm) // normalized values don't match 
-					)
-			{
-				$this->date = ($dt ? $dt->format('Y-m-d') : null);
+		$dt = PropelDateTime::newInstance($v, null, 'DateTime');
+		if ($this->date !== null || $dt !== null) {
+			$currentDateAsString = ($this->date !== null && $tmpDt = new DateTime($this->date)) ? $tmpDt->format('Y-m-d') : null;
+			$newDateAsString = $dt ? $dt->format('Y-m-d') : null;
+			if ($currentDateAsString !== $newDateAsString) {
+				$this->date = $newDateAsString;
 				$this->modifiedColumns[] = AdvertisementPeer::DATE;
 			}
 		} // if either are not null
@@ -315,45 +288,18 @@ abstract class BaseAdvertisement extends BaseObject  implements Persistent
 	/**
 	 * Sets the value of [publishdate] column to a normalized version of the date/time value specified.
 	 * fecha de publicacion del aviso
-	 * @param      mixed $v string, integer (timestamp), or DateTime value.  Empty string will
-	 *						be treated as NULL for temporal objects.
+	 * @param      mixed $v string, integer (timestamp), or DateTime value.
+	 *               Empty strings are treated as NULL.
 	 * @return     Advertisement The current object (for fluent API support)
 	 */
 	public function setPublishdate($v)
 	{
-		// we treat '' as NULL for temporal objects because DateTime('') == DateTime('now')
-		// -- which is unexpected, to say the least.
-		if ($v === null || $v === '') {
-			$dt = null;
-		} elseif ($v instanceof DateTime) {
-			$dt = $v;
-		} else {
-			// some string/numeric value passed; we normalize that so that we can
-			// validate it.
-			try {
-				if (is_numeric($v)) { // if it's a unix timestamp
-					$dt = new DateTime('@'.$v, new DateTimeZone('UTC'));
-					// We have to explicitly specify and then change the time zone because of a
-					// DateTime bug: http://bugs.php.net/bug.php?id=43003
-					$dt->setTimeZone(new DateTimeZone(date_default_timezone_get()));
-				} else {
-					$dt = new DateTime($v);
-				}
-			} catch (Exception $x) {
-				throw new PropelException('Error parsing date/time value: ' . var_export($v, true), $x);
-			}
-		}
-
-		if ( $this->publishdate !== null || $dt !== null ) {
-			// (nested ifs are a little easier to read in this case)
-
-			$currNorm = ($this->publishdate !== null && $tmpDt = new DateTime($this->publishdate)) ? $tmpDt->format('Y-m-d') : null;
-			$newNorm = ($dt !== null) ? $dt->format('Y-m-d') : null;
-
-			if ( ($currNorm !== $newNorm) // normalized values don't match 
-					)
-			{
-				$this->publishdate = ($dt ? $dt->format('Y-m-d') : null);
+		$dt = PropelDateTime::newInstance($v, null, 'DateTime');
+		if ($this->publishdate !== null || $dt !== null) {
+			$currentDateAsString = ($this->publishdate !== null && $tmpDt = new DateTime($this->publishdate)) ? $tmpDt->format('Y-m-d') : null;
+			$newDateAsString = $dt ? $dt->format('Y-m-d') : null;
+			if ($currentDateAsString !== $newDateAsString) {
+				$this->publishdate = $newDateAsString;
 				$this->modifiedColumns[] = AdvertisementPeer::PUBLISHDATE;
 			}
 		} // if either are not null
@@ -504,7 +450,7 @@ abstract class BaseAdvertisement extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 7; // 7 = AdvertisementPeer::NUM_COLUMNS - AdvertisementPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 7; // 7 = AdvertisementPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Advertisement object", $e);
@@ -1096,12 +1042,12 @@ abstract class BaseAdvertisement extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setDate($this->date);
-		$copyObj->setPublishdate($this->publishdate);
-		$copyObj->setDuration($this->duration);
-		$copyObj->setBillboardid($this->billboardid);
-		$copyObj->setThemeid($this->themeid);
-		$copyObj->setWorkforceid($this->workforceid);
+		$copyObj->setDate($this->getDate());
+		$copyObj->setPublishdate($this->getPublishdate());
+		$copyObj->setDuration($this->getDuration());
+		$copyObj->setBillboardid($this->getBillboardid());
+		$copyObj->setThemeid($this->getThemeid());
+		$copyObj->setWorkforceid($this->getWorkforceid());
 		if ($makeNew) {
 			$copyObj->setNew(true);
 			$copyObj->setId(NULL); // this is a auto-increment column, so set to default value

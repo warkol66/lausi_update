@@ -31,6 +31,9 @@ abstract class BaseThemePeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 9;
+
 	/** the column name for the ID field */
 	const ID = 'lausi_theme.ID';
 
@@ -466,7 +469,7 @@ abstract class BaseThemePeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + ThemePeer::NUM_COLUMNS;
+			$col = $startcol + ThemePeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = ThemePeer::OM_CLASS;
 			$obj = new $cls();
@@ -545,7 +548,7 @@ abstract class BaseThemePeer {
 		}
 
 		ThemePeer::addSelectColumns($criteria);
-		$startcol = (ThemePeer::NUM_COLUMNS - ThemePeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = ThemePeer::NUM_HYDRATE_COLUMNS;
 		ClientPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(ThemePeer::CLIENTID, ClientPeer::ID, $join_behavior);
@@ -661,10 +664,10 @@ abstract class BaseThemePeer {
 		}
 
 		ThemePeer::addSelectColumns($criteria);
-		$startcol2 = (ThemePeer::NUM_COLUMNS - ThemePeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = ThemePeer::NUM_HYDRATE_COLUMNS;
 
 		ClientPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (ClientPeer::NUM_COLUMNS - ClientPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + ClientPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(ThemePeer::CLIENTID, ClientPeer::ID, $join_behavior);
 

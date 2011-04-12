@@ -170,7 +170,7 @@ abstract class BaseWorkforceCircuit extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 2; // 2 = WorkforceCircuitPeer::NUM_COLUMNS - WorkforceCircuitPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 2; // 2 = WorkforceCircuitPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating WorkforceCircuit object", $e);
@@ -696,8 +696,8 @@ abstract class BaseWorkforceCircuit extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setWorkforceid($this->workforceid);
-		$copyObj->setCircuitid($this->circuitid);
+		$copyObj->setWorkforceid($this->getWorkforceid());
+		$copyObj->setCircuitid($this->getCircuitid());
 		if ($makeNew) {
 			$copyObj->setNew(true);
 		}

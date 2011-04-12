@@ -169,15 +169,23 @@ abstract class BaseModule extends BaseObject  implements Persistent
 	} // setName()
 
 	/**
-	 * Set the value of [active] column.
+	 * Sets the value of the [active] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * Estado del modulo
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Module The current object (for fluent API support)
 	 */
 	public function setActive($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->active !== $v || $this->isNew()) {
@@ -189,15 +197,23 @@ abstract class BaseModule extends BaseObject  implements Persistent
 	} // setActive()
 
 	/**
-	 * Set the value of [alwaysactive] column.
+	 * Sets the value of the [alwaysactive] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * Modulo siempre activo
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Module The current object (for fluent API support)
 	 */
 	public function setAlwaysactive($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->alwaysactive !== $v || $this->isNew()) {
@@ -209,15 +225,23 @@ abstract class BaseModule extends BaseObject  implements Persistent
 	} // setAlwaysactive()
 
 	/**
-	 * Set the value of [hascategories] column.
+	 * Sets the value of the [hascategories] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * El Modulo tiene categorias relacionadas?
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Module The current object (for fluent API support)
 	 */
 	public function setHascategories($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->hascategories !== $v || $this->isNew()) {
@@ -284,7 +308,7 @@ abstract class BaseModule extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 4; // 4 = ModulePeer::NUM_COLUMNS - ModulePeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 4; // 4 = ModulePeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Module object", $e);
@@ -854,10 +878,10 @@ abstract class BaseModule extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setName($this->name);
-		$copyObj->setActive($this->active);
-		$copyObj->setAlwaysactive($this->alwaysactive);
-		$copyObj->setHascategories($this->hascategories);
+		$copyObj->setName($this->getName());
+		$copyObj->setActive($this->getActive());
+		$copyObj->setAlwaysactive($this->getAlwaysactive());
+		$copyObj->setHascategories($this->getHascategories());
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of

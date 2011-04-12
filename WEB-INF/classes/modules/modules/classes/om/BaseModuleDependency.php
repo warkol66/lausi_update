@@ -161,7 +161,7 @@ abstract class BaseModuleDependency extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 2; // 2 = ModuleDependencyPeer::NUM_COLUMNS - ModuleDependencyPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 2; // 2 = ModuleDependencyPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating ModuleDependency object", $e);
@@ -667,8 +667,8 @@ abstract class BaseModuleDependency extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setModulename($this->modulename);
-		$copyObj->setDependence($this->dependence);
+		$copyObj->setModulename($this->getModulename());
+		$copyObj->setDependence($this->getDependence());
 		if ($makeNew) {
 			$copyObj->setNew(true);
 		}

@@ -31,6 +31,9 @@ abstract class BaseMenuItemInfoPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 6;
+
 	/** the column name for the ID field */
 	const ID = 'common_menuItemInfo.ID';
 
@@ -448,7 +451,7 @@ abstract class BaseMenuItemInfoPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + MenuItemInfoPeer::NUM_COLUMNS;
+			$col = $startcol + MenuItemInfoPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = MenuItemInfoPeer::OM_CLASS;
 			$obj = new $cls();
@@ -527,7 +530,7 @@ abstract class BaseMenuItemInfoPeer {
 		}
 
 		MenuItemInfoPeer::addSelectColumns($criteria);
-		$startcol = (MenuItemInfoPeer::NUM_COLUMNS - MenuItemInfoPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = MenuItemInfoPeer::NUM_HYDRATE_COLUMNS;
 		MenuItemPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(MenuItemInfoPeer::MENUITEMID, MenuItemPeer::ID, $join_behavior);
@@ -643,10 +646,10 @@ abstract class BaseMenuItemInfoPeer {
 		}
 
 		MenuItemInfoPeer::addSelectColumns($criteria);
-		$startcol2 = (MenuItemInfoPeer::NUM_COLUMNS - MenuItemInfoPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = MenuItemInfoPeer::NUM_HYDRATE_COLUMNS;
 
 		MenuItemPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (MenuItemPeer::NUM_COLUMNS - MenuItemPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + MenuItemPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(MenuItemInfoPeer::MENUITEMID, MenuItemPeer::ID, $join_behavior);
 

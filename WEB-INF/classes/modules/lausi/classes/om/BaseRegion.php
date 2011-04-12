@@ -162,7 +162,7 @@ abstract class BaseRegion extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 2; // 2 = RegionPeer::NUM_COLUMNS - RegionPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 2; // 2 = RegionPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Region object", $e);
@@ -680,7 +680,7 @@ abstract class BaseRegion extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setName($this->name);
+		$copyObj->setName($this->getName());
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of

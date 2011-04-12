@@ -22,7 +22,7 @@ CREATE TABLE `actionLogs_log`
 	`forward` VARCHAR(100) COMMENT 'tipo de accion de la etiqueta',
 	PRIMARY KEY (`id`),
 	INDEX `actionLogs_log_FI_1` (`userId`),
-	INDEX `actionLogs_log_FI_2` (`action`(100)),
+	INDEX `actionLogs_log_FI_2` (`action`),
 	CONSTRAINT `actionLogs_log_FK_1`
 		FOREIGN KEY (`userId`)
 		REFERENCES `users_user` (`id`),
@@ -103,10 +103,10 @@ CREATE TABLE `common_alertSubscription`
 	`entityNameFieldUniqueName` VARCHAR(100) COMMENT 'Campo a imprimir en representacion del nombre de cada instancia de la entidad',
 	`extraRecipients` TEXT COMMENT 'Destinatarios extra',
 	PRIMARY KEY (`id`),
-	INDEX `common_alertSubscription_FI_1` (`entityName`(50)),
-	INDEX `common_alertSubscription_FI_2` (`entityNameFieldUniqueName`(100)),
-	INDEX `common_alertSubscription_FI_3` (`entityDateFieldUniqueName`(100)),
-	INDEX `common_alertSubscription_FI_4` (`entityBooleanFieldUniqueName`(100)),
+	INDEX `common_alertSubscription_FI_1` (`entityName`),
+	INDEX `common_alertSubscription_FI_2` (`entityNameFieldUniqueName`),
+	INDEX `common_alertSubscription_FI_3` (`entityDateFieldUniqueName`),
+	INDEX `common_alertSubscription_FI_4` (`entityBooleanFieldUniqueName`),
 	CONSTRAINT `common_alertSubscription_FK_1`
 		FOREIGN KEY (`entityName`)
 		REFERENCES `modules_entity` (`name`)
@@ -164,10 +164,10 @@ CREATE TABLE `common_scheduleSubscription`
 	`entityNameFieldUniqueName` VARCHAR(100) COMMENT 'Campo a imprimir en representacion del nombre de cada instancia de la entidad',
 	`extraRecipients` TEXT COMMENT 'Destinatarios extra',
 	PRIMARY KEY (`id`),
-	INDEX `common_scheduleSubscription_FI_1` (`entityName`(50)),
-	INDEX `common_scheduleSubscription_FI_2` (`entityNameFieldUniqueName`(100)),
-	INDEX `common_scheduleSubscription_FI_3` (`entityDateFieldUniqueName`(100)),
-	INDEX `common_scheduleSubscription_FI_4` (`entityBooleanFieldUniqueName`(100)),
+	INDEX `common_scheduleSubscription_FI_1` (`entityName`),
+	INDEX `common_scheduleSubscription_FI_2` (`entityNameFieldUniqueName`),
+	INDEX `common_scheduleSubscription_FI_3` (`entityDateFieldUniqueName`),
+	INDEX `common_scheduleSubscription_FI_4` (`entityBooleanFieldUniqueName`),
 	CONSTRAINT `common_scheduleSubscription_FK_1`
 		FOREIGN KEY (`entityName`)
 		REFERENCES `modules_entity` (`name`)

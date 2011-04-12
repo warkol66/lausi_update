@@ -221,15 +221,23 @@ abstract class BaseBillboard extends BaseObject  implements Persistent
 	} // setType()
 
 	/**
-	 * Set the value of [height] column.
+	 * Sets the value of the [height] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * si esta en altura
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Billboard The current object (for fluent API support)
 	 */
 	public function setHeight($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->height !== $v) {
@@ -351,7 +359,7 @@ abstract class BaseBillboard extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 7; // 7 = BillboardPeer::NUM_COLUMNS - BillboardPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 7; // 7 = BillboardPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Billboard object", $e);
@@ -924,12 +932,12 @@ abstract class BaseBillboard extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setNumber($this->number);
-		$copyObj->setType($this->type);
-		$copyObj->setHeight($this->height);
-		$copyObj->setRow($this->row);
-		$copyObj->setBillboardcolumn($this->billboardcolumn);
-		$copyObj->setAddressid($this->addressid);
+		$copyObj->setNumber($this->getNumber());
+		$copyObj->setType($this->getType());
+		$copyObj->setHeight($this->getHeight());
+		$copyObj->setRow($this->getRow());
+		$copyObj->setBillboardcolumn($this->getBillboardcolumn());
+		$copyObj->setAddressid($this->getAddressid());
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of

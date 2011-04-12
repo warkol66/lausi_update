@@ -222,15 +222,23 @@ abstract class BaseWorkforce extends BaseObject  implements Persistent
 	} // setTelephone()
 
 	/**
-	 * Set the value of [workinheight] column.
+	 * Sets the value of the [workinheight] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * Trabaja en altura
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Workforce The current object (for fluent API support)
 	 */
 	public function setWorkinheight($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->workinheight !== $v) {
@@ -244,45 +252,18 @@ abstract class BaseWorkforce extends BaseObject  implements Persistent
 	/**
 	 * Sets the value of [deleted_at] column to a normalized version of the date/time value specified.
 	 * 
-	 * @param      mixed $v string, integer (timestamp), or DateTime value.  Empty string will
-	 *						be treated as NULL for temporal objects.
+	 * @param      mixed $v string, integer (timestamp), or DateTime value.
+	 *               Empty strings are treated as NULL.
 	 * @return     Workforce The current object (for fluent API support)
 	 */
 	public function setDeletedAt($v)
 	{
-		// we treat '' as NULL for temporal objects because DateTime('') == DateTime('now')
-		// -- which is unexpected, to say the least.
-		if ($v === null || $v === '') {
-			$dt = null;
-		} elseif ($v instanceof DateTime) {
-			$dt = $v;
-		} else {
-			// some string/numeric value passed; we normalize that so that we can
-			// validate it.
-			try {
-				if (is_numeric($v)) { // if it's a unix timestamp
-					$dt = new DateTime('@'.$v, new DateTimeZone('UTC'));
-					// We have to explicitly specify and then change the time zone because of a
-					// DateTime bug: http://bugs.php.net/bug.php?id=43003
-					$dt->setTimeZone(new DateTimeZone(date_default_timezone_get()));
-				} else {
-					$dt = new DateTime($v);
-				}
-			} catch (Exception $x) {
-				throw new PropelException('Error parsing date/time value: ' . var_export($v, true), $x);
-			}
-		}
-
-		if ( $this->deleted_at !== null || $dt !== null ) {
-			// (nested ifs are a little easier to read in this case)
-
-			$currNorm = ($this->deleted_at !== null && $tmpDt = new DateTime($this->deleted_at)) ? $tmpDt->format('Y-m-d H:i:s') : null;
-			$newNorm = ($dt !== null) ? $dt->format('Y-m-d H:i:s') : null;
-
-			if ( ($currNorm !== $newNorm) // normalized values don't match 
-					)
-			{
-				$this->deleted_at = ($dt ? $dt->format('Y-m-d H:i:s') : null);
+		$dt = PropelDateTime::newInstance($v, null, 'DateTime');
+		if ($this->deleted_at !== null || $dt !== null) {
+			$currentDateAsString = ($this->deleted_at !== null && $tmpDt = new DateTime($this->deleted_at)) ? $tmpDt->format('Y-m-d H:i:s') : null;
+			$newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
+			if ($currentDateAsString !== $newDateAsString) {
+				$this->deleted_at = $newDateAsString;
 				$this->modifiedColumns[] = WorkforcePeer::DELETED_AT;
 			}
 		} // if either are not null
@@ -335,7 +316,7 @@ abstract class BaseWorkforce extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 5; // 5 = WorkforcePeer::NUM_COLUMNS - WorkforcePeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 5; // 5 = WorkforcePeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Workforce object", $e);
@@ -890,10 +871,10 @@ abstract class BaseWorkforce extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setName($this->name);
-		$copyObj->setTelephone($this->telephone);
-		$copyObj->setWorkinheight($this->workinheight);
-		$copyObj->setDeletedAt($this->deleted_at);
+		$copyObj->setName($this->getName());
+		$copyObj->setTelephone($this->getTelephone());
+		$copyObj->setWorkinheight($this->getWorkinheight());
+		$copyObj->setDeletedAt($this->getDeletedAt());
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of

@@ -325,7 +325,7 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 6; // 6 = CircuitPeer::NUM_COLUMNS - CircuitPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 6; // 6 = CircuitPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Circuit object", $e);
@@ -922,11 +922,11 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setName($this->name);
-		$copyObj->setDescription($this->description);
-		$copyObj->setLimitsdescription($this->limitsdescription);
-		$copyObj->setOrderby($this->orderby);
-		$copyObj->setColor($this->color);
+		$copyObj->setName($this->getName());
+		$copyObj->setDescription($this->getDescription());
+		$copyObj->setLimitsdescription($this->getLimitsdescription());
+		$copyObj->setOrderby($this->getOrderby());
+		$copyObj->setColor($this->getColor());
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of

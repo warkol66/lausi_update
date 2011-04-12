@@ -194,7 +194,7 @@ abstract class BaseLevel extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 3; // 3 = LevelPeer::NUM_COLUMNS - LevelPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 3; // 3 = LevelPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Level object", $e);
@@ -700,8 +700,8 @@ abstract class BaseLevel extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setName($this->name);
-		$copyObj->setBitlevel($this->bitlevel);
+		$copyObj->setName($this->getName());
+		$copyObj->setBitlevel($this->getBitlevel());
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of

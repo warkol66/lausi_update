@@ -31,6 +31,9 @@ abstract class BaseMultilangTextPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 4;
+
 	/** the column name for the ID field */
 	const ID = 'multilang_text.ID';
 
@@ -438,7 +441,7 @@ abstract class BaseMultilangTextPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + MultilangTextPeer::NUM_COLUMNS;
+			$col = $startcol + MultilangTextPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = MultilangTextPeer::OM_CLASS;
 			$obj = new $cls();
@@ -567,7 +570,7 @@ abstract class BaseMultilangTextPeer {
 		}
 
 		MultilangTextPeer::addSelectColumns($criteria);
-		$startcol = (MultilangTextPeer::NUM_COLUMNS - MultilangTextPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = MultilangTextPeer::NUM_HYDRATE_COLUMNS;
 		MultilangLanguagePeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(MultilangTextPeer::LANGUAGECODE, MultilangLanguagePeer::CODE, $join_behavior);
@@ -633,7 +636,7 @@ abstract class BaseMultilangTextPeer {
 		}
 
 		MultilangTextPeer::addSelectColumns($criteria);
-		$startcol = (MultilangTextPeer::NUM_COLUMNS - MultilangTextPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = MultilangTextPeer::NUM_HYDRATE_COLUMNS;
 		ModulePeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(MultilangTextPeer::MODULENAME, ModulePeer::NAME, $join_behavior);
@@ -751,13 +754,13 @@ abstract class BaseMultilangTextPeer {
 		}
 
 		MultilangTextPeer::addSelectColumns($criteria);
-		$startcol2 = (MultilangTextPeer::NUM_COLUMNS - MultilangTextPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = MultilangTextPeer::NUM_HYDRATE_COLUMNS;
 
 		MultilangLanguagePeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (MultilangLanguagePeer::NUM_COLUMNS - MultilangLanguagePeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + MultilangLanguagePeer::NUM_HYDRATE_COLUMNS;
 
 		ModulePeer::addSelectColumns($criteria);
-		$startcol4 = $startcol3 + (ModulePeer::NUM_COLUMNS - ModulePeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol4 = $startcol3 + ModulePeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(MultilangTextPeer::LANGUAGECODE, MultilangLanguagePeer::CODE, $join_behavior);
 
@@ -945,10 +948,10 @@ abstract class BaseMultilangTextPeer {
 		}
 
 		MultilangTextPeer::addSelectColumns($criteria);
-		$startcol2 = (MultilangTextPeer::NUM_COLUMNS - MultilangTextPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = MultilangTextPeer::NUM_HYDRATE_COLUMNS;
 
 		ModulePeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (ModulePeer::NUM_COLUMNS - ModulePeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + ModulePeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(MultilangTextPeer::MODULENAME, ModulePeer::NAME, $join_behavior);
 
@@ -1018,10 +1021,10 @@ abstract class BaseMultilangTextPeer {
 		}
 
 		MultilangTextPeer::addSelectColumns($criteria);
-		$startcol2 = (MultilangTextPeer::NUM_COLUMNS - MultilangTextPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = MultilangTextPeer::NUM_HYDRATE_COLUMNS;
 
 		MultilangLanguagePeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (MultilangLanguagePeer::NUM_COLUMNS - MultilangLanguagePeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + MultilangLanguagePeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(MultilangTextPeer::LANGUAGECODE, MultilangLanguagePeer::CODE, $join_behavior);
 

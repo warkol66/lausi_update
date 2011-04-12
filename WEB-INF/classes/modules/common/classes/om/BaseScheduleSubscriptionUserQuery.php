@@ -156,8 +156,19 @@ abstract class BaseScheduleSubscriptionUserQuery extends ModelCriteria
 	/**
 	 * Filter the query on the scheduleSubscriptionId column
 	 * 
-	 * @param     int|array $schedulesubscriptionid The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterBySchedulesubscriptionid(1234); // WHERE scheduleSubscriptionId = 1234
+	 * $query->filterBySchedulesubscriptionid(array(12, 34)); // WHERE scheduleSubscriptionId IN (12, 34)
+	 * $query->filterBySchedulesubscriptionid(array('min' => 12)); // WHERE scheduleSubscriptionId > 12
+	 * </code>
+	 *
+	 * @see       filterByScheduleSubscription()
+	 *
+	 * @param     mixed $schedulesubscriptionid The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ScheduleSubscriptionUserQuery The current query, for fluid interface
@@ -173,8 +184,19 @@ abstract class BaseScheduleSubscriptionUserQuery extends ModelCriteria
 	/**
 	 * Filter the query on the userId column
 	 * 
-	 * @param     int|array $userid The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByUserid(1234); // WHERE userId = 1234
+	 * $query->filterByUserid(array(12, 34)); // WHERE userId IN (12, 34)
+	 * $query->filterByUserid(array('min' => 12)); // WHERE userId > 12
+	 * </code>
+	 *
+	 * @see       filterByUser()
+	 *
+	 * @param     mixed $userid The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ScheduleSubscriptionUserQuery The current query, for fluid interface

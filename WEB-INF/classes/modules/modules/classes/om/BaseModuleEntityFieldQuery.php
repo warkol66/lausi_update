@@ -264,8 +264,14 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the uniqueName column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByUniquename('fooValue');   // WHERE uniqueName = 'fooValue'
+	 * $query->filterByUniquename('%fooValue%'); // WHERE uniqueName LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $uniquename The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface
@@ -286,8 +292,14 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the entityName column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByEntityname('fooValue');   // WHERE entityName = 'fooValue'
+	 * $query->filterByEntityname('%fooValue%'); // WHERE entityName LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $entityname The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface
@@ -308,8 +320,14 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the name column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByName('fooValue');   // WHERE name = 'fooValue'
+	 * $query->filterByName('%fooValue%'); // WHERE name LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $name The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface
@@ -330,8 +348,14 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the description column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByDescription('fooValue');   // WHERE description = 'fooValue'
+	 * $query->filterByDescription('%fooValue%'); // WHERE description LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $description The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface
@@ -352,8 +376,17 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the isRequired column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByIsrequired(true); // WHERE isRequired = true
+	 * $query->filterByIsrequired('yes'); // WHERE isRequired = true
+	 * </code>
+	 *
 	 * @param     boolean|string $isrequired The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface
@@ -369,8 +402,14 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the defaultValue column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByDefaultvalue('fooValue');   // WHERE defaultValue = 'fooValue'
+	 * $query->filterByDefaultvalue('%fooValue%'); // WHERE defaultValue LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $defaultvalue The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface
@@ -391,8 +430,17 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the isPrimaryKey column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByIsprimarykey(true); // WHERE isPrimaryKey = true
+	 * $query->filterByIsprimarykey('yes'); // WHERE isPrimaryKey = true
+	 * </code>
+	 *
 	 * @param     boolean|string $isprimarykey The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface
@@ -408,8 +456,17 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the isAutoIncrement column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByIsautoincrement(true); // WHERE isAutoIncrement = true
+	 * $query->filterByIsautoincrement('yes'); // WHERE isAutoIncrement = true
+	 * </code>
+	 *
 	 * @param     boolean|string $isautoincrement The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface
@@ -425,8 +482,17 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the order column
 	 * 
-	 * @param     int|array $order The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByOrder(1234); // WHERE order = 1234
+	 * $query->filterByOrder(array(12, 34)); // WHERE order IN (12, 34)
+	 * $query->filterByOrder(array('min' => 12)); // WHERE order > 12
+	 * </code>
+	 *
+	 * @param     mixed $order The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface
@@ -456,8 +522,17 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the type column
 	 * 
-	 * @param     int|array $type The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByType(1234); // WHERE type = 1234
+	 * $query->filterByType(array(12, 34)); // WHERE type IN (12, 34)
+	 * $query->filterByType(array('min' => 12)); // WHERE type > 12
+	 * </code>
+	 *
+	 * @param     mixed $type The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface
@@ -487,8 +562,17 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the unique column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByUnique(true); // WHERE unique = true
+	 * $query->filterByUnique('yes'); // WHERE unique = true
+	 * </code>
+	 *
 	 * @param     boolean|string $unique The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface
@@ -504,8 +588,17 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the size column
 	 * 
-	 * @param     int|array $size The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterBySize(1234); // WHERE size = 1234
+	 * $query->filterBySize(array(12, 34)); // WHERE size IN (12, 34)
+	 * $query->filterBySize(array('min' => 12)); // WHERE size > 12
+	 * </code>
+	 *
+	 * @param     mixed $size The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface
@@ -535,8 +628,14 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the aggregateExpression column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByAggregateexpression('fooValue');   // WHERE aggregateExpression = 'fooValue'
+	 * $query->filterByAggregateexpression('%fooValue%'); // WHERE aggregateExpression LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $aggregateexpression The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface
@@ -557,8 +656,14 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the label column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByLabel('fooValue');   // WHERE label = 'fooValue'
+	 * $query->filterByLabel('%fooValue%'); // WHERE label LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $label The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface
@@ -579,8 +684,17 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the formFieldType column
 	 * 
-	 * @param     int|array $formfieldtype The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByFormfieldtype(1234); // WHERE formFieldType = 1234
+	 * $query->filterByFormfieldtype(array(12, 34)); // WHERE formFieldType IN (12, 34)
+	 * $query->filterByFormfieldtype(array('min' => 12)); // WHERE formFieldType > 12
+	 * </code>
+	 *
+	 * @param     mixed $formfieldtype The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface
@@ -610,8 +724,17 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the formFieldSize column
 	 * 
-	 * @param     int|array $formfieldsize The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByFormfieldsize(1234); // WHERE formFieldSize = 1234
+	 * $query->filterByFormfieldsize(array(12, 34)); // WHERE formFieldSize IN (12, 34)
+	 * $query->filterByFormfieldsize(array('min' => 12)); // WHERE formFieldSize > 12
+	 * </code>
+	 *
+	 * @param     mixed $formfieldsize The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface
@@ -641,8 +764,17 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the formFieldLines column
 	 * 
-	 * @param     int|array $formfieldlines The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByFormfieldlines(1234); // WHERE formFieldLines = 1234
+	 * $query->filterByFormfieldlines(array(12, 34)); // WHERE formFieldLines IN (12, 34)
+	 * $query->filterByFormfieldlines(array('min' => 12)); // WHERE formFieldLines > 12
+	 * </code>
+	 *
+	 * @param     mixed $formfieldlines The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface
@@ -672,8 +804,14 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the formFieldUseCalendar column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByFormfieldusecalendar('fooValue');   // WHERE formFieldUseCalendar = 'fooValue'
+	 * $query->filterByFormfieldusecalendar('%fooValue%'); // WHERE formFieldUseCalendar LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $formfieldusecalendar The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface
@@ -694,8 +832,14 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the foreignKeyTable column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByForeignkeytable('fooValue');   // WHERE foreignKeyTable = 'fooValue'
+	 * $query->filterByForeignkeytable('%fooValue%'); // WHERE foreignKeyTable LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $foreignkeytable The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface
@@ -716,8 +860,14 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the foreignKeyRemote column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByForeignkeyremote('fooValue');   // WHERE foreignKeyRemote = 'fooValue'
+	 * $query->filterByForeignkeyremote('%fooValue%'); // WHERE foreignKeyRemote LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $foreignkeyremote The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface
@@ -738,8 +888,14 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the onDelete column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByOndelete('fooValue');   // WHERE onDelete = 'fooValue'
+	 * $query->filterByOndelete('%fooValue%'); // WHERE onDelete LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $ondelete The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface
@@ -760,8 +916,17 @@ abstract class BaseModuleEntityFieldQuery extends ModelCriteria
 	/**
 	 * Filter the query on the automatic column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByAutomatic(true); // WHERE automatic = true
+	 * $query->filterByAutomatic('yes'); // WHERE automatic = true
+	 * </code>
+	 *
 	 * @param     boolean|string $automatic The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldQuery The current query, for fluid interface

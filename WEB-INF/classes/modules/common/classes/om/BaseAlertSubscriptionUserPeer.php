@@ -31,6 +31,9 @@ abstract class BaseAlertSubscriptionUserPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 2;
+
 	/** the column name for the ALERTSUBSCRIPTIONID field */
 	const ALERTSUBSCRIPTIONID = 'common_alertSubscriptionUser.ALERTSUBSCRIPTIONID';
 
@@ -428,7 +431,7 @@ abstract class BaseAlertSubscriptionUserPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + AlertSubscriptionUserPeer::NUM_COLUMNS;
+			$col = $startcol + AlertSubscriptionUserPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = AlertSubscriptionUserPeer::OM_CLASS;
 			$obj = new $cls();
@@ -557,7 +560,7 @@ abstract class BaseAlertSubscriptionUserPeer {
 		}
 
 		AlertSubscriptionUserPeer::addSelectColumns($criteria);
-		$startcol = (AlertSubscriptionUserPeer::NUM_COLUMNS - AlertSubscriptionUserPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = AlertSubscriptionUserPeer::NUM_HYDRATE_COLUMNS;
 		AlertSubscriptionPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(AlertSubscriptionUserPeer::ALERTSUBSCRIPTIONID, AlertSubscriptionPeer::ID, $join_behavior);
@@ -623,7 +626,7 @@ abstract class BaseAlertSubscriptionUserPeer {
 		}
 
 		AlertSubscriptionUserPeer::addSelectColumns($criteria);
-		$startcol = (AlertSubscriptionUserPeer::NUM_COLUMNS - AlertSubscriptionUserPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = AlertSubscriptionUserPeer::NUM_HYDRATE_COLUMNS;
 		UserPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(AlertSubscriptionUserPeer::USERID, UserPeer::ID, $join_behavior);
@@ -741,13 +744,13 @@ abstract class BaseAlertSubscriptionUserPeer {
 		}
 
 		AlertSubscriptionUserPeer::addSelectColumns($criteria);
-		$startcol2 = (AlertSubscriptionUserPeer::NUM_COLUMNS - AlertSubscriptionUserPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = AlertSubscriptionUserPeer::NUM_HYDRATE_COLUMNS;
 
 		AlertSubscriptionPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (AlertSubscriptionPeer::NUM_COLUMNS - AlertSubscriptionPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + AlertSubscriptionPeer::NUM_HYDRATE_COLUMNS;
 
 		UserPeer::addSelectColumns($criteria);
-		$startcol4 = $startcol3 + (UserPeer::NUM_COLUMNS - UserPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol4 = $startcol3 + UserPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(AlertSubscriptionUserPeer::ALERTSUBSCRIPTIONID, AlertSubscriptionPeer::ID, $join_behavior);
 
@@ -935,10 +938,10 @@ abstract class BaseAlertSubscriptionUserPeer {
 		}
 
 		AlertSubscriptionUserPeer::addSelectColumns($criteria);
-		$startcol2 = (AlertSubscriptionUserPeer::NUM_COLUMNS - AlertSubscriptionUserPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = AlertSubscriptionUserPeer::NUM_HYDRATE_COLUMNS;
 
 		UserPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (UserPeer::NUM_COLUMNS - UserPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + UserPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(AlertSubscriptionUserPeer::USERID, UserPeer::ID, $join_behavior);
 
@@ -1008,10 +1011,10 @@ abstract class BaseAlertSubscriptionUserPeer {
 		}
 
 		AlertSubscriptionUserPeer::addSelectColumns($criteria);
-		$startcol2 = (AlertSubscriptionUserPeer::NUM_COLUMNS - AlertSubscriptionUserPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = AlertSubscriptionUserPeer::NUM_HYDRATE_COLUMNS;
 
 		AlertSubscriptionPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (AlertSubscriptionPeer::NUM_COLUMNS - AlertSubscriptionPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + AlertSubscriptionPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(AlertSubscriptionUserPeer::ALERTSUBSCRIPTIONID, AlertSubscriptionPeer::ID, $join_behavior);
 

@@ -235,7 +235,7 @@ abstract class BaseCircuitPoint extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 4; // 4 = CircuitPointPeer::NUM_COLUMNS - CircuitPointPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 4; // 4 = CircuitPointPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating CircuitPoint object", $e);
@@ -760,9 +760,9 @@ abstract class BaseCircuitPoint extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setCircuitid($this->circuitid);
-		$copyObj->setLatitude($this->latitude);
-		$copyObj->setLongitude($this->longitude);
+		$copyObj->setCircuitid($this->getCircuitid());
+		$copyObj->setLatitude($this->getLatitude());
+		$copyObj->setLongitude($this->getLongitude());
 		if ($makeNew) {
 			$copyObj->setNew(true);
 			$copyObj->setId(NULL); // this is a auto-increment column, so set to default value

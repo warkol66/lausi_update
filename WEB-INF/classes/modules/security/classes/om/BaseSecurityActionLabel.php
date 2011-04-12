@@ -263,7 +263,7 @@ abstract class BaseSecurityActionLabel extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 5; // 5 = SecurityActionLabelPeer::NUM_COLUMNS - SecurityActionLabelPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 5; // 5 = SecurityActionLabelPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating SecurityActionLabel object", $e);
@@ -770,10 +770,10 @@ abstract class BaseSecurityActionLabel extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setAction($this->action);
-		$copyObj->setLanguage($this->language);
-		$copyObj->setLabel($this->label);
-		$copyObj->setDescription($this->description);
+		$copyObj->setAction($this->getAction());
+		$copyObj->setLanguage($this->getLanguage());
+		$copyObj->setLabel($this->getLabel());
+		$copyObj->setDescription($this->getDescription());
 		if ($makeNew) {
 			$copyObj->setNew(true);
 			$copyObj->setId(NULL); // this is a auto-increment column, so set to default value

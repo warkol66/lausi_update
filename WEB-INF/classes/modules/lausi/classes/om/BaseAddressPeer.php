@@ -31,6 +31,9 @@ abstract class BaseAddressPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 13;
+
 	/** the column name for the ID field */
 	const ID = 'lausi_address.ID';
 
@@ -486,7 +489,7 @@ abstract class BaseAddressPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + AddressPeer::NUM_COLUMNS;
+			$col = $startcol + AddressPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = AddressPeer::OM_CLASS;
 			$obj = new $cls();
@@ -615,7 +618,7 @@ abstract class BaseAddressPeer {
 		}
 
 		AddressPeer::addSelectColumns($criteria);
-		$startcol = (AddressPeer::NUM_COLUMNS - AddressPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = AddressPeer::NUM_HYDRATE_COLUMNS;
 		CircuitPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(AddressPeer::CIRCUITID, CircuitPeer::ID, $join_behavior);
@@ -681,7 +684,7 @@ abstract class BaseAddressPeer {
 		}
 
 		AddressPeer::addSelectColumns($criteria);
-		$startcol = (AddressPeer::NUM_COLUMNS - AddressPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = AddressPeer::NUM_HYDRATE_COLUMNS;
 		RegionPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(AddressPeer::REGIONID, RegionPeer::ID, $join_behavior);
@@ -799,13 +802,13 @@ abstract class BaseAddressPeer {
 		}
 
 		AddressPeer::addSelectColumns($criteria);
-		$startcol2 = (AddressPeer::NUM_COLUMNS - AddressPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = AddressPeer::NUM_HYDRATE_COLUMNS;
 
 		CircuitPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (CircuitPeer::NUM_COLUMNS - CircuitPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + CircuitPeer::NUM_HYDRATE_COLUMNS;
 
 		RegionPeer::addSelectColumns($criteria);
-		$startcol4 = $startcol3 + (RegionPeer::NUM_COLUMNS - RegionPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol4 = $startcol3 + RegionPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(AddressPeer::CIRCUITID, CircuitPeer::ID, $join_behavior);
 
@@ -993,10 +996,10 @@ abstract class BaseAddressPeer {
 		}
 
 		AddressPeer::addSelectColumns($criteria);
-		$startcol2 = (AddressPeer::NUM_COLUMNS - AddressPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = AddressPeer::NUM_HYDRATE_COLUMNS;
 
 		RegionPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (RegionPeer::NUM_COLUMNS - RegionPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + RegionPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(AddressPeer::REGIONID, RegionPeer::ID, $join_behavior);
 
@@ -1066,10 +1069,10 @@ abstract class BaseAddressPeer {
 		}
 
 		AddressPeer::addSelectColumns($criteria);
-		$startcol2 = (AddressPeer::NUM_COLUMNS - AddressPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = AddressPeer::NUM_HYDRATE_COLUMNS;
 
 		CircuitPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (CircuitPeer::NUM_COLUMNS - CircuitPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + CircuitPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(AddressPeer::CIRCUITID, CircuitPeer::ID, $join_behavior);
 

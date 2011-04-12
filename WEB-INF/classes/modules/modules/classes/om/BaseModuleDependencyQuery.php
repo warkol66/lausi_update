@@ -152,8 +152,14 @@ abstract class BaseModuleDependencyQuery extends ModelCriteria
 	/**
 	 * Filter the query on the moduleName column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByModulename('fooValue');   // WHERE moduleName = 'fooValue'
+	 * $query->filterByModulename('%fooValue%'); // WHERE moduleName LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $modulename The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleDependencyQuery The current query, for fluid interface
@@ -174,8 +180,14 @@ abstract class BaseModuleDependencyQuery extends ModelCriteria
 	/**
 	 * Filter the query on the dependence column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByDependence('fooValue');   // WHERE dependence = 'fooValue'
+	 * $query->filterByDependence('%fooValue%'); // WHERE dependence LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $dependence The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleDependencyQuery The current query, for fluid interface

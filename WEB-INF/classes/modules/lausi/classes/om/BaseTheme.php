@@ -305,45 +305,18 @@ abstract class BaseTheme extends BaseObject  implements Persistent
 	/**
 	 * Sets the value of [startdate] column to a normalized version of the date/time value specified.
 	 * fecha de inicio del motivo
-	 * @param      mixed $v string, integer (timestamp), or DateTime value.  Empty string will
-	 *						be treated as NULL for temporal objects.
+	 * @param      mixed $v string, integer (timestamp), or DateTime value.
+	 *               Empty strings are treated as NULL.
 	 * @return     Theme The current object (for fluent API support)
 	 */
 	public function setStartdate($v)
 	{
-		// we treat '' as NULL for temporal objects because DateTime('') == DateTime('now')
-		// -- which is unexpected, to say the least.
-		if ($v === null || $v === '') {
-			$dt = null;
-		} elseif ($v instanceof DateTime) {
-			$dt = $v;
-		} else {
-			// some string/numeric value passed; we normalize that so that we can
-			// validate it.
-			try {
-				if (is_numeric($v)) { // if it's a unix timestamp
-					$dt = new DateTime('@'.$v, new DateTimeZone('UTC'));
-					// We have to explicitly specify and then change the time zone because of a
-					// DateTime bug: http://bugs.php.net/bug.php?id=43003
-					$dt->setTimeZone(new DateTimeZone(date_default_timezone_get()));
-				} else {
-					$dt = new DateTime($v);
-				}
-			} catch (Exception $x) {
-				throw new PropelException('Error parsing date/time value: ' . var_export($v, true), $x);
-			}
-		}
-
-		if ( $this->startdate !== null || $dt !== null ) {
-			// (nested ifs are a little easier to read in this case)
-
-			$currNorm = ($this->startdate !== null && $tmpDt = new DateTime($this->startdate)) ? $tmpDt->format('Y-m-d') : null;
-			$newNorm = ($dt !== null) ? $dt->format('Y-m-d') : null;
-
-			if ( ($currNorm !== $newNorm) // normalized values don't match 
-					)
-			{
-				$this->startdate = ($dt ? $dt->format('Y-m-d') : null);
+		$dt = PropelDateTime::newInstance($v, null, 'DateTime');
+		if ($this->startdate !== null || $dt !== null) {
+			$currentDateAsString = ($this->startdate !== null && $tmpDt = new DateTime($this->startdate)) ? $tmpDt->format('Y-m-d') : null;
+			$newDateAsString = $dt ? $dt->format('Y-m-d') : null;
+			if ($currentDateAsString !== $newDateAsString) {
+				$this->startdate = $newDateAsString;
 				$this->modifiedColumns[] = ThemePeer::STARTDATE;
 			}
 		} // if either are not null
@@ -412,15 +385,23 @@ abstract class BaseTheme extends BaseObject  implements Persistent
 	} // setType()
 
 	/**
-	 * Set the value of [active] column.
+	 * Sets the value of the [active] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * indica si el motivo esta activo o no
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Theme The current object (for fluent API support)
 	 */
 	public function setActive($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->active !== $v || $this->isNew()) {
@@ -508,7 +489,7 @@ abstract class BaseTheme extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 9; // 9 = ThemePeer::NUM_COLUMNS - ThemePeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 9; // 9 = ThemePeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Theme object", $e);
@@ -1099,14 +1080,14 @@ abstract class BaseTheme extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setName($this->name);
-		$copyObj->setShortname($this->shortname);
-		$copyObj->setStartdate($this->startdate);
-		$copyObj->setDuration($this->duration);
-		$copyObj->setSheetstotal($this->sheetstotal);
-		$copyObj->setType($this->type);
-		$copyObj->setActive($this->active);
-		$copyObj->setClientid($this->clientid);
+		$copyObj->setName($this->getName());
+		$copyObj->setShortname($this->getShortname());
+		$copyObj->setStartdate($this->getStartdate());
+		$copyObj->setDuration($this->getDuration());
+		$copyObj->setSheetstotal($this->getSheetstotal());
+		$copyObj->setType($this->getType());
+		$copyObj->setActive($this->getActive());
+		$copyObj->setClientid($this->getClientid());
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of

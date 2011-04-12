@@ -168,8 +168,17 @@ abstract class BaseAdvertisementQuery extends ModelCriteria
 	/**
 	 * Filter the query on the id column
 	 * 
-	 * @param     int|array $id The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterById(1234); // WHERE id = 1234
+	 * $query->filterById(array(12, 34)); // WHERE id IN (12, 34)
+	 * $query->filterById(array('min' => 12)); // WHERE id > 12
+	 * </code>
+	 *
+	 * @param     mixed $id The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    AdvertisementQuery The current query, for fluid interface
@@ -185,8 +194,19 @@ abstract class BaseAdvertisementQuery extends ModelCriteria
 	/**
 	 * Filter the query on the date column
 	 * 
-	 * @param     string|array $date The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByDate('2011-03-14'); // WHERE date = '2011-03-14'
+	 * $query->filterByDate('now'); // WHERE date = '2011-03-14'
+	 * $query->filterByDate(array('max' => 'yesterday')); // WHERE date > '2011-03-13'
+	 * </code>
+	 *
+	 * @param     mixed $date The value to use as filter.
+	 *              Values can be integers (unix timestamps), DateTime objects, or strings.
+	 *              Empty strings are treated as NULL.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    AdvertisementQuery The current query, for fluid interface
@@ -216,8 +236,19 @@ abstract class BaseAdvertisementQuery extends ModelCriteria
 	/**
 	 * Filter the query on the publishDate column
 	 * 
-	 * @param     string|array $publishdate The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByPublishdate('2011-03-14'); // WHERE publishDate = '2011-03-14'
+	 * $query->filterByPublishdate('now'); // WHERE publishDate = '2011-03-14'
+	 * $query->filterByPublishdate(array('max' => 'yesterday')); // WHERE publishDate > '2011-03-13'
+	 * </code>
+	 *
+	 * @param     mixed $publishdate The value to use as filter.
+	 *              Values can be integers (unix timestamps), DateTime objects, or strings.
+	 *              Empty strings are treated as NULL.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    AdvertisementQuery The current query, for fluid interface
@@ -247,8 +278,17 @@ abstract class BaseAdvertisementQuery extends ModelCriteria
 	/**
 	 * Filter the query on the duration column
 	 * 
-	 * @param     int|array $duration The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByDuration(1234); // WHERE duration = 1234
+	 * $query->filterByDuration(array(12, 34)); // WHERE duration IN (12, 34)
+	 * $query->filterByDuration(array('min' => 12)); // WHERE duration > 12
+	 * </code>
+	 *
+	 * @param     mixed $duration The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    AdvertisementQuery The current query, for fluid interface
@@ -278,8 +318,19 @@ abstract class BaseAdvertisementQuery extends ModelCriteria
 	/**
 	 * Filter the query on the billboardId column
 	 * 
-	 * @param     int|array $billboardid The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByBillboardid(1234); // WHERE billboardId = 1234
+	 * $query->filterByBillboardid(array(12, 34)); // WHERE billboardId IN (12, 34)
+	 * $query->filterByBillboardid(array('min' => 12)); // WHERE billboardId > 12
+	 * </code>
+	 *
+	 * @see       filterByBillboard()
+	 *
+	 * @param     mixed $billboardid The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    AdvertisementQuery The current query, for fluid interface
@@ -309,8 +360,19 @@ abstract class BaseAdvertisementQuery extends ModelCriteria
 	/**
 	 * Filter the query on the themeId column
 	 * 
-	 * @param     int|array $themeid The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByThemeid(1234); // WHERE themeId = 1234
+	 * $query->filterByThemeid(array(12, 34)); // WHERE themeId IN (12, 34)
+	 * $query->filterByThemeid(array('min' => 12)); // WHERE themeId > 12
+	 * </code>
+	 *
+	 * @see       filterByTheme()
+	 *
+	 * @param     mixed $themeid The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    AdvertisementQuery The current query, for fluid interface
@@ -340,8 +402,19 @@ abstract class BaseAdvertisementQuery extends ModelCriteria
 	/**
 	 * Filter the query on the workforceId column
 	 * 
-	 * @param     int|array $workforceid The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByWorkforceid(1234); // WHERE workforceId = 1234
+	 * $query->filterByWorkforceid(array(12, 34)); // WHERE workforceId IN (12, 34)
+	 * $query->filterByWorkforceid(array('min' => 12)); // WHERE workforceId > 12
+	 * </code>
+	 *
+	 * @see       filterByWorkforce()
+	 *
+	 * @param     mixed $workforceid The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    AdvertisementQuery The current query, for fluid interface

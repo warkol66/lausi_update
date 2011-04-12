@@ -160,8 +160,17 @@ abstract class BaseActionLogLabelQuery extends ModelCriteria
 	/**
 	 * Filter the query on the id column
 	 * 
-	 * @param     int|array $id The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterById(1234); // WHERE id = 1234
+	 * $query->filterById(array(12, 34)); // WHERE id IN (12, 34)
+	 * $query->filterById(array('min' => 12)); // WHERE id > 12
+	 * </code>
+	 *
+	 * @param     mixed $id The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ActionLogLabelQuery The current query, for fluid interface
@@ -177,8 +186,14 @@ abstract class BaseActionLogLabelQuery extends ModelCriteria
 	/**
 	 * Filter the query on the action column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByAction('fooValue');   // WHERE action = 'fooValue'
+	 * $query->filterByAction('%fooValue%'); // WHERE action LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $action The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ActionLogLabelQuery The current query, for fluid interface
@@ -199,8 +214,14 @@ abstract class BaseActionLogLabelQuery extends ModelCriteria
 	/**
 	 * Filter the query on the label column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByLabel('fooValue');   // WHERE label = 'fooValue'
+	 * $query->filterByLabel('%fooValue%'); // WHERE label LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $label The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ActionLogLabelQuery The current query, for fluid interface
@@ -221,8 +242,14 @@ abstract class BaseActionLogLabelQuery extends ModelCriteria
 	/**
 	 * Filter the query on the language column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByLanguage('fooValue');   // WHERE language = 'fooValue'
+	 * $query->filterByLanguage('%fooValue%'); // WHERE language LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $language The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ActionLogLabelQuery The current query, for fluid interface
@@ -243,8 +270,14 @@ abstract class BaseActionLogLabelQuery extends ModelCriteria
 	/**
 	 * Filter the query on the forward column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByForward('fooValue');   // WHERE forward = 'fooValue'
+	 * $query->filterByForward('%fooValue%'); // WHERE forward LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $forward The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ActionLogLabelQuery The current query, for fluid interface

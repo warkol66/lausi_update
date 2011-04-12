@@ -192,8 +192,17 @@ abstract class BaseInternalMailQuery extends ModelCriteria
 	/**
 	 * Filter the query on the id column
 	 * 
-	 * @param     int|array $id The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterById(1234); // WHERE id = 1234
+	 * $query->filterById(array(12, 34)); // WHERE id IN (12, 34)
+	 * $query->filterById(array('min' => 12)); // WHERE id > 12
+	 * </code>
+	 *
+	 * @param     mixed $id The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    InternalMailQuery The current query, for fluid interface
@@ -209,8 +218,14 @@ abstract class BaseInternalMailQuery extends ModelCriteria
 	/**
 	 * Filter the query on the subject column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterBySubject('fooValue');   // WHERE subject = 'fooValue'
+	 * $query->filterBySubject('%fooValue%'); // WHERE subject LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $subject The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    InternalMailQuery The current query, for fluid interface
@@ -231,8 +246,14 @@ abstract class BaseInternalMailQuery extends ModelCriteria
 	/**
 	 * Filter the query on the body column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByBody('fooValue');   // WHERE body = 'fooValue'
+	 * $query->filterByBody('%fooValue%'); // WHERE body LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $body The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    InternalMailQuery The current query, for fluid interface
@@ -253,8 +274,17 @@ abstract class BaseInternalMailQuery extends ModelCriteria
 	/**
 	 * Filter the query on the recipientId column
 	 * 
-	 * @param     int|array $recipientid The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByRecipientid(1234); // WHERE recipientId = 1234
+	 * $query->filterByRecipientid(array(12, 34)); // WHERE recipientId IN (12, 34)
+	 * $query->filterByRecipientid(array('min' => 12)); // WHERE recipientId > 12
+	 * </code>
+	 *
+	 * @param     mixed $recipientid The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    InternalMailQuery The current query, for fluid interface
@@ -284,8 +314,14 @@ abstract class BaseInternalMailQuery extends ModelCriteria
 	/**
 	 * Filter the query on the recipientType column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByRecipienttype('fooValue');   // WHERE recipientType = 'fooValue'
+	 * $query->filterByRecipienttype('%fooValue%'); // WHERE recipientType LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $recipienttype The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    InternalMailQuery The current query, for fluid interface
@@ -306,8 +342,19 @@ abstract class BaseInternalMailQuery extends ModelCriteria
 	/**
 	 * Filter the query on the readOn column
 	 * 
-	 * @param     string|array $readon The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByReadon('2011-03-14'); // WHERE readOn = '2011-03-14'
+	 * $query->filterByReadon('now'); // WHERE readOn = '2011-03-14'
+	 * $query->filterByReadon(array('max' => 'yesterday')); // WHERE readOn > '2011-03-13'
+	 * </code>
+	 *
+	 * @param     mixed $readon The value to use as filter.
+	 *              Values can be integers (unix timestamps), DateTime objects, or strings.
+	 *              Empty strings are treated as NULL.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    InternalMailQuery The current query, for fluid interface
@@ -337,8 +384,17 @@ abstract class BaseInternalMailQuery extends ModelCriteria
 	/**
 	 * Filter the query on the fromId column
 	 * 
-	 * @param     int|array $fromid The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByFromid(1234); // WHERE fromId = 1234
+	 * $query->filterByFromid(array(12, 34)); // WHERE fromId IN (12, 34)
+	 * $query->filterByFromid(array('min' => 12)); // WHERE fromId > 12
+	 * </code>
+	 *
+	 * @param     mixed $fromid The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    InternalMailQuery The current query, for fluid interface
@@ -368,8 +424,14 @@ abstract class BaseInternalMailQuery extends ModelCriteria
 	/**
 	 * Filter the query on the fromType column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByFromtype('fooValue');   // WHERE fromType = 'fooValue'
+	 * $query->filterByFromtype('%fooValue%'); // WHERE fromType LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $fromtype The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    InternalMailQuery The current query, for fluid interface
@@ -403,8 +465,19 @@ abstract class BaseInternalMailQuery extends ModelCriteria
 	/**
 	 * Filter the query on the replyId column
 	 * 
-	 * @param     int|array $replyid The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByReplyid(1234); // WHERE replyId = 1234
+	 * $query->filterByReplyid(array(12, 34)); // WHERE replyId IN (12, 34)
+	 * $query->filterByReplyid(array('min' => 12)); // WHERE replyId > 12
+	 * </code>
+	 *
+	 * @see       filterByInternalMailRelatedByReplyid()
+	 *
+	 * @param     mixed $replyid The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    InternalMailQuery The current query, for fluid interface
@@ -434,8 +507,19 @@ abstract class BaseInternalMailQuery extends ModelCriteria
 	/**
 	 * Filter the query on the created_at column
 	 * 
-	 * @param     string|array $createdAt The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByCreatedAt('2011-03-14'); // WHERE created_at = '2011-03-14'
+	 * $query->filterByCreatedAt('now'); // WHERE created_at = '2011-03-14'
+	 * $query->filterByCreatedAt(array('max' => 'yesterday')); // WHERE created_at > '2011-03-13'
+	 * </code>
+	 *
+	 * @param     mixed $createdAt The value to use as filter.
+	 *              Values can be integers (unix timestamps), DateTime objects, or strings.
+	 *              Empty strings are treated as NULL.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    InternalMailQuery The current query, for fluid interface
@@ -465,8 +549,19 @@ abstract class BaseInternalMailQuery extends ModelCriteria
 	/**
 	 * Filter the query on the updated_at column
 	 * 
-	 * @param     string|array $updatedAt The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByUpdatedAt('2011-03-14'); // WHERE updated_at = '2011-03-14'
+	 * $query->filterByUpdatedAt('now'); // WHERE updated_at = '2011-03-14'
+	 * $query->filterByUpdatedAt(array('max' => 'yesterday')); // WHERE updated_at > '2011-03-13'
+	 * </code>
+	 *
+	 * @param     mixed $updatedAt The value to use as filter.
+	 *              Values can be integers (unix timestamps), DateTime objects, or strings.
+	 *              Empty strings are treated as NULL.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    InternalMailQuery The current query, for fluid interface
@@ -496,8 +591,19 @@ abstract class BaseInternalMailQuery extends ModelCriteria
 	/**
 	 * Filter the query on the deleted_at column
 	 * 
-	 * @param     string|array $deletedAt The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByDeletedAt('2011-03-14'); // WHERE deleted_at = '2011-03-14'
+	 * $query->filterByDeletedAt('now'); // WHERE deleted_at = '2011-03-14'
+	 * $query->filterByDeletedAt(array('max' => 'yesterday')); // WHERE deleted_at > '2011-03-13'
+	 * </code>
+	 *
+	 * @param     mixed $deletedAt The value to use as filter.
+	 *              Values can be integers (unix timestamps), DateTime objects, or strings.
+	 *              Empty strings are treated as NULL.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    InternalMailQuery The current query, for fluid interface
