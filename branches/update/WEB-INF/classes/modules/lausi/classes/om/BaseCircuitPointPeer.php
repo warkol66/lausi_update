@@ -31,6 +31,9 @@ abstract class BaseCircuitPointPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 4;
+
 	/** the column name for the ID field */
 	const ID = 'lausi_circuitPoint.ID';
 
@@ -438,7 +441,7 @@ abstract class BaseCircuitPointPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + CircuitPointPeer::NUM_COLUMNS;
+			$col = $startcol + CircuitPointPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = CircuitPointPeer::OM_CLASS;
 			$obj = new $cls();
@@ -517,7 +520,7 @@ abstract class BaseCircuitPointPeer {
 		}
 
 		CircuitPointPeer::addSelectColumns($criteria);
-		$startcol = (CircuitPointPeer::NUM_COLUMNS - CircuitPointPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = CircuitPointPeer::NUM_HYDRATE_COLUMNS;
 		CircuitPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(CircuitPointPeer::CIRCUITID, CircuitPeer::ID, $join_behavior);
@@ -633,10 +636,10 @@ abstract class BaseCircuitPointPeer {
 		}
 
 		CircuitPointPeer::addSelectColumns($criteria);
-		$startcol2 = (CircuitPointPeer::NUM_COLUMNS - CircuitPointPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = CircuitPointPeer::NUM_HYDRATE_COLUMNS;
 
 		CircuitPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (CircuitPeer::NUM_COLUMNS - CircuitPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + CircuitPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(CircuitPointPeer::CIRCUITID, CircuitPeer::ID, $join_behavior);
 

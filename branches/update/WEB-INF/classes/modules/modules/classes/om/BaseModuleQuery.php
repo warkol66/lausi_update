@@ -160,8 +160,14 @@ abstract class BaseModuleQuery extends ModelCriteria
 	/**
 	 * Filter the query on the name column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByName('fooValue');   // WHERE name = 'fooValue'
+	 * $query->filterByName('%fooValue%'); // WHERE name LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $name The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleQuery The current query, for fluid interface
@@ -182,8 +188,17 @@ abstract class BaseModuleQuery extends ModelCriteria
 	/**
 	 * Filter the query on the active column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByActive(true); // WHERE active = true
+	 * $query->filterByActive('yes'); // WHERE active = true
+	 * </code>
+	 *
 	 * @param     boolean|string $active The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleQuery The current query, for fluid interface
@@ -199,8 +214,17 @@ abstract class BaseModuleQuery extends ModelCriteria
 	/**
 	 * Filter the query on the alwaysActive column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByAlwaysactive(true); // WHERE alwaysActive = true
+	 * $query->filterByAlwaysactive('yes'); // WHERE alwaysActive = true
+	 * </code>
+	 *
 	 * @param     boolean|string $alwaysactive The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleQuery The current query, for fluid interface
@@ -216,8 +240,17 @@ abstract class BaseModuleQuery extends ModelCriteria
 	/**
 	 * Filter the query on the hasCategories column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByHascategories(true); // WHERE hasCategories = true
+	 * $query->filterByHascategories('yes'); // WHERE hasCategories = true
+	 * </code>
+	 *
 	 * @param     boolean|string $hascategories The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleQuery The current query, for fluid interface

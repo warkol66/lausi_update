@@ -170,7 +170,7 @@ abstract class BaseScheduleSubscriptionUser extends BaseObject  implements Persi
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 2; // 2 = ScheduleSubscriptionUserPeer::NUM_COLUMNS - ScheduleSubscriptionUserPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 2; // 2 = ScheduleSubscriptionUserPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating ScheduleSubscriptionUser object", $e);
@@ -696,8 +696,8 @@ abstract class BaseScheduleSubscriptionUser extends BaseObject  implements Persi
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setSchedulesubscriptionid($this->schedulesubscriptionid);
-		$copyObj->setUserid($this->userid);
+		$copyObj->setSchedulesubscriptionid($this->getSchedulesubscriptionid());
+		$copyObj->setUserid($this->getUserid());
 		if ($makeNew) {
 			$copyObj->setNew(true);
 		}

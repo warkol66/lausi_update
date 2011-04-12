@@ -156,8 +156,19 @@ abstract class BaseWorkforceCircuitQuery extends ModelCriteria
 	/**
 	 * Filter the query on the workforceId column
 	 * 
-	 * @param     int|array $workforceid The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByWorkforceid(1234); // WHERE workforceId = 1234
+	 * $query->filterByWorkforceid(array(12, 34)); // WHERE workforceId IN (12, 34)
+	 * $query->filterByWorkforceid(array('min' => 12)); // WHERE workforceId > 12
+	 * </code>
+	 *
+	 * @see       filterByWorkforce()
+	 *
+	 * @param     mixed $workforceid The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    WorkforceCircuitQuery The current query, for fluid interface
@@ -173,8 +184,19 @@ abstract class BaseWorkforceCircuitQuery extends ModelCriteria
 	/**
 	 * Filter the query on the circuitId column
 	 * 
-	 * @param     int|array $circuitid The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByCircuitid(1234); // WHERE circuitId = 1234
+	 * $query->filterByCircuitid(array(12, 34)); // WHERE circuitId IN (12, 34)
+	 * $query->filterByCircuitid(array('min' => 12)); // WHERE circuitId > 12
+	 * </code>
+	 *
+	 * @see       filterByCircuit()
+	 *
+	 * @param     mixed $circuitid The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    WorkforceCircuitQuery The current query, for fluid interface

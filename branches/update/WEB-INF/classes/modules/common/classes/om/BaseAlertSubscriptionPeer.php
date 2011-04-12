@@ -31,6 +31,9 @@ abstract class BaseAlertSubscriptionPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 8;
+
 	/** the column name for the ID field */
 	const ID = 'common_alertSubscription.ID';
 
@@ -461,7 +464,7 @@ abstract class BaseAlertSubscriptionPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + AlertSubscriptionPeer::NUM_COLUMNS;
+			$col = $startcol + AlertSubscriptionPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = AlertSubscriptionPeer::OM_CLASS;
 			$obj = new $cls();
@@ -690,7 +693,7 @@ abstract class BaseAlertSubscriptionPeer {
 		}
 
 		AlertSubscriptionPeer::addSelectColumns($criteria);
-		$startcol = (AlertSubscriptionPeer::NUM_COLUMNS - AlertSubscriptionPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = AlertSubscriptionPeer::NUM_HYDRATE_COLUMNS;
 		ModuleEntityPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(AlertSubscriptionPeer::ENTITYNAME, ModuleEntityPeer::NAME, $join_behavior);
@@ -756,7 +759,7 @@ abstract class BaseAlertSubscriptionPeer {
 		}
 
 		AlertSubscriptionPeer::addSelectColumns($criteria);
-		$startcol = (AlertSubscriptionPeer::NUM_COLUMNS - AlertSubscriptionPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = AlertSubscriptionPeer::NUM_HYDRATE_COLUMNS;
 		ModuleEntityFieldPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(AlertSubscriptionPeer::ENTITYNAMEFIELDUNIQUENAME, ModuleEntityFieldPeer::UNIQUENAME, $join_behavior);
@@ -822,7 +825,7 @@ abstract class BaseAlertSubscriptionPeer {
 		}
 
 		AlertSubscriptionPeer::addSelectColumns($criteria);
-		$startcol = (AlertSubscriptionPeer::NUM_COLUMNS - AlertSubscriptionPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = AlertSubscriptionPeer::NUM_HYDRATE_COLUMNS;
 		ModuleEntityFieldPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(AlertSubscriptionPeer::ENTITYDATEFIELDUNIQUENAME, ModuleEntityFieldPeer::UNIQUENAME, $join_behavior);
@@ -888,7 +891,7 @@ abstract class BaseAlertSubscriptionPeer {
 		}
 
 		AlertSubscriptionPeer::addSelectColumns($criteria);
-		$startcol = (AlertSubscriptionPeer::NUM_COLUMNS - AlertSubscriptionPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = AlertSubscriptionPeer::NUM_HYDRATE_COLUMNS;
 		ModuleEntityFieldPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(AlertSubscriptionPeer::ENTITYBOOLEANFIELDUNIQUENAME, ModuleEntityFieldPeer::UNIQUENAME, $join_behavior);
@@ -1010,19 +1013,19 @@ abstract class BaseAlertSubscriptionPeer {
 		}
 
 		AlertSubscriptionPeer::addSelectColumns($criteria);
-		$startcol2 = (AlertSubscriptionPeer::NUM_COLUMNS - AlertSubscriptionPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = AlertSubscriptionPeer::NUM_HYDRATE_COLUMNS;
 
 		ModuleEntityPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (ModuleEntityPeer::NUM_COLUMNS - ModuleEntityPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + ModuleEntityPeer::NUM_HYDRATE_COLUMNS;
 
 		ModuleEntityFieldPeer::addSelectColumns($criteria);
-		$startcol4 = $startcol3 + (ModuleEntityFieldPeer::NUM_COLUMNS - ModuleEntityFieldPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol4 = $startcol3 + ModuleEntityFieldPeer::NUM_HYDRATE_COLUMNS;
 
 		ModuleEntityFieldPeer::addSelectColumns($criteria);
-		$startcol5 = $startcol4 + (ModuleEntityFieldPeer::NUM_COLUMNS - ModuleEntityFieldPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol5 = $startcol4 + ModuleEntityFieldPeer::NUM_HYDRATE_COLUMNS;
 
 		ModuleEntityFieldPeer::addSelectColumns($criteria);
-		$startcol6 = $startcol5 + (ModuleEntityFieldPeer::NUM_COLUMNS - ModuleEntityFieldPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol6 = $startcol5 + ModuleEntityFieldPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(AlertSubscriptionPeer::ENTITYNAME, ModuleEntityPeer::NAME, $join_behavior);
 
@@ -1354,16 +1357,16 @@ abstract class BaseAlertSubscriptionPeer {
 		}
 
 		AlertSubscriptionPeer::addSelectColumns($criteria);
-		$startcol2 = (AlertSubscriptionPeer::NUM_COLUMNS - AlertSubscriptionPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = AlertSubscriptionPeer::NUM_HYDRATE_COLUMNS;
 
 		ModuleEntityFieldPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (ModuleEntityFieldPeer::NUM_COLUMNS - ModuleEntityFieldPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + ModuleEntityFieldPeer::NUM_HYDRATE_COLUMNS;
 
 		ModuleEntityFieldPeer::addSelectColumns($criteria);
-		$startcol4 = $startcol3 + (ModuleEntityFieldPeer::NUM_COLUMNS - ModuleEntityFieldPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol4 = $startcol3 + ModuleEntityFieldPeer::NUM_HYDRATE_COLUMNS;
 
 		ModuleEntityFieldPeer::addSelectColumns($criteria);
-		$startcol5 = $startcol4 + (ModuleEntityFieldPeer::NUM_COLUMNS - ModuleEntityFieldPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol5 = $startcol4 + ModuleEntityFieldPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(AlertSubscriptionPeer::ENTITYNAMEFIELDUNIQUENAME, ModuleEntityFieldPeer::UNIQUENAME, $join_behavior);
 
@@ -1475,10 +1478,10 @@ abstract class BaseAlertSubscriptionPeer {
 		}
 
 		AlertSubscriptionPeer::addSelectColumns($criteria);
-		$startcol2 = (AlertSubscriptionPeer::NUM_COLUMNS - AlertSubscriptionPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = AlertSubscriptionPeer::NUM_HYDRATE_COLUMNS;
 
 		ModuleEntityPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (ModuleEntityPeer::NUM_COLUMNS - ModuleEntityPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + ModuleEntityPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(AlertSubscriptionPeer::ENTITYNAME, ModuleEntityPeer::NAME, $join_behavior);
 
@@ -1548,10 +1551,10 @@ abstract class BaseAlertSubscriptionPeer {
 		}
 
 		AlertSubscriptionPeer::addSelectColumns($criteria);
-		$startcol2 = (AlertSubscriptionPeer::NUM_COLUMNS - AlertSubscriptionPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = AlertSubscriptionPeer::NUM_HYDRATE_COLUMNS;
 
 		ModuleEntityPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (ModuleEntityPeer::NUM_COLUMNS - ModuleEntityPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + ModuleEntityPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(AlertSubscriptionPeer::ENTITYNAME, ModuleEntityPeer::NAME, $join_behavior);
 
@@ -1621,10 +1624,10 @@ abstract class BaseAlertSubscriptionPeer {
 		}
 
 		AlertSubscriptionPeer::addSelectColumns($criteria);
-		$startcol2 = (AlertSubscriptionPeer::NUM_COLUMNS - AlertSubscriptionPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = AlertSubscriptionPeer::NUM_HYDRATE_COLUMNS;
 
 		ModuleEntityPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (ModuleEntityPeer::NUM_COLUMNS - ModuleEntityPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + ModuleEntityPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(AlertSubscriptionPeer::ENTITYNAME, ModuleEntityPeer::NAME, $join_behavior);
 

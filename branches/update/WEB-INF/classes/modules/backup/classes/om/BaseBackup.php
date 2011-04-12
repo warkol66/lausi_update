@@ -115,7 +115,7 @@ abstract class BaseBackup extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 1; // 1 = BackupPeer::NUM_COLUMNS - BackupPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 1; // 1 = BackupPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Backup object", $e);

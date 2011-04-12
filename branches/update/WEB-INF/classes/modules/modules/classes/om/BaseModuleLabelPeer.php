@@ -31,6 +31,9 @@ abstract class BaseModuleLabelPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 5;
+
 	/** the column name for the ID field */
 	const ID = 'modules_label.ID';
 
@@ -443,7 +446,7 @@ abstract class BaseModuleLabelPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + ModuleLabelPeer::NUM_COLUMNS;
+			$col = $startcol + ModuleLabelPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = ModuleLabelPeer::OM_CLASS;
 			$obj = new $cls();
@@ -522,7 +525,7 @@ abstract class BaseModuleLabelPeer {
 		}
 
 		ModuleLabelPeer::addSelectColumns($criteria);
-		$startcol = (ModuleLabelPeer::NUM_COLUMNS - ModuleLabelPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = ModuleLabelPeer::NUM_HYDRATE_COLUMNS;
 		ModulePeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(ModuleLabelPeer::NAME, ModulePeer::NAME, $join_behavior);
@@ -638,10 +641,10 @@ abstract class BaseModuleLabelPeer {
 		}
 
 		ModuleLabelPeer::addSelectColumns($criteria);
-		$startcol2 = (ModuleLabelPeer::NUM_COLUMNS - ModuleLabelPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = ModuleLabelPeer::NUM_HYDRATE_COLUMNS;
 
 		ModulePeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (ModulePeer::NUM_COLUMNS - ModulePeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + ModulePeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(ModuleLabelPeer::NAME, ModulePeer::NAME, $join_behavior);
 

@@ -272,7 +272,7 @@ abstract class BaseModuleLabel extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 5; // 5 = ModuleLabelPeer::NUM_COLUMNS - ModuleLabelPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 5; // 5 = ModuleLabelPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating ModuleLabel object", $e);
@@ -813,10 +813,10 @@ abstract class BaseModuleLabel extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setName($this->name);
-		$copyObj->setLabel($this->label);
-		$copyObj->setDescription($this->description);
-		$copyObj->setLanguage($this->language);
+		$copyObj->setName($this->getName());
+		$copyObj->setLabel($this->getLabel());
+		$copyObj->setDescription($this->getDescription());
+		$copyObj->setLanguage($this->getLanguage());
 		if ($makeNew) {
 			$copyObj->setNew(true);
 			$copyObj->setId(NULL); // this is a auto-increment column, so set to default value

@@ -31,6 +31,9 @@ abstract class BaseUserGroupPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 2;
+
 	/** the column name for the USERID field */
 	const USERID = 'users_userGroup.USERID';
 
@@ -428,7 +431,7 @@ abstract class BaseUserGroupPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + UserGroupPeer::NUM_COLUMNS;
+			$col = $startcol + UserGroupPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = UserGroupPeer::OM_CLASS;
 			$obj = new $cls();
@@ -557,7 +560,7 @@ abstract class BaseUserGroupPeer {
 		}
 
 		UserGroupPeer::addSelectColumns($criteria);
-		$startcol = (UserGroupPeer::NUM_COLUMNS - UserGroupPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = UserGroupPeer::NUM_HYDRATE_COLUMNS;
 		UserPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(UserGroupPeer::USERID, UserPeer::ID, $join_behavior);
@@ -623,7 +626,7 @@ abstract class BaseUserGroupPeer {
 		}
 
 		UserGroupPeer::addSelectColumns($criteria);
-		$startcol = (UserGroupPeer::NUM_COLUMNS - UserGroupPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = UserGroupPeer::NUM_HYDRATE_COLUMNS;
 		GroupPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(UserGroupPeer::GROUPID, GroupPeer::ID, $join_behavior);
@@ -741,13 +744,13 @@ abstract class BaseUserGroupPeer {
 		}
 
 		UserGroupPeer::addSelectColumns($criteria);
-		$startcol2 = (UserGroupPeer::NUM_COLUMNS - UserGroupPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = UserGroupPeer::NUM_HYDRATE_COLUMNS;
 
 		UserPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (UserPeer::NUM_COLUMNS - UserPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + UserPeer::NUM_HYDRATE_COLUMNS;
 
 		GroupPeer::addSelectColumns($criteria);
-		$startcol4 = $startcol3 + (GroupPeer::NUM_COLUMNS - GroupPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol4 = $startcol3 + GroupPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(UserGroupPeer::USERID, UserPeer::ID, $join_behavior);
 
@@ -935,10 +938,10 @@ abstract class BaseUserGroupPeer {
 		}
 
 		UserGroupPeer::addSelectColumns($criteria);
-		$startcol2 = (UserGroupPeer::NUM_COLUMNS - UserGroupPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = UserGroupPeer::NUM_HYDRATE_COLUMNS;
 
 		GroupPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (GroupPeer::NUM_COLUMNS - GroupPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + GroupPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(UserGroupPeer::GROUPID, GroupPeer::ID, $join_behavior);
 
@@ -1008,10 +1011,10 @@ abstract class BaseUserGroupPeer {
 		}
 
 		UserGroupPeer::addSelectColumns($criteria);
-		$startcol2 = (UserGroupPeer::NUM_COLUMNS - UserGroupPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = UserGroupPeer::NUM_HYDRATE_COLUMNS;
 
 		UserPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (UserPeer::NUM_COLUMNS - UserPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + UserPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(UserGroupPeer::USERID, UserPeer::ID, $join_behavior);
 

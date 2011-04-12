@@ -148,8 +148,17 @@ abstract class BaseCircuitPointQuery extends ModelCriteria
 	/**
 	 * Filter the query on the id column
 	 * 
-	 * @param     int|array $id The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterById(1234); // WHERE id = 1234
+	 * $query->filterById(array(12, 34)); // WHERE id IN (12, 34)
+	 * $query->filterById(array('min' => 12)); // WHERE id > 12
+	 * </code>
+	 *
+	 * @param     mixed $id The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    CircuitPointQuery The current query, for fluid interface
@@ -165,8 +174,19 @@ abstract class BaseCircuitPointQuery extends ModelCriteria
 	/**
 	 * Filter the query on the circuitId column
 	 * 
-	 * @param     int|array $circuitid The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByCircuitid(1234); // WHERE circuitId = 1234
+	 * $query->filterByCircuitid(array(12, 34)); // WHERE circuitId IN (12, 34)
+	 * $query->filterByCircuitid(array('min' => 12)); // WHERE circuitId > 12
+	 * </code>
+	 *
+	 * @see       filterByCircuit()
+	 *
+	 * @param     mixed $circuitid The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    CircuitPointQuery The current query, for fluid interface
@@ -196,8 +216,17 @@ abstract class BaseCircuitPointQuery extends ModelCriteria
 	/**
 	 * Filter the query on the latitude column
 	 * 
-	 * @param     string|array $latitude The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByLatitude(1234); // WHERE latitude = 1234
+	 * $query->filterByLatitude(array(12, 34)); // WHERE latitude IN (12, 34)
+	 * $query->filterByLatitude(array('min' => 12)); // WHERE latitude > 12
+	 * </code>
+	 *
+	 * @param     mixed $latitude The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    CircuitPointQuery The current query, for fluid interface
@@ -227,8 +256,17 @@ abstract class BaseCircuitPointQuery extends ModelCriteria
 	/**
 	 * Filter the query on the longitude column
 	 * 
-	 * @param     string|array $longitude The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByLongitude(1234); // WHERE longitude = 1234
+	 * $query->filterByLongitude(array(12, 34)); // WHERE longitude IN (12, 34)
+	 * $query->filterByLongitude(array('min' => 12)); // WHERE longitude > 12
+	 * </code>
+	 *
+	 * @param     mixed $longitude The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    CircuitPointQuery The current query, for fluid interface

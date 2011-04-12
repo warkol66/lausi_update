@@ -31,6 +31,9 @@ abstract class BaseAdvertisementPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 7;
+
 	/** the column name for the ID field */
 	const ID = 'lausi_advertisement.ID';
 
@@ -453,7 +456,7 @@ abstract class BaseAdvertisementPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + AdvertisementPeer::NUM_COLUMNS;
+			$col = $startcol + AdvertisementPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = AdvertisementPeer::OM_CLASS;
 			$obj = new $cls();
@@ -632,7 +635,7 @@ abstract class BaseAdvertisementPeer {
 		}
 
 		AdvertisementPeer::addSelectColumns($criteria);
-		$startcol = (AdvertisementPeer::NUM_COLUMNS - AdvertisementPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = AdvertisementPeer::NUM_HYDRATE_COLUMNS;
 		BillboardPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(AdvertisementPeer::BILLBOARDID, BillboardPeer::ID, $join_behavior);
@@ -698,7 +701,7 @@ abstract class BaseAdvertisementPeer {
 		}
 
 		AdvertisementPeer::addSelectColumns($criteria);
-		$startcol = (AdvertisementPeer::NUM_COLUMNS - AdvertisementPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = AdvertisementPeer::NUM_HYDRATE_COLUMNS;
 		ThemePeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(AdvertisementPeer::THEMEID, ThemePeer::ID, $join_behavior);
@@ -764,7 +767,7 @@ abstract class BaseAdvertisementPeer {
 		}
 
 		AdvertisementPeer::addSelectColumns($criteria);
-		$startcol = (AdvertisementPeer::NUM_COLUMNS - AdvertisementPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = AdvertisementPeer::NUM_HYDRATE_COLUMNS;
 		WorkforcePeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(AdvertisementPeer::WORKFORCEID, WorkforcePeer::ID, $join_behavior);
@@ -884,16 +887,16 @@ abstract class BaseAdvertisementPeer {
 		}
 
 		AdvertisementPeer::addSelectColumns($criteria);
-		$startcol2 = (AdvertisementPeer::NUM_COLUMNS - AdvertisementPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = AdvertisementPeer::NUM_HYDRATE_COLUMNS;
 
 		BillboardPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (BillboardPeer::NUM_COLUMNS - BillboardPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + BillboardPeer::NUM_HYDRATE_COLUMNS;
 
 		ThemePeer::addSelectColumns($criteria);
-		$startcol4 = $startcol3 + (ThemePeer::NUM_COLUMNS - ThemePeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol4 = $startcol3 + ThemePeer::NUM_HYDRATE_COLUMNS;
 
 		WorkforcePeer::addSelectColumns($criteria);
-		$startcol5 = $startcol4 + (WorkforcePeer::NUM_COLUMNS - WorkforcePeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol5 = $startcol4 + WorkforcePeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(AdvertisementPeer::BILLBOARDID, BillboardPeer::ID, $join_behavior);
 
@@ -1157,13 +1160,13 @@ abstract class BaseAdvertisementPeer {
 		}
 
 		AdvertisementPeer::addSelectColumns($criteria);
-		$startcol2 = (AdvertisementPeer::NUM_COLUMNS - AdvertisementPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = AdvertisementPeer::NUM_HYDRATE_COLUMNS;
 
 		ThemePeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (ThemePeer::NUM_COLUMNS - ThemePeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + ThemePeer::NUM_HYDRATE_COLUMNS;
 
 		WorkforcePeer::addSelectColumns($criteria);
-		$startcol4 = $startcol3 + (WorkforcePeer::NUM_COLUMNS - WorkforcePeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol4 = $startcol3 + WorkforcePeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(AdvertisementPeer::THEMEID, ThemePeer::ID, $join_behavior);
 
@@ -1254,13 +1257,13 @@ abstract class BaseAdvertisementPeer {
 		}
 
 		AdvertisementPeer::addSelectColumns($criteria);
-		$startcol2 = (AdvertisementPeer::NUM_COLUMNS - AdvertisementPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = AdvertisementPeer::NUM_HYDRATE_COLUMNS;
 
 		BillboardPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (BillboardPeer::NUM_COLUMNS - BillboardPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + BillboardPeer::NUM_HYDRATE_COLUMNS;
 
 		WorkforcePeer::addSelectColumns($criteria);
-		$startcol4 = $startcol3 + (WorkforcePeer::NUM_COLUMNS - WorkforcePeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol4 = $startcol3 + WorkforcePeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(AdvertisementPeer::BILLBOARDID, BillboardPeer::ID, $join_behavior);
 
@@ -1351,13 +1354,13 @@ abstract class BaseAdvertisementPeer {
 		}
 
 		AdvertisementPeer::addSelectColumns($criteria);
-		$startcol2 = (AdvertisementPeer::NUM_COLUMNS - AdvertisementPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = AdvertisementPeer::NUM_HYDRATE_COLUMNS;
 
 		BillboardPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (BillboardPeer::NUM_COLUMNS - BillboardPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + BillboardPeer::NUM_HYDRATE_COLUMNS;
 
 		ThemePeer::addSelectColumns($criteria);
-		$startcol4 = $startcol3 + (ThemePeer::NUM_COLUMNS - ThemePeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol4 = $startcol3 + ThemePeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(AdvertisementPeer::BILLBOARDID, BillboardPeer::ID, $join_behavior);
 

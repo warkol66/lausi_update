@@ -31,6 +31,9 @@ abstract class BaseBackupPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 1;
+
 	/** the column name for the ID field */
 	const ID = 'backup_log.ID';
 
@@ -423,7 +426,7 @@ abstract class BaseBackupPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + BackupPeer::NUM_COLUMNS;
+			$col = $startcol + BackupPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = BackupPeer::OM_CLASS;
 			$obj = new $cls();

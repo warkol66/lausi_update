@@ -420,7 +420,7 @@ abstract class BaseScheduleSubscription extends BaseObject  implements Persisten
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 8; // 8 = ScheduleSubscriptionPeer::NUM_COLUMNS - ScheduleSubscriptionPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 8; // 8 = ScheduleSubscriptionPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating ScheduleSubscription object", $e);
@@ -1063,13 +1063,13 @@ abstract class BaseScheduleSubscription extends BaseObject  implements Persisten
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setName($this->name);
-		$copyObj->setEntityname($this->entityname);
-		$copyObj->setEntitydatefielduniquename($this->entitydatefielduniquename);
-		$copyObj->setEntitybooleanfielduniquename($this->entitybooleanfielduniquename);
-		$copyObj->setAnticipationdays($this->anticipationdays);
-		$copyObj->setEntitynamefielduniquename($this->entitynamefielduniquename);
-		$copyObj->setExtrarecipients($this->extrarecipients);
+		$copyObj->setName($this->getName());
+		$copyObj->setEntityname($this->getEntityname());
+		$copyObj->setEntitydatefielduniquename($this->getEntitydatefielduniquename());
+		$copyObj->setEntitybooleanfielduniquename($this->getEntitybooleanfielduniquename());
+		$copyObj->setAnticipationdays($this->getAnticipationdays());
+		$copyObj->setEntitynamefielduniquename($this->getEntitynamefielduniquename());
+		$copyObj->setExtrarecipients($this->getExtrarecipients());
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of

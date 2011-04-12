@@ -614,7 +614,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 13; // 13 = AddressPeer::NUM_COLUMNS - AddressPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 13; // 13 = AddressPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Address object", $e);
@@ -1261,18 +1261,18 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setStreet($this->street);
-		$copyObj->setNumber($this->number);
-		$copyObj->setRating($this->rating);
-		$copyObj->setIntersection($this->intersection);
-		$copyObj->setOwner($this->owner);
-		$copyObj->setLatitude($this->latitude);
-		$copyObj->setLongitude($this->longitude);
-		$copyObj->setRegionid($this->regionid);
-		$copyObj->setOwnerphone($this->ownerphone);
-		$copyObj->setOrdercircuit($this->ordercircuit);
-		$copyObj->setNickname($this->nickname);
-		$copyObj->setCircuitid($this->circuitid);
+		$copyObj->setStreet($this->getStreet());
+		$copyObj->setNumber($this->getNumber());
+		$copyObj->setRating($this->getRating());
+		$copyObj->setIntersection($this->getIntersection());
+		$copyObj->setOwner($this->getOwner());
+		$copyObj->setLatitude($this->getLatitude());
+		$copyObj->setLongitude($this->getLongitude());
+		$copyObj->setRegionid($this->getRegionid());
+		$copyObj->setOwnerphone($this->getOwnerphone());
+		$copyObj->setOrdercircuit($this->getOrdercircuit());
+		$copyObj->setNickname($this->getNickname());
+		$copyObj->setCircuitid($this->getCircuitid());
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of

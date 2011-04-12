@@ -164,8 +164,17 @@ abstract class BaseBillboardQuery extends ModelCriteria
 	/**
 	 * Filter the query on the id column
 	 * 
-	 * @param     int|array $id The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterById(1234); // WHERE id = 1234
+	 * $query->filterById(array(12, 34)); // WHERE id IN (12, 34)
+	 * $query->filterById(array('min' => 12)); // WHERE id > 12
+	 * </code>
+	 *
+	 * @param     mixed $id The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    BillboardQuery The current query, for fluid interface
@@ -181,8 +190,17 @@ abstract class BaseBillboardQuery extends ModelCriteria
 	/**
 	 * Filter the query on the number column
 	 * 
-	 * @param     int|array $number The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByNumber(1234); // WHERE number = 1234
+	 * $query->filterByNumber(array(12, 34)); // WHERE number IN (12, 34)
+	 * $query->filterByNumber(array('min' => 12)); // WHERE number > 12
+	 * </code>
+	 *
+	 * @param     mixed $number The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    BillboardQuery The current query, for fluid interface
@@ -212,8 +230,17 @@ abstract class BaseBillboardQuery extends ModelCriteria
 	/**
 	 * Filter the query on the type column
 	 * 
-	 * @param     int|array $type The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByType(1234); // WHERE type = 1234
+	 * $query->filterByType(array(12, 34)); // WHERE type IN (12, 34)
+	 * $query->filterByType(array('min' => 12)); // WHERE type > 12
+	 * </code>
+	 *
+	 * @param     mixed $type The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    BillboardQuery The current query, for fluid interface
@@ -243,8 +270,17 @@ abstract class BaseBillboardQuery extends ModelCriteria
 	/**
 	 * Filter the query on the height column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByHeight(true); // WHERE height = true
+	 * $query->filterByHeight('yes'); // WHERE height = true
+	 * </code>
+	 *
 	 * @param     boolean|string $height The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    BillboardQuery The current query, for fluid interface
@@ -260,8 +296,17 @@ abstract class BaseBillboardQuery extends ModelCriteria
 	/**
 	 * Filter the query on the row column
 	 * 
-	 * @param     int|array $row The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByRow(1234); // WHERE row = 1234
+	 * $query->filterByRow(array(12, 34)); // WHERE row IN (12, 34)
+	 * $query->filterByRow(array('min' => 12)); // WHERE row > 12
+	 * </code>
+	 *
+	 * @param     mixed $row The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    BillboardQuery The current query, for fluid interface
@@ -291,8 +336,17 @@ abstract class BaseBillboardQuery extends ModelCriteria
 	/**
 	 * Filter the query on the billboardColumn column
 	 * 
-	 * @param     int|array $billboardcolumn The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByBillboardcolumn(1234); // WHERE billboardColumn = 1234
+	 * $query->filterByBillboardcolumn(array(12, 34)); // WHERE billboardColumn IN (12, 34)
+	 * $query->filterByBillboardcolumn(array('min' => 12)); // WHERE billboardColumn > 12
+	 * </code>
+	 *
+	 * @param     mixed $billboardcolumn The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    BillboardQuery The current query, for fluid interface
@@ -322,8 +376,19 @@ abstract class BaseBillboardQuery extends ModelCriteria
 	/**
 	 * Filter the query on the addressId column
 	 * 
-	 * @param     int|array $addressid The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByAddressid(1234); // WHERE addressId = 1234
+	 * $query->filterByAddressid(array(12, 34)); // WHERE addressId IN (12, 34)
+	 * $query->filterByAddressid(array('min' => 12)); // WHERE addressId > 12
+	 * </code>
+	 *
+	 * @see       filterByAddress()
+	 *
+	 * @param     mixed $addressid The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    BillboardQuery The current query, for fluid interface

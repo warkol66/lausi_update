@@ -475,7 +475,7 @@ abstract class BaseClientAddress extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 10; // 10 = ClientAddressPeer::NUM_COLUMNS - ClientAddressPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 10; // 10 = ClientAddressPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating ClientAddress object", $e);
@@ -1094,15 +1094,15 @@ abstract class BaseClientAddress extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setStreet($this->street);
-		$copyObj->setNumber($this->number);
-		$copyObj->setIntersection($this->intersection);
-		$copyObj->setLatitude($this->latitude);
-		$copyObj->setLongitude($this->longitude);
-		$copyObj->setType($this->type);
-		$copyObj->setCircuitid($this->circuitid);
-		$copyObj->setClientid($this->clientid);
-		$copyObj->setRegionid($this->regionid);
+		$copyObj->setStreet($this->getStreet());
+		$copyObj->setNumber($this->getNumber());
+		$copyObj->setIntersection($this->getIntersection());
+		$copyObj->setLatitude($this->getLatitude());
+		$copyObj->setLongitude($this->getLongitude());
+		$copyObj->setType($this->getType());
+		$copyObj->setCircuitid($this->getCircuitid());
+		$copyObj->setClientid($this->getClientid());
+		$copyObj->setRegionid($this->getRegionid());
 		if ($makeNew) {
 			$copyObj->setNew(true);
 			$copyObj->setId(NULL); // this is a auto-increment column, so set to default value

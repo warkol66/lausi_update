@@ -31,6 +31,9 @@ abstract class BaseClientPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 3;
+
 	/** the column name for the ID field */
 	const ID = 'lausi_client.ID';
 
@@ -433,7 +436,7 @@ abstract class BaseClientPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + ClientPeer::NUM_COLUMNS;
+			$col = $startcol + ClientPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = ClientPeer::OM_CLASS;
 			$obj = new $cls();

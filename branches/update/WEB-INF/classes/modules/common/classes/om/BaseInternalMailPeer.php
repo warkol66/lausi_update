@@ -31,6 +31,9 @@ abstract class BaseInternalMailPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 13;
+
 	/** the column name for the ID field */
 	const ID = 'common_internalMail.ID';
 
@@ -495,7 +498,7 @@ abstract class BaseInternalMailPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + InternalMailPeer::NUM_COLUMNS;
+			$col = $startcol + InternalMailPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = InternalMailPeer::OM_CLASS;
 			$obj = new $cls();
@@ -578,7 +581,7 @@ abstract class BaseInternalMailPeer {
 		}
 
 		InternalMailPeer::addSelectColumns($criteria);
-		$startcol2 = (InternalMailPeer::NUM_COLUMNS - InternalMailPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = InternalMailPeer::NUM_HYDRATE_COLUMNS;
 
 		// soft_delete behavior
 		if (InternalMailQuery::isSoftDeleteEnabled()) {

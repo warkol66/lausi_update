@@ -172,8 +172,14 @@ abstract class BaseSecurityActionQuery extends ModelCriteria
 	/**
 	 * Filter the query on the action column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByAction('fooValue');   // WHERE action = 'fooValue'
+	 * $query->filterByAction('%fooValue%'); // WHERE action LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $action The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    SecurityActionQuery The current query, for fluid interface
@@ -194,8 +200,14 @@ abstract class BaseSecurityActionQuery extends ModelCriteria
 	/**
 	 * Filter the query on the module column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByModule('fooValue');   // WHERE module = 'fooValue'
+	 * $query->filterByModule('%fooValue%'); // WHERE module LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $module The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    SecurityActionQuery The current query, for fluid interface
@@ -216,8 +228,14 @@ abstract class BaseSecurityActionQuery extends ModelCriteria
 	/**
 	 * Filter the query on the section column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterBySection('fooValue');   // WHERE section = 'fooValue'
+	 * $query->filterBySection('%fooValue%'); // WHERE section LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $section The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    SecurityActionQuery The current query, for fluid interface
@@ -238,8 +256,17 @@ abstract class BaseSecurityActionQuery extends ModelCriteria
 	/**
 	 * Filter the query on the access column
 	 * 
-	 * @param     int|array $access The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByAccess(1234); // WHERE access = 1234
+	 * $query->filterByAccess(array(12, 34)); // WHERE access IN (12, 34)
+	 * $query->filterByAccess(array('min' => 12)); // WHERE access > 12
+	 * </code>
+	 *
+	 * @param     mixed $access The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    SecurityActionQuery The current query, for fluid interface
@@ -269,8 +296,17 @@ abstract class BaseSecurityActionQuery extends ModelCriteria
 	/**
 	 * Filter the query on the accessAffiliateUser column
 	 * 
-	 * @param     int|array $accessaffiliateuser The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByAccessaffiliateuser(1234); // WHERE accessAffiliateUser = 1234
+	 * $query->filterByAccessaffiliateuser(array(12, 34)); // WHERE accessAffiliateUser IN (12, 34)
+	 * $query->filterByAccessaffiliateuser(array('min' => 12)); // WHERE accessAffiliateUser > 12
+	 * </code>
+	 *
+	 * @param     mixed $accessaffiliateuser The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    SecurityActionQuery The current query, for fluid interface
@@ -300,8 +336,17 @@ abstract class BaseSecurityActionQuery extends ModelCriteria
 	/**
 	 * Filter the query on the accessRegistrationUser column
 	 * 
-	 * @param     int|array $accessregistrationuser The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByAccessregistrationuser(1234); // WHERE accessRegistrationUser = 1234
+	 * $query->filterByAccessregistrationuser(array(12, 34)); // WHERE accessRegistrationUser IN (12, 34)
+	 * $query->filterByAccessregistrationuser(array('min' => 12)); // WHERE accessRegistrationUser > 12
+	 * </code>
+	 *
+	 * @param     mixed $accessregistrationuser The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    SecurityActionQuery The current query, for fluid interface
@@ -331,8 +376,17 @@ abstract class BaseSecurityActionQuery extends ModelCriteria
 	/**
 	 * Filter the query on the active column
 	 * 
-	 * @param     int|array $active The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByActive(1234); // WHERE active = 1234
+	 * $query->filterByActive(array(12, 34)); // WHERE active IN (12, 34)
+	 * $query->filterByActive(array('min' => 12)); // WHERE active > 12
+	 * </code>
+	 *
+	 * @param     mixed $active The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    SecurityActionQuery The current query, for fluid interface
@@ -362,8 +416,14 @@ abstract class BaseSecurityActionQuery extends ModelCriteria
 	/**
 	 * Filter the query on the pair column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByPair('fooValue');   // WHERE pair = 'fooValue'
+	 * $query->filterByPair('%fooValue%'); // WHERE pair LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $pair The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    SecurityActionQuery The current query, for fluid interface
@@ -384,8 +444,17 @@ abstract class BaseSecurityActionQuery extends ModelCriteria
 	/**
 	 * Filter the query on the noCheckLogin column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByNochecklogin(true); // WHERE noCheckLogin = true
+	 * $query->filterByNochecklogin('yes'); // WHERE noCheckLogin = true
+	 * </code>
+	 *
 	 * @param     boolean|string $nochecklogin The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    SecurityActionQuery The current query, for fluid interface

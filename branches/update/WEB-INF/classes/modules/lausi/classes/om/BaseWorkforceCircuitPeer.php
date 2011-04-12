@@ -31,6 +31,9 @@ abstract class BaseWorkforceCircuitPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 2;
+
 	/** the column name for the WORKFORCEID field */
 	const WORKFORCEID = 'lausi_workforceCircuit.WORKFORCEID';
 
@@ -428,7 +431,7 @@ abstract class BaseWorkforceCircuitPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + WorkforceCircuitPeer::NUM_COLUMNS;
+			$col = $startcol + WorkforceCircuitPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = WorkforceCircuitPeer::OM_CLASS;
 			$obj = new $cls();
@@ -557,7 +560,7 @@ abstract class BaseWorkforceCircuitPeer {
 		}
 
 		WorkforceCircuitPeer::addSelectColumns($criteria);
-		$startcol = (WorkforceCircuitPeer::NUM_COLUMNS - WorkforceCircuitPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = WorkforceCircuitPeer::NUM_HYDRATE_COLUMNS;
 		WorkforcePeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(WorkforceCircuitPeer::WORKFORCEID, WorkforcePeer::ID, $join_behavior);
@@ -623,7 +626,7 @@ abstract class BaseWorkforceCircuitPeer {
 		}
 
 		WorkforceCircuitPeer::addSelectColumns($criteria);
-		$startcol = (WorkforceCircuitPeer::NUM_COLUMNS - WorkforceCircuitPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = WorkforceCircuitPeer::NUM_HYDRATE_COLUMNS;
 		CircuitPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(WorkforceCircuitPeer::CIRCUITID, CircuitPeer::ID, $join_behavior);
@@ -741,13 +744,13 @@ abstract class BaseWorkforceCircuitPeer {
 		}
 
 		WorkforceCircuitPeer::addSelectColumns($criteria);
-		$startcol2 = (WorkforceCircuitPeer::NUM_COLUMNS - WorkforceCircuitPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = WorkforceCircuitPeer::NUM_HYDRATE_COLUMNS;
 
 		WorkforcePeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (WorkforcePeer::NUM_COLUMNS - WorkforcePeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + WorkforcePeer::NUM_HYDRATE_COLUMNS;
 
 		CircuitPeer::addSelectColumns($criteria);
-		$startcol4 = $startcol3 + (CircuitPeer::NUM_COLUMNS - CircuitPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol4 = $startcol3 + CircuitPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(WorkforceCircuitPeer::WORKFORCEID, WorkforcePeer::ID, $join_behavior);
 
@@ -935,10 +938,10 @@ abstract class BaseWorkforceCircuitPeer {
 		}
 
 		WorkforceCircuitPeer::addSelectColumns($criteria);
-		$startcol2 = (WorkforceCircuitPeer::NUM_COLUMNS - WorkforceCircuitPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = WorkforceCircuitPeer::NUM_HYDRATE_COLUMNS;
 
 		CircuitPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (CircuitPeer::NUM_COLUMNS - CircuitPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + CircuitPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(WorkforceCircuitPeer::CIRCUITID, CircuitPeer::ID, $join_behavior);
 
@@ -1008,10 +1011,10 @@ abstract class BaseWorkforceCircuitPeer {
 		}
 
 		WorkforceCircuitPeer::addSelectColumns($criteria);
-		$startcol2 = (WorkforceCircuitPeer::NUM_COLUMNS - WorkforceCircuitPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = WorkforceCircuitPeer::NUM_HYDRATE_COLUMNS;
 
 		WorkforcePeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (WorkforcePeer::NUM_COLUMNS - WorkforcePeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + WorkforcePeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(WorkforceCircuitPeer::WORKFORCEID, WorkforcePeer::ID, $join_behavior);
 

@@ -235,7 +235,7 @@ abstract class BaseModuleEntityFieldValidation extends BaseObject  implements Pe
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 4; // 4 = ModuleEntityFieldValidationPeer::NUM_COLUMNS - ModuleEntityFieldValidationPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 4; // 4 = ModuleEntityFieldValidationPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating ModuleEntityFieldValidation object", $e);
@@ -759,10 +759,10 @@ abstract class BaseModuleEntityFieldValidation extends BaseObject  implements Pe
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setEntityfielduniquename($this->entityfielduniquename);
-		$copyObj->setName($this->name);
-		$copyObj->setValue($this->value);
-		$copyObj->setMessage($this->message);
+		$copyObj->setEntityfielduniquename($this->getEntityfielduniquename());
+		$copyObj->setName($this->getName());
+		$copyObj->setValue($this->getValue());
+		$copyObj->setMessage($this->getMessage());
 		if ($makeNew) {
 			$copyObj->setNew(true);
 		}

@@ -31,6 +31,9 @@ abstract class BaseSecurityActionPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 9;
+
 	/** the column name for the ACTION field */
 	const ACTION = 'security_action.ACTION';
 
@@ -463,7 +466,7 @@ abstract class BaseSecurityActionPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + SecurityActionPeer::NUM_COLUMNS;
+			$col = $startcol + SecurityActionPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = SecurityActionPeer::OM_CLASS;
 			$obj = new $cls();
@@ -542,7 +545,7 @@ abstract class BaseSecurityActionPeer {
 		}
 
 		SecurityActionPeer::addSelectColumns($criteria);
-		$startcol = (SecurityActionPeer::NUM_COLUMNS - SecurityActionPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = SecurityActionPeer::NUM_HYDRATE_COLUMNS;
 		SecurityModulePeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(SecurityActionPeer::MODULE, SecurityModulePeer::MODULE, $join_behavior);
@@ -658,10 +661,10 @@ abstract class BaseSecurityActionPeer {
 		}
 
 		SecurityActionPeer::addSelectColumns($criteria);
-		$startcol2 = (SecurityActionPeer::NUM_COLUMNS - SecurityActionPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = SecurityActionPeer::NUM_HYDRATE_COLUMNS;
 
 		SecurityModulePeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (SecurityModulePeer::NUM_COLUMNS - SecurityModulePeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + SecurityModulePeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(SecurityActionPeer::MODULE, SecurityModulePeer::MODULE, $join_behavior);
 

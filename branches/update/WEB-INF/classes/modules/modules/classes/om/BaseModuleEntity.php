@@ -313,15 +313,23 @@ abstract class BaseModuleEntity extends BaseObject  implements Persistent
 	} // setDescription()
 
 	/**
-	 * Set the value of [softdelete] column.
+	 * Sets the value of the [softdelete] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * Indica si usa softdelete
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     ModuleEntity The current object (for fluent API support)
 	 */
 	public function setSoftdelete($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->softdelete !== $v) {
@@ -333,15 +341,23 @@ abstract class BaseModuleEntity extends BaseObject  implements Persistent
 	} // setSoftdelete()
 
 	/**
-	 * Set the value of [relation] column.
+	 * Sets the value of the [relation] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * Indica si es una entidad principal o una relacion de dos entidades
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     ModuleEntity The current object (for fluent API support)
 	 */
 	public function setRelation($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->relation !== $v) {
@@ -353,15 +369,23 @@ abstract class BaseModuleEntity extends BaseObject  implements Persistent
 	} // setRelation()
 
 	/**
-	 * Set the value of [savelog] column.
+	 * Sets the value of the [savelog] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * Indica si guarda log de cambios
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     ModuleEntity The current object (for fluent API support)
 	 */
 	public function setSavelog($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->savelog !== $v) {
@@ -373,15 +397,23 @@ abstract class BaseModuleEntity extends BaseObject  implements Persistent
 	} // setSavelog()
 
 	/**
-	 * Set the value of [nestedset] column.
+	 * Sets the value of the [nestedset] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * Indica si es una entidad nestedset
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     ModuleEntity The current object (for fluent API support)
 	 */
 	public function setNestedset($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->nestedset !== $v) {
@@ -495,7 +527,7 @@ abstract class BaseModuleEntity extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 10; // 10 = ModuleEntityPeer::NUM_COLUMNS - ModuleEntityPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 10; // 10 = ModuleEntityPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating ModuleEntity object", $e);
@@ -1175,16 +1207,16 @@ abstract class BaseModuleEntity extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setModulename($this->modulename);
-		$copyObj->setName($this->name);
-		$copyObj->setPhpname($this->phpname);
-		$copyObj->setDescription($this->description);
-		$copyObj->setSoftdelete($this->softdelete);
-		$copyObj->setRelation($this->relation);
-		$copyObj->setSavelog($this->savelog);
-		$copyObj->setNestedset($this->nestedset);
-		$copyObj->setScopefielduniquename($this->scopefielduniquename);
-		$copyObj->setBehaviors($this->behaviors);
+		$copyObj->setModulename($this->getModulename());
+		$copyObj->setName($this->getName());
+		$copyObj->setPhpname($this->getPhpname());
+		$copyObj->setDescription($this->getDescription());
+		$copyObj->setSoftdelete($this->getSoftdelete());
+		$copyObj->setRelation($this->getRelation());
+		$copyObj->setSavelog($this->getSavelog());
+		$copyObj->setNestedset($this->getNestedset());
+		$copyObj->setScopefielduniquename($this->getScopefielduniquename());
+		$copyObj->setBehaviors($this->getBehaviors());
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of

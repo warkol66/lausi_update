@@ -156,8 +156,17 @@ abstract class BaseMenuItemQuery extends ModelCriteria
 	/**
 	 * Filter the query on the id column
 	 * 
-	 * @param     int|array $id The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterById(1234); // WHERE id = 1234
+	 * $query->filterById(array(12, 34)); // WHERE id IN (12, 34)
+	 * $query->filterById(array('min' => 12)); // WHERE id > 12
+	 * </code>
+	 *
+	 * @param     mixed $id The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    MenuItemQuery The current query, for fluid interface
@@ -173,8 +182,14 @@ abstract class BaseMenuItemQuery extends ModelCriteria
 	/**
 	 * Filter the query on the action column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByAction('fooValue');   // WHERE action = 'fooValue'
+	 * $query->filterByAction('%fooValue%'); // WHERE action LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $action The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    MenuItemQuery The current query, for fluid interface
@@ -195,8 +210,14 @@ abstract class BaseMenuItemQuery extends ModelCriteria
 	/**
 	 * Filter the query on the url column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByUrl('fooValue');   // WHERE url = 'fooValue'
+	 * $query->filterByUrl('%fooValue%'); // WHERE url LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $url The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    MenuItemQuery The current query, for fluid interface
@@ -217,8 +238,17 @@ abstract class BaseMenuItemQuery extends ModelCriteria
 	/**
 	 * Filter the query on the order column
 	 * 
-	 * @param     int|array $order The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByOrder(1234); // WHERE order = 1234
+	 * $query->filterByOrder(array(12, 34)); // WHERE order IN (12, 34)
+	 * $query->filterByOrder(array('min' => 12)); // WHERE order > 12
+	 * </code>
+	 *
+	 * @param     mixed $order The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    MenuItemQuery The current query, for fluid interface
@@ -248,8 +278,17 @@ abstract class BaseMenuItemQuery extends ModelCriteria
 	/**
 	 * Filter the query on the parentId column
 	 * 
-	 * @param     int|array $parentid The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByParentid(1234); // WHERE parentId = 1234
+	 * $query->filterByParentid(array(12, 34)); // WHERE parentId IN (12, 34)
+	 * $query->filterByParentid(array('min' => 12)); // WHERE parentId > 12
+	 * </code>
+	 *
+	 * @param     mixed $parentid The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    MenuItemQuery The current query, for fluid interface
@@ -279,8 +318,17 @@ abstract class BaseMenuItemQuery extends ModelCriteria
 	/**
 	 * Filter the query on the newWindow column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByNewwindow(true); // WHERE newWindow = true
+	 * $query->filterByNewwindow('yes'); // WHERE newWindow = true
+	 * </code>
+	 *
 	 * @param     boolean|string $newwindow The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    MenuItemQuery The current query, for fluid interface

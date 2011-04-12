@@ -31,6 +31,9 @@ abstract class BaseUserPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 17;
+
 	/** the column name for the ID field */
 	const ID = 'users_user.ID';
 
@@ -521,7 +524,7 @@ abstract class BaseUserPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + UserPeer::NUM_COLUMNS;
+			$col = $startcol + UserPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = UserPeer::OM_CLASS;
 			$obj = new $cls();
@@ -606,7 +609,7 @@ abstract class BaseUserPeer {
 		}
 
 		UserPeer::addSelectColumns($criteria);
-		$startcol = (UserPeer::NUM_COLUMNS - UserPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = UserPeer::NUM_HYDRATE_COLUMNS;
 		LevelPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(UserPeer::LEVELID, LevelPeer::ID, $join_behavior);
@@ -734,10 +737,10 @@ abstract class BaseUserPeer {
 		}
 
 		UserPeer::addSelectColumns($criteria);
-		$startcol2 = (UserPeer::NUM_COLUMNS - UserPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = UserPeer::NUM_HYDRATE_COLUMNS;
 
 		LevelPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (LevelPeer::NUM_COLUMNS - LevelPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + LevelPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(UserPeer::LEVELID, LevelPeer::ID, $join_behavior);
 

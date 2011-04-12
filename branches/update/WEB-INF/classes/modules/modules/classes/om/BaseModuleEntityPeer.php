@@ -31,6 +31,9 @@ abstract class BaseModuleEntityPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 10;
+
 	/** the column name for the MODULENAME field */
 	const MODULENAME = 'modules_entity.MODULENAME';
 
@@ -480,7 +483,7 @@ abstract class BaseModuleEntityPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + ModuleEntityPeer::NUM_COLUMNS;
+			$col = $startcol + ModuleEntityPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = ModuleEntityPeer::OM_CLASS;
 			$obj = new $cls();
@@ -609,7 +612,7 @@ abstract class BaseModuleEntityPeer {
 		}
 
 		ModuleEntityPeer::addSelectColumns($criteria);
-		$startcol = (ModuleEntityPeer::NUM_COLUMNS - ModuleEntityPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = ModuleEntityPeer::NUM_HYDRATE_COLUMNS;
 		ModulePeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(ModuleEntityPeer::MODULENAME, ModulePeer::NAME, $join_behavior);
@@ -675,7 +678,7 @@ abstract class BaseModuleEntityPeer {
 		}
 
 		ModuleEntityPeer::addSelectColumns($criteria);
-		$startcol = (ModuleEntityPeer::NUM_COLUMNS - ModuleEntityPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = ModuleEntityPeer::NUM_HYDRATE_COLUMNS;
 		ModuleEntityFieldPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(ModuleEntityPeer::SCOPEFIELDUNIQUENAME, ModuleEntityFieldPeer::UNIQUENAME, $join_behavior);
@@ -793,13 +796,13 @@ abstract class BaseModuleEntityPeer {
 		}
 
 		ModuleEntityPeer::addSelectColumns($criteria);
-		$startcol2 = (ModuleEntityPeer::NUM_COLUMNS - ModuleEntityPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = ModuleEntityPeer::NUM_HYDRATE_COLUMNS;
 
 		ModulePeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (ModulePeer::NUM_COLUMNS - ModulePeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + ModulePeer::NUM_HYDRATE_COLUMNS;
 
 		ModuleEntityFieldPeer::addSelectColumns($criteria);
-		$startcol4 = $startcol3 + (ModuleEntityFieldPeer::NUM_COLUMNS - ModuleEntityFieldPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol4 = $startcol3 + ModuleEntityFieldPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(ModuleEntityPeer::MODULENAME, ModulePeer::NAME, $join_behavior);
 
@@ -987,10 +990,10 @@ abstract class BaseModuleEntityPeer {
 		}
 
 		ModuleEntityPeer::addSelectColumns($criteria);
-		$startcol2 = (ModuleEntityPeer::NUM_COLUMNS - ModuleEntityPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = ModuleEntityPeer::NUM_HYDRATE_COLUMNS;
 
 		ModuleEntityFieldPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (ModuleEntityFieldPeer::NUM_COLUMNS - ModuleEntityFieldPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + ModuleEntityFieldPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(ModuleEntityPeer::SCOPEFIELDUNIQUENAME, ModuleEntityFieldPeer::UNIQUENAME, $join_behavior);
 
@@ -1060,10 +1063,10 @@ abstract class BaseModuleEntityPeer {
 		}
 
 		ModuleEntityPeer::addSelectColumns($criteria);
-		$startcol2 = (ModuleEntityPeer::NUM_COLUMNS - ModuleEntityPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = ModuleEntityPeer::NUM_HYDRATE_COLUMNS;
 
 		ModulePeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (ModulePeer::NUM_COLUMNS - ModulePeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + ModulePeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(ModuleEntityPeer::MODULENAME, ModulePeer::NAME, $join_behavior);
 

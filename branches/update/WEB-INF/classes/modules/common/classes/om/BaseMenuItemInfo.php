@@ -309,7 +309,7 @@ abstract class BaseMenuItemInfo extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 6; // 6 = MenuItemInfoPeer::NUM_COLUMNS - MenuItemInfoPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 6; // 6 = MenuItemInfoPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating MenuItemInfo object", $e);
@@ -852,11 +852,11 @@ abstract class BaseMenuItemInfo extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setMenuitemid($this->menuitemid);
-		$copyObj->setName($this->name);
-		$copyObj->setTitle($this->title);
-		$copyObj->setDescription($this->description);
-		$copyObj->setLanguage($this->language);
+		$copyObj->setMenuitemid($this->getMenuitemid());
+		$copyObj->setName($this->getName());
+		$copyObj->setTitle($this->getTitle());
+		$copyObj->setDescription($this->getDescription());
+		$copyObj->setLanguage($this->getLanguage());
 		if ($makeNew) {
 			$copyObj->setNew(true);
 			$copyObj->setId(NULL); // this is a auto-increment column, so set to default value

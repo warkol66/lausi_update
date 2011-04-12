@@ -199,7 +199,7 @@ abstract class BaseClient extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 3; // 3 = ClientPeer::NUM_COLUMNS - ClientPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 3; // 3 = ClientPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Client object", $e);
@@ -726,8 +726,8 @@ abstract class BaseClient extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setName($this->name);
-		$copyObj->setContact($this->contact);
+		$copyObj->setName($this->getName());
+		$copyObj->setContact($this->getContact());
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of

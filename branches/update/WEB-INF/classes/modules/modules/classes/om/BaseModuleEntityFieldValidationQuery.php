@@ -160,8 +160,14 @@ abstract class BaseModuleEntityFieldValidationQuery extends ModelCriteria
 	/**
 	 * Filter the query on the entityFieldUniqueName column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByEntityfielduniquename('fooValue');   // WHERE entityFieldUniqueName = 'fooValue'
+	 * $query->filterByEntityfielduniquename('%fooValue%'); // WHERE entityFieldUniqueName LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $entityfielduniquename The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldValidationQuery The current query, for fluid interface
@@ -182,8 +188,14 @@ abstract class BaseModuleEntityFieldValidationQuery extends ModelCriteria
 	/**
 	 * Filter the query on the name column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByName('fooValue');   // WHERE name = 'fooValue'
+	 * $query->filterByName('%fooValue%'); // WHERE name LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $name The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldValidationQuery The current query, for fluid interface
@@ -204,8 +216,14 @@ abstract class BaseModuleEntityFieldValidationQuery extends ModelCriteria
 	/**
 	 * Filter the query on the value column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByValue('fooValue');   // WHERE value = 'fooValue'
+	 * $query->filterByValue('%fooValue%'); // WHERE value LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $value The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldValidationQuery The current query, for fluid interface
@@ -226,8 +244,14 @@ abstract class BaseModuleEntityFieldValidationQuery extends ModelCriteria
 	/**
 	 * Filter the query on the message column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByMessage('fooValue');   // WHERE message = 'fooValue'
+	 * $query->filterByMessage('%fooValue%'); // WHERE message LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $message The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ModuleEntityFieldValidationQuery The current query, for fluid interface

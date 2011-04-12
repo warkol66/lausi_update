@@ -244,7 +244,7 @@ abstract class BaseMultilangText extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 4; // 4 = MultilangTextPeer::NUM_COLUMNS - MultilangTextPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 4; // 4 = MultilangTextPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating MultilangText object", $e);
@@ -791,10 +791,10 @@ abstract class BaseMultilangText extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setId($this->id);
-		$copyObj->setModulename($this->modulename);
-		$copyObj->setLanguagecode($this->languagecode);
-		$copyObj->setText($this->text);
+		$copyObj->setId($this->getId());
+		$copyObj->setModulename($this->getModulename());
+		$copyObj->setLanguagecode($this->getLanguagecode());
+		$copyObj->setText($this->getText());
 		if ($makeNew) {
 			$copyObj->setNew(true);
 		}

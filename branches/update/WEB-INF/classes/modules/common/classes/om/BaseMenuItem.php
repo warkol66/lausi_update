@@ -262,15 +262,23 @@ abstract class BaseMenuItem extends BaseObject  implements Persistent
 	} // setParentid()
 
 	/**
-	 * Set the value of [newwindow] column.
+	 * Sets the value of the [newwindow] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * Abrir el enlace en nueva ventana
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     MenuItem The current object (for fluent API support)
 	 */
 	public function setNewwindow($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->newwindow !== $v || $this->isNew()) {
@@ -331,7 +339,7 @@ abstract class BaseMenuItem extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 6; // 6 = MenuItemPeer::NUM_COLUMNS - MenuItemPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 6; // 6 = MenuItemPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating MenuItem object", $e);
@@ -864,11 +872,11 @@ abstract class BaseMenuItem extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setAction($this->action);
-		$copyObj->setUrl($this->url);
-		$copyObj->setOrder($this->order);
-		$copyObj->setParentid($this->parentid);
-		$copyObj->setNewwindow($this->newwindow);
+		$copyObj->setAction($this->getAction());
+		$copyObj->setUrl($this->getUrl());
+		$copyObj->setOrder($this->getOrder());
+		$copyObj->setParentid($this->getParentid());
+		$copyObj->setNewwindow($this->getNewwindow());
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of

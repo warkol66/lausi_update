@@ -31,6 +31,9 @@ abstract class BaseModuleDependencyPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 2;
+
 	/** the column name for the MODULENAME field */
 	const MODULENAME = 'modules_dependency.MODULENAME';
 
@@ -428,7 +431,7 @@ abstract class BaseModuleDependencyPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + ModuleDependencyPeer::NUM_COLUMNS;
+			$col = $startcol + ModuleDependencyPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = ModuleDependencyPeer::OM_CLASS;
 			$obj = new $cls();
@@ -507,7 +510,7 @@ abstract class BaseModuleDependencyPeer {
 		}
 
 		ModuleDependencyPeer::addSelectColumns($criteria);
-		$startcol = (ModuleDependencyPeer::NUM_COLUMNS - ModuleDependencyPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = ModuleDependencyPeer::NUM_HYDRATE_COLUMNS;
 		ModulePeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(ModuleDependencyPeer::MODULENAME, ModulePeer::NAME, $join_behavior);
@@ -623,10 +626,10 @@ abstract class BaseModuleDependencyPeer {
 		}
 
 		ModuleDependencyPeer::addSelectColumns($criteria);
-		$startcol2 = (ModuleDependencyPeer::NUM_COLUMNS - ModuleDependencyPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = ModuleDependencyPeer::NUM_HYDRATE_COLUMNS;
 
 		ModulePeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (ModulePeer::NUM_COLUMNS - ModulePeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + ModulePeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(ModuleDependencyPeer::MODULENAME, ModulePeer::NAME, $join_behavior);
 

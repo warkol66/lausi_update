@@ -31,6 +31,9 @@ abstract class BaseCircuitPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 6;
+
 	/** the column name for the ID field */
 	const ID = 'lausi_circuit.ID';
 
@@ -448,7 +451,7 @@ abstract class BaseCircuitPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + CircuitPeer::NUM_COLUMNS;
+			$col = $startcol + CircuitPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = CircuitPeer::OM_CLASS;
 			$obj = new $cls();

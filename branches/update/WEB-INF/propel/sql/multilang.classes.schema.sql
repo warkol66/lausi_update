@@ -16,8 +16,8 @@ CREATE TABLE `multilang_text`
 	`languageCode` VARCHAR(30) NOT NULL,
 	`text` TEXT NOT NULL,
 	PRIMARY KEY (`id`,`moduleName`,`languageCode`),
-	INDEX `multilang_text_FI_1` (`languageCode`(30)),
-	INDEX `multilang_text_FI_2` (`moduleName`(255)),
+	INDEX `multilang_text_FI_1` (`languageCode`),
+	INDEX `multilang_text_FI_2` (`moduleName`),
 	CONSTRAINT `multilang_text_FK_1`
 		FOREIGN KEY (`languageCode`)
 		REFERENCES `multilang_language` (`code`)

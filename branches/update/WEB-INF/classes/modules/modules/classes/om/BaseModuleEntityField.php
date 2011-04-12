@@ -535,15 +535,23 @@ abstract class BaseModuleEntityField extends BaseObject  implements Persistent
 	} // setDescription()
 
 	/**
-	 * Set the value of [isrequired] column.
+	 * Sets the value of the [isrequired] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * Indica si es obligatorio
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     ModuleEntityField The current object (for fluent API support)
 	 */
 	public function setIsrequired($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->isrequired !== $v) {
@@ -575,15 +583,23 @@ abstract class BaseModuleEntityField extends BaseObject  implements Persistent
 	} // setDefaultvalue()
 
 	/**
-	 * Set the value of [isprimarykey] column.
+	 * Sets the value of the [isprimarykey] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * Indica si clave primaria
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     ModuleEntityField The current object (for fluent API support)
 	 */
 	public function setIsprimarykey($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->isprimarykey !== $v) {
@@ -595,15 +611,23 @@ abstract class BaseModuleEntityField extends BaseObject  implements Persistent
 	} // setIsprimarykey()
 
 	/**
-	 * Set the value of [isautoincrement] column.
+	 * Sets the value of the [isautoincrement] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * Indica si el campo es autoincremental
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     ModuleEntityField The current object (for fluent API support)
 	 */
 	public function setIsautoincrement($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->isautoincrement !== $v) {
@@ -655,15 +679,23 @@ abstract class BaseModuleEntityField extends BaseObject  implements Persistent
 	} // setType()
 
 	/**
-	 * Set the value of [unique] column.
+	 * Sets the value of the [unique] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * Indica si es unica
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     ModuleEntityField The current object (for fluent API support)
 	 */
 	public function setUnique($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->unique !== $v) {
@@ -883,15 +915,23 @@ abstract class BaseModuleEntityField extends BaseObject  implements Persistent
 	} // setOndelete()
 
 	/**
-	 * Set the value of [automatic] column.
+	 * Sets the value of the [automatic] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * Indica si es una columna autogenerada por un behavior
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     ModuleEntityField The current object (for fluent API support)
 	 */
 	public function setAutomatic($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->automatic !== $v) {
@@ -964,7 +1004,7 @@ abstract class BaseModuleEntityField extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 22; // 22 = ModuleEntityFieldPeer::NUM_COLUMNS - ModuleEntityFieldPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 22; // 22 = ModuleEntityFieldPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating ModuleEntityField object", $e);
@@ -1872,28 +1912,28 @@ abstract class BaseModuleEntityField extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setUniquename($this->uniquename);
-		$copyObj->setEntityname($this->entityname);
-		$copyObj->setName($this->name);
-		$copyObj->setDescription($this->description);
-		$copyObj->setIsrequired($this->isrequired);
-		$copyObj->setDefaultvalue($this->defaultvalue);
-		$copyObj->setIsprimarykey($this->isprimarykey);
-		$copyObj->setIsautoincrement($this->isautoincrement);
-		$copyObj->setOrder($this->order);
-		$copyObj->setType($this->type);
-		$copyObj->setUnique($this->unique);
-		$copyObj->setSize($this->size);
-		$copyObj->setAggregateexpression($this->aggregateexpression);
-		$copyObj->setLabel($this->label);
-		$copyObj->setFormfieldtype($this->formfieldtype);
-		$copyObj->setFormfieldsize($this->formfieldsize);
-		$copyObj->setFormfieldlines($this->formfieldlines);
-		$copyObj->setFormfieldusecalendar($this->formfieldusecalendar);
-		$copyObj->setForeignkeytable($this->foreignkeytable);
-		$copyObj->setForeignkeyremote($this->foreignkeyremote);
-		$copyObj->setOndelete($this->ondelete);
-		$copyObj->setAutomatic($this->automatic);
+		$copyObj->setUniquename($this->getUniquename());
+		$copyObj->setEntityname($this->getEntityname());
+		$copyObj->setName($this->getName());
+		$copyObj->setDescription($this->getDescription());
+		$copyObj->setIsrequired($this->getIsrequired());
+		$copyObj->setDefaultvalue($this->getDefaultvalue());
+		$copyObj->setIsprimarykey($this->getIsprimarykey());
+		$copyObj->setIsautoincrement($this->getIsautoincrement());
+		$copyObj->setOrder($this->getOrder());
+		$copyObj->setType($this->getType());
+		$copyObj->setUnique($this->getUnique());
+		$copyObj->setSize($this->getSize());
+		$copyObj->setAggregateexpression($this->getAggregateexpression());
+		$copyObj->setLabel($this->getLabel());
+		$copyObj->setFormfieldtype($this->getFormfieldtype());
+		$copyObj->setFormfieldsize($this->getFormfieldsize());
+		$copyObj->setFormfieldlines($this->getFormfieldlines());
+		$copyObj->setFormfieldusecalendar($this->getFormfieldusecalendar());
+		$copyObj->setForeignkeytable($this->getForeignkeytable());
+		$copyObj->setForeignkeyremote($this->getForeignkeyremote());
+		$copyObj->setOndelete($this->getOndelete());
+		$copyObj->setAutomatic($this->getAutomatic());
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of
