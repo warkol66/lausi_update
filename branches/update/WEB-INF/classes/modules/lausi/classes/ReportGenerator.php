@@ -45,7 +45,7 @@
 				$results[$key]['addresses'] = array();
 				
 				foreach ($addresses as $address) {
-					array_push($results[$key]['addresses'], array('address'=>$address));
+					$results[$key]['addresses'][$address->getId()] = array('address'=>$address);
 				}
 			}
 			
@@ -323,6 +323,24 @@
 				}
 			}
 			return $minIdx;
+		}
+		
+		/**
+		 * Reordena las addresses de un result basandose en un orden de ids dadas.
+		 * 
+		 * @param array $result, un elemento de los que componen los reuslts devueltos en otros métodos
+		 * de esta misma clase.
+		 * 
+		 * @param array $addressesIds, ids de las addresses en el orden en que se quieren obtener.
+		 */
+		public static function reorderAddresses($result, $addressesIds) {
+			$auxAddresses = array();
+			foreach ($addressesIds as $key => $addressId) {
+				if (isset($result['addresses'][$addressId]))
+					$auxAddresses[$addressId] = $result['addresses'][$addressId];
+			}
+			$result['addresses'] = $auxAddresses;
+			return $result;
 		}
 	}
 ?>

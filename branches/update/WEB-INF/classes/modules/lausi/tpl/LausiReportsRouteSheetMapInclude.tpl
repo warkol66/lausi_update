@@ -42,5 +42,50 @@
 			routeSheetsMap.markerOnClick(marker);
 		|-/foreach-|
 	|-/foreach-|
+	
+	/**
+	 * Inserta tantos input hidden en el form pasado por parámetro
+	 * como elementos existan en el listado ordenado.
+	 * 
+	 * @param Form form, el formulario donde agregar los ids
+	 * @param String name, el nombre de los hidden a agregar. 
+	 * Por defecto es 'addressesIds[]'. 
+	 */
+	function addAddressesIdsToForm(form, name) {
+		var id;
+		var input;
+		var p;
+		
+		if (name === undefined)
+			name = 'addressesIds[]';
+		
+		// Si el parrafo no existe lo creamos, y si existe lo vaciamos
+		p = $('addressesIds');	
+		if (!p) {
+			p = new Element('p', {id: 'addressesIds'});
+			//Insertamos el parrafo en el form.
+			form.insert({bottom: p});
+		} else {
+			p.innerHTML = '';
+		}
+			
+		$$('#addresses_list > li').each(function(li) {
+			//Si no es visible no lo agregamos
+			if (li.visible()) {
+				//Extraemos el prefijo "address_" de las ids de los li
+				id = li.id.gsub('address_', '');
+				
+				//Creamos el input.
+				input = new Element('input', {
+					name: name,
+					value: id,
+					type: 'hidden'
+				});
+				
+				//Insertamos el input en el parrafo.
+				p.insert({bottom: input});
+			}
+		});
+	}
 </script>
 </fieldset>

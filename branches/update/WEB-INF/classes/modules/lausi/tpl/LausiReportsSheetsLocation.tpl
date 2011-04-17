@@ -34,7 +34,7 @@
 				<p><input type="hidden" name="do" value="lausiReportsSheetsLocation" id="do" />
 				<input type="hidden" name="reportMode" value="normal" id="reportMode"/>
 				<input type="button"  name="submitForm" value="Generar reporte"  onClick="javascript:buildReport(this.form)"/>
-				<input type="button" name="print" value="Generar reporte para impresión" onClick="javascript:printReport(this.form)"/>
+				<input type="button" name="print" value="Generar reporte para impresión" onClick="addAddressesIdsToForm(this.form);javascript:printReport(this.form)"/>
 				<input type="button" name="export" value="Exportar reporte a Excel" onClick="javascript:exportReport(this.form)"/>
 				</p></fieldset>
 			</form>
@@ -88,4 +88,6 @@
 |-/if-|
 </div>
 
-|-include file="LausiReportsSheetMapInclude.tpl"-|
+<div class="noPrint">
+	|-include file="LausiReportsSheetMapInclude.tpl"-|
+</div>

@@ -39,7 +39,8 @@
 		<input type="hidden" name="do" value="lausiReportsRouteSheet" id="do" />
 		<input type="hidden" name="reportMode" value="normal" id="reportMode"/>
 		<input type="button"  name="submitForm" value="Generar reporte"  onClick="javascript:buildReport(this.form)"/>
-
+		<input type="button" name="print" value="Generar reporte para impresión" onClick="addAddressesIdsToForm(this.form);javascript:printReport(this.form)"/>
+				
 		</fieldset>
 	</form>
 
@@ -136,12 +137,35 @@
 			</table>
 	|-/if-|
 </p>
-
 |-/foreach-|
 </div>
 
-|-include file="LausiReportsRouteSheetMapInclude.tpl"-|
-
-|- if not empty($results)-|
-	|-include file="LausiReportsPrintLinkInclude.tpl"-|
+|-if $reportMode eq 'print'-|
+	<table border="0" cellpadding="4" cellspacing="0" id="tabla-advertisements" class="tableTdBorders">
+		<thead>
+			<tr>
+				<th colspan="5"><h3>Direcciones Ordenadas</h3></th>
+			</tr>
+			<tr>
+				<th>Circuito</th>
+				<th>Dirección</th>
+			</tr>
+		</thead>
+		<tbody>
+		|-foreach from=$results item=result-|
+			|-foreach from=$result.addresses item=address-|
+				<tr>
+					|-assign var=address value=$address.address-|
+					|-assign var=circuit value=$address->getCircuit()-|
+					<td>|-$circuit->getName()-|</td>
+					<td>|-$address-|</td>
+				</tr>
+			|-/foreach-|
+		|-/foreach-|
+		</tbody>
+	</table>
 |-/if-|
+
+<div class="noPrint">
+	|-include file="LausiReportsRouteSheetMapInclude.tpl"-|
+</div>
