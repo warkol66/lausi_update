@@ -68,9 +68,7 @@ class LausiReportsSheetsLocationAction extends BaseAction {
 				$smarty->assign('circuitId',$_GET['circuitId']);
 				$results = $reportGenerator->getSheetsLocationReport(Common::convertToMysqlDateFormat($_GET['date']),$_GET['type'],$circuitId);
 				$themes = $themePeer->getAllActive($_GET['type']);
-
-			}
-			else
+			} else
 				$smarty->assign('message',"noCircuitSeleted");
 		   
 			$smarty->assign('results',$results);
@@ -78,20 +76,24 @@ class LausiReportsSheetsLocationAction extends BaseAction {
 			$smarty->assign('date',$_GET['date']);
 			$smarty->assign('type',$_GET['type']);
 
-			if ($_GET['reportMode'] == 'print')
+			if ($_GET['reportMode'] == 'print') {
 				$this->template->template = "TemplatePrint.tpl";
-			elseif ($_GET['reportMode'] == 'xls') {
-						
-			$this->template->template = "TemplateCsv.tpl";
-
-			$forwardConfig = $mapping->findForwardConfig('xml');
-			$xml = $smarty->fetch($forwardConfig->getPath());
-
-			require_once("ExcelManagement.php");
-			$excel = new ExcelManagement();			
-			$excel->sendXlsFromXml($xml);
-			die;
-
+				foreach ($results as $key => $result)
+					$results[$key] = $reportGenerator->reorderAddresses($result, $_GET['addressesIds']);
+				$smarty->assign('results',$results);
+			} elseif ($_GET['reportMode'] == 'xls') {
+				$this->template->template = "TemplateCsv.tpl";
+				foreach ($results as $key => $result)
+					$results[$key] = $reportGenerator->reorderAddresses($result, $_GET['addressesIds']);
+				$smarty->assign('results',$results);
+	
+				$forwardConfig = $mapping->findForwardConfig('xml');
+				$xml = $smarty->fetch($forwardConfig->getPath());
+	
+				require_once("ExcelManagement.php");
+				$excel = new ExcelManagement();			
+				$excel->sendXlsFromXml($xml);
+				die;
 			}			
 		}
 		

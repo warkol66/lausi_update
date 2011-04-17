@@ -68,9 +68,14 @@ class LausiReportsRouteSheetAction extends BaseAction {
 			$smarty->assign('date',Common::convertToMysqlDateFormat($_GET['date']));
 		}
 		
-		if ($_REQUEST['print'] == '1')
+		if ($_REQUEST['reportMode'] == 'print') {
 			$this->template->template = "TemplatePrint.tpl";
-			
+			foreach ($results as $key => $result)
+				$results[$key] = $reportGenerator->reorderAddresses($result, $_REQUEST['addressesIds']);
+			$smarty->assign('results',$results);
+		}
+		
+		$smarty->assign('reportMode',$_REQUEST['reportMode']);
 		
 		return $mapping->findForwardConfig('success');
 	}
