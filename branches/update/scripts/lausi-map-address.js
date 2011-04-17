@@ -129,6 +129,10 @@ AddressMap = function() {
 	
 	this.locate = function(form) {
 		var _this = this;
+		
+		//IE fix
+		form = $(form);
+		
 		$('map_container').show();
 		if (!_this.map) {
 			_this.initializeMap('map_canvas');
