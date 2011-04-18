@@ -541,3 +541,21 @@ a.textLink:visited, a.textLink:active{
 .textLinkButton:visited, a.textLink:active{
 	color:#0054A4;
 }
+
+ul#directions_results {
+	border: 1px solid #0054A4;/*#F0F0F0;*/
+	-khtml-border-radius: .2em;
+	-opera-border-radius: .2em;
+	-moz-border-radius: .2em;
+	-webkit-border-radius: .2em;
+	border-radius: .2em;
+	padding: 1em;
+	margin: 1em;
+}
+#directions_results li {
+	line-height: 1.8em;
+}
+#directions_results li:hover {
+	color: #0054A4;
+	cursor: pointer;
+}

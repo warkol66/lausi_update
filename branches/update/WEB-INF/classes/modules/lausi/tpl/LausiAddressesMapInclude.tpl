@@ -1,8 +1,8 @@
 <!-- mapa google -->
 <div id="map_container" style="display:none">
+	<div><ul id="directions_results" style="display:none"></ul></div>
 |-include file="LausiMapHelpInclude.tpl"-|
 	<div id="map_canvas"></div>
-	<div><ul id="directions_results"></ul></div>
 	<br />
 	<p>
 		<input id="hide_map" type="button" value="Ocultar mapa" title="Ocultar mapa" onClick="$('map_container').hide();$('show_map').show()"/>

@@ -174,7 +174,8 @@ AddressMap = function() {
 	this.displayResultsList = function(results) {
 		var _this = this;
 		var resultsList = $('directions_results');
-		resultsList.innerHTML = '';
+		resultsList.style.display = 'block';
+		resultsList.innerHTML = '<p>La dirección ingresada es ambigua, selecciona entre las alternativas:</p>';
 		results.each(function(result, idx) {
 			_this.suggestions['suggestion_'+idx] = result;
 			var li = new Element('li', {
@@ -193,5 +194,6 @@ AddressMap = function() {
 		var _this = this;
 		$('directions_results').innerHTML = '';
 		_this.suggestions.clear();
+		$('directions_results').style.display = 'none';
 	}
 };
