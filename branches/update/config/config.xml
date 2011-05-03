@@ -37,6 +37,16 @@
 					<option_4>m-d-y</option_4>
 				</element_options>
 			</dateFormat>
+			<dateTimeFormat>
+				<value>d-m-Y H:M:S</value>
+				<element_type>Options</element_type>
+				<element_options>
+					<option_1>d-m-Y H:M:S</option_1>
+					<option_2>d-m-Y I:M:S P</option_2>
+					<option_3>H:M:S d-m-Y</option_3>
+					<option_4>I:M:S P d-m-Y</option_4>
+				</element_options>
+			</dateTimeFormat>
 			<thousandsSeparator>.</thousandsSeparator>
 			<decimalSeparator>,</decimalSeparator>
 			<numberOfDecimals>2</numberOfDecimals>
@@ -47,8 +57,8 @@
 			<debugMail>moddebugger@gmail.com</debugMail>
 			<fromEmail>moddebugger@gmail.com</fromEmail>
 			<tablePrefix></tablePrefix>
-			<news>Novedades: Bienvenido al Sistema de Gestión de Activos de vía Pública. En este momento este sistema se encuentra en período de prueba</news>
-			<affiliateNews>Novedades: Bienvenido al Sistema de Gestión de Activos de vía Pública. En este momento este sistema se encuentra en período de prueba</affiliateNews>
+			<news>Novedades: Bienvenido al Sistema de Gestión de Activos de vía Pública.</news>
+			<affiliateNews>Novedades: Bienvenido al Sistema de Gestión de Activos de vía Pública.</affiliateNews>
 		</parameters>
 		<errorReporting>
 			<value>E_ALL ^ E_NOTICE ^ E_WARNINGS</value>

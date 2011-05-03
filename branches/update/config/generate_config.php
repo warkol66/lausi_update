@@ -53,5 +53,3 @@ else {
 	else
 		echo "<p style='color:red'>No se encuentra el archivo de configuracion 'config.php' y fue imposible crearlo!</p>";
 }
-
-?>
