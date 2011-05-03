@@ -35,7 +35,7 @@
 
 		$level = $system["config"]["system"]["errorReporting"]["value"];
 		if ($conversionTable[html_entity_decode($level)] == 0)
-			ini_set("error_reporting",E_ALL);
+			ini_set("error_reporting",E_ERROR);
 		else
 			ini_set("error_reporting",$conversionTable[html_entity_decode($level)]);
 
