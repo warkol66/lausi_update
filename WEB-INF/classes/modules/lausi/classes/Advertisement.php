@@ -52,6 +52,8 @@ class Advertisement extends BaseAdvertisement {
 		//verificamos que no haya solapamiento.
 		if (AdvertisementPeer::hasOverlapping($publishDate, $duration, $billboardId, $id))
 	  		return false;	
+			
+		return true;
 	}
 	
 	/**
