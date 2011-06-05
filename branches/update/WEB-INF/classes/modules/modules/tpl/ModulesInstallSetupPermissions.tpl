@@ -1,4 +1,5 @@
-<script type="text/javascript" src="Main.php?do=js&name=js&module=modules&code=|-$currentLanguageCode-|"></script>
+<script type="text/javascript" src="Main.php?do=js&name=js&module=install&code=|-$currentLanguageCode-|"></script>
+
 <h2>Configuración del Sistema</h2>
 <h1>Instalación de Módulos del Sistema: Módulo <strong>|-$moduleName-|</strong>.</h1>
 <fieldset>
@@ -15,11 +16,11 @@
 		<p>Asignar permisos generales al módulo</p>
 <table width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders"> 
 	<tr> 
-		<th width="20%" scope="col">Módulo</th>
-		<th width="10%" scope="col">No verifica login</th>
-		<th width="10%" scope="col">Usuarios</th> 
-		<th width="10%" scope="col">Usuarios Por Afiliado</th>
-		<th width="10%" scope="col">Usuarios Por Registro</th>
+		<th width="20%" scope="col" class="thFillTitle">Módulo</th>
+		<th width="10%" scope="col" class="thFillTitle">No verifica login</th>
+		<th width="10%" scope="col" class="thFillTitle">Usuarios</th> 
+		<th width="10%" scope="col" class="thFillTitle">Usuarios Por Afiliado</th>
+		<th width="10%" scope="col" class="thFillTitle">Usuarios Por Registro</th>
 	</tr> 
 	<tr> 
 		<td>|-$moduleName-|</td>
@@ -49,11 +50,11 @@
 <p>Dejar vacios aquellos actions que hereden permisos del módulo.</p>
 <table width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders"> 
 	<tr> 
-		<th width="20%" scope="col">Action</th>
-		<th width="10%" scope="col">No verifica login</th>
-		<th width="10%" scope="col">Usuarios</th> 
-		<th width="10%" scope="col">Usuarios por Afiliado</th>
-		<th width="10%" scope="col">Usuarios por Registro</th>
+		<th width="20%" scope="col" class="thFillTitle">Action</th>
+		<th width="10%" scope="col" class="thFillTitle">No verifica login</th>
+		<th width="10%" scope="col" class="thFillTitle">Usuarios</th> 
+		<th width="10%" scope="col" class="thFillTitle">Usuarios por Afiliado</th>
+		<th width="10%" scope="col" class="thFillTitle">Usuarios por Registro</th>
 	</tr> 
 	|-foreach from=$withoutPair item=action name=modulef-|
 	<tr> 

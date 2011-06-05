@@ -1,4 +1,4 @@
-<script type="text/javascript" src="Main.php?do=js&name=js&module=modules&code=|-$currentLanguageCode-|"></script>
+<script type="text/javascript" src="Main.php?do=js&name=js&module=modulesInstall&code=|-$currentLanguageCode-|"></script>
 
 <h2>Configuración</h2>
 <h1>Instalación de Módulos del Sistema</h1>
@@ -16,8 +16,8 @@
 	<p>
 <table width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders"> 
 	<tr> 
-		<th width="20%" scope="col">Nombre del Módulo</th> 
-		<th width="80%" scope="col">Pasos Específicos del proceso de instalación</th> 
+		<th width="20%" scope="col" class="thFillTitle">Nombre del  Módulo</th> 
+		<th width="80%" scope="col" class="thFillTitle">Pasos Específicos del proceso de instalación</th> 
 	</tr> 
 	|-foreach from=$modulesToInstall item=eachModule name=modulef-|
 	<tr> 
@@ -60,8 +60,8 @@
 <h4>Módulos Instalados</h4> 
 <table width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders"> 
 	<tr> 
-		<th width="20%" scope="col">Nombre del Módulo</th> 
-		<th width="80%" scope="col">Pasos Específicos del proceso de instalación</th>		 
+		<th width="20%" class="thFillTitle" scope="col">Nombre del Módulo</th> 
+		<th width="80%" class="thFillTitle" scope="col">Pasos Específicos del proceso de instalación</th>		 
 	</tr> 
 	|-foreach from=$modulesInstalled item=eachModule name=modulef-|
 	<tr> 

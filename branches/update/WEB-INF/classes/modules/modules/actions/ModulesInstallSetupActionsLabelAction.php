@@ -95,10 +95,8 @@ class ModulesInstallSetupActionsLabelAction extends BaseAction {
 			foreach ($totalActions as $action) {
 				foreach ($languages as $language) {
 					$actionLabel = SecurityActionLabelPeer::getByActionAndLanguage($action,$language->getCode());
-					if (!empty($actionLabel)) {
-						$actualLabels[$action][$language->getCode()]['label'] = $actionLabel->getLabel();
-						$actualLabels[$action][$language->getCode()]['description'] = $actionLabel->getDescription();
-					}
+					if (!empty($actionLabel))
+						$actualLabels[$action][$language->getCode()] = $actionLabel->getLabel();
 				}
 			}
 			$smarty->assign('actualLabels',$actualLabels);

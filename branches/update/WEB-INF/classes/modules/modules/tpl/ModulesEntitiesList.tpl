@@ -26,7 +26,7 @@
 		</form></div></td>
 		</tr>
 				<tr class="thFillTitle">
-			<th colspan="6"><div class="rightLink"><a href="Main.php?do=modulesEntitiesCreate|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addNew">Agregar Entidad</a></div></th>
+			<th colspan="6"><div class="rightLink"><a href="Main.php?do=modulesEntitiesCreate|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Entidad</a></div></th>
 		</tr>
 	<tr class="thFillTitle"> 
 		<th width="10%" scope="col">Módulo</th> 
@@ -62,6 +62,6 @@
 			</tr>
 		|-/if-|
 		<tr class="thFillTitle">
-			<th colspan="6"><div class="rightLink"><a href="Main.php?do=modulesEntitiesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addNew">Agregar Entidad</a></div></th>
+			<th colspan="6"><div class="rightLink"><a href="Main.php?do=modulesEntitiesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Entidad</a></div></th>
 		</tr>
 </table> 
