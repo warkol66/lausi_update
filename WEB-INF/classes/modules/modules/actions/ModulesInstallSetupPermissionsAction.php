@@ -192,9 +192,6 @@ class ModulesInstallSetupPermissionsAction extends BaseAction {
 			$withPairAccess = $this->getAccessToActions($withPair);
 
 			$moduleSelected = SecurityModulePeer::getAccess($_GET['moduleName']);
-			
-			if (empty($moduleSelected))
-				$moduleSelected = new SecurityModule();
 
 			$smarty->assign('moduleSelected',$moduleSelected);
 

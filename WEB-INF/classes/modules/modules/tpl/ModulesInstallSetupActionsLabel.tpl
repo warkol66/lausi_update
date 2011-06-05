@@ -1,4 +1,5 @@
-<script type="text/javascript" src="Main.php?do=js&name=js&module=modules&code=|-$currentLanguageCode-|"></script>
+<script type="text/javascript" src="Main.php?do=js&name=js&module=install&code=|-$currentLanguageCode-|"></script>
+
 <h2>Configuración del Sistema</h2>
 <h1>Instalación de Módulos: Módulo <strong>|-$moduleName|capitalize-|</strong>.</h1>
 <form method="post">
@@ -18,17 +19,11 @@
 			|-foreach from=$languages item=language-|
 				|-assign var=languageCode value=$language->getCode()-|
 				<p>
-					<legend>|-$language->getName()-|</legend>
-				</p>
-				<p>
-					<label for="labels[|-$action-|][|-$languageCode-|][label]">Etiqueta</label>
-					<input name="labels[|-$action-|][|-$languageCode-|][label]" type="text" value="|-if isset($actualLabels)-||-$actualLabels.$action.$languageCode.label-||-/if-|" size="60">
-				</p>
-				<p>
-					<label for="labels[|-$action-|][|-$languageCode-|][description]">Descripción</label>
-					<input name="labels[|-$action-|][|-$languageCode-|][description]" type="text" value="|-if isset($actualLabels)-||-$actualLabels.$action.$languageCode.description-||-/if-|" size="60">
+					<label for="labels[|-$action-|][|-$languageCode-|]">|-$language->getName()-|</label>
+					<input name="labels[|-$action-|][|-$languageCode-|]" type="text" value="|-if isset($actualLabels)-||-$actualLabels.$action.$languageCode-||-/if-|" size="65">
 				</p>
 			|-/foreach-|
+
 	</fieldset>
 	|-/foreach-|
 	
