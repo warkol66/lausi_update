@@ -46,9 +46,7 @@ class Region extends BaseRegion {
 	
 	public function getAvailableTodayCount($theme) {
 		
-		require_once('BillboardPeer.php');
-		
-		$criteria = new Criteria();
+		$criteria = new BillboardQuery();
 		$criteria->add(BillboardPeer::TYPE,$theme->getType());
 		$criteria->add(AddressPeer::REGIONID,$this->getId());
 		
