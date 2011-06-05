@@ -137,6 +137,7 @@
 			</usersByRegistrationDoPassRecovery>
 		</noCheckLoginActions>
 		<rowsPerPage>50</rowsPerPage>
+		<receiveMailBackup>lausi@datamarkets.com.ar,moddebugger@gmail.com</receiveMailBackup>
 	</system>
 	<mluse>
 		<language>esp</language>
@@ -150,4 +151,24 @@
 	<lausi>
 		<availableBillboardsDays>5</availableBillboardsDays>
 	</lausi>
+	<email>
+		<mode>
+			<value>SMTP</value>
+			<element_type>Options</element_type>
+			<element_options>
+				<option_1>PHP</option_1>
+				<option_2>SMTP</option_2>
+			</element_options>
+		</mode>
+		<smtpOptions>
+			<smtpHost>mail.anmagaexport.modulserver.com.ar</smtpHost>
+			<smtpPort>587</smtpPort>
+			<smtpUsername>anmagaex</smtpUsername>
+			<smtpPassword>Anmaga</smtpPassword>
+			<smtpSsl>
+				<value>NO</value>
+				<element_type>YES/NO</element_type>
+			</smtpSsl>
+		</smtpOptions>
+	</email>
 </config>
