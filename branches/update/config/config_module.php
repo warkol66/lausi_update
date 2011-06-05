@@ -5,9 +5,9 @@ class ConfigModule {
 	private static $configModule = array(
 		"global" => array(
 			"debugMode" => true,
-			"noSecurity" => true,
-			"noCheckLogin" => true,
-			"developmentMode" => true,
+			"noSecurity" => false,
+			"noCheckLogin" => false,
+			"developmentMode" => false,
 			"showPropelExceptions" => true,
 			"doLog" => true,
 			"unifiedUsernames" => true,
