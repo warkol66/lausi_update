@@ -1,5 +1,6 @@
 <?php
 
+require_once("$appServerRootDir/WEB-INF/classes/phpmvc/utils/ActionDispatcher.php");
 /*
 * SmartyActionDispatcher.php
 * Revision: 1.0
