@@ -83,6 +83,7 @@
 				|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 				<input type="submit" id="button_edit_address" name="button_edit_address" title="Aceptar" value="Aceptar" |-if $address->getId() eq ''-|disabled|-/if-|/>
 				<input type='button' onClick='location.href="Main.php?do=lausiAddressesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Cancelar' title="Regresar al listado de carteleras"/>
+				<input type='button' onClick='location.href="Main.php?do=lausiAddressesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Crear nueva' title="Crear nueva dirección"/>
 		</p>
 	</form>
 	
