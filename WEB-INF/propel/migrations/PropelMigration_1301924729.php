@@ -660,6 +660,32 @@ INSERT INTO `lausi_circuitPoint` (`id`, `circuitId`, `latitude`, `longitude`) VA
 (221, 4, -34.6617, -58.3977);
 
 
+INSERT INTO `security_module` (`module`, `access`, `accessAffiliateUser`, `accessRegistrationUser`, `noCheckLogin`) VALUES
+(\'users\', 3, 0, 0, 0),
+(\'backup\', 3, 0, 0, 0),
+(\'common\', 0, 0, 0, 1),
+(\'config\', 3, 0, 0, 0),
+(\'security\', 3, 0, 0, 0),
+(\'modules\', 3, 0, 0, 0),
+(\'lausi\', 7, 0, 0, 0);
+
+INSERT INTO `security_action` (`action`, `module`, `section`, `access`, `accessAffiliateUser`, `accessRegistrationUser`, `active`, `pair`, `noCheckLogin`) VALUES
+(\'usersLogin\', \'users\', \'\', 0, 0, 0, 1, \'usersDoLogin\', 1),
+(\'usersPasswordRecoveryConfirmation\', \'users\', \'\', 0, 0, 0, 1, \'\', 1),
+(\'usersPasswordResetX\', \'users\', \'\', 0, 0, 0, 1, \'\', 1),
+(\'securityNoPermission\', \'security\', \'\', 0, 0, 0, 1, \'\', 1),
+(\'usersCaptchaGeneration\', \'users\', \'\', 0, 0, 0, 1, \'\', 1),
+(\'usersPasswordDoChangeForRecovery\', \'users\', \'\', 0, 0, 0, 1, \'\', 1),
+(\'usersValidationUsernameX\', \'users\', \'\', 0, 0, 0, 1, \'\', 1),
+(\'usersValidationPasswordX\', \'users\', \'\', 0, 0, 0, 1, \'\', 1),
+(\'usersPasswordRecoverySendConfirmationRequest\', \'users\', \'\', 0, 0, 0, 1, \'\', 1),
+(\'usersDoLogout\', \'users\', \'\', 0, 0, 0, 1, \'\', 1),
+(\'usersLoginMaintenance\', \'users\', \'\', 0, 0, 0, 1, \'\', 1),
+(\'usersWelcome\', \'users\', \'\', 1073741823, 0, 0, 1, \'\', 0),
+(\'usersPasswordRecovery\', \'users\', \'\', 0, 0, 0, 1, \'usersPasswordDoRecovery\', 1),
+(\'usersPasswordChange\', \'users\', \'\', 0, 0, 0, 1, \'usersPasswordDoChange\', 1);
+
+
 #Fin cambios no automáticos ----------------------------------------------
 
 
