@@ -28,7 +28,7 @@ class AdvertisementQuery extends BaseAdvertisementQuery {
 			$date = new DateTime();
 		$date = $date->format('Y-m-d');
 		$this->filterByPublishDate(array('max'=>$date));
-		$this->where("DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY) >= $date");
+		$this->where("DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY) >= '$date'");
 		return $this;
 	}
 	
