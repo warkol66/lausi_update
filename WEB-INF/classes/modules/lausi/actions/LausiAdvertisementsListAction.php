@@ -59,16 +59,14 @@ class LausiAdvertisementsListAction extends BaseAction {
 		$this->applyFilters($advertisementPeer, $filters, $smarty);
    		
 		//ordenamiento especial para reporte de clientes
-		if ($_GET['clientReport'] == 1) {
+		if ($_GET['clientReport'] == 1)
 			$advertisementPeer->orderByCircuitOrder();
-		}
 
 		$smarty->assign("message",$_GET["message"]);
 		
 		//Las que vienen a continuación no se consideran opciones de filtrado
-		if (empty($_GET['reportMode'])) {
+		if (empty($_GET['reportMode']))
 			return $mapping->findForwardConfig('success');
-		}
 		
  		if (!empty($_GET['allThemes'])) {
  			$advertisementPeer->setAllThemes();
@@ -80,16 +78,12 @@ class LausiAdvertisementsListAction extends BaseAction {
 			$smarty->assign('noGroupByAddressAndTheme',$_GET['noGroupByAddressAndTheme']);
 		}
 		
-		if (!empty($_GET['onlyAddresses'])) {
+		if (!empty($_GET['onlyAddresses']))
 			$smarty->assign('onlyAddresses',1);
-		}
-
 
 		if ($_GET['reportMode'] == 'normal') {
 			$pager = Common::getAllPaginatedFiltered($advertisementPeer, $_GET["page"]);
-
 			$advertisements = $pager->getResults();
-
 			$smarty->assign("pager",$pager);
 
 			$url = "Main.php?do=lausiAdvertisementsList&submitFilter=1&allThemes=" . $_GET['allThemes'] . "&noGroupByAddressAndTheme=" . $_GET['noGroupByAddressAndTheme'] . "&onlyAddresses=" . $_GET['onlyAddresses'] . "&clientReport=".$_GET['clientReport'] . "&reportMode=" . $_GET['reportMode'];
@@ -98,23 +92,23 @@ class LausiAdvertisementsListAction extends BaseAction {
 			
 			$smarty->assign("url",$url);	
 			$smarty->assign("groupByAddressAndTheme",$advertisementPeer->getGroupByAddressAndTheme());	
-		} elseif ($_GET['reportMode'] == "xls") {
+		}
+		elseif ($_GET['reportMode'] == "xls") {
 			$advertisements = $advertisementPeer->getAllFiltered();
-
 			$smarty->assign("advertisements",$advertisements);
 			
 			$smarty->assign("groupByAddressAndTheme",$advertisementPeer->getGroupByAddressAndTheme());	
 			$forwardConfig = $mapping->findForwardConfig('xml');
 
 			$this->template->template = "TemplateCsv.tpl";
-
 			$xml = $smarty->fetch($forwardConfig->getPath());
 
 			require_once("ExcelManagement.php");
 			$excel = new ExcelManagement();			
 			$excel->sendXlsFromXml($xml);
 			die;
-		} else {
+		}
+		else {
 			//es un reporte para impresion
 			$this->template->template = "TemplatePrint.tpl";
 			$advertisements = $advertisementPeer->getAllFiltered();
@@ -123,7 +117,6 @@ class LausiAdvertisementsListAction extends BaseAction {
 		}
 		
 		$smarty->assign("advertisements",$advertisements);
-
 		return $mapping->findForwardConfig('success');
 	}
 
