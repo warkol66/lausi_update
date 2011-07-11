@@ -385,7 +385,11 @@ class BillboardPeer extends BaseBillboardPeer {
    		if ($type != null)
 	   		$criteria->filterByType($type);
 
-	   	$criteria->filterByRegionId($regionId);
+		$criteria->join('Address',Criteria::INNER_JOIN);
+		
+		$criteria->useQuery('Address')
+					->filterByRegionId($regionId)
+				 ->endUse();
 	   	
 		return BillboardPeer::getAllAvailableOrdered($criteria,$fromDate, $duration, $quantity, $type);
    }
