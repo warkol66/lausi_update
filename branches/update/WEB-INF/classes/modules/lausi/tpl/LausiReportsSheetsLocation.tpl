@@ -1,7 +1,8 @@
 <div class="noPrint"><h2>Reportes</h2>
 <h1>Disposición de Afiches</h1>
 </div>
-<p class="noPrint">El siguiente reporte le permite obtener un listado de direcciones y motivos en cada dirección por cada circuito. Para generar el reporte debe selecionar un circuito.</p>
+<p class="noPrint">El siguiente reporte le permite obtener un listado de direcciones y motivos en cada dirección por cada circuito. Para generar el reporte debe selecionar un circuito.<br />
+Para generar reportes de impresión o para exportar a Excel, debe generar primero un reporte por pantalla.</p>
 <div id="div_advertisements">
 |-if $message eq "noCircuitSeleted"-|
 	<div class="errorMessage">Este reporte se genera por circuito, por favor, seleccione un circuito y solicite el reporte nuevamente</div>
@@ -34,8 +35,8 @@
 				<p><input type="hidden" name="do" value="lausiReportsSheetsLocation" id="do" />
 				<input type="hidden" name="reportMode" value="normal" id="reportMode"/>
 				<input type="button"  name="submitForm" value="Generar reporte"  onClick="javascript:buildReport(this.form)"/>
-				<input type="button" name="print" value="Generar reporte para impresión" onClick="addAddressesIdsToForm(this.form);javascript:printReport(this.form)"/>
-				<input type="button" name="export" value="Exportar reporte a Excel" onClick="javascript:exportReport(this.form)"/>
+				|-if !empty($results)-|<input type="button" name="print" value="Generar reporte para impresión" onClick="addAddressesIdsToForm(this.form);javascript:printReport(this.form)"/>
+				<input type="button" name="export" value="Exportar reporte a Excel" onClick="javascript:exportReport(this.form)"/>|-/if-|
 				</p></fieldset>
 			</form>
 |-if not empty($results)-|
@@ -85,9 +86,9 @@
 			</table>
 			<p></p>
 		|-/foreach-|
-|-/if-|
 </div>
 
 <div class="noPrint">
 	|-include file="LausiReportsSheetMapInclude.tpl"-|
 </div>
+|-/if-|
