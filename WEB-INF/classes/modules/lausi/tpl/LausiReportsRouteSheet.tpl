@@ -10,10 +10,10 @@
 |-elseif $message eq "failure_overlapping"-|
 	<div class="errorMessage">No se han guardado las modificaciones, Hay superposición.</div>
 |-/if-|
-	<form action="Main.php" method="get" class="noPrint">
 		<fieldset>
 			<legend>Reportes</legend>
 		<p>
+	<form action="Main.php" method="get" class="noPrint">
 			<label for="date">Fecha</label>
 			<input name="date" type="text" id="date" title="fromDate" value="|-if $date neq ''-||-$date|date_format:"%d-%m-%Y"-||-else-||-$smarty.now|date_format:"%d-%m-%Y"-||-/if-|" size="12" /> 
 			<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('date', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
@@ -39,11 +39,12 @@
 		<input type="hidden" name="do" value="lausiReportsRouteSheet" id="do" />
 		<input type="hidden" name="reportMode" value="normal" id="reportMode"/>
 		<input type="button"  name="submitForm" value="Generar reporte"  onClick="javascript:buildReport(this.form)"/>
-		<input type="button" name="print" value="Generar reporte para impresión" onClick="addAddressesIdsToForm(this.form);javascript:printReport(this.form)"/>
+		|-if !empty($results)-|<input type="button" name="print" value="Generar reporte para impresión" onClick="addAddressesIdsToForm(this.form);javascript:printReport(this.form)"/>|-/if-|
+	</form>
 				
 		</fieldset>
-	</form>
 
+|-if not empty($results)-|
 |-foreach from=$results item=result-|	
 <p>
 	|-assign var=advertisements value=$result.adverts-|
@@ -169,3 +170,4 @@
 <div class="noPrint">
 	|-include file="LausiReportsRouteSheetMapInclude.tpl"-|
 </div>
+|-/if-|

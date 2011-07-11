@@ -56,19 +56,19 @@ class LausiReportsSheetsLocationAction extends BaseAction {
 
 		if (!empty($_GET['reportMode'])) {
 
-			if (empty($_GET['type'])) {
+			if (empty($_GET['type']))
 				$_GET['type'] = BillboardPeer::TYPE_SEXTUPLE;
-			}
 		
 	 		$reportGenerator = new ReportGenerator();
 			$themePeer = new ThemePeer();
-		
+
 			if (!empty($_GET['circuitId'])) {
 				$circuitId = $_GET['circuitId'];
 				$smarty->assign('circuitId',$_GET['circuitId']);
 				$results = $reportGenerator->getSheetsLocationReport(Common::convertToMysqlDateFormat($_GET['date']),$_GET['type'],$circuitId);
 				$themes = $themePeer->getAllActive($_GET['type']);
-			} else
+			}
+			else
 				$smarty->assign('message',"noCircuitSeleted");
 		   
 			$smarty->assign('results',$results);
@@ -81,7 +81,8 @@ class LausiReportsSheetsLocationAction extends BaseAction {
 				foreach ($results as $key => $result)
 					$results[$key] = $reportGenerator->reorderAddresses($result, $_GET['addressesIds']);
 				$smarty->assign('results',$results);
-			} elseif ($_GET['reportMode'] == 'xls') {
+			}
+			elseif ($_GET['reportMode'] == 'xls') {
 				$this->template->template = "TemplateCsv.tpl";
 				foreach ($results as $key => $result)
 					$results[$key] = $reportGenerator->reorderAddresses($result, $_GET['addressesIds']);
