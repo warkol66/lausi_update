@@ -400,7 +400,6 @@ class BackupPeer {
 		$header = "";
 		$footer = "";
 		if ($osType == "WINDOWS" || $osType == "WINNT" || $osType == "WIN") {
-			$pathToXml = $moduleRootDir.'/WEB-INF/classes/propel/schema.xml';
 
 			//Path a schemas
 			$path = "WEB-INF/propel";
@@ -409,7 +408,7 @@ class BackupPeer {
 			$schemas = Array();
 
 			foreach ($schemasFile as $schema) {
-				if (substr($schema, -3) == "xml")
+				if (substr($schema, -10) == "schema.xml")
 					$schemas[] = $schema;
 			}
 
