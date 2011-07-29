@@ -194,7 +194,6 @@ class BackupPeer {
 
 		foreach ($queries as $query) {
 			$query = trim($query);
-			print_r($query);
 			if (!empty($query))
 				$db->query($query);
 		}
