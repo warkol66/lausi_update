@@ -36,7 +36,7 @@ Para generar reportes de impresión o para exportar a Excel, debe generar primer
 				<input type="hidden" name="reportMode" value="normal" id="reportMode"/>
 				<input type="button"  name="submitForm" value="Generar reporte"  onClick="javascript:buildReport(this.form)"/>
 				|-if !empty($results)-|<input type="button" name="print" value="Generar reporte para impresión" onClick="addAddressesIdsToForm(this.form);javascript:printReport(this.form)"/>
-				<input type="button" name="export" value="Exportar reporte a Excel" onClick="javascript:exportReport(this.form)"/>|-/if-|
+				<input type="button" name="export" value="Exportar reporte a Excel" onClick="javascript:addAddressesIdsToForm(this.form);exportReport(this.form)"/>|-/if-|
 				</p></fieldset>
 			</form>
 |-if not empty($results)-|
