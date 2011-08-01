@@ -7,7 +7,8 @@
 
 // Set error reporting level. See PHP manual: XXVI. Error Handling and Logging Functions
 // Note: E_STRICT  (PHP5 compliance) will cause the PHP4 code base to fail.
-error_reporting(E_ALL -E_NOTICE -E_WARNING);
+error_reporting(E_ALL);
+//error_reporting(E_ALL -E_NOTICE -E_WARNING);
 ini_set('display_errors',0);
 
 
@@ -19,7 +20,7 @@ $appDir = dirname(__FILE__);
 if (!empty($argc)) {
 	foreach ($argv as $value) {
 		if ($value != 'Main.php') {
-			$parts = split('=',$value);
+			$parts = explode('=',$value);
 			$_REQUEST[$parts[0]] = $parts[1];
 			$_POST[$parts[0]] = $parts[1];
 			$_GET[$parts[0]] = $parts[1];
