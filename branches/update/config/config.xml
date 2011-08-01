@@ -61,7 +61,7 @@
 			<affiliateNews>Novedades: Bienvenido al Sistema de Gestión de Activos de vía Pública.</affiliateNews>
 		</parameters>
 		<errorReporting>
-			<value>E_ALL ^ E_NOTICE ^ E_WARNINGS</value>
+			<value>E_ALL</value>
 			<element_type>Options</element_type>
 			<element_options>
 				<option_1></option_1>

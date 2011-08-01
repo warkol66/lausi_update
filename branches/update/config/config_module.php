@@ -13,32 +13,12 @@ class ConfigModule {
 			"unifiedUsernames" => true,
 			"backupTimeLimit" => 720
 		),
-		"affiliates" => array(
-			"unifiedLogin" => false,
-			"useTimezones" => false,
-			"forceFirstPasswordChange" => true,
-			"askForNewPasswordOnRecovery" => false,
-			"useFilterByUserGroup" => true,
-			"passwordRecoveryExpirationTimeInHours" => 24
-		),
 		"users" => array(
 			"useTimezones" => false,
 			"forceFirstPasswordChange" => true,
 			"askForNewPasswordOnRecovery" => false,
 			"useFilterByUserGroup" => true,
 			"passwordRecoveryExpirationTimeInHours" => 24
-		),
-		"notifications" => array(
-			"activeNotificationTypes" => array(
-				1 => 'Alert',
-				2 => 'Schedule',
-			)
-		),
-		"import" => array(
-			"quotesUseQuantities" => false
-		),
-		"surveys" => array(
-			"graphOrientation" => Column //Bar = forizontal, Column=vertical
 		)
 
 	);
