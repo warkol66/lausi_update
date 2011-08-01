@@ -32,6 +32,22 @@ class AdvertisementQuery extends BaseAdvertisementQuery {
 		return $this;
 	}
 	
+	/**
+	 * Filtra aquellos avisos que se encuentran publicados en una determinada fecha
+	 * Se entiende que un aviso está publicado si la fecha de publicación es igual o anterior a
+	 * la pasada por parámetro y a su vez la fecha de vencimiento (publicación + duración) 
+	 * es igual o posterior a la pasada por parámetro.
+	 * 
+	 * @param: DateTime $date, fecha por la que se filtra, por defecto es la fecha de hoy.
+	 */
+	public function filterByLast($date = null) {
+		if ($date === null)
+			$date = new DateTime();
+		$date = $date->format('Y-m-d');
+		$this->filterByPublishDate(array('max'=>$date));
+		return $this;
+	}
+
 	public function withEndDate() {
 		$this->withColumn('DATE_ADD(lausi_advertisement.publishDate,INTERVAL lausi_advertisement.duration DAY)', 'end_date');
 	}
