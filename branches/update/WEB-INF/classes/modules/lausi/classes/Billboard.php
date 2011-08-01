@@ -114,7 +114,7 @@ class Billboard extends BaseBillboard {
 		 */
 		public function getLastTheme() {
 			$advert = AdvertisementQuery::create()
-				->filterByCurrent()
+				->filterByLast()
 				->filterByBillboard($this)
 				->orderByPublishdate('desc')
 				->findOne();
