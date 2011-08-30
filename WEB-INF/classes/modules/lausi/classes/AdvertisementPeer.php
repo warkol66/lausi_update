@@ -245,7 +245,7 @@ class AdvertisementPeer extends BaseAdvertisementPeer {
 
 		if (!empty($this->searchCircuitId)) {
 			$criteria->useQuery('Address')
-						->filterByType($this->searchCircuitId)
+						->filterByCircuitid($this->searchCircuitId)
 					 ->endUse();
 		}
 
