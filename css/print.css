@@ -38,3 +38,6 @@ tr {
 	page-break-inside: avoid;
 	page-break-after: auto;
 }
+table.tableTdBorders td, table.tableTdBorders th {
+	padding: 1px 3px 1px 3px !Important;
+}
