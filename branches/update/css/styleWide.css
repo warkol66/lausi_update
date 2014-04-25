@@ -1,0 +1,27 @@
+#header {
+	background-image: url(../images/topImageW.png);
+}
+#wrapper { 
+	width: 1200px;
+}
+#header {
+	width: 1200px;
+}
+#contentWrapper { 
+	width: 1200px;
+}
+#contentCloser { 
+	width: 1200px;
+}
+#rightColumn { 
+	width: 1000px;   /* ie6*/ /*ie7*/ 
+}
+#footer { 
+	width: 1190px; /* 955px - 5leftBorder - 5px rightBorder*/
+}
+#contentWrapper { 
+	background-image: url(../images/bkg-2columns.png);
+}
+#rightColumn p{
+	width: 870px;
+}
