@@ -38,6 +38,7 @@
 			<tr>
 
 				<th width="25%">Dirección</th>
+				<th width="10%"># Padrón</th>
 				|-if isset($viewDetail)-|
 					|-if $type eq 1-|
 					<th width="10%">Dobles</th>
@@ -54,6 +55,7 @@
 		|-foreach from=$addresses item=address name=for_billboards-|
 			<tr>
 				<td>|-$address->getName()-|</td>
+				<td>|-$address->getEnumeration()-|</td>
 				|-if isset($viewDetail)-|
 					|-if $type eq 1-|
 					<td>|-$address->getBillboardCountByType(1)-|</td>
@@ -68,7 +70,7 @@
 		|-/foreach-|					
 		|-if isset($pager) and $pager->haveToPaginate()-|
 			<tr> 
-				<td colspan="|-if isset($viewDetail)-||-if isset($type)-|2|-else-|3|-/if-||-else-|1|-/if-|" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
+				<td colspan="|-if isset($viewDetail)-||-if isset($type)-|3|-else-|4|-/if-||-else-|2|-/if-|" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 			</tr>							
 		|-/if-|
 		</tbody>

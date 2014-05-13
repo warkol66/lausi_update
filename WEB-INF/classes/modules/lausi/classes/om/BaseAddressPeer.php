@@ -26,13 +26,13 @@ abstract class BaseAddressPeer {
 	const TM_CLASS = 'AddressTableMap';
 	
 	/** The total number of columns. */
-	const NUM_COLUMNS = 13;
+	const NUM_COLUMNS = 15;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
 	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-	const NUM_HYDRATE_COLUMNS = 13;
+	const NUM_HYDRATE_COLUMNS = 15;
 
 	/** the column name for the ID field */
 	const ID = 'lausi_address.ID';
@@ -70,6 +70,12 @@ abstract class BaseAddressPeer {
 	/** the column name for the NICKNAME field */
 	const NICKNAME = 'lausi_address.NICKNAME';
 
+	/** the column name for the ENUMERATION field */
+	const ENUMERATION = 'lausi_address.ENUMERATION';
+
+	/** the column name for the CREATIONDATE field */
+	const CREATIONDATE = 'lausi_address.CREATIONDATE';
+
 	/** the column name for the CIRCUITID field */
 	const CIRCUITID = 'lausi_address.CIRCUITID';
 
@@ -92,12 +98,12 @@ abstract class BaseAddressPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	protected static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Street', 'Number', 'Rating', 'Intersection', 'Owner', 'Latitude', 'Longitude', 'Regionid', 'Ownerphone', 'Ordercircuit', 'Nickname', 'Circuitid', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'street', 'number', 'rating', 'intersection', 'owner', 'latitude', 'longitude', 'regionid', 'ownerphone', 'ordercircuit', 'nickname', 'circuitid', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::STREET, self::NUMBER, self::RATING, self::INTERSECTION, self::OWNER, self::LATITUDE, self::LONGITUDE, self::REGIONID, self::OWNERPHONE, self::ORDERCIRCUIT, self::NICKNAME, self::CIRCUITID, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'STREET', 'NUMBER', 'RATING', 'INTERSECTION', 'OWNER', 'LATITUDE', 'LONGITUDE', 'REGIONID', 'OWNERPHONE', 'ORDERCIRCUIT', 'NICKNAME', 'CIRCUITID', ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'street', 'number', 'rating', 'intersection', 'owner', 'latitude', 'longitude', 'regionId', 'ownerPhone', 'orderCircuit', 'nickname', 'circuitId', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Street', 'Number', 'Rating', 'Intersection', 'Owner', 'Latitude', 'Longitude', 'Regionid', 'Ownerphone', 'Ordercircuit', 'Nickname', 'Enumeration', 'Creationdate', 'Circuitid', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'street', 'number', 'rating', 'intersection', 'owner', 'latitude', 'longitude', 'regionid', 'ownerphone', 'ordercircuit', 'nickname', 'enumeration', 'creationdate', 'circuitid', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::STREET, self::NUMBER, self::RATING, self::INTERSECTION, self::OWNER, self::LATITUDE, self::LONGITUDE, self::REGIONID, self::OWNERPHONE, self::ORDERCIRCUIT, self::NICKNAME, self::ENUMERATION, self::CREATIONDATE, self::CIRCUITID, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'STREET', 'NUMBER', 'RATING', 'INTERSECTION', 'OWNER', 'LATITUDE', 'LONGITUDE', 'REGIONID', 'OWNERPHONE', 'ORDERCIRCUIT', 'NICKNAME', 'ENUMERATION', 'CREATIONDATE', 'CIRCUITID', ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'street', 'number', 'rating', 'intersection', 'owner', 'latitude', 'longitude', 'regionId', 'ownerPhone', 'orderCircuit', 'nickname', 'enumeration', 'creationDate', 'circuitId', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, )
 	);
 
 	/**
@@ -107,12 +113,12 @@ abstract class BaseAddressPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	protected static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Street' => 1, 'Number' => 2, 'Rating' => 3, 'Intersection' => 4, 'Owner' => 5, 'Latitude' => 6, 'Longitude' => 7, 'Regionid' => 8, 'Ownerphone' => 9, 'Ordercircuit' => 10, 'Nickname' => 11, 'Circuitid' => 12, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'street' => 1, 'number' => 2, 'rating' => 3, 'intersection' => 4, 'owner' => 5, 'latitude' => 6, 'longitude' => 7, 'regionid' => 8, 'ownerphone' => 9, 'ordercircuit' => 10, 'nickname' => 11, 'circuitid' => 12, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::STREET => 1, self::NUMBER => 2, self::RATING => 3, self::INTERSECTION => 4, self::OWNER => 5, self::LATITUDE => 6, self::LONGITUDE => 7, self::REGIONID => 8, self::OWNERPHONE => 9, self::ORDERCIRCUIT => 10, self::NICKNAME => 11, self::CIRCUITID => 12, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'STREET' => 1, 'NUMBER' => 2, 'RATING' => 3, 'INTERSECTION' => 4, 'OWNER' => 5, 'LATITUDE' => 6, 'LONGITUDE' => 7, 'REGIONID' => 8, 'OWNERPHONE' => 9, 'ORDERCIRCUIT' => 10, 'NICKNAME' => 11, 'CIRCUITID' => 12, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'street' => 1, 'number' => 2, 'rating' => 3, 'intersection' => 4, 'owner' => 5, 'latitude' => 6, 'longitude' => 7, 'regionId' => 8, 'ownerPhone' => 9, 'orderCircuit' => 10, 'nickname' => 11, 'circuitId' => 12, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Street' => 1, 'Number' => 2, 'Rating' => 3, 'Intersection' => 4, 'Owner' => 5, 'Latitude' => 6, 'Longitude' => 7, 'Regionid' => 8, 'Ownerphone' => 9, 'Ordercircuit' => 10, 'Nickname' => 11, 'Enumeration' => 12, 'Creationdate' => 13, 'Circuitid' => 14, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'street' => 1, 'number' => 2, 'rating' => 3, 'intersection' => 4, 'owner' => 5, 'latitude' => 6, 'longitude' => 7, 'regionid' => 8, 'ownerphone' => 9, 'ordercircuit' => 10, 'nickname' => 11, 'enumeration' => 12, 'creationdate' => 13, 'circuitid' => 14, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::STREET => 1, self::NUMBER => 2, self::RATING => 3, self::INTERSECTION => 4, self::OWNER => 5, self::LATITUDE => 6, self::LONGITUDE => 7, self::REGIONID => 8, self::OWNERPHONE => 9, self::ORDERCIRCUIT => 10, self::NICKNAME => 11, self::ENUMERATION => 12, self::CREATIONDATE => 13, self::CIRCUITID => 14, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'STREET' => 1, 'NUMBER' => 2, 'RATING' => 3, 'INTERSECTION' => 4, 'OWNER' => 5, 'LATITUDE' => 6, 'LONGITUDE' => 7, 'REGIONID' => 8, 'OWNERPHONE' => 9, 'ORDERCIRCUIT' => 10, 'NICKNAME' => 11, 'ENUMERATION' => 12, 'CREATIONDATE' => 13, 'CIRCUITID' => 14, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'street' => 1, 'number' => 2, 'rating' => 3, 'intersection' => 4, 'owner' => 5, 'latitude' => 6, 'longitude' => 7, 'regionId' => 8, 'ownerPhone' => 9, 'orderCircuit' => 10, 'nickname' => 11, 'enumeration' => 12, 'creationDate' => 13, 'circuitId' => 14, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, )
 	);
 
 	/**
@@ -196,6 +202,8 @@ abstract class BaseAddressPeer {
 			$criteria->addSelectColumn(AddressPeer::OWNERPHONE);
 			$criteria->addSelectColumn(AddressPeer::ORDERCIRCUIT);
 			$criteria->addSelectColumn(AddressPeer::NICKNAME);
+			$criteria->addSelectColumn(AddressPeer::ENUMERATION);
+			$criteria->addSelectColumn(AddressPeer::CREATIONDATE);
 			$criteria->addSelectColumn(AddressPeer::CIRCUITID);
 		} else {
 			$criteria->addSelectColumn($alias . '.ID');
@@ -210,6 +218,8 @@ abstract class BaseAddressPeer {
 			$criteria->addSelectColumn($alias . '.OWNERPHONE');
 			$criteria->addSelectColumn($alias . '.ORDERCIRCUIT');
 			$criteria->addSelectColumn($alias . '.NICKNAME');
+			$criteria->addSelectColumn($alias . '.ENUMERATION');
+			$criteria->addSelectColumn($alias . '.CREATIONDATE');
 			$criteria->addSelectColumn($alias . '.CIRCUITID');
 		}
 	}

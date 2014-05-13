@@ -99,6 +99,18 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	protected $nickname;
 
 	/**
+	 * The value for the enumeration field.
+	 * @var        string
+	 */
+	protected $enumeration;
+
+	/**
+	 * The value for the creationdate field.
+	 * @var        string
+	 */
+	protected $creationdate;
+
+	/**
 	 * The value for the circuitid field.
 	 * @var        int
 	 */
@@ -273,6 +285,54 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	public function getNickname()
 	{
 		return $this->nickname;
+	}
+
+	/**
+	 * Get the [enumeration] column value.
+	 * Numero de empadronamiento
+	 * @return     string
+	 */
+	public function getEnumeration()
+	{
+		return $this->enumeration;
+	}
+
+	/**
+	 * Get the [optionally formatted] temporal [creationdate] column value.
+	 * fecha de alta
+	 *
+	 * @param      string $format The date/time format string (either date()-style or strftime()-style).
+	 *							If format is NULL, then the raw DateTime object will be returned.
+	 * @return     mixed Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00
+	 * @throws     PropelException - if unable to parse/validate the date/time value.
+	 */
+	public function getCreationdate($format = '%Y/%m/%d')
+	{
+		if ($this->creationdate === null) {
+			return null;
+		}
+
+
+		if ($this->creationdate === '0000-00-00') {
+			// while technically this is not a default value of NULL,
+			// this seems to be closest in meaning.
+			return null;
+		} else {
+			try {
+				$dt = new DateTime($this->creationdate);
+			} catch (Exception $x) {
+				throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->creationdate, true), $x);
+			}
+		}
+
+		if ($format === null) {
+			// Because propel.useDateTimeClass is TRUE, we return a DateTime object.
+			return $dt;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $dt->format('U'));
+		} else {
+			return $dt->format($format);
+		}
 	}
 
 	/**
@@ -530,6 +590,48 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	} // setNickname()
 
 	/**
+	 * Set the value of [enumeration] column.
+	 * Numero de empadronamiento
+	 * @param      string $v new value
+	 * @return     Address The current object (for fluent API support)
+	 */
+	public function setEnumeration($v)
+	{
+		if ($v !== null) {
+			$v = (string) $v;
+		}
+
+		if ($this->enumeration !== $v) {
+			$this->enumeration = $v;
+			$this->modifiedColumns[] = AddressPeer::ENUMERATION;
+		}
+
+		return $this;
+	} // setEnumeration()
+
+	/**
+	 * Sets the value of [creationdate] column to a normalized version of the date/time value specified.
+	 * fecha de alta
+	 * @param      mixed $v string, integer (timestamp), or DateTime value.
+	 *               Empty strings are treated as NULL.
+	 * @return     Address The current object (for fluent API support)
+	 */
+	public function setCreationdate($v)
+	{
+		$dt = PropelDateTime::newInstance($v, null, 'DateTime');
+		if ($this->creationdate !== null || $dt !== null) {
+			$currentDateAsString = ($this->creationdate !== null && $tmpDt = new DateTime($this->creationdate)) ? $tmpDt->format('Y-m-d') : null;
+			$newDateAsString = $dt ? $dt->format('Y-m-d') : null;
+			if ($currentDateAsString !== $newDateAsString) {
+				$this->creationdate = $newDateAsString;
+				$this->modifiedColumns[] = AddressPeer::CREATIONDATE;
+			}
+		} // if either are not null
+
+		return $this;
+	} // setCreationdate()
+
+	/**
 	 * Set the value of [circuitid] column.
 	 * circuito al que pertenece la calle
 	 * @param      int $v new value
@@ -605,7 +707,9 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 			$this->ownerphone = ($row[$startcol + 9] !== null) ? (string) $row[$startcol + 9] : null;
 			$this->ordercircuit = ($row[$startcol + 10] !== null) ? (int) $row[$startcol + 10] : null;
 			$this->nickname = ($row[$startcol + 11] !== null) ? (string) $row[$startcol + 11] : null;
-			$this->circuitid = ($row[$startcol + 12] !== null) ? (int) $row[$startcol + 12] : null;
+			$this->enumeration = ($row[$startcol + 12] !== null) ? (string) $row[$startcol + 12] : null;
+			$this->creationdate = ($row[$startcol + 13] !== null) ? (string) $row[$startcol + 13] : null;
+			$this->circuitid = ($row[$startcol + 14] !== null) ? (int) $row[$startcol + 14] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -614,7 +718,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 13; // 13 = AddressPeer::NUM_HYDRATE_COLUMNS.
+			return $startcol + 15; // 15 = AddressPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Address object", $e);
@@ -1013,6 +1117,12 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 				return $this->getNickname();
 				break;
 			case 12:
+				return $this->getEnumeration();
+				break;
+			case 13:
+				return $this->getCreationdate();
+				break;
+			case 14:
 				return $this->getCircuitid();
 				break;
 			default:
@@ -1056,7 +1166,9 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 			$keys[9] => $this->getOwnerphone(),
 			$keys[10] => $this->getOrdercircuit(),
 			$keys[11] => $this->getNickname(),
-			$keys[12] => $this->getCircuitid(),
+			$keys[12] => $this->getEnumeration(),
+			$keys[13] => $this->getCreationdate(),
+			$keys[14] => $this->getCircuitid(),
 		);
 		if ($includeForeignObjects) {
 			if (null !== $this->aCircuit) {
@@ -1136,6 +1248,12 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 				$this->setNickname($value);
 				break;
 			case 12:
+				$this->setEnumeration($value);
+				break;
+			case 13:
+				$this->setCreationdate($value);
+				break;
+			case 14:
 				$this->setCircuitid($value);
 				break;
 		} // switch()
@@ -1174,7 +1292,9 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 		if (array_key_exists($keys[9], $arr)) $this->setOwnerphone($arr[$keys[9]]);
 		if (array_key_exists($keys[10], $arr)) $this->setOrdercircuit($arr[$keys[10]]);
 		if (array_key_exists($keys[11], $arr)) $this->setNickname($arr[$keys[11]]);
-		if (array_key_exists($keys[12], $arr)) $this->setCircuitid($arr[$keys[12]]);
+		if (array_key_exists($keys[12], $arr)) $this->setEnumeration($arr[$keys[12]]);
+		if (array_key_exists($keys[13], $arr)) $this->setCreationdate($arr[$keys[13]]);
+		if (array_key_exists($keys[14], $arr)) $this->setCircuitid($arr[$keys[14]]);
 	}
 
 	/**
@@ -1198,6 +1318,8 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 		if ($this->isColumnModified(AddressPeer::OWNERPHONE)) $criteria->add(AddressPeer::OWNERPHONE, $this->ownerphone);
 		if ($this->isColumnModified(AddressPeer::ORDERCIRCUIT)) $criteria->add(AddressPeer::ORDERCIRCUIT, $this->ordercircuit);
 		if ($this->isColumnModified(AddressPeer::NICKNAME)) $criteria->add(AddressPeer::NICKNAME, $this->nickname);
+		if ($this->isColumnModified(AddressPeer::ENUMERATION)) $criteria->add(AddressPeer::ENUMERATION, $this->enumeration);
+		if ($this->isColumnModified(AddressPeer::CREATIONDATE)) $criteria->add(AddressPeer::CREATIONDATE, $this->creationdate);
 		if ($this->isColumnModified(AddressPeer::CIRCUITID)) $criteria->add(AddressPeer::CIRCUITID, $this->circuitid);
 
 		return $criteria;
@@ -1272,6 +1394,8 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 		$copyObj->setOwnerphone($this->getOwnerphone());
 		$copyObj->setOrdercircuit($this->getOrdercircuit());
 		$copyObj->setNickname($this->getNickname());
+		$copyObj->setEnumeration($this->getEnumeration());
+		$copyObj->setCreationdate($this->getCreationdate());
 		$copyObj->setCircuitid($this->getCircuitid());
 
 		if ($deepCopy) {
@@ -1561,6 +1685,8 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 		$this->ownerphone = null;
 		$this->ordercircuit = null;
 		$this->nickname = null;
+		$this->enumeration = null;
+		$this->creationdate = null;
 		$this->circuitid = null;
 		$this->alreadyInSave = false;
 		$this->alreadyInValidation = false;

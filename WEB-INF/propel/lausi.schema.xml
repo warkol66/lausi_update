@@ -112,6 +112,8 @@
 		<column name="ownerPhone" type="VARCHAR" size="100" description="telefono de contacto" />
 		<column name="orderCircuit" type="INTEGER" default="0" description="ordenamiento por proximidad en el circuito entre direcciones" />
 		<column name="nickname" type="VARCHAR" size="100" default="" description="Nombre de Fantasia de la direccion" />
+		<column name="enumeration" type="VARCHAR" size="15" description="Numero de empadronamiento" />
+		<column name="creationDate" type="DATE" description="fecha de alta" />
 	
 		<column name="circuitId" type="INTEGER" description="circuito al que pertenece la calle" />
 	

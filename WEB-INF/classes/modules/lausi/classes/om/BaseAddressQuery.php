@@ -18,6 +18,8 @@
  * @method     AddressQuery orderByOwnerphone($order = Criteria::ASC) Order by the ownerPhone column
  * @method     AddressQuery orderByOrdercircuit($order = Criteria::ASC) Order by the orderCircuit column
  * @method     AddressQuery orderByNickname($order = Criteria::ASC) Order by the nickname column
+ * @method     AddressQuery orderByEnumeration($order = Criteria::ASC) Order by the enumeration column
+ * @method     AddressQuery orderByCreationdate($order = Criteria::ASC) Order by the creationDate column
  * @method     AddressQuery orderByCircuitid($order = Criteria::ASC) Order by the circuitId column
  *
  * @method     AddressQuery groupById() Group by the id column
@@ -32,6 +34,8 @@
  * @method     AddressQuery groupByOwnerphone() Group by the ownerPhone column
  * @method     AddressQuery groupByOrdercircuit() Group by the orderCircuit column
  * @method     AddressQuery groupByNickname() Group by the nickname column
+ * @method     AddressQuery groupByEnumeration() Group by the enumeration column
+ * @method     AddressQuery groupByCreationdate() Group by the creationDate column
  * @method     AddressQuery groupByCircuitid() Group by the circuitId column
  *
  * @method     AddressQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
@@ -65,6 +69,8 @@
  * @method     Address findOneByOwnerphone(string $ownerPhone) Return the first Address filtered by the ownerPhone column
  * @method     Address findOneByOrdercircuit(int $orderCircuit) Return the first Address filtered by the orderCircuit column
  * @method     Address findOneByNickname(string $nickname) Return the first Address filtered by the nickname column
+ * @method     Address findOneByEnumeration(string $enumeration) Return the first Address filtered by the enumeration column
+ * @method     Address findOneByCreationdate(string $creationDate) Return the first Address filtered by the creationDate column
  * @method     Address findOneByCircuitid(int $circuitId) Return the first Address filtered by the circuitId column
  *
  * @method     array findById(int $id) Return Address objects filtered by the id column
@@ -79,6 +85,8 @@
  * @method     array findByOwnerphone(string $ownerPhone) Return Address objects filtered by the ownerPhone column
  * @method     array findByOrdercircuit(int $orderCircuit) Return Address objects filtered by the orderCircuit column
  * @method     array findByNickname(string $nickname) Return Address objects filtered by the nickname column
+ * @method     array findByEnumeration(string $enumeration) Return Address objects filtered by the enumeration column
+ * @method     array findByCreationdate(string $creationDate) Return Address objects filtered by the creationDate column
  * @method     array findByCircuitid(int $circuitId) Return Address objects filtered by the circuitId column
  *
  * @package    propel.generator.lausi.classes.om
@@ -595,6 +603,76 @@ abstract class BaseAddressQuery extends ModelCriteria
 			}
 		}
 		return $this->addUsingAlias(AddressPeer::NICKNAME, $nickname, $comparison);
+	}
+
+	/**
+	 * Filter the query on the enumeration column
+	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByEnumeration('fooValue');   // WHERE enumeration = 'fooValue'
+	 * $query->filterByEnumeration('%fooValue%'); // WHERE enumeration LIKE '%fooValue%'
+	 * </code>
+	 *
+	 * @param     string $enumeration The value to use as filter.
+	 *              Accepts wildcards (* and % trigger a LIKE)
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    AddressQuery The current query, for fluid interface
+	 */
+	public function filterByEnumeration($enumeration = null, $comparison = null)
+	{
+		if (null === $comparison) {
+			if (is_array($enumeration)) {
+				$comparison = Criteria::IN;
+			} elseif (preg_match('/[\%\*]/', $enumeration)) {
+				$enumeration = str_replace('*', '%', $enumeration);
+				$comparison = Criteria::LIKE;
+			}
+		}
+		return $this->addUsingAlias(AddressPeer::ENUMERATION, $enumeration, $comparison);
+	}
+
+	/**
+	 * Filter the query on the creationDate column
+	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByCreationdate('2011-03-14'); // WHERE creationDate = '2011-03-14'
+	 * $query->filterByCreationdate('now'); // WHERE creationDate = '2011-03-14'
+	 * $query->filterByCreationdate(array('max' => 'yesterday')); // WHERE creationDate > '2011-03-13'
+	 * </code>
+	 *
+	 * @param     mixed $creationdate The value to use as filter.
+	 *              Values can be integers (unix timestamps), DateTime objects, or strings.
+	 *              Empty strings are treated as NULL.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    AddressQuery The current query, for fluid interface
+	 */
+	public function filterByCreationdate($creationdate = null, $comparison = null)
+	{
+		if (is_array($creationdate)) {
+			$useMinMax = false;
+			if (isset($creationdate['min'])) {
+				$this->addUsingAlias(AddressPeer::CREATIONDATE, $creationdate['min'], Criteria::GREATER_EQUAL);
+				$useMinMax = true;
+			}
+			if (isset($creationdate['max'])) {
+				$this->addUsingAlias(AddressPeer::CREATIONDATE, $creationdate['max'], Criteria::LESS_EQUAL);
+				$useMinMax = true;
+			}
+			if ($useMinMax) {
+				return $this;
+			}
+			if (null === $comparison) {
+				$comparison = Criteria::IN;
+			}
+		}
+		return $this->addUsingAlias(AddressPeer::CREATIONDATE, $creationdate, $comparison);
 	}
 
 	/**

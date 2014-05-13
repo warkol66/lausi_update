@@ -10,7 +10,7 @@
 	<table id="tabla-addresses" border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 		<thead>
 			<tr>
-			  <th colspan="7" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Buscar direcciones</a><div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none;|-/if-|">		<form action="Main.php" method="get">
+			  <th colspan="9" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Buscar direcciones</a><div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none;|-/if-|">		<form action="Main.php" method="get">
 			<p>
 				<label for="filters[searchStreetName]">Nombre de Calle</label>
 				<input type="text" name="filters[searchStreetName]" value="|-$filters.searchStreetName-|" size="30" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -37,7 +37,10 @@
 						<option value="2" |-2|selected:$filters.searchRating-|>Superior</option>
 						<option value="3" |-3|selected:$filters.searchRating-|>Destacada</option>
 						<option value="4" |-4|selected:$filters.searchRating-|>Standart</option>
-					</select>			</p>
+					</select>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="filters[searchEnumeration]"># Padrón</label>
+				<input type="text" name="filters[searchEnumeration]" value="|-$filters.searchEnumeration-|" size="15" />
+</p>
 				
 			<p>
 				<input type="hidden" name="do" value="lausiAddressesList" />
@@ -48,13 +51,14 @@
 </div></th>
 		  </tr>
 			<tr>
-				 <th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAddressesEdit|-include file='FiltersRedirectUrlInclude.tpl' filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Dirección</a></div></th>
+				 <th colspan="9" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAddressesEdit|-include file='FiltersRedirectUrlInclude.tpl' filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Dirección</a></div></th>
 			</tr>
 			<tr>
 				<th width="20%">Calle</th>
 				<th width="20%">Nombre de Fantasia</th>
 				<th width="5%">Número</th>
 				<th width="20%">Intersección</th>
+				<th width="15%"># Padr&oacute;n </th>
 				<th width="15%">Valoración</th>
 				<th width="10%">Circuito</th>
 				<th width="5%">&nbsp;</th>
@@ -71,6 +75,7 @@
 				<td>|-$address->getNickname()-|</td>
 				<td align="right">|-if $address->getnumber() gt 0-||-$address->getnumber()-||-/if-|</td>
 				<td>|-$address->getintersection()-|</td>
+				<td>|-$address->getEnumeration()-|</td>
 				<td nowrap>|-if $address->getrating() lt 1-| -
 						|-elseif $address->getrating() eq 1-|Premium
 						|-elseif $address->getrating() eq 2-|Superior
@@ -103,7 +108,7 @@
 			</tr>							
 		|-/if-|						
 			<tr>
-				 <th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAddressesEdit|-include file='FiltersRedirectUrlInclude.tpl' filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Dirección</a></div></th>
+				 <th colspan="9" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAddressesEdit|-include file='FiltersRedirectUrlInclude.tpl' filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Dirección</a></div></th>
 			</tr>
 		</tbody>
 	</table>

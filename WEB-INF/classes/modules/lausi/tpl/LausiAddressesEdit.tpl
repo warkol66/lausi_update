@@ -28,9 +28,18 @@
 			<p><input type="button" id="button_locate" value="Buscar en mapa" title="Buscar en Mapa" onClick="addressMap.locate(this.form); $('button_edit_address').enable()"/>
 			</p>
 			<p>
-				<label for="address[nickname]">Nombre De Fantasía</label>
+				<label for="address[nickname]">Nombre de fantasía</label>
 				<input name="address[nickname]" type="text" id="number" title="number" value="|-$address->getNickname()-|" size="45" />
 			</p>			
+			<p>
+				<label for="address[enumeration]">Número de padrón </label>
+				<input name="address[enumeration]" type="text" id="enumaration" title="enumaration" value="|-$address->getEnumeration()-|" size="15" />
+			</p>			
+			<p>
+				<label for="startDate">Fecha de inicio</label>
+					<input name="address[creationDate]" type="text" id="creationDate" title="Fecha de alta de la dirección" value="|-$address->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
+					<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('address[creationDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+			</p>
 			<p>
 				<input name="address[latitude]" type="hidden" id="latitude" title="latitude" value="|-$address->getlatitude()|system_numeric_format:8-|" size="20" />
 			</p>

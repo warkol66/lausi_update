@@ -6,13 +6,12 @@
 
 	<thead>
 		<tr>
-			<td colspan="2"><h4>|-$circuit->getName()-|</h4></td>
+			<td colspan="3"><h4>|-$circuit->getName()-|</h4></td>
 			<td><a href="#" onClick="this.hide(); this.adjacent('a')[0].show(); this.parentNode.parentNode.parentNode.adjacent('tbody')[0].toggle(); return false">Mostrar Detalles</a><a href="#" onClick="this.hide(); this.adjacent('a')[0].show(); this.parentNode.parentNode.parentNode.adjacent('tbody')[0].toggle(); return false" style="display:none">Ocultar Detalles</a></td>
 		<tr>
 		<tr>
-			<th width="80%" nowrap="nowrap">
-				Dirección
-			</th>
+			<th width="70%" nowrap="nowrap">Dirección</th>
+			<th width="10%" nowrap="nowrap"># Padrón</th>
 			<th width="10%" nowrap="nowrap">Dobles</th>				
 			<th width="10%" nowrap="nowrap">Séxtuples</th>
 		</tr>
@@ -22,12 +21,15 @@
 		|-foreach from=$addresses item=address-|		
 		<tr>
 			<td>
-				|-$address->getName()-|
+				|-$address-|
 			</td>
 			<td>
+				|-$address->getEnumeration()-|
+			</td>
+			<td align="right">
 				|-$address->getBillboardCountByType($typeDoble)-|
 			</td>				
-			<td>
+			<td align="right">
 				|-$address->getBillboardCountByType($typeSextuple)-|
 			</td>
 		</tr>
@@ -35,17 +37,17 @@
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="3">
+			<td colspan="4">
 			</td>
 		</tr>	
 		<tr>
-			<td>
+			<td  colspan="2">
 				Totales
 			</td>
-			<td>
+			<td align="right">
 				|-$circuit->getBillboardsCount($typeDoble)-|
 			</td>				
-			<td>
+			<td align="right">
 				|-$circuit->getBillboardsCount($typeSextuple)-|
 			</td>
 		</tr>
