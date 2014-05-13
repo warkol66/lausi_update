@@ -109,6 +109,8 @@ CREATE TABLE `lausi_address`
 	`ownerPhone` VARCHAR(100) COMMENT 'telefono de contacto',
 	`orderCircuit` INTEGER DEFAULT 0 COMMENT 'ordenamiento por proximidad en el circuito entre direcciones',
 	`nickname` VARCHAR(100) DEFAULT '' COMMENT 'Nombre de Fantasia de la direccion',
+	`enumeration` VARCHAR(15) COMMENT 'Numero de empadronamiento',
+	`creationDate` DATE COMMENT 'fecha de alta',
 	`circuitId` INTEGER COMMENT 'circuito al que pertenece la calle',
 	PRIMARY KEY (`id`),
 	INDEX `lausi_address_FI_1` (`circuitId`),

@@ -49,6 +49,8 @@ class AddressTableMap extends TableMap {
 		$this->addColumn('OWNERPHONE', 'Ownerphone', 'VARCHAR', false, 100, null);
 		$this->addColumn('ORDERCIRCUIT', 'Ordercircuit', 'INTEGER', false, null, 0);
 		$this->addColumn('NICKNAME', 'Nickname', 'VARCHAR', false, 100, '');
+		$this->addColumn('ENUMERATION', 'Enumeration', 'VARCHAR', false, 15, null);
+		$this->addColumn('CREATIONDATE', 'Creationdate', 'DATE', false, null, null);
 		$this->addForeignKey('CIRCUITID', 'Circuitid', 'INTEGER', 'lausi_circuit', 'ID', false, null, null);
 		// validators
 	} // initialize()

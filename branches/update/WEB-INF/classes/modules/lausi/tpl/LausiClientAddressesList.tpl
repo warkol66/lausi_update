@@ -34,7 +34,7 @@
 				</td>
 				<td>
 					|-assign var=client value=$clientaddress->getClient()-|
-					|-$client->getName()-|
+					|-if $client ne ''-||-$client->getName()-||-/if-|
 				</td>		
 				<td>
 					|-assign var=region value=$clientaddress->getRegion()-|

@@ -13,6 +13,7 @@ class AddressPeer extends BaseAddressPeer {
 	private $searchCircuitId;
 	private $searchRating;
 	private $searchStreetName;
+	private $searchEnumeration;
 	
 	//mapea las condiciones del filtro
 	var $filterConditions = array(
@@ -20,7 +21,8 @@ class AddressPeer extends BaseAddressPeer {
 		"searchBillboardType"=>"setSearchBillboardType",
 		"searchCircuitId"=>"setSearchCircuitId",
 		"searchRating"=>"setSearchRating",
-		"searchStreetName"=>"setSearchStreetName"
+		"searchStreetName"=>"setSearchStreetName",
+		"searchEnumeration"=>"setSearchEnumeration"
 	);
 	
 	/**
@@ -69,6 +71,15 @@ class AddressPeer extends BaseAddressPeer {
 	}
 	
 	/**
+	 * Especifica un numero de padron para limitar una busqueda
+	 * @param string numero de padron
+	 *
+	 */	
+	public function setSearchEnumeration($searchEnumeration) {
+		$this->searchEnumeration = $searchEnumeration;
+	}
+
+	/**
 	 * Crea una criteria a partir de los distintos parametros de filtrado con los que se inicializo
 	 * el Peer.
 	 *
@@ -93,6 +104,9 @@ class AddressPeer extends BaseAddressPeer {
 					 ->filterByNickname("%" . $this->searchStreetName . "%", Criteria::LIKE);
 		}
 		
+		if ($this->searchEnumeration)
+			$criteria->filterByEnumeration("%" . $this->searchEnumeration . "%", Criteria::LIKE);
+
 		if ($this->searchBillboardType && ($this->searchBillboardType > 0)) {
 			$criteria->join('Billboard')
 					 ->useQuery('Billboard')

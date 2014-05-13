@@ -25,10 +25,11 @@
 	<table width="600" class="tableTdBorders">
 		<thead>
 			<tr>
-				<th colspan='5'>Circuito: |-$circuit->getName()-|</th>
+				<th colspan='6'>Circuito: |-$circuit->getName()-|</th>
 			</tr>
 			<tr>
-				<th width="60%">Direccion</th>
+				<th width="50%">Direccion</th>
+			 <th width="10%" nowrap="nowrap"># Padrón</th>
 				<th width="25%">Motivo</th>
 				<th width="5%" nowrap="nowrap">Tipo</th>				
 				<th width="5%" nowrap="nowrap">Carteleras</th>
@@ -40,6 +41,7 @@
 			|-assign var=address value=$addressItem.address-|
 		<tr>
 			<td>|-$address->getName()-|</td>				
+			<td>|-$address->getEnumeration()-|</td>				
 			<td>|-$themeSelected->getName()-|</td>
 			<td>|-$themeSelected->getTypeName()-|</td>
 			|-assign var=billboards value=$addressItem.count-|
@@ -53,10 +55,10 @@
 		</tr>
 		|-/foreach-|
 		<tr>
-			<td colspan='5'></td>
+			<td colspan='6'></td>
 		</tr>
 		<tr>
-			<td colspan='3'>Total</td>				
+			<td colspan='4'>Total</td>				
 			|-assign var=billboards value=$circuit->getBillboardsOccupiedByThemeTodayCount($themeSelected)-|
 			<td>|- $billboards-|</td>
 			|-if $themeSelected->getType() eq 1-|

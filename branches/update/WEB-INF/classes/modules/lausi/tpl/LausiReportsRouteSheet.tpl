@@ -81,7 +81,7 @@
 								|-$circuit->getName()-|
 							</td>
 							<td>
-								|-$address->getName()-|
+								|-$address-|
 							</td>
 							<td align="center">|-$aPreviousHolder.counter-|</td>
 								|-assign var="toDistributeCounter" value=$toDistributeCounter-$aPreviousHolder.counter-|
