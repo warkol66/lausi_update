@@ -293,7 +293,7 @@ class BillboardPeer extends BaseBillboardPeer {
 		$pending = $quantityToBePublished;		
 
 		while ($pending > 0) {
-			$pending = BillboardPeer::distributeByAddress($available,$pending,1);
+			$pending = BillboardPeer::distributeByAddress(&$available,$pending,1);
 		}
 
 		return $available;
@@ -309,10 +309,10 @@ class BillboardPeer extends BaseBillboardPeer {
 
 		$quantityToBePublished = BillboardPeer::calculateQuantityToBePublished(sizeof($billboards),$quantity);
 		
-		$pending = BillboardPeer::distributeByAddress($available,$quantityToBePublished,2);
+		$pending = BillboardPeer::distributeByAddress(&$available,$quantityToBePublished,2);
 		
 		while ($pending > 0) {
-			$pending = BillboardPeer::distributeByAddress($available,$pending,1);
+			$pending = BillboardPeer::distributeByAddress(&$available,$pending,1);
 		}
 		
 		return $available;
@@ -501,7 +501,7 @@ class BillboardPeer extends BaseBillboardPeer {
    */
   public function getAllByCircuitCount($circuitId) {
 		return BillboardQuery::create()
-			->filterByCirctuitId($circuitId)
+			->filterByCircuitId($circuitId)
 			->count();
   }
   
