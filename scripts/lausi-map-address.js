@@ -106,14 +106,18 @@ AddressMap = function() {
 	this.selectRegion = function(region) {
 		var _this = this;
 		var corrections = {
+			'Boca': 'La Boca',
+			'Chacabuco Park':'Parque Chacabuco',
 			'Monserrat': 'Montserrat',
 			'Núñez': 'Nuñez',
 			'San Nicolas': 'San Nicolás',
 			'Villa Ortuzar': 'Villa Ortúzar',
 			'Villa Pueyrredón': 'Villa Pueyrredon',
 			'Villa Gral.mitre': 'Villa Gral Mitre',
+			'Vélez Sársfield': 'Velez Sarsfield',
+			'Vélez Sarsfield': 'Velez Sarsfield'
 		};
-		
+
 		if (corrections[region])
 			region = corrections[region];
 	
