@@ -12,6 +12,7 @@ class BillboardPeer extends BaseBillboardPeer {
 	const TYPE_SEXTUPLE = 2;
 
 	//opciones de busqueda
+	private $searchAddressId;
 	private $searchRegionId;
 	private $searchCircuitId;
 	private $searchType;
@@ -23,6 +24,7 @@ class BillboardPeer extends BaseBillboardPeer {
 
 	//mapea las condiciones del filtro
 	var $filterConditions = array(
+		"searchAddressId"=>"setSearchAddressId",
 		"searchRegionId"=>"setSearchRegionId",
 		"searchCircuitId"=>"setSearchCircuitId",
 		"searchType"=>"setSearchType",
@@ -32,6 +34,16 @@ class BillboardPeer extends BaseBillboardPeer {
 		"searchGroupByAddress"=>"setSearchGroupByAddress",
 		"searchGroupByType"=>"setSearchGroupByType"
 	);
+
+	/**
+	 * Especifica un Barrio para limitar una busqueda
+	 * @param integer id de barrio
+	 *
+	 */
+	public function setSearchAddressId($searchAddressId) {
+		$this->searchAddressId = $searchAddressId;
+	}
+
 	/**
 	 * Especifica un Barrio para limitar una busqueda
 	 * @param integer id de barrio
@@ -244,7 +256,7 @@ class BillboardPeer extends BaseBillboardPeer {
 	 * @param integer cantidad de carteleras a distribuir
 	 * @param integer numero de carteleras a distribuir por direccion
 	 */ 
-	private function distributeByAddress($distributeStructure,$quantity,$numberByAddress = 1) {
+	private static function distributeByAddress(&$distributeStructure,$quantity,$numberByAddress = 1) {
 		$pending = $quantity;
 
 		foreach ($distributeStructure as $key => $addressHolder) {
@@ -293,7 +305,7 @@ class BillboardPeer extends BaseBillboardPeer {
 		$pending = $quantityToBePublished;		
 
 		while ($pending > 0) {
-			$pending = BillboardPeer::distributeByAddress(&$available,$pending,1);
+			$pending = BillboardPeer::distributeByAddress($available,$pending,1);
 		}
 
 		return $available;
@@ -309,10 +321,10 @@ class BillboardPeer extends BaseBillboardPeer {
 
 		$quantityToBePublished = BillboardPeer::calculateQuantityToBePublished(sizeof($billboards),$quantity);
 		
-		$pending = BillboardPeer::distributeByAddress(&$available,$quantityToBePublished,2);
+		$pending = BillboardPeer::distributeByAddress($available,$quantityToBePublished,2);
 		
 		while ($pending > 0) {
-			$pending = BillboardPeer::distributeByAddress(&$available,$pending,1);
+			$pending = BillboardPeer::distributeByAddress($available,$pending,1);
 		}
 		
 		return $available;
@@ -510,6 +522,9 @@ class BillboardPeer extends BaseBillboardPeer {
 	
 		$criteria->join('Address',Criteria::INNER_JOIN);
 		
+		if (!empty($this->searchaddressId))
+			$criteria->filterByAddressId($this->searchAddressId);
+
 		if (!empty($this->searchRegionId))
 			$criteria->useQuery('Address')
 						->filterByRegionId($this->searchRegionId)

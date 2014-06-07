@@ -587,6 +587,15 @@
 	<forward name="xml" path="LausiReportsAddressesXml.tpl" />
 	</action>
 
+	<action    path = "lausiReportsDeletedAddresses"
+						 type = "LausiReportsDeletedAddressesAction"
+						 name = "lausiReportsDeletedAddresses"
+						scope = "request"
+				 validate = "true">
+	<forward name="success" path="LausiReportsDeletedAddresses.tpl" />
+	<forward name="xml" path="LausiReportsDeletedAddressesXml.tpl" />
+	</action>
+
 </action-mappings>
 <!-- End Section Reports -->
 
