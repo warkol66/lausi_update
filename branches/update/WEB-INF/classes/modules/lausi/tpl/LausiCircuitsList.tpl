@@ -10,14 +10,15 @@
 	<table id="tabla-circuits" border="0" cellpadding="5" cellspacing="0" class='tableTdBorders' width="100%">
 		<thead>
 			<tr>
-				 <th colspan="5" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiCircuitsEdit" class="addLink">Agregar Circuito</a></div></th>
+				 <th colspan="6" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiCircuitsEdit" class="addLink">Agregar Circuito</a></div></th>
 			</tr>
 			<tr>
-				<th>Id</th>
-				<th>Nombre</th>
-				<th>Descripción</th>
-				<th>Límites</th>
-				<th>&nbsp;</th>
+				<th width="1%">Id</th>
+				<th width="10%">Nombre</th>
+				<th width="4%">Abreviatura</th>
+				<th width="30%">Descripción</th>
+				<th width="50%">Límites</th>
+				<th width="5%">&nbsp;</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -25,6 +26,7 @@
 			<tr>
 				<td>|-$circuit->getid()-|</td>
 				<td>|-$circuit->getname()-|</td>
+				<td>|-$circuit->getabbreviation()-|</td>
 				<td>|-$circuit->getdescription()-|</td>
 				<td>|-$circuit->getlimitsDescription()-|</td>
 				<td nowrap>
@@ -43,11 +45,11 @@
 		|-/foreach-|						
 		|-if $pager->getTotalPages() gt 1-|
 			<tr> 
-				<td colspan="5" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
+				<td colspan="6" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 			</tr>							
 		|-/if-|						
 			<tr>
-				 <th colspan="5" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiCircuitsEdit" class="addLink">Agregar Circuito</a></div></th>
+				 <th colspan="6" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiCircuitsEdit" class="addLink">Agregar Circuito</a></div></th>
 			</tr>
 		</tbody>
 	</table>

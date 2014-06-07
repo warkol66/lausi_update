@@ -29,8 +29,9 @@ CREATE TABLE `lausi_circuit`
 (
 	`id` INTEGER NOT NULL AUTO_INCREMENT COMMENT 'Id de Circuito',
 	`name` VARCHAR(100) NOT NULL COMMENT 'Nombre del circuito',
+	`abbreviation` VARCHAR(10) COMMENT 'Abreviatura del Nombre del circuito',
 	`description` TEXT COMMENT 'descripcion del circuito',
-	`limitsDescription` TEXT COMMENT 'descripcion de los limites del circuito',
+	`limitsDescription` TEXT COMMENT 'Descripcion de los limites del circuito',
 	`orderBy` INTEGER COMMENT 'Orden del Circuito',
 	`color` VARCHAR(7) COMMENT 'Color del Circuito para mostrar en mapa',
 	PRIMARY KEY (`id`)
@@ -111,6 +112,7 @@ CREATE TABLE `lausi_address`
 	`nickname` VARCHAR(100) DEFAULT '' COMMENT 'Nombre de Fantasia de la direccion',
 	`enumeration` VARCHAR(15) COMMENT 'Numero de empadronamiento',
 	`creationDate` DATE COMMENT 'fecha de alta',
+	`deletionDate` DATE COMMENT 'fecha de baja',
 	`circuitId` INTEGER COMMENT 'circuito al que pertenece la calle',
 	PRIMARY KEY (`id`),
 	INDEX `lausi_address_FI_1` (`circuitId`),
@@ -122,6 +124,41 @@ CREATE TABLE `lausi_address`
 		FOREIGN KEY (`regionId`)
 		REFERENCES `lausi_region` (`id`)
 ) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Base de Direcciones';
+
+-- ---------------------------------------------------------------------
+-- lausi_deletedAddress
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `lausi_deletedAddress`;
+
+CREATE TABLE `lausi_deletedAddress`
+(
+	`id` INTEGER NOT NULL COMMENT 'Id de la calle',
+	`street` VARCHAR(100) NOT NULL COMMENT 'Nombre de la calle',
+	`number` INTEGER COMMENT 'numero de la calle',
+	`rating` INTEGER COMMENT 'Valoracion de la calle',
+	`intersection` VARCHAR(100) COMMENT 'cruce con otra calle de la direccion',
+	`owner` VARCHAR(100) COMMENT 'duenio de la direccion',
+	`latitude` DECIMAL(12,9) COMMENT 'latitud de la direccion',
+	`longitude` DECIMAL(12,9) COMMENT 'longitud de la direccion',
+	`regionId` INTEGER COMMENT 'barrio de la direccion',
+	`ownerPhone` VARCHAR(100) COMMENT 'telefono de contacto',
+	`orderCircuit` INTEGER DEFAULT 0 COMMENT 'ordenamiento por proximidad en el circuito entre direcciones',
+	`nickname` VARCHAR(100) DEFAULT '' COMMENT 'Nombre de Fantasia de la direccion',
+	`enumeration` VARCHAR(15) COMMENT 'Numero de empadronamiento',
+	`creationDate` DATE COMMENT 'fecha de alta',
+	`deletionDate` DATE COMMENT 'fecha de baja',
+	`circuitId` INTEGER COMMENT 'circuito al que pertenece la calle',
+	PRIMARY KEY (`id`),
+	INDEX `lausi_deletedAddress_FI_1` (`circuitId`),
+	INDEX `lausi_deletedAddress_FI_2` (`regionId`),
+	CONSTRAINT `lausi_deletedAddress_FK_1`
+		FOREIGN KEY (`circuitId`)
+		REFERENCES `lausi_circuit` (`id`),
+	CONSTRAINT `lausi_deletedAddress_FK_2`
+		FOREIGN KEY (`regionId`)
+		REFERENCES `lausi_region` (`id`)
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Base de Direcciones eliminadas';
 
 -- ---------------------------------------------------------------------
 -- lausi_client

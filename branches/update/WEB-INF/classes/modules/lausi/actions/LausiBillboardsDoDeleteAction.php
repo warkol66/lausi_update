@@ -39,6 +39,13 @@ class LausiBillboardsDoDeleteAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
+		if (is_array($_POST['toDelete']))
+			$bilboardId = $_POST['toDelete'][0];
+		else
+			$bilboardId = $_POST["id"];
+		
+		$billboard = BillboardQuery::create()->filterById($bilboardId)->findOne();
+
 		$module = "Lausi";
 		$smarty->assign("module",$module);
 		$section = "Billboards";
@@ -65,6 +72,6 @@ class LausiBillboardsDoDeleteAction extends BaseAction {
 			}
 		}
 
-		return $this->addParamsToForwards(array('addressId'=>$billboard->getAddressId()), $mapping, 'success');
+		return $this->addParamsToForwards(array('filters[addressId]'=>$billboard->getAddressId()), $mapping, 'success');
 	}
 }

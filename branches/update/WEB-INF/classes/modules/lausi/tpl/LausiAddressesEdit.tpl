@@ -4,6 +4,8 @@
 <div id="div_address">
 |-if $message eq "created"-|
 	<div class="successMessage">Direccion creada correctamente, puede editar sus carteleras en la seccion inferior</div>
+|-elseif $message eq "ok"-|
+		<div class="successMessage">Dirección guardada correctamente</div>
 |-elseif $message eq "error"-|
 	<div class="failureMessage">Ha ocurrido un error al intentar guardar la dirección</div>
 |-/if-|
@@ -36,7 +38,7 @@
 				<input name="address[enumeration]" type="text" id="enumaration" title="enumaration" value="|-$address->getEnumeration()-|" size="15" />
 			</p>			
 			<p>
-				<label for="startDate">Fecha de inicio</label>
+				<label for="startDate">Fecha de alta </label>
 					<input name="address[creationDate]" type="text" id="creationDate" title="Fecha de alta de la dirección" value="|-$address->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
 					<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('address[creationDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
@@ -91,7 +93,7 @@
 
 				|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 				<input type="submit" id="button_edit_address" name="button_edit_address" title="Aceptar" value="Aceptar" |-if $address->getId() eq ''-|disabled|-/if-|/>
-				<input type='button' onClick='location.href="Main.php?do=lausiAddressesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Cancelar' title="Regresar al listado de carteleras"/>
+				<input type='button' onClick='location.href="Main.php?do=lausiAddressesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Regresar al listado' title="Regresar al listado de carteleras"/>
 				<input type='button' onClick='location.href="Main.php?do=lausiAddressesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Crear nueva' title="Crear nueva dirección"/>
 		</p>
 	</form>
@@ -119,7 +121,7 @@
 |-if isset($billboards)-|
 	<form action="Main.php" method="get">
 		|-include file="FiltersRedirectInclude.tpl"-|
-		<input type="hidden" name="addressId" value="|-$address->getId()-|" id="addressId">
+		<input type="hidden" name="filters[addressId]" value="|-$address->getId()-|" id="addressId">
 		<input type="hidden" name="do" value="lausiBillboardsList">
 		<input type="submit" value="Editar Carteleras de la Dirección">
 	</form>

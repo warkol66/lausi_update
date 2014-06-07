@@ -47,9 +47,24 @@ class LausiAddressesDoDeleteAction extends BaseAction {
 		$section = "Addresses";
 		$smarty->assign("section",$section);		
 
-    	AddressPeer::delete($_POST["id"]);
-    	
-	    //caso de redireccionamiento desde opciones de busqueda de addressesList
+		$address = AddressQuery::create()->findOneById($_POST["id"]);
+		if (!empty($address)) {
+			$deletedAddress = new DeletedAddress();
+			$deletedAddress->fromJSON($address->toJSON());
+			$deletedAddress->setDeletionDate(time());
+			try {
+				$address->delete();
+				if ($address->isDeleted()) {
+					$deletedAddress->save();
+				}
+			}
+			catch (PropelException $exp) {
+				if (ConfigModule::get("global","showPropelExceptions"))
+					print_r($exp->getMessage());
+				return false;
+			}
+  	}
+	   //caso de redireccionamiento desde opciones de busqueda de addressesList
 		if (isset($_POST['listRedirect'])) {
 			
 			$queryData = "";

@@ -1,12 +1,7 @@
 <h2>Administración de Direcciones</h2>
-<h1>Direcciones del Sistema</h1>
-<p>A continuación se muestra el listado de direcciones disponibles en el sistema. Para buscar una dirección, puede ingresar los parámetros de filtro disponibles en la parte superior del listado. Para agregar una nueva dirección, haga click en "Agregar direción". Para modificar o eliminar una dirección, utilice los controles disponibles en la fila correspondiente a la misma.</p>
-	|-if $message eq "ok"-|
-		<div class="successMessage">Dirección guardada correctamente</div>
-	|-elseif $message eq "deleted_ok"-|
-		<div class="successMessage">Dirección eliminada correctamente</div>
-	|-/if-|
-<div id="div_addresses">
+<h1>Direcciones Eliminadas del Sistema</h1>
+<p>A continuación se muestra el listado de direcciones eliminadas en el sistema. Para buscar una dirección, puede ingresar los parámetros de filtro disponibles en la parte superior del listado.</p>
+	<div id="div_addresses">
 	<table id="tabla-addresses" border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 		<thead>
 			<tr>
@@ -43,26 +38,23 @@
 </p>
 				
 			<p>
-				<input type="hidden" name="do" value="lausiAddressesList" />
+				<input type="hidden" name="do" value="lausiDeletedAddressesList" />
 				<input type="submit" value="Aplicar Filtro" />
-				<input type="button" id="cancel" name="cancel" title="Quitar Filtro" value="Quitar Filtro" onClick="location.href='Main.php?do=lausiAddressesList'"/>
+				<input type="button" id="cancel" name="cancel" title="Quitar Filtro" value="Quitar Filtro" onClick="location.href='Main.php?do=lausiDeletedAddressesList'"/>
 			</p>
 		</form>
 </div></th>
 		  </tr>
 			<tr>
-				 <th colspan="9" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAddressesEdit|-include file='FiltersRedirectUrlInclude.tpl' filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Dirección</a></div></th>
-			</tr>
-			<tr>
 				<th width="20%">Calle</th>
 				<th width="20%">Nombre de Fantasia</th>
 				<th width="5%">Número</th>
 				<th width="20%">Intersección</th>
-				<th width="5%">F. Alta</th>
-				<th width="15%"># Padrón </th>
-				<th width="15%">Valoración</th>
+				<th width="5%">F.Alta</th>
+				<th width="5%">F.Baja </th>
+				<th width="5%"># Padrón </th>
+				<th width="5%">Valoración</th>
 				<th width="10%">Circuito</th>
-				<th width="5%">&nbsp;</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -77,6 +69,7 @@
 				<td align="right">|-if $address->getnumber() gt 0-||-$address->getnumber()-||-/if-|</td>
 				<td>|-$address->getintersection()-|</td>
 				<td>|-$address->getCreationDate()|date_format-|</td>
+				<td>|-$address->getDeletionDate()|date_format-|</td>
 				<td>|-$address->getEnumeration()-|</td>
 				<td nowrap>|-if $address->getrating() lt 1-| -
 						|-elseif $address->getrating() eq 1-|Premium
@@ -86,22 +79,7 @@
 						|-/if-|				</td>
 				<td>
 					|-assign var=circuit value=$address->getCircuit()-|
-					|-if $circuit-||-$circuit->getabbreviation()-||-/if-|				</td>
-				<td nowrap>
-					<form action="Main.php" method="get">
-						<input type="hidden" name="do" value="lausiAddressesEdit" />
-						<input type="hidden" name="id" value="|-$address->getid()-|" />
-						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-						<input type="submit" name="submit_go_edit_address" value="Editar" class="iconEdit" />
-					</form>
-					<form action="Main.php" method="post">
-						<input type="hidden" name="do" value="lausiAddressesDoDelete" />
-						<input type="hidden" name="id" value="|-$address->getid()-|" />
-						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-            			<input type="submit" name="submit_go_delete_address" value="Borrar" onClick="return confirm('Seguro que desea eliminar el address?')" class="iconDelete" />
-     			</form>          		</td>
+					|-if $circuit-||-$circuit->getName()-||-/if-|				</td>
 			</tr>
 		|-/foreach-|						
 		|-if $pager->getTotalPages() gt 1-|
@@ -109,9 +87,6 @@
 				<td colspan="9" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 			</tr>							
 		|-/if-|						
-			<tr>
-				 <th colspan="9" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAddressesEdit|-include file='FiltersRedirectUrlInclude.tpl' filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Dirección</a></div></th>
-			</tr>
 		</tbody>
 	</table>
 </div>

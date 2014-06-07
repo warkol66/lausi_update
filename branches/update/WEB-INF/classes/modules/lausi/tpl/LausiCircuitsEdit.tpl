@@ -9,11 +9,14 @@
 			<fieldset title="Formulario de edición de datos de un circuito">
 				<p>
 					<label for="name">Nombre</label>
-					<input name="circuit[name]" type="text" id="name" title="name" value="|-$circuit->getname()-|" size="30" maxlength="100" />
+					<input name="circuit[name]" type="text" id="name" title="Nombre" value="|-$circuit->getname()-|" size="30" maxlength="100" />
+				</p>
+					<label for="abbreviation">Abreviatura</label>
+					<input name="circuit[abbreviation]" type="text" id="abbreviation" title="Abreviatura" value="|-$circuit->getabbreviation()-|" size="10" maxlength="10" />
 				</p>
 			<p><script type="text/javascript" src="scripts/jscolor.js"></script>
 					<label for="color">Color</label>
-					<input name="circuit[color]" type="text" id="color" title="name" value="|-$circuit->getColor()-|" size="10" maxlength="7" class="color {hash:true, pickerPosition:'top'}" />
+					<input name="circuit[color]" type="text" id="color" title="Color" value="|-$circuit->getColor()-|" size="10" maxlength="7" class="color {hash:true, pickerPosition:'top'}" />
 				<p>
 					<label for="description">Descripción</label>
 					<textarea name="circuit[description]" cols="65" rows="3" wrap="VIRTUAL" id="description">|-$circuit->getdescription()-|</textarea>

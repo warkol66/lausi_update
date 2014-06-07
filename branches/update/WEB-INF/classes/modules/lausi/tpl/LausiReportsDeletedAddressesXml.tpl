@@ -1,15 +1,6 @@
 <xls>
 	<headers>
-		<header>Reporte de Direcciones</header>
-		|-if $type eq 1-|
-		<header>Direcciones con carteleras dobles</header>
-		|-elseif $type eq 2-|
-		<header>Direcciones con carteleras séxtuples</header>
-		|-elseif $viewDetail neq ''-|
-		<header>Direcciones con cantidad de carteleras dobles y séxtuples</header>
-		|-else-|
-		<header>Direcciones con carteleras</header>
-		|-/if-|
+		<header>Reporte de Direcciones Eliminadas</header>
 		<header></header>
 	</headers>
 	<tableHeaders>
@@ -26,6 +17,7 @@
 			|-/if-|
 		|-else-|
 			<header>F.Alta</header>
+			<header>F.Baja</header>
 		|-/if-|
 	</tableHeaders>
 	<tableValues>|-foreach from=$addresses item=address name=for_billboards-|
@@ -42,6 +34,7 @@
 			|-/if-|
 		|-else-|
 			<fechaAlta>|-$address->getCreationDate()|date_format-|</fechaAlta>
+			<fechaBaja>|-$address->getDeletionDate()|date_format-|</fechaBaja>
 		|-/if-|
 		</row>|-/foreach-|					
 	</tableValues>

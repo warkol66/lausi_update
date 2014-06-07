@@ -32,13 +32,13 @@
 	</fieldset>
 	<p/>
 |-/if-|
-|- if (not empty($addresses)) -|
+|-if (not empty($addresses))-|
 	<table border="0" cellpadding="4" cellspacing="0" id="tabla-billboards" class="tableTdBorders">
 		<thead>
 			<tr>
-
 				<th width="25%">Dirección</th>
 				<th width="10%"># Padrón</th>
+				<th width="10%">Fecha Alta</th>
 				|-if isset($viewDetail)-|
 					|-if $type eq 1-|
 					<th width="10%">Dobles</th>
@@ -47,8 +47,9 @@
 					|-else-|
 					<th width="10%">Dobles</th>
 					<th width="10%">Séxtuples</th>
-					|-/if-|	
-				|-/if-|
+			|-/if-|
+		|-else-|
+		|-/if-|
 			</tr>
 		</thead>
 		<tbody>
@@ -56,6 +57,7 @@
 			<tr>
 				<td>|-$address->getName()-|</td>
 				<td>|-$address->getEnumeration()-|</td>
+				<td>|-$address->getCreationDate()|date_format-|</td>
 				|-if isset($viewDetail)-|
 					|-if $type eq 1-|
 					<td>|-$address->getBillboardCountByType(1)-|</td>
@@ -64,13 +66,14 @@
 					|-else-|
 					<td>|-if $address->getBillboardCountByType(1) ne 0-||-$address->getBillboardCountByType(1)-||-/if-|</td>
 					<td>|-if $address->getBillboardCountByType(2) ne 0-||-$address->getBillboardCountByType(2)-||-/if-|</td>
-					|-/if-|	
 				|-/if-|
+			|-else-|
+			|-/if-|
 			</tr>
 		|-/foreach-|					
 		|-if isset($pager) and $pager->haveToPaginate()-|
 			<tr> 
-				<td colspan="|-if isset($viewDetail)-||-if isset($type)-|3|-else-|4|-/if-||-else-|2|-/if-|" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
+				<td colspan="|-if isset($viewDetail)-||-if isset($type)-|4|-else-|5|-/if-||-else-|3|-/if-|" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 			</tr>							
 		|-/if-|
 		</tbody>
