@@ -3,7 +3,7 @@
 
 
 /**
- * This class defines the structure of the 'lausi_address' table.
+ * This class defines the structure of the 'lausi_deletedAddress' table.
  *
  *
  *
@@ -14,12 +14,12 @@
  *
  * @package    propel.generator.lausi.classes.map
  */
-class AddressTableMap extends TableMap {
+class DeletedAddressTableMap extends TableMap {
 
 	/**
 	 * The (dot-path) name of this class
 	 */
-	const CLASS_NAME = 'lausi.classes.map.AddressTableMap';
+	const CLASS_NAME = 'lausi.classes.map.DeletedAddressTableMap';
 
 	/**
 	 * Initialize the table attributes, columns and validators
@@ -31,11 +31,11 @@ class AddressTableMap extends TableMap {
 	public function initialize()
 	{
 	  // attributes
-		$this->setName('lausi_address');
-		$this->setPhpName('Address');
-		$this->setClassname('Address');
+		$this->setName('lausi_deletedAddress');
+		$this->setPhpName('DeletedAddress');
+		$this->setClassname('DeletedAddress');
 		$this->setPackage('lausi.classes');
-		$this->setUseIdGenerator(true);
+		$this->setUseIdGenerator(false);
 		// columns
 		$this->addPrimaryKey('ID', 'Id', 'INTEGER', true, null, null);
 		$this->addColumn('STREET', 'Street', 'VARCHAR', true, 100, null);
@@ -63,7 +63,6 @@ class AddressTableMap extends TableMap {
 	{
     $this->addRelation('Circuit', 'Circuit', RelationMap::MANY_TO_ONE, array('circuitId' => 'id', ), null, null);
     $this->addRelation('Region', 'Region', RelationMap::MANY_TO_ONE, array('regionId' => 'id', ), null, null);
-    $this->addRelation('Billboard', 'Billboard', RelationMap::ONE_TO_MANY, array('id' => 'addressId', ), 'CASCADE', null);
 	} // buildRelations()
 
-} // AddressTableMap
+} // DeletedAddressTableMap

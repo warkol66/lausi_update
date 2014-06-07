@@ -2,128 +2,124 @@
 
 
 /**
- * Base class that represents a query for the 'lausi_address' table.
+ * Base class that represents a query for the 'lausi_deletedAddress' table.
  *
- * Base de Direcciones
+ * Base de Direcciones eliminadas
  *
- * @method     AddressQuery orderById($order = Criteria::ASC) Order by the id column
- * @method     AddressQuery orderByStreet($order = Criteria::ASC) Order by the street column
- * @method     AddressQuery orderByNumber($order = Criteria::ASC) Order by the number column
- * @method     AddressQuery orderByRating($order = Criteria::ASC) Order by the rating column
- * @method     AddressQuery orderByIntersection($order = Criteria::ASC) Order by the intersection column
- * @method     AddressQuery orderByOwner($order = Criteria::ASC) Order by the owner column
- * @method     AddressQuery orderByLatitude($order = Criteria::ASC) Order by the latitude column
- * @method     AddressQuery orderByLongitude($order = Criteria::ASC) Order by the longitude column
- * @method     AddressQuery orderByRegionid($order = Criteria::ASC) Order by the regionId column
- * @method     AddressQuery orderByOwnerphone($order = Criteria::ASC) Order by the ownerPhone column
- * @method     AddressQuery orderByOrdercircuit($order = Criteria::ASC) Order by the orderCircuit column
- * @method     AddressQuery orderByNickname($order = Criteria::ASC) Order by the nickname column
- * @method     AddressQuery orderByEnumeration($order = Criteria::ASC) Order by the enumeration column
- * @method     AddressQuery orderByCreationdate($order = Criteria::ASC) Order by the creationDate column
- * @method     AddressQuery orderByDeletiondate($order = Criteria::ASC) Order by the deletionDate column
- * @method     AddressQuery orderByCircuitid($order = Criteria::ASC) Order by the circuitId column
+ * @method     DeletedAddressQuery orderById($order = Criteria::ASC) Order by the id column
+ * @method     DeletedAddressQuery orderByStreet($order = Criteria::ASC) Order by the street column
+ * @method     DeletedAddressQuery orderByNumber($order = Criteria::ASC) Order by the number column
+ * @method     DeletedAddressQuery orderByRating($order = Criteria::ASC) Order by the rating column
+ * @method     DeletedAddressQuery orderByIntersection($order = Criteria::ASC) Order by the intersection column
+ * @method     DeletedAddressQuery orderByOwner($order = Criteria::ASC) Order by the owner column
+ * @method     DeletedAddressQuery orderByLatitude($order = Criteria::ASC) Order by the latitude column
+ * @method     DeletedAddressQuery orderByLongitude($order = Criteria::ASC) Order by the longitude column
+ * @method     DeletedAddressQuery orderByRegionid($order = Criteria::ASC) Order by the regionId column
+ * @method     DeletedAddressQuery orderByOwnerphone($order = Criteria::ASC) Order by the ownerPhone column
+ * @method     DeletedAddressQuery orderByOrdercircuit($order = Criteria::ASC) Order by the orderCircuit column
+ * @method     DeletedAddressQuery orderByNickname($order = Criteria::ASC) Order by the nickname column
+ * @method     DeletedAddressQuery orderByEnumeration($order = Criteria::ASC) Order by the enumeration column
+ * @method     DeletedAddressQuery orderByCreationdate($order = Criteria::ASC) Order by the creationDate column
+ * @method     DeletedAddressQuery orderByDeletiondate($order = Criteria::ASC) Order by the deletionDate column
+ * @method     DeletedAddressQuery orderByCircuitid($order = Criteria::ASC) Order by the circuitId column
  *
- * @method     AddressQuery groupById() Group by the id column
- * @method     AddressQuery groupByStreet() Group by the street column
- * @method     AddressQuery groupByNumber() Group by the number column
- * @method     AddressQuery groupByRating() Group by the rating column
- * @method     AddressQuery groupByIntersection() Group by the intersection column
- * @method     AddressQuery groupByOwner() Group by the owner column
- * @method     AddressQuery groupByLatitude() Group by the latitude column
- * @method     AddressQuery groupByLongitude() Group by the longitude column
- * @method     AddressQuery groupByRegionid() Group by the regionId column
- * @method     AddressQuery groupByOwnerphone() Group by the ownerPhone column
- * @method     AddressQuery groupByOrdercircuit() Group by the orderCircuit column
- * @method     AddressQuery groupByNickname() Group by the nickname column
- * @method     AddressQuery groupByEnumeration() Group by the enumeration column
- * @method     AddressQuery groupByCreationdate() Group by the creationDate column
- * @method     AddressQuery groupByDeletiondate() Group by the deletionDate column
- * @method     AddressQuery groupByCircuitid() Group by the circuitId column
+ * @method     DeletedAddressQuery groupById() Group by the id column
+ * @method     DeletedAddressQuery groupByStreet() Group by the street column
+ * @method     DeletedAddressQuery groupByNumber() Group by the number column
+ * @method     DeletedAddressQuery groupByRating() Group by the rating column
+ * @method     DeletedAddressQuery groupByIntersection() Group by the intersection column
+ * @method     DeletedAddressQuery groupByOwner() Group by the owner column
+ * @method     DeletedAddressQuery groupByLatitude() Group by the latitude column
+ * @method     DeletedAddressQuery groupByLongitude() Group by the longitude column
+ * @method     DeletedAddressQuery groupByRegionid() Group by the regionId column
+ * @method     DeletedAddressQuery groupByOwnerphone() Group by the ownerPhone column
+ * @method     DeletedAddressQuery groupByOrdercircuit() Group by the orderCircuit column
+ * @method     DeletedAddressQuery groupByNickname() Group by the nickname column
+ * @method     DeletedAddressQuery groupByEnumeration() Group by the enumeration column
+ * @method     DeletedAddressQuery groupByCreationdate() Group by the creationDate column
+ * @method     DeletedAddressQuery groupByDeletiondate() Group by the deletionDate column
+ * @method     DeletedAddressQuery groupByCircuitid() Group by the circuitId column
  *
- * @method     AddressQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
- * @method     AddressQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
- * @method     AddressQuery innerJoin($relation) Adds a INNER JOIN clause to the query
+ * @method     DeletedAddressQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
+ * @method     DeletedAddressQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
+ * @method     DeletedAddressQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method     AddressQuery leftJoinCircuit($relationAlias = null) Adds a LEFT JOIN clause to the query using the Circuit relation
- * @method     AddressQuery rightJoinCircuit($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Circuit relation
- * @method     AddressQuery innerJoinCircuit($relationAlias = null) Adds a INNER JOIN clause to the query using the Circuit relation
+ * @method     DeletedAddressQuery leftJoinCircuit($relationAlias = null) Adds a LEFT JOIN clause to the query using the Circuit relation
+ * @method     DeletedAddressQuery rightJoinCircuit($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Circuit relation
+ * @method     DeletedAddressQuery innerJoinCircuit($relationAlias = null) Adds a INNER JOIN clause to the query using the Circuit relation
  *
- * @method     AddressQuery leftJoinRegion($relationAlias = null) Adds a LEFT JOIN clause to the query using the Region relation
- * @method     AddressQuery rightJoinRegion($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Region relation
- * @method     AddressQuery innerJoinRegion($relationAlias = null) Adds a INNER JOIN clause to the query using the Region relation
+ * @method     DeletedAddressQuery leftJoinRegion($relationAlias = null) Adds a LEFT JOIN clause to the query using the Region relation
+ * @method     DeletedAddressQuery rightJoinRegion($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Region relation
+ * @method     DeletedAddressQuery innerJoinRegion($relationAlias = null) Adds a INNER JOIN clause to the query using the Region relation
  *
- * @method     AddressQuery leftJoinBillboard($relationAlias = null) Adds a LEFT JOIN clause to the query using the Billboard relation
- * @method     AddressQuery rightJoinBillboard($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Billboard relation
- * @method     AddressQuery innerJoinBillboard($relationAlias = null) Adds a INNER JOIN clause to the query using the Billboard relation
+ * @method     DeletedAddress findOne(PropelPDO $con = null) Return the first DeletedAddress matching the query
+ * @method     DeletedAddress findOneOrCreate(PropelPDO $con = null) Return the first DeletedAddress matching the query, or a new DeletedAddress object populated from the query conditions when no match is found
  *
- * @method     Address findOne(PropelPDO $con = null) Return the first Address matching the query
- * @method     Address findOneOrCreate(PropelPDO $con = null) Return the first Address matching the query, or a new Address object populated from the query conditions when no match is found
+ * @method     DeletedAddress findOneById(int $id) Return the first DeletedAddress filtered by the id column
+ * @method     DeletedAddress findOneByStreet(string $street) Return the first DeletedAddress filtered by the street column
+ * @method     DeletedAddress findOneByNumber(int $number) Return the first DeletedAddress filtered by the number column
+ * @method     DeletedAddress findOneByRating(int $rating) Return the first DeletedAddress filtered by the rating column
+ * @method     DeletedAddress findOneByIntersection(string $intersection) Return the first DeletedAddress filtered by the intersection column
+ * @method     DeletedAddress findOneByOwner(string $owner) Return the first DeletedAddress filtered by the owner column
+ * @method     DeletedAddress findOneByLatitude(string $latitude) Return the first DeletedAddress filtered by the latitude column
+ * @method     DeletedAddress findOneByLongitude(string $longitude) Return the first DeletedAddress filtered by the longitude column
+ * @method     DeletedAddress findOneByRegionid(int $regionId) Return the first DeletedAddress filtered by the regionId column
+ * @method     DeletedAddress findOneByOwnerphone(string $ownerPhone) Return the first DeletedAddress filtered by the ownerPhone column
+ * @method     DeletedAddress findOneByOrdercircuit(int $orderCircuit) Return the first DeletedAddress filtered by the orderCircuit column
+ * @method     DeletedAddress findOneByNickname(string $nickname) Return the first DeletedAddress filtered by the nickname column
+ * @method     DeletedAddress findOneByEnumeration(string $enumeration) Return the first DeletedAddress filtered by the enumeration column
+ * @method     DeletedAddress findOneByCreationdate(string $creationDate) Return the first DeletedAddress filtered by the creationDate column
+ * @method     DeletedAddress findOneByDeletiondate(string $deletionDate) Return the first DeletedAddress filtered by the deletionDate column
+ * @method     DeletedAddress findOneByCircuitid(int $circuitId) Return the first DeletedAddress filtered by the circuitId column
  *
- * @method     Address findOneById(int $id) Return the first Address filtered by the id column
- * @method     Address findOneByStreet(string $street) Return the first Address filtered by the street column
- * @method     Address findOneByNumber(int $number) Return the first Address filtered by the number column
- * @method     Address findOneByRating(int $rating) Return the first Address filtered by the rating column
- * @method     Address findOneByIntersection(string $intersection) Return the first Address filtered by the intersection column
- * @method     Address findOneByOwner(string $owner) Return the first Address filtered by the owner column
- * @method     Address findOneByLatitude(string $latitude) Return the first Address filtered by the latitude column
- * @method     Address findOneByLongitude(string $longitude) Return the first Address filtered by the longitude column
- * @method     Address findOneByRegionid(int $regionId) Return the first Address filtered by the regionId column
- * @method     Address findOneByOwnerphone(string $ownerPhone) Return the first Address filtered by the ownerPhone column
- * @method     Address findOneByOrdercircuit(int $orderCircuit) Return the first Address filtered by the orderCircuit column
- * @method     Address findOneByNickname(string $nickname) Return the first Address filtered by the nickname column
- * @method     Address findOneByEnumeration(string $enumeration) Return the first Address filtered by the enumeration column
- * @method     Address findOneByCreationdate(string $creationDate) Return the first Address filtered by the creationDate column
- * @method     Address findOneByDeletiondate(string $deletionDate) Return the first Address filtered by the deletionDate column
- * @method     Address findOneByCircuitid(int $circuitId) Return the first Address filtered by the circuitId column
- *
- * @method     array findById(int $id) Return Address objects filtered by the id column
- * @method     array findByStreet(string $street) Return Address objects filtered by the street column
- * @method     array findByNumber(int $number) Return Address objects filtered by the number column
- * @method     array findByRating(int $rating) Return Address objects filtered by the rating column
- * @method     array findByIntersection(string $intersection) Return Address objects filtered by the intersection column
- * @method     array findByOwner(string $owner) Return Address objects filtered by the owner column
- * @method     array findByLatitude(string $latitude) Return Address objects filtered by the latitude column
- * @method     array findByLongitude(string $longitude) Return Address objects filtered by the longitude column
- * @method     array findByRegionid(int $regionId) Return Address objects filtered by the regionId column
- * @method     array findByOwnerphone(string $ownerPhone) Return Address objects filtered by the ownerPhone column
- * @method     array findByOrdercircuit(int $orderCircuit) Return Address objects filtered by the orderCircuit column
- * @method     array findByNickname(string $nickname) Return Address objects filtered by the nickname column
- * @method     array findByEnumeration(string $enumeration) Return Address objects filtered by the enumeration column
- * @method     array findByCreationdate(string $creationDate) Return Address objects filtered by the creationDate column
- * @method     array findByDeletiondate(string $deletionDate) Return Address objects filtered by the deletionDate column
- * @method     array findByCircuitid(int $circuitId) Return Address objects filtered by the circuitId column
+ * @method     array findById(int $id) Return DeletedAddress objects filtered by the id column
+ * @method     array findByStreet(string $street) Return DeletedAddress objects filtered by the street column
+ * @method     array findByNumber(int $number) Return DeletedAddress objects filtered by the number column
+ * @method     array findByRating(int $rating) Return DeletedAddress objects filtered by the rating column
+ * @method     array findByIntersection(string $intersection) Return DeletedAddress objects filtered by the intersection column
+ * @method     array findByOwner(string $owner) Return DeletedAddress objects filtered by the owner column
+ * @method     array findByLatitude(string $latitude) Return DeletedAddress objects filtered by the latitude column
+ * @method     array findByLongitude(string $longitude) Return DeletedAddress objects filtered by the longitude column
+ * @method     array findByRegionid(int $regionId) Return DeletedAddress objects filtered by the regionId column
+ * @method     array findByOwnerphone(string $ownerPhone) Return DeletedAddress objects filtered by the ownerPhone column
+ * @method     array findByOrdercircuit(int $orderCircuit) Return DeletedAddress objects filtered by the orderCircuit column
+ * @method     array findByNickname(string $nickname) Return DeletedAddress objects filtered by the nickname column
+ * @method     array findByEnumeration(string $enumeration) Return DeletedAddress objects filtered by the enumeration column
+ * @method     array findByCreationdate(string $creationDate) Return DeletedAddress objects filtered by the creationDate column
+ * @method     array findByDeletiondate(string $deletionDate) Return DeletedAddress objects filtered by the deletionDate column
+ * @method     array findByCircuitid(int $circuitId) Return DeletedAddress objects filtered by the circuitId column
  *
  * @package    propel.generator.lausi.classes.om
  */
-abstract class BaseAddressQuery extends ModelCriteria
+abstract class BaseDeletedAddressQuery extends ModelCriteria
 {
 
 	/**
-	 * Initializes internal state of BaseAddressQuery object.
+	 * Initializes internal state of BaseDeletedAddressQuery object.
 	 *
 	 * @param     string $dbName The dabase name
 	 * @param     string $modelName The phpName of a model, e.g. 'Book'
 	 * @param     string $modelAlias The alias for the model in this query, e.g. 'b'
 	 */
-	public function __construct($dbName = 'application', $modelName = 'Address', $modelAlias = null)
+	public function __construct($dbName = 'application', $modelName = 'DeletedAddress', $modelAlias = null)
 	{
 		parent::__construct($dbName, $modelName, $modelAlias);
 	}
 
 	/**
-	 * Returns a new AddressQuery object.
+	 * Returns a new DeletedAddressQuery object.
 	 *
 	 * @param     string $modelAlias The alias of a model in the query
 	 * @param     Criteria $criteria Optional Criteria to build the query from
 	 *
-	 * @return    AddressQuery
+	 * @return    DeletedAddressQuery
 	 */
 	public static function create($modelAlias = null, $criteria = null)
 	{
-		if ($criteria instanceof AddressQuery) {
+		if ($criteria instanceof DeletedAddressQuery) {
 			return $criteria;
 		}
-		$query = new AddressQuery();
+		$query = new DeletedAddressQuery();
 		if (null !== $modelAlias) {
 			$query->setModelAlias($modelAlias);
 		}
@@ -142,11 +138,11 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 * @param     mixed $key Primary key to use for the query
 	 * @param     PropelPDO $con an optional connection object
 	 *
-	 * @return    Address|array|mixed the result, formatted by the current formatter
+	 * @return    DeletedAddress|array|mixed the result, formatted by the current formatter
 	 */
 	public function findPk($key, $con = null)
 	{
-		if ((null !== ($obj = AddressPeer::getInstanceFromPool((string) $key))) && $this->getFormatter()->isObjectFormatter()) {
+		if ((null !== ($obj = DeletedAddressPeer::getInstanceFromPool((string) $key))) && $this->getFormatter()->isObjectFormatter()) {
 			// the object is alredy in the instance pool
 			return $obj;
 		} else {
@@ -182,11 +178,11 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 *
 	 * @param     mixed $key Primary key to use for the query
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function filterByPrimaryKey($key)
 	{
-		return $this->addUsingAlias(AddressPeer::ID, $key, Criteria::EQUAL);
+		return $this->addUsingAlias(DeletedAddressPeer::ID, $key, Criteria::EQUAL);
 	}
 
 	/**
@@ -194,11 +190,11 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 *
 	 * @param     array $keys The list of primary key to use for the query
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function filterByPrimaryKeys($keys)
 	{
-		return $this->addUsingAlias(AddressPeer::ID, $keys, Criteria::IN);
+		return $this->addUsingAlias(DeletedAddressPeer::ID, $keys, Criteria::IN);
 	}
 
 	/**
@@ -217,14 +213,14 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function filterById($id = null, $comparison = null)
 	{
 		if (is_array($id) && null === $comparison) {
 			$comparison = Criteria::IN;
 		}
-		return $this->addUsingAlias(AddressPeer::ID, $id, $comparison);
+		return $this->addUsingAlias(DeletedAddressPeer::ID, $id, $comparison);
 	}
 
 	/**
@@ -240,7 +236,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function filterByStreet($street = null, $comparison = null)
 	{
@@ -252,7 +248,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 				$comparison = Criteria::LIKE;
 			}
 		}
-		return $this->addUsingAlias(AddressPeer::STREET, $street, $comparison);
+		return $this->addUsingAlias(DeletedAddressPeer::STREET, $street, $comparison);
 	}
 
 	/**
@@ -271,18 +267,18 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function filterByNumber($number = null, $comparison = null)
 	{
 		if (is_array($number)) {
 			$useMinMax = false;
 			if (isset($number['min'])) {
-				$this->addUsingAlias(AddressPeer::NUMBER, $number['min'], Criteria::GREATER_EQUAL);
+				$this->addUsingAlias(DeletedAddressPeer::NUMBER, $number['min'], Criteria::GREATER_EQUAL);
 				$useMinMax = true;
 			}
 			if (isset($number['max'])) {
-				$this->addUsingAlias(AddressPeer::NUMBER, $number['max'], Criteria::LESS_EQUAL);
+				$this->addUsingAlias(DeletedAddressPeer::NUMBER, $number['max'], Criteria::LESS_EQUAL);
 				$useMinMax = true;
 			}
 			if ($useMinMax) {
@@ -292,7 +288,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 				$comparison = Criteria::IN;
 			}
 		}
-		return $this->addUsingAlias(AddressPeer::NUMBER, $number, $comparison);
+		return $this->addUsingAlias(DeletedAddressPeer::NUMBER, $number, $comparison);
 	}
 
 	/**
@@ -311,18 +307,18 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function filterByRating($rating = null, $comparison = null)
 	{
 		if (is_array($rating)) {
 			$useMinMax = false;
 			if (isset($rating['min'])) {
-				$this->addUsingAlias(AddressPeer::RATING, $rating['min'], Criteria::GREATER_EQUAL);
+				$this->addUsingAlias(DeletedAddressPeer::RATING, $rating['min'], Criteria::GREATER_EQUAL);
 				$useMinMax = true;
 			}
 			if (isset($rating['max'])) {
-				$this->addUsingAlias(AddressPeer::RATING, $rating['max'], Criteria::LESS_EQUAL);
+				$this->addUsingAlias(DeletedAddressPeer::RATING, $rating['max'], Criteria::LESS_EQUAL);
 				$useMinMax = true;
 			}
 			if ($useMinMax) {
@@ -332,7 +328,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 				$comparison = Criteria::IN;
 			}
 		}
-		return $this->addUsingAlias(AddressPeer::RATING, $rating, $comparison);
+		return $this->addUsingAlias(DeletedAddressPeer::RATING, $rating, $comparison);
 	}
 
 	/**
@@ -348,7 +344,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function filterByIntersection($intersection = null, $comparison = null)
 	{
@@ -360,7 +356,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 				$comparison = Criteria::LIKE;
 			}
 		}
-		return $this->addUsingAlias(AddressPeer::INTERSECTION, $intersection, $comparison);
+		return $this->addUsingAlias(DeletedAddressPeer::INTERSECTION, $intersection, $comparison);
 	}
 
 	/**
@@ -376,7 +372,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function filterByOwner($owner = null, $comparison = null)
 	{
@@ -388,7 +384,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 				$comparison = Criteria::LIKE;
 			}
 		}
-		return $this->addUsingAlias(AddressPeer::OWNER, $owner, $comparison);
+		return $this->addUsingAlias(DeletedAddressPeer::OWNER, $owner, $comparison);
 	}
 
 	/**
@@ -407,18 +403,18 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function filterByLatitude($latitude = null, $comparison = null)
 	{
 		if (is_array($latitude)) {
 			$useMinMax = false;
 			if (isset($latitude['min'])) {
-				$this->addUsingAlias(AddressPeer::LATITUDE, $latitude['min'], Criteria::GREATER_EQUAL);
+				$this->addUsingAlias(DeletedAddressPeer::LATITUDE, $latitude['min'], Criteria::GREATER_EQUAL);
 				$useMinMax = true;
 			}
 			if (isset($latitude['max'])) {
-				$this->addUsingAlias(AddressPeer::LATITUDE, $latitude['max'], Criteria::LESS_EQUAL);
+				$this->addUsingAlias(DeletedAddressPeer::LATITUDE, $latitude['max'], Criteria::LESS_EQUAL);
 				$useMinMax = true;
 			}
 			if ($useMinMax) {
@@ -428,7 +424,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 				$comparison = Criteria::IN;
 			}
 		}
-		return $this->addUsingAlias(AddressPeer::LATITUDE, $latitude, $comparison);
+		return $this->addUsingAlias(DeletedAddressPeer::LATITUDE, $latitude, $comparison);
 	}
 
 	/**
@@ -447,18 +443,18 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function filterByLongitude($longitude = null, $comparison = null)
 	{
 		if (is_array($longitude)) {
 			$useMinMax = false;
 			if (isset($longitude['min'])) {
-				$this->addUsingAlias(AddressPeer::LONGITUDE, $longitude['min'], Criteria::GREATER_EQUAL);
+				$this->addUsingAlias(DeletedAddressPeer::LONGITUDE, $longitude['min'], Criteria::GREATER_EQUAL);
 				$useMinMax = true;
 			}
 			if (isset($longitude['max'])) {
-				$this->addUsingAlias(AddressPeer::LONGITUDE, $longitude['max'], Criteria::LESS_EQUAL);
+				$this->addUsingAlias(DeletedAddressPeer::LONGITUDE, $longitude['max'], Criteria::LESS_EQUAL);
 				$useMinMax = true;
 			}
 			if ($useMinMax) {
@@ -468,7 +464,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 				$comparison = Criteria::IN;
 			}
 		}
-		return $this->addUsingAlias(AddressPeer::LONGITUDE, $longitude, $comparison);
+		return $this->addUsingAlias(DeletedAddressPeer::LONGITUDE, $longitude, $comparison);
 	}
 
 	/**
@@ -489,18 +485,18 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function filterByRegionid($regionid = null, $comparison = null)
 	{
 		if (is_array($regionid)) {
 			$useMinMax = false;
 			if (isset($regionid['min'])) {
-				$this->addUsingAlias(AddressPeer::REGIONID, $regionid['min'], Criteria::GREATER_EQUAL);
+				$this->addUsingAlias(DeletedAddressPeer::REGIONID, $regionid['min'], Criteria::GREATER_EQUAL);
 				$useMinMax = true;
 			}
 			if (isset($regionid['max'])) {
-				$this->addUsingAlias(AddressPeer::REGIONID, $regionid['max'], Criteria::LESS_EQUAL);
+				$this->addUsingAlias(DeletedAddressPeer::REGIONID, $regionid['max'], Criteria::LESS_EQUAL);
 				$useMinMax = true;
 			}
 			if ($useMinMax) {
@@ -510,7 +506,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 				$comparison = Criteria::IN;
 			}
 		}
-		return $this->addUsingAlias(AddressPeer::REGIONID, $regionid, $comparison);
+		return $this->addUsingAlias(DeletedAddressPeer::REGIONID, $regionid, $comparison);
 	}
 
 	/**
@@ -526,7 +522,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function filterByOwnerphone($ownerphone = null, $comparison = null)
 	{
@@ -538,7 +534,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 				$comparison = Criteria::LIKE;
 			}
 		}
-		return $this->addUsingAlias(AddressPeer::OWNERPHONE, $ownerphone, $comparison);
+		return $this->addUsingAlias(DeletedAddressPeer::OWNERPHONE, $ownerphone, $comparison);
 	}
 
 	/**
@@ -557,18 +553,18 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function filterByOrdercircuit($ordercircuit = null, $comparison = null)
 	{
 		if (is_array($ordercircuit)) {
 			$useMinMax = false;
 			if (isset($ordercircuit['min'])) {
-				$this->addUsingAlias(AddressPeer::ORDERCIRCUIT, $ordercircuit['min'], Criteria::GREATER_EQUAL);
+				$this->addUsingAlias(DeletedAddressPeer::ORDERCIRCUIT, $ordercircuit['min'], Criteria::GREATER_EQUAL);
 				$useMinMax = true;
 			}
 			if (isset($ordercircuit['max'])) {
-				$this->addUsingAlias(AddressPeer::ORDERCIRCUIT, $ordercircuit['max'], Criteria::LESS_EQUAL);
+				$this->addUsingAlias(DeletedAddressPeer::ORDERCIRCUIT, $ordercircuit['max'], Criteria::LESS_EQUAL);
 				$useMinMax = true;
 			}
 			if ($useMinMax) {
@@ -578,7 +574,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 				$comparison = Criteria::IN;
 			}
 		}
-		return $this->addUsingAlias(AddressPeer::ORDERCIRCUIT, $ordercircuit, $comparison);
+		return $this->addUsingAlias(DeletedAddressPeer::ORDERCIRCUIT, $ordercircuit, $comparison);
 	}
 
 	/**
@@ -594,7 +590,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function filterByNickname($nickname = null, $comparison = null)
 	{
@@ -606,7 +602,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 				$comparison = Criteria::LIKE;
 			}
 		}
-		return $this->addUsingAlias(AddressPeer::NICKNAME, $nickname, $comparison);
+		return $this->addUsingAlias(DeletedAddressPeer::NICKNAME, $nickname, $comparison);
 	}
 
 	/**
@@ -622,7 +618,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function filterByEnumeration($enumeration = null, $comparison = null)
 	{
@@ -634,7 +630,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 				$comparison = Criteria::LIKE;
 			}
 		}
-		return $this->addUsingAlias(AddressPeer::ENUMERATION, $enumeration, $comparison);
+		return $this->addUsingAlias(DeletedAddressPeer::ENUMERATION, $enumeration, $comparison);
 	}
 
 	/**
@@ -655,18 +651,18 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function filterByCreationdate($creationdate = null, $comparison = null)
 	{
 		if (is_array($creationdate)) {
 			$useMinMax = false;
 			if (isset($creationdate['min'])) {
-				$this->addUsingAlias(AddressPeer::CREATIONDATE, $creationdate['min'], Criteria::GREATER_EQUAL);
+				$this->addUsingAlias(DeletedAddressPeer::CREATIONDATE, $creationdate['min'], Criteria::GREATER_EQUAL);
 				$useMinMax = true;
 			}
 			if (isset($creationdate['max'])) {
-				$this->addUsingAlias(AddressPeer::CREATIONDATE, $creationdate['max'], Criteria::LESS_EQUAL);
+				$this->addUsingAlias(DeletedAddressPeer::CREATIONDATE, $creationdate['max'], Criteria::LESS_EQUAL);
 				$useMinMax = true;
 			}
 			if ($useMinMax) {
@@ -676,7 +672,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 				$comparison = Criteria::IN;
 			}
 		}
-		return $this->addUsingAlias(AddressPeer::CREATIONDATE, $creationdate, $comparison);
+		return $this->addUsingAlias(DeletedAddressPeer::CREATIONDATE, $creationdate, $comparison);
 	}
 
 	/**
@@ -697,18 +693,18 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function filterByDeletiondate($deletiondate = null, $comparison = null)
 	{
 		if (is_array($deletiondate)) {
 			$useMinMax = false;
 			if (isset($deletiondate['min'])) {
-				$this->addUsingAlias(AddressPeer::DELETIONDATE, $deletiondate['min'], Criteria::GREATER_EQUAL);
+				$this->addUsingAlias(DeletedAddressPeer::DELETIONDATE, $deletiondate['min'], Criteria::GREATER_EQUAL);
 				$useMinMax = true;
 			}
 			if (isset($deletiondate['max'])) {
-				$this->addUsingAlias(AddressPeer::DELETIONDATE, $deletiondate['max'], Criteria::LESS_EQUAL);
+				$this->addUsingAlias(DeletedAddressPeer::DELETIONDATE, $deletiondate['max'], Criteria::LESS_EQUAL);
 				$useMinMax = true;
 			}
 			if ($useMinMax) {
@@ -718,7 +714,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 				$comparison = Criteria::IN;
 			}
 		}
-		return $this->addUsingAlias(AddressPeer::DELETIONDATE, $deletiondate, $comparison);
+		return $this->addUsingAlias(DeletedAddressPeer::DELETIONDATE, $deletiondate, $comparison);
 	}
 
 	/**
@@ -739,18 +735,18 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function filterByCircuitid($circuitid = null, $comparison = null)
 	{
 		if (is_array($circuitid)) {
 			$useMinMax = false;
 			if (isset($circuitid['min'])) {
-				$this->addUsingAlias(AddressPeer::CIRCUITID, $circuitid['min'], Criteria::GREATER_EQUAL);
+				$this->addUsingAlias(DeletedAddressPeer::CIRCUITID, $circuitid['min'], Criteria::GREATER_EQUAL);
 				$useMinMax = true;
 			}
 			if (isset($circuitid['max'])) {
-				$this->addUsingAlias(AddressPeer::CIRCUITID, $circuitid['max'], Criteria::LESS_EQUAL);
+				$this->addUsingAlias(DeletedAddressPeer::CIRCUITID, $circuitid['max'], Criteria::LESS_EQUAL);
 				$useMinMax = true;
 			}
 			if ($useMinMax) {
@@ -760,7 +756,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 				$comparison = Criteria::IN;
 			}
 		}
-		return $this->addUsingAlias(AddressPeer::CIRCUITID, $circuitid, $comparison);
+		return $this->addUsingAlias(DeletedAddressPeer::CIRCUITID, $circuitid, $comparison);
 	}
 
 	/**
@@ -769,19 +765,19 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 * @param     Circuit|PropelCollection $circuit The related object(s) to use as filter
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function filterByCircuit($circuit, $comparison = null)
 	{
 		if ($circuit instanceof Circuit) {
 			return $this
-				->addUsingAlias(AddressPeer::CIRCUITID, $circuit->getId(), $comparison);
+				->addUsingAlias(DeletedAddressPeer::CIRCUITID, $circuit->getId(), $comparison);
 		} elseif ($circuit instanceof PropelCollection) {
 			if (null === $comparison) {
 				$comparison = Criteria::IN;
 			}
 			return $this
-				->addUsingAlias(AddressPeer::CIRCUITID, $circuit->toKeyValue('PrimaryKey', 'Id'), $comparison);
+				->addUsingAlias(DeletedAddressPeer::CIRCUITID, $circuit->toKeyValue('PrimaryKey', 'Id'), $comparison);
 		} else {
 			throw new PropelException('filterByCircuit() only accepts arguments of type Circuit or PropelCollection');
 		}
@@ -793,7 +789,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 * @param     string $relationAlias optional alias for the relation
 	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function joinCircuit($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
 	{
@@ -843,19 +839,19 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 * @param     Region|PropelCollection $region The related object(s) to use as filter
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function filterByRegion($region, $comparison = null)
 	{
 		if ($region instanceof Region) {
 			return $this
-				->addUsingAlias(AddressPeer::REGIONID, $region->getId(), $comparison);
+				->addUsingAlias(DeletedAddressPeer::REGIONID, $region->getId(), $comparison);
 		} elseif ($region instanceof PropelCollection) {
 			if (null === $comparison) {
 				$comparison = Criteria::IN;
 			}
 			return $this
-				->addUsingAlias(AddressPeer::REGIONID, $region->toKeyValue('PrimaryKey', 'Id'), $comparison);
+				->addUsingAlias(DeletedAddressPeer::REGIONID, $region->toKeyValue('PrimaryKey', 'Id'), $comparison);
 		} else {
 			throw new PropelException('filterByRegion() only accepts arguments of type Region or PropelCollection');
 		}
@@ -867,7 +863,7 @@ abstract class BaseAddressQuery extends ModelCriteria
 	 * @param     string $relationAlias optional alias for the relation
 	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
 	public function joinRegion($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
 	{
@@ -912,92 +908,19 @@ abstract class BaseAddressQuery extends ModelCriteria
 	}
 
 	/**
-	 * Filter the query by a related Billboard object
-	 *
-	 * @param     Billboard $billboard  the related object to use as filter
-	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-	 *
-	 * @return    AddressQuery The current query, for fluid interface
-	 */
-	public function filterByBillboard($billboard, $comparison = null)
-	{
-		if ($billboard instanceof Billboard) {
-			return $this
-				->addUsingAlias(AddressPeer::ID, $billboard->getAddressid(), $comparison);
-		} elseif ($billboard instanceof PropelCollection) {
-			return $this
-				->useBillboardQuery()
-					->filterByPrimaryKeys($billboard->getPrimaryKeys())
-				->endUse();
-		} else {
-			throw new PropelException('filterByBillboard() only accepts arguments of type Billboard or PropelCollection');
-		}
-	}
-
-	/**
-	 * Adds a JOIN clause to the query using the Billboard relation
-	 * 
-	 * @param     string $relationAlias optional alias for the relation
-	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-	 *
-	 * @return    AddressQuery The current query, for fluid interface
-	 */
-	public function joinBillboard($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-	{
-		$tableMap = $this->getTableMap();
-		$relationMap = $tableMap->getRelation('Billboard');
-		
-		// create a ModelJoin object for this join
-		$join = new ModelJoin();
-		$join->setJoinType($joinType);
-		$join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-		if ($previousJoin = $this->getPreviousJoin()) {
-			$join->setPreviousJoin($previousJoin);
-		}
-		
-		// add the ModelJoin to the current object
-		if($relationAlias) {
-			$this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-			$this->addJoinObject($join, $relationAlias);
-		} else {
-			$this->addJoinObject($join, 'Billboard');
-		}
-		
-		return $this;
-	}
-
-	/**
-	 * Use the Billboard relation Billboard object
-	 *
-	 * @see       useQuery()
-	 * 
-	 * @param     string $relationAlias optional alias for the relation,
-	 *                                   to be used as main alias in the secondary query
-	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-	 *
-	 * @return    BillboardQuery A secondary query class using the current class as primary query
-	 */
-	public function useBillboardQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-	{
-		return $this
-			->joinBillboard($relationAlias, $joinType)
-			->useQuery($relationAlias ? $relationAlias : 'Billboard', 'BillboardQuery');
-	}
-
-	/**
 	 * Exclude object from result
 	 *
-	 * @param     Address $address Object to remove from the list of results
+	 * @param     DeletedAddress $deletedAddress Object to remove from the list of results
 	 *
-	 * @return    AddressQuery The current query, for fluid interface
+	 * @return    DeletedAddressQuery The current query, for fluid interface
 	 */
-	public function prune($address = null)
+	public function prune($deletedAddress = null)
 	{
-		if ($address) {
-			$this->addUsingAlias(AddressPeer::ID, $address->getId(), Criteria::NOT_EQUAL);
+		if ($deletedAddress) {
+			$this->addUsingAlias(DeletedAddressPeer::ID, $deletedAddress->getId(), Criteria::NOT_EQUAL);
 	  }
 	  
 		return $this;
 	}
 
-} // BaseAddressQuery
+} // BaseDeletedAddressQuery

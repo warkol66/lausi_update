@@ -39,6 +39,7 @@ class CircuitTableMap extends TableMap {
 		// columns
 		$this->addPrimaryKey('ID', 'Id', 'INTEGER', true, null, null);
 		$this->addColumn('NAME', 'Name', 'VARCHAR', true, 100, null);
+		$this->addColumn('ABBREVIATION', 'Abbreviation', 'VARCHAR', false, 10, null);
 		$this->addColumn('DESCRIPTION', 'Description', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('LIMITSDESCRIPTION', 'Limitsdescription', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('ORDERBY', 'Orderby', 'INTEGER', false, null, null);
@@ -54,6 +55,7 @@ class CircuitTableMap extends TableMap {
     $this->addRelation('CircuitPoint', 'CircuitPoint', RelationMap::ONE_TO_MANY, array('id' => 'circuitId', ), null, null);
     $this->addRelation('WorkforceCircuit', 'WorkforceCircuit', RelationMap::ONE_TO_MANY, array('id' => 'circuitId', ), null, null);
     $this->addRelation('Address', 'Address', RelationMap::ONE_TO_MANY, array('id' => 'circuitId', ), null, null);
+    $this->addRelation('DeletedAddress', 'DeletedAddress', RelationMap::ONE_TO_MANY, array('id' => 'circuitId', ), null, null);
     $this->addRelation('ClientAddress', 'ClientAddress', RelationMap::ONE_TO_MANY, array('id' => 'circuitId', ), null, null);
     $this->addRelation('Workforce', 'Workforce', RelationMap::MANY_TO_MANY, array(), null, null);
 	} // buildRelations()

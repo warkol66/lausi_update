@@ -42,6 +42,11 @@ abstract class BaseRegion extends BaseObject  implements Persistent
 	protected $collAddresss;
 
 	/**
+	 * @var        array DeletedAddress[] Collection to store aggregation of DeletedAddress objects.
+	 */
+	protected $collDeletedAddresss;
+
+	/**
 	 * @var        array ClientAddress[] Collection to store aggregation of ClientAddress objects.
 	 */
 	protected $collClientAddresss;
@@ -226,6 +231,8 @@ abstract class BaseRegion extends BaseObject  implements Persistent
 
 			$this->collAddresss = null;
 
+			$this->collDeletedAddresss = null;
+
 			$this->collClientAddresss = null;
 
 		} // if (deep)
@@ -369,6 +376,14 @@ abstract class BaseRegion extends BaseObject  implements Persistent
 				}
 			}
 
+			if ($this->collDeletedAddresss !== null) {
+				foreach ($this->collDeletedAddresss as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
 			if ($this->collClientAddresss !== null) {
 				foreach ($this->collClientAddresss as $referrerFK) {
 					if (!$referrerFK->isDeleted()) {
@@ -450,6 +465,14 @@ abstract class BaseRegion extends BaseObject  implements Persistent
 
 				if ($this->collAddresss !== null) {
 					foreach ($this->collAddresss as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
+				if ($this->collDeletedAddresss !== null) {
+					foreach ($this->collDeletedAddresss as $referrerFK) {
 						if (!$referrerFK->validate($columns)) {
 							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
 						}
@@ -538,6 +561,9 @@ abstract class BaseRegion extends BaseObject  implements Persistent
 		if ($includeForeignObjects) {
 			if (null !== $this->collAddresss) {
 				$result['Addresss'] = $this->collAddresss->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+			}
+			if (null !== $this->collDeletedAddresss) {
+				$result['DeletedAddresss'] = $this->collDeletedAddresss->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
 			}
 			if (null !== $this->collClientAddresss) {
 				$result['ClientAddresss'] = $this->collClientAddresss->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
@@ -690,6 +716,12 @@ abstract class BaseRegion extends BaseObject  implements Persistent
 			foreach ($this->getAddresss() as $relObj) {
 				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
 					$copyObj->addAddress($relObj->copy($deepCopy));
+				}
+			}
+
+			foreach ($this->getDeletedAddresss() as $relObj) {
+				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+					$copyObj->addDeletedAddress($relObj->copy($deepCopy));
 				}
 			}
 
@@ -883,6 +915,146 @@ abstract class BaseRegion extends BaseObject  implements Persistent
 		$query->joinWith('Circuit', $join_behavior);
 
 		return $this->getAddresss($query, $con);
+	}
+
+	/**
+	 * Clears out the collDeletedAddresss collection
+	 *
+	 * This does not modify the database; however, it will remove any associated objects, causing
+	 * them to be refetched by subsequent calls to accessor method.
+	 *
+	 * @return     void
+	 * @see        addDeletedAddresss()
+	 */
+	public function clearDeletedAddresss()
+	{
+		$this->collDeletedAddresss = null; // important to set this to NULL since that means it is uninitialized
+	}
+
+	/**
+	 * Initializes the collDeletedAddresss collection.
+	 *
+	 * By default this just sets the collDeletedAddresss collection to an empty array (like clearcollDeletedAddresss());
+	 * however, you may wish to override this method in your stub class to provide setting appropriate
+	 * to your application -- for example, setting the initial array to the values stored in database.
+	 *
+	 * @param      boolean $overrideExisting If set to true, the method call initializes
+	 *                                        the collection even if it is not empty
+	 *
+	 * @return     void
+	 */
+	public function initDeletedAddresss($overrideExisting = true)
+	{
+		if (null !== $this->collDeletedAddresss && !$overrideExisting) {
+			return;
+		}
+		$this->collDeletedAddresss = new PropelObjectCollection();
+		$this->collDeletedAddresss->setModel('DeletedAddress');
+	}
+
+	/**
+	 * Gets an array of DeletedAddress objects which contain a foreign key that references this object.
+	 *
+	 * If the $criteria is not null, it is used to always fetch the results from the database.
+	 * Otherwise the results are fetched from the database the first time, then cached.
+	 * Next time the same method is called without $criteria, the cached collection is returned.
+	 * If this Region is new, it will return
+	 * an empty collection or the current collection; the criteria is ignored on a new object.
+	 *
+	 * @param      Criteria $criteria optional Criteria object to narrow the query
+	 * @param      PropelPDO $con optional connection object
+	 * @return     PropelCollection|array DeletedAddress[] List of DeletedAddress objects
+	 * @throws     PropelException
+	 */
+	public function getDeletedAddresss($criteria = null, PropelPDO $con = null)
+	{
+		if(null === $this->collDeletedAddresss || null !== $criteria) {
+			if ($this->isNew() && null === $this->collDeletedAddresss) {
+				// return empty collection
+				$this->initDeletedAddresss();
+			} else {
+				$collDeletedAddresss = DeletedAddressQuery::create(null, $criteria)
+					->filterByRegion($this)
+					->find($con);
+				if (null !== $criteria) {
+					return $collDeletedAddresss;
+				}
+				$this->collDeletedAddresss = $collDeletedAddresss;
+			}
+		}
+		return $this->collDeletedAddresss;
+	}
+
+	/**
+	 * Returns the number of related DeletedAddress objects.
+	 *
+	 * @param      Criteria $criteria
+	 * @param      boolean $distinct
+	 * @param      PropelPDO $con
+	 * @return     int Count of related DeletedAddress objects.
+	 * @throws     PropelException
+	 */
+	public function countDeletedAddresss(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+	{
+		if(null === $this->collDeletedAddresss || null !== $criteria) {
+			if ($this->isNew() && null === $this->collDeletedAddresss) {
+				return 0;
+			} else {
+				$query = DeletedAddressQuery::create(null, $criteria);
+				if($distinct) {
+					$query->distinct();
+				}
+				return $query
+					->filterByRegion($this)
+					->count($con);
+			}
+		} else {
+			return count($this->collDeletedAddresss);
+		}
+	}
+
+	/**
+	 * Method called to associate a DeletedAddress object to this object
+	 * through the DeletedAddress foreign key attribute.
+	 *
+	 * @param      DeletedAddress $l DeletedAddress
+	 * @return     void
+	 * @throws     PropelException
+	 */
+	public function addDeletedAddress(DeletedAddress $l)
+	{
+		if ($this->collDeletedAddresss === null) {
+			$this->initDeletedAddresss();
+		}
+		if (!$this->collDeletedAddresss->contains($l)) { // only add it if the **same** object is not already associated
+			$this->collDeletedAddresss[]= $l;
+			$l->setRegion($this);
+		}
+	}
+
+
+	/**
+	 * If this collection has already been initialized with
+	 * an identical criteria, it returns the collection.
+	 * Otherwise if this Region is new, it will return
+	 * an empty collection; or if this Region has previously
+	 * been saved, it will retrieve related DeletedAddresss from storage.
+	 *
+	 * This method is protected by default in order to keep the public
+	 * api reasonable.  You can provide public methods for those you
+	 * actually need in Region.
+	 *
+	 * @param      Criteria $criteria optional Criteria object to narrow the query
+	 * @param      PropelPDO $con optional connection object
+	 * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+	 * @return     PropelCollection|array DeletedAddress[] List of DeletedAddress objects
+	 */
+	public function getDeletedAddresssJoinCircuit($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	{
+		$query = DeletedAddressQuery::create(null, $criteria);
+		$query->joinWith('Circuit', $join_behavior);
+
+		return $this->getDeletedAddresss($query, $con);
 	}
 
 	/**
@@ -1082,6 +1254,11 @@ abstract class BaseRegion extends BaseObject  implements Persistent
 					$o->clearAllReferences($deep);
 				}
 			}
+			if ($this->collDeletedAddresss) {
+				foreach ($this->collDeletedAddresss as $o) {
+					$o->clearAllReferences($deep);
+				}
+			}
 			if ($this->collClientAddresss) {
 				foreach ($this->collClientAddresss as $o) {
 					$o->clearAllReferences($deep);
@@ -1093,6 +1270,10 @@ abstract class BaseRegion extends BaseObject  implements Persistent
 			$this->collAddresss->clearIterator();
 		}
 		$this->collAddresss = null;
+		if ($this->collDeletedAddresss instanceof PropelCollection) {
+			$this->collDeletedAddresss->clearIterator();
+		}
+		$this->collDeletedAddresss = null;
 		if ($this->collClientAddresss instanceof PropelCollection) {
 			$this->collClientAddresss->clearIterator();
 		}

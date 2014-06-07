@@ -26,19 +26,22 @@ abstract class BaseCircuitPeer {
 	const TM_CLASS = 'CircuitTableMap';
 	
 	/** The total number of columns. */
-	const NUM_COLUMNS = 6;
+	const NUM_COLUMNS = 7;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
 	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-	const NUM_HYDRATE_COLUMNS = 6;
+	const NUM_HYDRATE_COLUMNS = 7;
 
 	/** the column name for the ID field */
 	const ID = 'lausi_circuit.ID';
 
 	/** the column name for the NAME field */
 	const NAME = 'lausi_circuit.NAME';
+
+	/** the column name for the ABBREVIATION field */
+	const ABBREVIATION = 'lausi_circuit.ABBREVIATION';
 
 	/** the column name for the DESCRIPTION field */
 	const DESCRIPTION = 'lausi_circuit.DESCRIPTION';
@@ -71,12 +74,12 @@ abstract class BaseCircuitPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	protected static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Name', 'Description', 'Limitsdescription', 'Orderby', 'Color', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'name', 'description', 'limitsdescription', 'orderby', 'color', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::NAME, self::DESCRIPTION, self::LIMITSDESCRIPTION, self::ORDERBY, self::COLOR, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'NAME', 'DESCRIPTION', 'LIMITSDESCRIPTION', 'ORDERBY', 'COLOR', ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'name', 'description', 'limitsDescription', 'orderBy', 'color', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Name', 'Abbreviation', 'Description', 'Limitsdescription', 'Orderby', 'Color', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'name', 'abbreviation', 'description', 'limitsdescription', 'orderby', 'color', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::NAME, self::ABBREVIATION, self::DESCRIPTION, self::LIMITSDESCRIPTION, self::ORDERBY, self::COLOR, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'NAME', 'ABBREVIATION', 'DESCRIPTION', 'LIMITSDESCRIPTION', 'ORDERBY', 'COLOR', ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'name', 'abbreviation', 'description', 'limitsDescription', 'orderBy', 'color', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
 	);
 
 	/**
@@ -86,12 +89,12 @@ abstract class BaseCircuitPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	protected static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Name' => 1, 'Description' => 2, 'Limitsdescription' => 3, 'Orderby' => 4, 'Color' => 5, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'name' => 1, 'description' => 2, 'limitsdescription' => 3, 'orderby' => 4, 'color' => 5, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::NAME => 1, self::DESCRIPTION => 2, self::LIMITSDESCRIPTION => 3, self::ORDERBY => 4, self::COLOR => 5, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'NAME' => 1, 'DESCRIPTION' => 2, 'LIMITSDESCRIPTION' => 3, 'ORDERBY' => 4, 'COLOR' => 5, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'name' => 1, 'description' => 2, 'limitsDescription' => 3, 'orderBy' => 4, 'color' => 5, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Name' => 1, 'Abbreviation' => 2, 'Description' => 3, 'Limitsdescription' => 4, 'Orderby' => 5, 'Color' => 6, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'name' => 1, 'abbreviation' => 2, 'description' => 3, 'limitsdescription' => 4, 'orderby' => 5, 'color' => 6, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::NAME => 1, self::ABBREVIATION => 2, self::DESCRIPTION => 3, self::LIMITSDESCRIPTION => 4, self::ORDERBY => 5, self::COLOR => 6, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'NAME' => 1, 'ABBREVIATION' => 2, 'DESCRIPTION' => 3, 'LIMITSDESCRIPTION' => 4, 'ORDERBY' => 5, 'COLOR' => 6, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'name' => 1, 'abbreviation' => 2, 'description' => 3, 'limitsDescription' => 4, 'orderBy' => 5, 'color' => 6, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
 	);
 
 	/**
@@ -165,6 +168,7 @@ abstract class BaseCircuitPeer {
 		if (null === $alias) {
 			$criteria->addSelectColumn(CircuitPeer::ID);
 			$criteria->addSelectColumn(CircuitPeer::NAME);
+			$criteria->addSelectColumn(CircuitPeer::ABBREVIATION);
 			$criteria->addSelectColumn(CircuitPeer::DESCRIPTION);
 			$criteria->addSelectColumn(CircuitPeer::LIMITSDESCRIPTION);
 			$criteria->addSelectColumn(CircuitPeer::ORDERBY);
@@ -172,6 +176,7 @@ abstract class BaseCircuitPeer {
 		} else {
 			$criteria->addSelectColumn($alias . '.ID');
 			$criteria->addSelectColumn($alias . '.NAME');
+			$criteria->addSelectColumn($alias . '.ABBREVIATION');
 			$criteria->addSelectColumn($alias . '.DESCRIPTION');
 			$criteria->addSelectColumn($alias . '.LIMITSDESCRIPTION');
 			$criteria->addSelectColumn($alias . '.ORDERBY');
