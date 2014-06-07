@@ -30,8 +30,9 @@
 	
 		<column name="id" type="INTEGER"  required="true" description="Id de Circuito" primaryKey="true" autoIncrement="true"  />
 		<column name="name" type="VARCHAR" size="100"  required="true" description="Nombre del circuito" />
+		<column name="abbreviation" type="VARCHAR" size="10" description="Abreviatura del Nombre del circuito" />
 		<column name="description" type="LONGVARCHAR" description="descripcion del circuito" />
-		<column name="limitsDescription" type="LONGVARCHAR" description="descripcion de los limites del circuito" />
+		<column name="limitsDescription" type="LONGVARCHAR" description="Descripcion de los limites del circuito" />
 		<column name="orderBy" type="INTEGER" description="Orden del Circuito" />
 		<column name="color" type="VARCHAR" size="7" description="Color del Circuito para mostrar en mapa" />
 		
@@ -114,12 +115,49 @@
 		<column name="nickname" type="VARCHAR" size="100" default="" description="Nombre de Fantasia de la direccion" />
 		<column name="enumeration" type="VARCHAR" size="15" description="Numero de empadronamiento" />
 		<column name="creationDate" type="DATE" description="fecha de alta" />
+		<column name="deletionDate" type="DATE" description="fecha de baja" />
 	
 		<column name="circuitId" type="INTEGER" description="circuito al que pertenece la calle" />
 	
 		<foreign-key foreignTable="lausi_circuit">
 			<reference local="circuitId" foreign="id"/>
 		</foreign-key>
+
+		<foreign-key foreignTable="lausi_region">
+			<reference local="regionId" foreign="id"/>
+		</foreign-key>
+	
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="DeletedAddress" name="lausi_deletedAddress" description="Base de Direcciones eliminadas">
+	
+		<column name="id" type="INTEGER" required="true" description="Id de la calle" primaryKey="true" />
+		<column name="street" type="VARCHAR" size="100"  required="true" description="Nombre de la calle" />
+		<column name="number" type="INTEGER" description="numero de la calle" />	
+		<column name="rating" type="INTEGER" description="Valoracion de la calle" />
+		<column name="intersection" type="VARCHAR" size="100" description="cruce con otra calle de la direccion" />
+		<column name="owner" type="VARCHAR" size="100" description="duenio de la direccion" />
+		<column name="latitude" type="NUMERIC" size="12" scale="9" description="latitud de la direccion" />
+		<column name="longitude" type="NUMERIC" size="12" scale="9" description="longitud de la direccion" />
+		<column name="regionId" type="INTEGER" description="barrio de la direccion" />
+		<column name="ownerPhone" type="VARCHAR" size="100" description="telefono de contacto" />
+		<column name="orderCircuit" type="INTEGER" default="0" description="ordenamiento por proximidad en el circuito entre direcciones" />
+		<column name="nickname" type="VARCHAR" size="100" default="" description="Nombre de Fantasia de la direccion" />
+		<column name="enumeration" type="VARCHAR" size="15" description="Numero de empadronamiento" />
+		<column name="creationDate" type="DATE" description="fecha de alta" />
+		<column name="deletionDate" type="DATE" description="fecha de baja" />
+	
+		<column name="circuitId" type="INTEGER" description="circuito al que pertenece la calle" />
+	
+		<foreign-key foreignTable="lausi_circuit">
+			<reference local="circuitId" foreign="id"/>
+		</foreign-key>
+
 		<foreign-key foreignTable="lausi_region">
 			<reference local="regionId" foreign="id"/>
 		</foreign-key>
