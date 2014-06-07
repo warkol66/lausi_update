@@ -83,7 +83,7 @@ class BackupPeer {
 
 		}
 		//ordenamos los nombres de archivo
-		sort($filenames);
+		rsort($filenames);
 
 		return $filenames;
 	}
@@ -293,7 +293,7 @@ class BackupPeer {
 			$zipfile->create_dir("./files/");
 			$listing = array();
 			$dirHandler = @opendir('WEB-INF/../');
-			BackupPeer::directoryList(&$listing,$dirHandler,'WEB-INF/../');
+			BackupPeer::directoryList($listing,$dirHandler,'WEB-INF/../');
 	
 			foreach ($listing as $route) {
 				$clearRoute = explode('WEB-INF/../',$route);
@@ -331,7 +331,7 @@ class BackupPeer {
 			if(is_dir($dir) && $file != '.' && $file !='..' ) {
 				$handle = @opendir($dir);
 				array_push($listing, $dir . '/');
-				BackupPeer::directoryList(&$listing,$handle, $dir . '/');
+				BackupPeer::directoryList($listing,$handle, $dir . '/');
 			}
 			elseif($file != '.' && $file !='..')
 				array_push($listing,$dir);
