@@ -2,25 +2,25 @@
 
 
 /**
- * Base class that represents a row from the 'lausi_address' table.
+ * Base class that represents a row from the 'lausi_deletedAddress' table.
  *
- * Base de Direcciones
+ * Base de Direcciones eliminadas
  *
  * @package    propel.generator.lausi.classes.om
  */
-abstract class BaseAddress extends BaseObject  implements Persistent
+abstract class BaseDeletedAddress extends BaseObject  implements Persistent
 {
 
 	/**
 	 * Peer class name
 	 */
-	const PEER = 'AddressPeer';
+	const PEER = 'DeletedAddressPeer';
 
 	/**
 	 * The Peer class.
 	 * Instance provides a convenient way of calling static methods on a class
 	 * that calling code may not be able to identify.
-	 * @var        AddressPeer
+	 * @var        DeletedAddressPeer
 	 */
 	protected static $peer;
 
@@ -133,11 +133,6 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	protected $aRegion;
 
 	/**
-	 * @var        array Billboard[] Collection to store aggregation of Billboard objects.
-	 */
-	protected $collBillboards;
-
-	/**
 	 * Flag to prevent endless save loop, if this object is referenced
 	 * by another object which falls in this transaction.
 	 * @var        boolean
@@ -164,7 +159,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	}
 
 	/**
-	 * Initializes internal state of BaseAddress object.
+	 * Initializes internal state of BaseDeletedAddress object.
 	 * @see        applyDefaults()
 	 */
 	public function __construct()
@@ -393,7 +388,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 * Set the value of [id] column.
 	 * Id de la calle
 	 * @param      int $v new value
-	 * @return     Address The current object (for fluent API support)
+	 * @return     DeletedAddress The current object (for fluent API support)
 	 */
 	public function setId($v)
 	{
@@ -403,7 +398,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 
 		if ($this->id !== $v) {
 			$this->id = $v;
-			$this->modifiedColumns[] = AddressPeer::ID;
+			$this->modifiedColumns[] = DeletedAddressPeer::ID;
 		}
 
 		return $this;
@@ -413,7 +408,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 * Set the value of [street] column.
 	 * Nombre de la calle
 	 * @param      string $v new value
-	 * @return     Address The current object (for fluent API support)
+	 * @return     DeletedAddress The current object (for fluent API support)
 	 */
 	public function setStreet($v)
 	{
@@ -423,7 +418,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 
 		if ($this->street !== $v) {
 			$this->street = $v;
-			$this->modifiedColumns[] = AddressPeer::STREET;
+			$this->modifiedColumns[] = DeletedAddressPeer::STREET;
 		}
 
 		return $this;
@@ -433,7 +428,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 * Set the value of [number] column.
 	 * numero de la calle
 	 * @param      int $v new value
-	 * @return     Address The current object (for fluent API support)
+	 * @return     DeletedAddress The current object (for fluent API support)
 	 */
 	public function setNumber($v)
 	{
@@ -443,7 +438,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 
 		if ($this->number !== $v) {
 			$this->number = $v;
-			$this->modifiedColumns[] = AddressPeer::NUMBER;
+			$this->modifiedColumns[] = DeletedAddressPeer::NUMBER;
 		}
 
 		return $this;
@@ -453,7 +448,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 * Set the value of [rating] column.
 	 * Valoracion de la calle
 	 * @param      int $v new value
-	 * @return     Address The current object (for fluent API support)
+	 * @return     DeletedAddress The current object (for fluent API support)
 	 */
 	public function setRating($v)
 	{
@@ -463,7 +458,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 
 		if ($this->rating !== $v) {
 			$this->rating = $v;
-			$this->modifiedColumns[] = AddressPeer::RATING;
+			$this->modifiedColumns[] = DeletedAddressPeer::RATING;
 		}
 
 		return $this;
@@ -473,7 +468,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 * Set the value of [intersection] column.
 	 * cruce con otra calle de la direccion
 	 * @param      string $v new value
-	 * @return     Address The current object (for fluent API support)
+	 * @return     DeletedAddress The current object (for fluent API support)
 	 */
 	public function setIntersection($v)
 	{
@@ -483,7 +478,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 
 		if ($this->intersection !== $v) {
 			$this->intersection = $v;
-			$this->modifiedColumns[] = AddressPeer::INTERSECTION;
+			$this->modifiedColumns[] = DeletedAddressPeer::INTERSECTION;
 		}
 
 		return $this;
@@ -493,7 +488,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 * Set the value of [owner] column.
 	 * duenio de la direccion
 	 * @param      string $v new value
-	 * @return     Address The current object (for fluent API support)
+	 * @return     DeletedAddress The current object (for fluent API support)
 	 */
 	public function setOwner($v)
 	{
@@ -503,7 +498,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 
 		if ($this->owner !== $v) {
 			$this->owner = $v;
-			$this->modifiedColumns[] = AddressPeer::OWNER;
+			$this->modifiedColumns[] = DeletedAddressPeer::OWNER;
 		}
 
 		return $this;
@@ -513,7 +508,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 * Set the value of [latitude] column.
 	 * latitud de la direccion
 	 * @param      string $v new value
-	 * @return     Address The current object (for fluent API support)
+	 * @return     DeletedAddress The current object (for fluent API support)
 	 */
 	public function setLatitude($v)
 	{
@@ -523,7 +518,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 
 		if ($this->latitude !== $v) {
 			$this->latitude = $v;
-			$this->modifiedColumns[] = AddressPeer::LATITUDE;
+			$this->modifiedColumns[] = DeletedAddressPeer::LATITUDE;
 		}
 
 		return $this;
@@ -533,7 +528,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 * Set the value of [longitude] column.
 	 * longitud de la direccion
 	 * @param      string $v new value
-	 * @return     Address The current object (for fluent API support)
+	 * @return     DeletedAddress The current object (for fluent API support)
 	 */
 	public function setLongitude($v)
 	{
@@ -543,7 +538,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 
 		if ($this->longitude !== $v) {
 			$this->longitude = $v;
-			$this->modifiedColumns[] = AddressPeer::LONGITUDE;
+			$this->modifiedColumns[] = DeletedAddressPeer::LONGITUDE;
 		}
 
 		return $this;
@@ -553,7 +548,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 * Set the value of [regionid] column.
 	 * barrio de la direccion
 	 * @param      int $v new value
-	 * @return     Address The current object (for fluent API support)
+	 * @return     DeletedAddress The current object (for fluent API support)
 	 */
 	public function setRegionid($v)
 	{
@@ -563,7 +558,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 
 		if ($this->regionid !== $v) {
 			$this->regionid = $v;
-			$this->modifiedColumns[] = AddressPeer::REGIONID;
+			$this->modifiedColumns[] = DeletedAddressPeer::REGIONID;
 		}
 
 		if ($this->aRegion !== null && $this->aRegion->getId() !== $v) {
@@ -577,7 +572,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 * Set the value of [ownerphone] column.
 	 * telefono de contacto
 	 * @param      string $v new value
-	 * @return     Address The current object (for fluent API support)
+	 * @return     DeletedAddress The current object (for fluent API support)
 	 */
 	public function setOwnerphone($v)
 	{
@@ -587,7 +582,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 
 		if ($this->ownerphone !== $v) {
 			$this->ownerphone = $v;
-			$this->modifiedColumns[] = AddressPeer::OWNERPHONE;
+			$this->modifiedColumns[] = DeletedAddressPeer::OWNERPHONE;
 		}
 
 		return $this;
@@ -597,7 +592,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 * Set the value of [ordercircuit] column.
 	 * ordenamiento por proximidad en el circuito entre direcciones
 	 * @param      int $v new value
-	 * @return     Address The current object (for fluent API support)
+	 * @return     DeletedAddress The current object (for fluent API support)
 	 */
 	public function setOrdercircuit($v)
 	{
@@ -607,7 +602,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 
 		if ($this->ordercircuit !== $v || $this->isNew()) {
 			$this->ordercircuit = $v;
-			$this->modifiedColumns[] = AddressPeer::ORDERCIRCUIT;
+			$this->modifiedColumns[] = DeletedAddressPeer::ORDERCIRCUIT;
 		}
 
 		return $this;
@@ -617,7 +612,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 * Set the value of [nickname] column.
 	 * Nombre de Fantasia de la direccion
 	 * @param      string $v new value
-	 * @return     Address The current object (for fluent API support)
+	 * @return     DeletedAddress The current object (for fluent API support)
 	 */
 	public function setNickname($v)
 	{
@@ -627,7 +622,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 
 		if ($this->nickname !== $v || $this->isNew()) {
 			$this->nickname = $v;
-			$this->modifiedColumns[] = AddressPeer::NICKNAME;
+			$this->modifiedColumns[] = DeletedAddressPeer::NICKNAME;
 		}
 
 		return $this;
@@ -637,7 +632,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 * Set the value of [enumeration] column.
 	 * Numero de empadronamiento
 	 * @param      string $v new value
-	 * @return     Address The current object (for fluent API support)
+	 * @return     DeletedAddress The current object (for fluent API support)
 	 */
 	public function setEnumeration($v)
 	{
@@ -647,7 +642,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 
 		if ($this->enumeration !== $v) {
 			$this->enumeration = $v;
-			$this->modifiedColumns[] = AddressPeer::ENUMERATION;
+			$this->modifiedColumns[] = DeletedAddressPeer::ENUMERATION;
 		}
 
 		return $this;
@@ -658,7 +653,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 * fecha de alta
 	 * @param      mixed $v string, integer (timestamp), or DateTime value.
 	 *               Empty strings are treated as NULL.
-	 * @return     Address The current object (for fluent API support)
+	 * @return     DeletedAddress The current object (for fluent API support)
 	 */
 	public function setCreationdate($v)
 	{
@@ -668,7 +663,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 			$newDateAsString = $dt ? $dt->format('Y-m-d') : null;
 			if ($currentDateAsString !== $newDateAsString) {
 				$this->creationdate = $newDateAsString;
-				$this->modifiedColumns[] = AddressPeer::CREATIONDATE;
+				$this->modifiedColumns[] = DeletedAddressPeer::CREATIONDATE;
 			}
 		} // if either are not null
 
@@ -680,7 +675,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 * fecha de baja
 	 * @param      mixed $v string, integer (timestamp), or DateTime value.
 	 *               Empty strings are treated as NULL.
-	 * @return     Address The current object (for fluent API support)
+	 * @return     DeletedAddress The current object (for fluent API support)
 	 */
 	public function setDeletiondate($v)
 	{
@@ -690,7 +685,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 			$newDateAsString = $dt ? $dt->format('Y-m-d') : null;
 			if ($currentDateAsString !== $newDateAsString) {
 				$this->deletiondate = $newDateAsString;
-				$this->modifiedColumns[] = AddressPeer::DELETIONDATE;
+				$this->modifiedColumns[] = DeletedAddressPeer::DELETIONDATE;
 			}
 		} // if either are not null
 
@@ -701,7 +696,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 * Set the value of [circuitid] column.
 	 * circuito al que pertenece la calle
 	 * @param      int $v new value
-	 * @return     Address The current object (for fluent API support)
+	 * @return     DeletedAddress The current object (for fluent API support)
 	 */
 	public function setCircuitid($v)
 	{
@@ -711,7 +706,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 
 		if ($this->circuitid !== $v) {
 			$this->circuitid = $v;
-			$this->modifiedColumns[] = AddressPeer::CIRCUITID;
+			$this->modifiedColumns[] = DeletedAddressPeer::CIRCUITID;
 		}
 
 		if ($this->aCircuit !== null && $this->aCircuit->getId() !== $v) {
@@ -785,10 +780,10 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 16; // 16 = AddressPeer::NUM_HYDRATE_COLUMNS.
+			return $startcol + 16; // 16 = DeletedAddressPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
-			throw new PropelException("Error populating Address object", $e);
+			throw new PropelException("Error populating DeletedAddress object", $e);
 		}
 	}
 
@@ -837,13 +832,13 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 		}
 
 		if ($con === null) {
-			$con = Propel::getConnection(AddressPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(DeletedAddressPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
 		// We don't need to alter the object instance pool; we're just modifying this instance
 		// already in the pool.
 
-		$stmt = AddressPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
+		$stmt = DeletedAddressPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
 		$row = $stmt->fetch(PDO::FETCH_NUM);
 		$stmt->closeCursor();
 		if (!$row) {
@@ -855,8 +850,6 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 
 			$this->aCircuit = null;
 			$this->aRegion = null;
-			$this->collBillboards = null;
-
 		} // if (deep)
 	}
 
@@ -876,14 +869,14 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 		}
 
 		if ($con === null) {
-			$con = Propel::getConnection(AddressPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(DeletedAddressPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 
 		$con->beginTransaction();
 		try {
 			$ret = $this->preDelete($con);
 			if ($ret) {
-				AddressQuery::create()
+				DeletedAddressQuery::create()
 					->filterByPrimaryKey($this->getPrimaryKey())
 					->delete($con);
 				$this->postDelete($con);
@@ -918,7 +911,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 		}
 
 		if ($con === null) {
-			$con = Propel::getConnection(AddressPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(DeletedAddressPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 
 		$con->beginTransaction();
@@ -938,7 +931,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 					$this->postUpdate($con);
 				}
 				$this->postSave($con);
-				AddressPeer::addInstanceToPool($this);
+				DeletedAddressPeer::addInstanceToPool($this);
 			} else {
 				$affectedRows = 0;
 			}
@@ -986,35 +979,19 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 				$this->setRegion($this->aRegion);
 			}
 
-			if ($this->isNew() ) {
-				$this->modifiedColumns[] = AddressPeer::ID;
-			}
 
 			// If this object has been modified, then save it to the database.
 			if ($this->isModified()) {
 				if ($this->isNew()) {
 					$criteria = $this->buildCriteria();
-					if ($criteria->keyContainsValue(AddressPeer::ID) ) {
-						throw new PropelException('Cannot insert a value for auto-increment primary key ('.AddressPeer::ID.')');
-					}
-
 					$pk = BasePeer::doInsert($criteria, $con);
 					$affectedRows += 1;
-					$this->setId($pk);  //[IMV] update autoincrement primary key
 					$this->setNew(false);
 				} else {
-					$affectedRows += AddressPeer::doUpdate($this, $con);
+					$affectedRows += DeletedAddressPeer::doUpdate($this, $con);
 				}
 
 				$this->resetModified(); // [HL] After being saved an object is no longer 'modified'
-			}
-
-			if ($this->collBillboards !== null) {
-				foreach ($this->collBillboards as $referrerFK) {
-					if (!$referrerFK->isDeleted()) {
-						$affectedRows += $referrerFK->save($con);
-					}
-				}
 			}
 
 			$this->alreadyInSave = false;
@@ -1101,18 +1078,10 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 			}
 
 
-			if (($retval = AddressPeer::doValidate($this, $columns)) !== true) {
+			if (($retval = DeletedAddressPeer::doValidate($this, $columns)) !== true) {
 				$failureMap = array_merge($failureMap, $retval);
 			}
 
-
-				if ($this->collBillboards !== null) {
-					foreach ($this->collBillboards as $referrerFK) {
-						if (!$referrerFK->validate($columns)) {
-							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
-						}
-					}
-				}
 
 
 			$this->alreadyInValidation = false;
@@ -1132,7 +1101,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 */
 	public function getByName($name, $type = BasePeer::TYPE_PHPNAME)
 	{
-		$pos = AddressPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+		$pos = DeletedAddressPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 		$field = $this->getByPosition($pos);
 		return $field;
 	}
@@ -1218,11 +1187,11 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 */
 	public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
 	{
-		if (isset($alreadyDumpedObjects['Address'][$this->getPrimaryKey()])) {
+		if (isset($alreadyDumpedObjects['DeletedAddress'][$this->getPrimaryKey()])) {
 			return '*RECURSION*';
 		}
-		$alreadyDumpedObjects['Address'][$this->getPrimaryKey()] = true;
-		$keys = AddressPeer::getFieldNames($keyType);
+		$alreadyDumpedObjects['DeletedAddress'][$this->getPrimaryKey()] = true;
+		$keys = DeletedAddressPeer::getFieldNames($keyType);
 		$result = array(
 			$keys[0] => $this->getId(),
 			$keys[1] => $this->getStreet(),
@@ -1248,9 +1217,6 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 			if (null !== $this->aRegion) {
 				$result['Region'] = $this->aRegion->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
 			}
-			if (null !== $this->collBillboards) {
-				$result['Billboards'] = $this->collBillboards->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
-			}
 		}
 		return $result;
 	}
@@ -1267,7 +1233,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 */
 	public function setByName($name, $value, $type = BasePeer::TYPE_PHPNAME)
 	{
-		$pos = AddressPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+		$pos = DeletedAddressPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 		return $this->setByPosition($pos, $value);
 	}
 
@@ -1352,7 +1318,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 */
 	public function fromArray($arr, $keyType = BasePeer::TYPE_PHPNAME)
 	{
-		$keys = AddressPeer::getFieldNames($keyType);
+		$keys = DeletedAddressPeer::getFieldNames($keyType);
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
 		if (array_key_exists($keys[1], $arr)) $this->setStreet($arr[$keys[1]]);
@@ -1379,24 +1345,24 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 */
 	public function buildCriteria()
 	{
-		$criteria = new Criteria(AddressPeer::DATABASE_NAME);
+		$criteria = new Criteria(DeletedAddressPeer::DATABASE_NAME);
 
-		if ($this->isColumnModified(AddressPeer::ID)) $criteria->add(AddressPeer::ID, $this->id);
-		if ($this->isColumnModified(AddressPeer::STREET)) $criteria->add(AddressPeer::STREET, $this->street);
-		if ($this->isColumnModified(AddressPeer::NUMBER)) $criteria->add(AddressPeer::NUMBER, $this->number);
-		if ($this->isColumnModified(AddressPeer::RATING)) $criteria->add(AddressPeer::RATING, $this->rating);
-		if ($this->isColumnModified(AddressPeer::INTERSECTION)) $criteria->add(AddressPeer::INTERSECTION, $this->intersection);
-		if ($this->isColumnModified(AddressPeer::OWNER)) $criteria->add(AddressPeer::OWNER, $this->owner);
-		if ($this->isColumnModified(AddressPeer::LATITUDE)) $criteria->add(AddressPeer::LATITUDE, $this->latitude);
-		if ($this->isColumnModified(AddressPeer::LONGITUDE)) $criteria->add(AddressPeer::LONGITUDE, $this->longitude);
-		if ($this->isColumnModified(AddressPeer::REGIONID)) $criteria->add(AddressPeer::REGIONID, $this->regionid);
-		if ($this->isColumnModified(AddressPeer::OWNERPHONE)) $criteria->add(AddressPeer::OWNERPHONE, $this->ownerphone);
-		if ($this->isColumnModified(AddressPeer::ORDERCIRCUIT)) $criteria->add(AddressPeer::ORDERCIRCUIT, $this->ordercircuit);
-		if ($this->isColumnModified(AddressPeer::NICKNAME)) $criteria->add(AddressPeer::NICKNAME, $this->nickname);
-		if ($this->isColumnModified(AddressPeer::ENUMERATION)) $criteria->add(AddressPeer::ENUMERATION, $this->enumeration);
-		if ($this->isColumnModified(AddressPeer::CREATIONDATE)) $criteria->add(AddressPeer::CREATIONDATE, $this->creationdate);
-		if ($this->isColumnModified(AddressPeer::DELETIONDATE)) $criteria->add(AddressPeer::DELETIONDATE, $this->deletiondate);
-		if ($this->isColumnModified(AddressPeer::CIRCUITID)) $criteria->add(AddressPeer::CIRCUITID, $this->circuitid);
+		if ($this->isColumnModified(DeletedAddressPeer::ID)) $criteria->add(DeletedAddressPeer::ID, $this->id);
+		if ($this->isColumnModified(DeletedAddressPeer::STREET)) $criteria->add(DeletedAddressPeer::STREET, $this->street);
+		if ($this->isColumnModified(DeletedAddressPeer::NUMBER)) $criteria->add(DeletedAddressPeer::NUMBER, $this->number);
+		if ($this->isColumnModified(DeletedAddressPeer::RATING)) $criteria->add(DeletedAddressPeer::RATING, $this->rating);
+		if ($this->isColumnModified(DeletedAddressPeer::INTERSECTION)) $criteria->add(DeletedAddressPeer::INTERSECTION, $this->intersection);
+		if ($this->isColumnModified(DeletedAddressPeer::OWNER)) $criteria->add(DeletedAddressPeer::OWNER, $this->owner);
+		if ($this->isColumnModified(DeletedAddressPeer::LATITUDE)) $criteria->add(DeletedAddressPeer::LATITUDE, $this->latitude);
+		if ($this->isColumnModified(DeletedAddressPeer::LONGITUDE)) $criteria->add(DeletedAddressPeer::LONGITUDE, $this->longitude);
+		if ($this->isColumnModified(DeletedAddressPeer::REGIONID)) $criteria->add(DeletedAddressPeer::REGIONID, $this->regionid);
+		if ($this->isColumnModified(DeletedAddressPeer::OWNERPHONE)) $criteria->add(DeletedAddressPeer::OWNERPHONE, $this->ownerphone);
+		if ($this->isColumnModified(DeletedAddressPeer::ORDERCIRCUIT)) $criteria->add(DeletedAddressPeer::ORDERCIRCUIT, $this->ordercircuit);
+		if ($this->isColumnModified(DeletedAddressPeer::NICKNAME)) $criteria->add(DeletedAddressPeer::NICKNAME, $this->nickname);
+		if ($this->isColumnModified(DeletedAddressPeer::ENUMERATION)) $criteria->add(DeletedAddressPeer::ENUMERATION, $this->enumeration);
+		if ($this->isColumnModified(DeletedAddressPeer::CREATIONDATE)) $criteria->add(DeletedAddressPeer::CREATIONDATE, $this->creationdate);
+		if ($this->isColumnModified(DeletedAddressPeer::DELETIONDATE)) $criteria->add(DeletedAddressPeer::DELETIONDATE, $this->deletiondate);
+		if ($this->isColumnModified(DeletedAddressPeer::CIRCUITID)) $criteria->add(DeletedAddressPeer::CIRCUITID, $this->circuitid);
 
 		return $criteria;
 	}
@@ -1411,8 +1377,8 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 */
 	public function buildPkeyCriteria()
 	{
-		$criteria = new Criteria(AddressPeer::DATABASE_NAME);
-		$criteria->add(AddressPeer::ID, $this->id);
+		$criteria = new Criteria(DeletedAddressPeer::DATABASE_NAME);
+		$criteria->add(DeletedAddressPeer::ID, $this->id);
 
 		return $criteria;
 	}
@@ -1452,13 +1418,14 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 * If desired, this method can also make copies of all associated (fkey referrers)
 	 * objects.
 	 *
-	 * @param      object $copyObj An object of Address (or compatible) type.
+	 * @param      object $copyObj An object of DeletedAddress (or compatible) type.
 	 * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
 	 * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
 	 * @throws     PropelException
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
+		$copyObj->setId($this->getId());
 		$copyObj->setStreet($this->getStreet());
 		$copyObj->setNumber($this->getNumber());
 		$copyObj->setRating($this->getRating());
@@ -1474,23 +1441,8 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 		$copyObj->setCreationdate($this->getCreationdate());
 		$copyObj->setDeletiondate($this->getDeletiondate());
 		$copyObj->setCircuitid($this->getCircuitid());
-
-		if ($deepCopy) {
-			// important: temporarily setNew(false) because this affects the behavior of
-			// the getter/setter methods for fkey referrer objects.
-			$copyObj->setNew(false);
-
-			foreach ($this->getBillboards() as $relObj) {
-				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-					$copyObj->addBillboard($relObj->copy($deepCopy));
-				}
-			}
-
-		} // if ($deepCopy)
-
 		if ($makeNew) {
 			$copyObj->setNew(true);
-			$copyObj->setId(NULL); // this is a auto-increment column, so set to default value
 		}
 	}
 
@@ -1503,7 +1455,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 * objects.
 	 *
 	 * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-	 * @return     Address Clone of current object.
+	 * @return     DeletedAddress Clone of current object.
 	 * @throws     PropelException
 	 */
 	public function copy($deepCopy = false)
@@ -1522,12 +1474,12 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 * same instance for all member of this class. The method could therefore
 	 * be static, but this would prevent one from overriding the behavior.
 	 *
-	 * @return     AddressPeer
+	 * @return     DeletedAddressPeer
 	 */
 	public function getPeer()
 	{
 		if (self::$peer === null) {
-			self::$peer = new AddressPeer();
+			self::$peer = new DeletedAddressPeer();
 		}
 		return self::$peer;
 	}
@@ -1536,7 +1488,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 * Declares an association between this object and a Circuit object.
 	 *
 	 * @param      Circuit $v
-	 * @return     Address The current object (for fluent API support)
+	 * @return     DeletedAddress The current object (for fluent API support)
 	 * @throws     PropelException
 	 */
 	public function setCircuit(Circuit $v = null)
@@ -1552,7 +1504,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 		// Add binding for other direction of this n:n relationship.
 		// If this object has already been added to the Circuit object, it will not be re-added.
 		if ($v !== null) {
-			$v->addAddress($this);
+			$v->addDeletedAddress($this);
 		}
 
 		return $this;
@@ -1575,7 +1527,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 				to this object.  This level of coupling may, however, be
 				undesirable since it could result in an only partially populated collection
 				in the referenced object.
-				$this->aCircuit->addAddresss($this);
+				$this->aCircuit->addDeletedAddresss($this);
 			 */
 		}
 		return $this->aCircuit;
@@ -1585,7 +1537,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 * Declares an association between this object and a Region object.
 	 *
 	 * @param      Region $v
-	 * @return     Address The current object (for fluent API support)
+	 * @return     DeletedAddress The current object (for fluent API support)
 	 * @throws     PropelException
 	 */
 	public function setRegion(Region $v = null)
@@ -1601,7 +1553,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 		// Add binding for other direction of this n:n relationship.
 		// If this object has already been added to the Region object, it will not be re-added.
 		if ($v !== null) {
-			$v->addAddress($this);
+			$v->addDeletedAddress($this);
 		}
 
 		return $this;
@@ -1624,125 +1576,10 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 				to this object.  This level of coupling may, however, be
 				undesirable since it could result in an only partially populated collection
 				in the referenced object.
-				$this->aRegion->addAddresss($this);
+				$this->aRegion->addDeletedAddresss($this);
 			 */
 		}
 		return $this->aRegion;
-	}
-
-	/**
-	 * Clears out the collBillboards collection
-	 *
-	 * This does not modify the database; however, it will remove any associated objects, causing
-	 * them to be refetched by subsequent calls to accessor method.
-	 *
-	 * @return     void
-	 * @see        addBillboards()
-	 */
-	public function clearBillboards()
-	{
-		$this->collBillboards = null; // important to set this to NULL since that means it is uninitialized
-	}
-
-	/**
-	 * Initializes the collBillboards collection.
-	 *
-	 * By default this just sets the collBillboards collection to an empty array (like clearcollBillboards());
-	 * however, you may wish to override this method in your stub class to provide setting appropriate
-	 * to your application -- for example, setting the initial array to the values stored in database.
-	 *
-	 * @param      boolean $overrideExisting If set to true, the method call initializes
-	 *                                        the collection even if it is not empty
-	 *
-	 * @return     void
-	 */
-	public function initBillboards($overrideExisting = true)
-	{
-		if (null !== $this->collBillboards && !$overrideExisting) {
-			return;
-		}
-		$this->collBillboards = new PropelObjectCollection();
-		$this->collBillboards->setModel('Billboard');
-	}
-
-	/**
-	 * Gets an array of Billboard objects which contain a foreign key that references this object.
-	 *
-	 * If the $criteria is not null, it is used to always fetch the results from the database.
-	 * Otherwise the results are fetched from the database the first time, then cached.
-	 * Next time the same method is called without $criteria, the cached collection is returned.
-	 * If this Address is new, it will return
-	 * an empty collection or the current collection; the criteria is ignored on a new object.
-	 *
-	 * @param      Criteria $criteria optional Criteria object to narrow the query
-	 * @param      PropelPDO $con optional connection object
-	 * @return     PropelCollection|array Billboard[] List of Billboard objects
-	 * @throws     PropelException
-	 */
-	public function getBillboards($criteria = null, PropelPDO $con = null)
-	{
-		if(null === $this->collBillboards || null !== $criteria) {
-			if ($this->isNew() && null === $this->collBillboards) {
-				// return empty collection
-				$this->initBillboards();
-			} else {
-				$collBillboards = BillboardQuery::create(null, $criteria)
-					->filterByAddress($this)
-					->find($con);
-				if (null !== $criteria) {
-					return $collBillboards;
-				}
-				$this->collBillboards = $collBillboards;
-			}
-		}
-		return $this->collBillboards;
-	}
-
-	/**
-	 * Returns the number of related Billboard objects.
-	 *
-	 * @param      Criteria $criteria
-	 * @param      boolean $distinct
-	 * @param      PropelPDO $con
-	 * @return     int Count of related Billboard objects.
-	 * @throws     PropelException
-	 */
-	public function countBillboards(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
-	{
-		if(null === $this->collBillboards || null !== $criteria) {
-			if ($this->isNew() && null === $this->collBillboards) {
-				return 0;
-			} else {
-				$query = BillboardQuery::create(null, $criteria);
-				if($distinct) {
-					$query->distinct();
-				}
-				return $query
-					->filterByAddress($this)
-					->count($con);
-			}
-		} else {
-			return count($this->collBillboards);
-		}
-	}
-
-	/**
-	 * Method called to associate a Billboard object to this object
-	 * through the Billboard foreign key attribute.
-	 *
-	 * @param      Billboard $l Billboard
-	 * @return     void
-	 * @throws     PropelException
-	 */
-	public function addBillboard(Billboard $l)
-	{
-		if ($this->collBillboards === null) {
-			$this->initBillboards();
-		}
-		if (!$this->collBillboards->contains($l)) { // only add it if the **same** object is not already associated
-			$this->collBillboards[]= $l;
-			$l->setAddress($this);
-		}
 	}
 
 	/**
@@ -1787,17 +1624,8 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	public function clearAllReferences($deep = false)
 	{
 		if ($deep) {
-			if ($this->collBillboards) {
-				foreach ($this->collBillboards as $o) {
-					$o->clearAllReferences($deep);
-				}
-			}
 		} // if ($deep)
 
-		if ($this->collBillboards instanceof PropelCollection) {
-			$this->collBillboards->clearIterator();
-		}
-		$this->collBillboards = null;
 		$this->aCircuit = null;
 		$this->aRegion = null;
 	}
@@ -1809,7 +1637,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	 */
 	public function __toString()
 	{
-		return (string) $this->exportTo(AddressPeer::DEFAULT_STRING_FORMAT);
+		return (string) $this->exportTo(DeletedAddressPeer::DEFAULT_STRING_FORMAT);
 	}
 
 	/**
@@ -1831,4 +1659,4 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 		return parent::__call($name, $params);
 	}
 
-} // BaseAddress
+} // BaseDeletedAddress

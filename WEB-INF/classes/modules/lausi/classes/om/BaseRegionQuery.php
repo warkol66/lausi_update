@@ -20,6 +20,10 @@
  * @method     RegionQuery rightJoinAddress($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Address relation
  * @method     RegionQuery innerJoinAddress($relationAlias = null) Adds a INNER JOIN clause to the query using the Address relation
  *
+ * @method     RegionQuery leftJoinDeletedAddress($relationAlias = null) Adds a LEFT JOIN clause to the query using the DeletedAddress relation
+ * @method     RegionQuery rightJoinDeletedAddress($relationAlias = null) Adds a RIGHT JOIN clause to the query using the DeletedAddress relation
+ * @method     RegionQuery innerJoinDeletedAddress($relationAlias = null) Adds a INNER JOIN clause to the query using the DeletedAddress relation
+ *
  * @method     RegionQuery leftJoinClientAddress($relationAlias = null) Adds a LEFT JOIN clause to the query using the ClientAddress relation
  * @method     RegionQuery rightJoinClientAddress($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ClientAddress relation
  * @method     RegionQuery innerJoinClientAddress($relationAlias = null) Adds a INNER JOIN clause to the query using the ClientAddress relation
@@ -266,6 +270,79 @@ abstract class BaseRegionQuery extends ModelCriteria
 		return $this
 			->joinAddress($relationAlias, $joinType)
 			->useQuery($relationAlias ? $relationAlias : 'Address', 'AddressQuery');
+	}
+
+	/**
+	 * Filter the query by a related DeletedAddress object
+	 *
+	 * @param     DeletedAddress $deletedAddress  the related object to use as filter
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    RegionQuery The current query, for fluid interface
+	 */
+	public function filterByDeletedAddress($deletedAddress, $comparison = null)
+	{
+		if ($deletedAddress instanceof DeletedAddress) {
+			return $this
+				->addUsingAlias(RegionPeer::ID, $deletedAddress->getRegionid(), $comparison);
+		} elseif ($deletedAddress instanceof PropelCollection) {
+			return $this
+				->useDeletedAddressQuery()
+					->filterByPrimaryKeys($deletedAddress->getPrimaryKeys())
+				->endUse();
+		} else {
+			throw new PropelException('filterByDeletedAddress() only accepts arguments of type DeletedAddress or PropelCollection');
+		}
+	}
+
+	/**
+	 * Adds a JOIN clause to the query using the DeletedAddress relation
+	 * 
+	 * @param     string $relationAlias optional alias for the relation
+	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+	 *
+	 * @return    RegionQuery The current query, for fluid interface
+	 */
+	public function joinDeletedAddress($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+	{
+		$tableMap = $this->getTableMap();
+		$relationMap = $tableMap->getRelation('DeletedAddress');
+		
+		// create a ModelJoin object for this join
+		$join = new ModelJoin();
+		$join->setJoinType($joinType);
+		$join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+		if ($previousJoin = $this->getPreviousJoin()) {
+			$join->setPreviousJoin($previousJoin);
+		}
+		
+		// add the ModelJoin to the current object
+		if($relationAlias) {
+			$this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+			$this->addJoinObject($join, $relationAlias);
+		} else {
+			$this->addJoinObject($join, 'DeletedAddress');
+		}
+		
+		return $this;
+	}
+
+	/**
+	 * Use the DeletedAddress relation DeletedAddress object
+	 *
+	 * @see       useQuery()
+	 * 
+	 * @param     string $relationAlias optional alias for the relation,
+	 *                                   to be used as main alias in the secondary query
+	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+	 *
+	 * @return    DeletedAddressQuery A secondary query class using the current class as primary query
+	 */
+	public function useDeletedAddressQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+	{
+		return $this
+			->joinDeletedAddress($relationAlias, $joinType)
+			->useQuery($relationAlias ? $relationAlias : 'DeletedAddress', 'DeletedAddressQuery');
 	}
 
 	/**

@@ -8,6 +8,7 @@
  *
  * @method     CircuitQuery orderById($order = Criteria::ASC) Order by the id column
  * @method     CircuitQuery orderByName($order = Criteria::ASC) Order by the name column
+ * @method     CircuitQuery orderByAbbreviation($order = Criteria::ASC) Order by the abbreviation column
  * @method     CircuitQuery orderByDescription($order = Criteria::ASC) Order by the description column
  * @method     CircuitQuery orderByLimitsdescription($order = Criteria::ASC) Order by the limitsDescription column
  * @method     CircuitQuery orderByOrderby($order = Criteria::ASC) Order by the orderBy column
@@ -15,6 +16,7 @@
  *
  * @method     CircuitQuery groupById() Group by the id column
  * @method     CircuitQuery groupByName() Group by the name column
+ * @method     CircuitQuery groupByAbbreviation() Group by the abbreviation column
  * @method     CircuitQuery groupByDescription() Group by the description column
  * @method     CircuitQuery groupByLimitsdescription() Group by the limitsDescription column
  * @method     CircuitQuery groupByOrderby() Group by the orderBy column
@@ -36,6 +38,10 @@
  * @method     CircuitQuery rightJoinAddress($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Address relation
  * @method     CircuitQuery innerJoinAddress($relationAlias = null) Adds a INNER JOIN clause to the query using the Address relation
  *
+ * @method     CircuitQuery leftJoinDeletedAddress($relationAlias = null) Adds a LEFT JOIN clause to the query using the DeletedAddress relation
+ * @method     CircuitQuery rightJoinDeletedAddress($relationAlias = null) Adds a RIGHT JOIN clause to the query using the DeletedAddress relation
+ * @method     CircuitQuery innerJoinDeletedAddress($relationAlias = null) Adds a INNER JOIN clause to the query using the DeletedAddress relation
+ *
  * @method     CircuitQuery leftJoinClientAddress($relationAlias = null) Adds a LEFT JOIN clause to the query using the ClientAddress relation
  * @method     CircuitQuery rightJoinClientAddress($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ClientAddress relation
  * @method     CircuitQuery innerJoinClientAddress($relationAlias = null) Adds a INNER JOIN clause to the query using the ClientAddress relation
@@ -45,6 +51,7 @@
  *
  * @method     Circuit findOneById(int $id) Return the first Circuit filtered by the id column
  * @method     Circuit findOneByName(string $name) Return the first Circuit filtered by the name column
+ * @method     Circuit findOneByAbbreviation(string $abbreviation) Return the first Circuit filtered by the abbreviation column
  * @method     Circuit findOneByDescription(string $description) Return the first Circuit filtered by the description column
  * @method     Circuit findOneByLimitsdescription(string $limitsDescription) Return the first Circuit filtered by the limitsDescription column
  * @method     Circuit findOneByOrderby(int $orderBy) Return the first Circuit filtered by the orderBy column
@@ -52,6 +59,7 @@
  *
  * @method     array findById(int $id) Return Circuit objects filtered by the id column
  * @method     array findByName(string $name) Return Circuit objects filtered by the name column
+ * @method     array findByAbbreviation(string $abbreviation) Return Circuit objects filtered by the abbreviation column
  * @method     array findByDescription(string $description) Return Circuit objects filtered by the description column
  * @method     array findByLimitsdescription(string $limitsDescription) Return Circuit objects filtered by the limitsDescription column
  * @method     array findByOrderby(int $orderBy) Return Circuit objects filtered by the orderBy column
@@ -217,6 +225,34 @@ abstract class BaseCircuitQuery extends ModelCriteria
 			}
 		}
 		return $this->addUsingAlias(CircuitPeer::NAME, $name, $comparison);
+	}
+
+	/**
+	 * Filter the query on the abbreviation column
+	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByAbbreviation('fooValue');   // WHERE abbreviation = 'fooValue'
+	 * $query->filterByAbbreviation('%fooValue%'); // WHERE abbreviation LIKE '%fooValue%'
+	 * </code>
+	 *
+	 * @param     string $abbreviation The value to use as filter.
+	 *              Accepts wildcards (* and % trigger a LIKE)
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    CircuitQuery The current query, for fluid interface
+	 */
+	public function filterByAbbreviation($abbreviation = null, $comparison = null)
+	{
+		if (null === $comparison) {
+			if (is_array($abbreviation)) {
+				$comparison = Criteria::IN;
+			} elseif (preg_match('/[\%\*]/', $abbreviation)) {
+				$abbreviation = str_replace('*', '%', $abbreviation);
+				$comparison = Criteria::LIKE;
+			}
+		}
+		return $this->addUsingAlias(CircuitPeer::ABBREVIATION, $abbreviation, $comparison);
 	}
 
 	/**
@@ -560,6 +596,79 @@ abstract class BaseCircuitQuery extends ModelCriteria
 		return $this
 			->joinAddress($relationAlias, $joinType)
 			->useQuery($relationAlias ? $relationAlias : 'Address', 'AddressQuery');
+	}
+
+	/**
+	 * Filter the query by a related DeletedAddress object
+	 *
+	 * @param     DeletedAddress $deletedAddress  the related object to use as filter
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    CircuitQuery The current query, for fluid interface
+	 */
+	public function filterByDeletedAddress($deletedAddress, $comparison = null)
+	{
+		if ($deletedAddress instanceof DeletedAddress) {
+			return $this
+				->addUsingAlias(CircuitPeer::ID, $deletedAddress->getCircuitid(), $comparison);
+		} elseif ($deletedAddress instanceof PropelCollection) {
+			return $this
+				->useDeletedAddressQuery()
+					->filterByPrimaryKeys($deletedAddress->getPrimaryKeys())
+				->endUse();
+		} else {
+			throw new PropelException('filterByDeletedAddress() only accepts arguments of type DeletedAddress or PropelCollection');
+		}
+	}
+
+	/**
+	 * Adds a JOIN clause to the query using the DeletedAddress relation
+	 * 
+	 * @param     string $relationAlias optional alias for the relation
+	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+	 *
+	 * @return    CircuitQuery The current query, for fluid interface
+	 */
+	public function joinDeletedAddress($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+	{
+		$tableMap = $this->getTableMap();
+		$relationMap = $tableMap->getRelation('DeletedAddress');
+		
+		// create a ModelJoin object for this join
+		$join = new ModelJoin();
+		$join->setJoinType($joinType);
+		$join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+		if ($previousJoin = $this->getPreviousJoin()) {
+			$join->setPreviousJoin($previousJoin);
+		}
+		
+		// add the ModelJoin to the current object
+		if($relationAlias) {
+			$this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+			$this->addJoinObject($join, $relationAlias);
+		} else {
+			$this->addJoinObject($join, 'DeletedAddress');
+		}
+		
+		return $this;
+	}
+
+	/**
+	 * Use the DeletedAddress relation DeletedAddress object
+	 *
+	 * @see       useQuery()
+	 * 
+	 * @param     string $relationAlias optional alias for the relation,
+	 *                                   to be used as main alias in the secondary query
+	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+	 *
+	 * @return    DeletedAddressQuery A secondary query class using the current class as primary query
+	 */
+	public function useDeletedAddressQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+	{
+		return $this
+			->joinDeletedAddress($relationAlias, $joinType)
+			->useQuery($relationAlias ? $relationAlias : 'DeletedAddress', 'DeletedAddressQuery');
 	}
 
 	/**

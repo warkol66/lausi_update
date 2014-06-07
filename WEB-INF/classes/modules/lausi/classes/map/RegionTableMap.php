@@ -48,6 +48,7 @@ class RegionTableMap extends TableMap {
 	public function buildRelations()
 	{
     $this->addRelation('Address', 'Address', RelationMap::ONE_TO_MANY, array('id' => 'regionId', ), null, null);
+    $this->addRelation('DeletedAddress', 'DeletedAddress', RelationMap::ONE_TO_MANY, array('id' => 'regionId', ), null, null);
     $this->addRelation('ClientAddress', 'ClientAddress', RelationMap::ONE_TO_MANY, array('id' => 'regionId', ), null, null);
 	} // buildRelations()
 

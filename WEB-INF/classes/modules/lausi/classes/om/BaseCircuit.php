@@ -37,6 +37,12 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 	protected $name;
 
 	/**
+	 * The value for the abbreviation field.
+	 * @var        string
+	 */
+	protected $abbreviation;
+
+	/**
 	 * The value for the description field.
 	 * @var        string
 	 */
@@ -74,6 +80,11 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 	 * @var        array Address[] Collection to store aggregation of Address objects.
 	 */
 	protected $collAddresss;
+
+	/**
+	 * @var        array DeletedAddress[] Collection to store aggregation of DeletedAddress objects.
+	 */
+	protected $collDeletedAddresss;
 
 	/**
 	 * @var        array ClientAddress[] Collection to store aggregation of ClientAddress objects.
@@ -120,6 +131,16 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 	}
 
 	/**
+	 * Get the [abbreviation] column value.
+	 * Abreviatura del Nombre del circuito
+	 * @return     string
+	 */
+	public function getAbbreviation()
+	{
+		return $this->abbreviation;
+	}
+
+	/**
 	 * Get the [description] column value.
 	 * descripcion del circuito
 	 * @return     string
@@ -131,7 +152,7 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 
 	/**
 	 * Get the [limitsdescription] column value.
-	 * descripcion de los limites del circuito
+	 * Descripcion de los limites del circuito
 	 * @return     string
 	 */
 	public function getLimitsdescription()
@@ -200,6 +221,26 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 	} // setName()
 
 	/**
+	 * Set the value of [abbreviation] column.
+	 * Abreviatura del Nombre del circuito
+	 * @param      string $v new value
+	 * @return     Circuit The current object (for fluent API support)
+	 */
+	public function setAbbreviation($v)
+	{
+		if ($v !== null) {
+			$v = (string) $v;
+		}
+
+		if ($this->abbreviation !== $v) {
+			$this->abbreviation = $v;
+			$this->modifiedColumns[] = CircuitPeer::ABBREVIATION;
+		}
+
+		return $this;
+	} // setAbbreviation()
+
+	/**
 	 * Set the value of [description] column.
 	 * descripcion del circuito
 	 * @param      string $v new value
@@ -221,7 +262,7 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 
 	/**
 	 * Set the value of [limitsdescription] column.
-	 * descripcion de los limites del circuito
+	 * Descripcion de los limites del circuito
 	 * @param      string $v new value
 	 * @return     Circuit The current object (for fluent API support)
 	 */
@@ -313,10 +354,11 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 
 			$this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
 			$this->name = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
-			$this->description = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
-			$this->limitsdescription = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
-			$this->orderby = ($row[$startcol + 4] !== null) ? (int) $row[$startcol + 4] : null;
-			$this->color = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
+			$this->abbreviation = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
+			$this->description = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
+			$this->limitsdescription = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
+			$this->orderby = ($row[$startcol + 5] !== null) ? (int) $row[$startcol + 5] : null;
+			$this->color = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -325,7 +367,7 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 6; // 6 = CircuitPeer::NUM_HYDRATE_COLUMNS.
+			return $startcol + 7; // 7 = CircuitPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Circuit object", $e);
@@ -392,6 +434,8 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 			$this->collWorkforceCircuits = null;
 
 			$this->collAddresss = null;
+
+			$this->collDeletedAddresss = null;
 
 			$this->collClientAddresss = null;
 
@@ -553,6 +597,14 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 				}
 			}
 
+			if ($this->collDeletedAddresss !== null) {
+				foreach ($this->collDeletedAddresss as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
 			if ($this->collClientAddresss !== null) {
 				foreach ($this->collClientAddresss as $referrerFK) {
 					if (!$referrerFK->isDeleted()) {
@@ -656,6 +708,14 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 					}
 				}
 
+				if ($this->collDeletedAddresss !== null) {
+					foreach ($this->collDeletedAddresss as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
 				if ($this->collClientAddresss !== null) {
 					foreach ($this->collClientAddresss as $referrerFK) {
 						if (!$referrerFK->validate($columns)) {
@@ -704,15 +764,18 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 				return $this->getName();
 				break;
 			case 2:
-				return $this->getDescription();
+				return $this->getAbbreviation();
 				break;
 			case 3:
-				return $this->getLimitsdescription();
+				return $this->getDescription();
 				break;
 			case 4:
-				return $this->getOrderby();
+				return $this->getLimitsdescription();
 				break;
 			case 5:
+				return $this->getOrderby();
+				break;
+			case 6:
 				return $this->getColor();
 				break;
 			default:
@@ -746,10 +809,11 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 		$result = array(
 			$keys[0] => $this->getId(),
 			$keys[1] => $this->getName(),
-			$keys[2] => $this->getDescription(),
-			$keys[3] => $this->getLimitsdescription(),
-			$keys[4] => $this->getOrderby(),
-			$keys[5] => $this->getColor(),
+			$keys[2] => $this->getAbbreviation(),
+			$keys[3] => $this->getDescription(),
+			$keys[4] => $this->getLimitsdescription(),
+			$keys[5] => $this->getOrderby(),
+			$keys[6] => $this->getColor(),
 		);
 		if ($includeForeignObjects) {
 			if (null !== $this->collCircuitPoints) {
@@ -760,6 +824,9 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 			}
 			if (null !== $this->collAddresss) {
 				$result['Addresss'] = $this->collAddresss->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+			}
+			if (null !== $this->collDeletedAddresss) {
+				$result['DeletedAddresss'] = $this->collDeletedAddresss->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
 			}
 			if (null !== $this->collClientAddresss) {
 				$result['ClientAddresss'] = $this->collClientAddresss->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
@@ -802,15 +869,18 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 				$this->setName($value);
 				break;
 			case 2:
-				$this->setDescription($value);
+				$this->setAbbreviation($value);
 				break;
 			case 3:
-				$this->setLimitsdescription($value);
+				$this->setDescription($value);
 				break;
 			case 4:
-				$this->setOrderby($value);
+				$this->setLimitsdescription($value);
 				break;
 			case 5:
+				$this->setOrderby($value);
+				break;
+			case 6:
 				$this->setColor($value);
 				break;
 		} // switch()
@@ -839,10 +909,11 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
 		if (array_key_exists($keys[1], $arr)) $this->setName($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setDescription($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setLimitsdescription($arr[$keys[3]]);
-		if (array_key_exists($keys[4], $arr)) $this->setOrderby($arr[$keys[4]]);
-		if (array_key_exists($keys[5], $arr)) $this->setColor($arr[$keys[5]]);
+		if (array_key_exists($keys[2], $arr)) $this->setAbbreviation($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setDescription($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setLimitsdescription($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setOrderby($arr[$keys[5]]);
+		if (array_key_exists($keys[6], $arr)) $this->setColor($arr[$keys[6]]);
 	}
 
 	/**
@@ -856,6 +927,7 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 
 		if ($this->isColumnModified(CircuitPeer::ID)) $criteria->add(CircuitPeer::ID, $this->id);
 		if ($this->isColumnModified(CircuitPeer::NAME)) $criteria->add(CircuitPeer::NAME, $this->name);
+		if ($this->isColumnModified(CircuitPeer::ABBREVIATION)) $criteria->add(CircuitPeer::ABBREVIATION, $this->abbreviation);
 		if ($this->isColumnModified(CircuitPeer::DESCRIPTION)) $criteria->add(CircuitPeer::DESCRIPTION, $this->description);
 		if ($this->isColumnModified(CircuitPeer::LIMITSDESCRIPTION)) $criteria->add(CircuitPeer::LIMITSDESCRIPTION, $this->limitsdescription);
 		if ($this->isColumnModified(CircuitPeer::ORDERBY)) $criteria->add(CircuitPeer::ORDERBY, $this->orderby);
@@ -923,6 +995,7 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
 		$copyObj->setName($this->getName());
+		$copyObj->setAbbreviation($this->getAbbreviation());
 		$copyObj->setDescription($this->getDescription());
 		$copyObj->setLimitsdescription($this->getLimitsdescription());
 		$copyObj->setOrderby($this->getOrderby());
@@ -948,6 +1021,12 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 			foreach ($this->getAddresss() as $relObj) {
 				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
 					$copyObj->addAddress($relObj->copy($deepCopy));
+				}
+			}
+
+			foreach ($this->getDeletedAddresss() as $relObj) {
+				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+					$copyObj->addDeletedAddress($relObj->copy($deepCopy));
 				}
 			}
 
@@ -1399,6 +1478,146 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 	}
 
 	/**
+	 * Clears out the collDeletedAddresss collection
+	 *
+	 * This does not modify the database; however, it will remove any associated objects, causing
+	 * them to be refetched by subsequent calls to accessor method.
+	 *
+	 * @return     void
+	 * @see        addDeletedAddresss()
+	 */
+	public function clearDeletedAddresss()
+	{
+		$this->collDeletedAddresss = null; // important to set this to NULL since that means it is uninitialized
+	}
+
+	/**
+	 * Initializes the collDeletedAddresss collection.
+	 *
+	 * By default this just sets the collDeletedAddresss collection to an empty array (like clearcollDeletedAddresss());
+	 * however, you may wish to override this method in your stub class to provide setting appropriate
+	 * to your application -- for example, setting the initial array to the values stored in database.
+	 *
+	 * @param      boolean $overrideExisting If set to true, the method call initializes
+	 *                                        the collection even if it is not empty
+	 *
+	 * @return     void
+	 */
+	public function initDeletedAddresss($overrideExisting = true)
+	{
+		if (null !== $this->collDeletedAddresss && !$overrideExisting) {
+			return;
+		}
+		$this->collDeletedAddresss = new PropelObjectCollection();
+		$this->collDeletedAddresss->setModel('DeletedAddress');
+	}
+
+	/**
+	 * Gets an array of DeletedAddress objects which contain a foreign key that references this object.
+	 *
+	 * If the $criteria is not null, it is used to always fetch the results from the database.
+	 * Otherwise the results are fetched from the database the first time, then cached.
+	 * Next time the same method is called without $criteria, the cached collection is returned.
+	 * If this Circuit is new, it will return
+	 * an empty collection or the current collection; the criteria is ignored on a new object.
+	 *
+	 * @param      Criteria $criteria optional Criteria object to narrow the query
+	 * @param      PropelPDO $con optional connection object
+	 * @return     PropelCollection|array DeletedAddress[] List of DeletedAddress objects
+	 * @throws     PropelException
+	 */
+	public function getDeletedAddresss($criteria = null, PropelPDO $con = null)
+	{
+		if(null === $this->collDeletedAddresss || null !== $criteria) {
+			if ($this->isNew() && null === $this->collDeletedAddresss) {
+				// return empty collection
+				$this->initDeletedAddresss();
+			} else {
+				$collDeletedAddresss = DeletedAddressQuery::create(null, $criteria)
+					->filterByCircuit($this)
+					->find($con);
+				if (null !== $criteria) {
+					return $collDeletedAddresss;
+				}
+				$this->collDeletedAddresss = $collDeletedAddresss;
+			}
+		}
+		return $this->collDeletedAddresss;
+	}
+
+	/**
+	 * Returns the number of related DeletedAddress objects.
+	 *
+	 * @param      Criteria $criteria
+	 * @param      boolean $distinct
+	 * @param      PropelPDO $con
+	 * @return     int Count of related DeletedAddress objects.
+	 * @throws     PropelException
+	 */
+	public function countDeletedAddresss(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+	{
+		if(null === $this->collDeletedAddresss || null !== $criteria) {
+			if ($this->isNew() && null === $this->collDeletedAddresss) {
+				return 0;
+			} else {
+				$query = DeletedAddressQuery::create(null, $criteria);
+				if($distinct) {
+					$query->distinct();
+				}
+				return $query
+					->filterByCircuit($this)
+					->count($con);
+			}
+		} else {
+			return count($this->collDeletedAddresss);
+		}
+	}
+
+	/**
+	 * Method called to associate a DeletedAddress object to this object
+	 * through the DeletedAddress foreign key attribute.
+	 *
+	 * @param      DeletedAddress $l DeletedAddress
+	 * @return     void
+	 * @throws     PropelException
+	 */
+	public function addDeletedAddress(DeletedAddress $l)
+	{
+		if ($this->collDeletedAddresss === null) {
+			$this->initDeletedAddresss();
+		}
+		if (!$this->collDeletedAddresss->contains($l)) { // only add it if the **same** object is not already associated
+			$this->collDeletedAddresss[]= $l;
+			$l->setCircuit($this);
+		}
+	}
+
+
+	/**
+	 * If this collection has already been initialized with
+	 * an identical criteria, it returns the collection.
+	 * Otherwise if this Circuit is new, it will return
+	 * an empty collection; or if this Circuit has previously
+	 * been saved, it will retrieve related DeletedAddresss from storage.
+	 *
+	 * This method is protected by default in order to keep the public
+	 * api reasonable.  You can provide public methods for those you
+	 * actually need in Circuit.
+	 *
+	 * @param      Criteria $criteria optional Criteria object to narrow the query
+	 * @param      PropelPDO $con optional connection object
+	 * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+	 * @return     PropelCollection|array DeletedAddress[] List of DeletedAddress objects
+	 */
+	public function getDeletedAddresssJoinRegion($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	{
+		$query = DeletedAddressQuery::create(null, $criteria);
+		$query->joinWith('Region', $join_behavior);
+
+		return $this->getDeletedAddresss($query, $con);
+	}
+
+	/**
 	 * Clears out the collClientAddresss collection
 	 *
 	 * This does not modify the database; however, it will remove any associated objects, causing
@@ -1683,6 +1902,7 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 	{
 		$this->id = null;
 		$this->name = null;
+		$this->abbreviation = null;
 		$this->description = null;
 		$this->limitsdescription = null;
 		$this->orderby = null;
@@ -1722,6 +1942,11 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 					$o->clearAllReferences($deep);
 				}
 			}
+			if ($this->collDeletedAddresss) {
+				foreach ($this->collDeletedAddresss as $o) {
+					$o->clearAllReferences($deep);
+				}
+			}
 			if ($this->collClientAddresss) {
 				foreach ($this->collClientAddresss as $o) {
 					$o->clearAllReferences($deep);
@@ -1741,6 +1966,10 @@ abstract class BaseCircuit extends BaseObject  implements Persistent
 			$this->collAddresss->clearIterator();
 		}
 		$this->collAddresss = null;
+		if ($this->collDeletedAddresss instanceof PropelCollection) {
+			$this->collDeletedAddresss->clearIterator();
+		}
+		$this->collDeletedAddresss = null;
 		if ($this->collClientAddresss instanceof PropelCollection) {
 			$this->collClientAddresss->clearIterator();
 		}
