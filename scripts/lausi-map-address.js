@@ -107,9 +107,11 @@ AddressMap = function() {
 		var _this = this;
 		var corrections = {
 			'Boca': 'La Boca',
+			'Caballito, Buenos Aires': 'Caballito',			
 			'Chacabuco Park':'Parque Chacabuco',
 			'Monserrat': 'Montserrat',
 			'Núñez': 'Nuñez',
+			'San Cristóbal, Buenos Aires': 'San Cristóbal',
 			'San Nicolas': 'San Nicolás',
 			'Villa Ortuzar': 'Villa Ortúzar',
 			'Villa Pueyrredón': 'Villa Pueyrredon',
@@ -117,7 +119,6 @@ AddressMap = function() {
 			'Vélez Sársfield': 'Velez Sarsfield',
 			'Vélez Sarsfield': 'Velez Sarsfield'
 		};
-
 		if (corrections[region])
 			region = corrections[region];
 	
