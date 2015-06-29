@@ -79,7 +79,11 @@
 				<label>Solo direcciones por cliente</label>
 				<input type="checkbox" name="onlyAddresses" value="1" |-$onlyAddresses|checked:1-|/>
 			</p>
-|-/if-|				
+|-/if-|
+			<p>
+				<label>Ver barrios</label>
+				<input type="checkbox" name="filters[viewRegions]" |-if isset($filters.viewRegions)-|checked="checked"|-/if-|/>
+			</p>
 			<p>
 				<input type="hidden" name="do" value="lausiAdvertisementsList" />	
 				|-if $clientReport eq 1-|
@@ -103,11 +107,14 @@
 			<thead>
 				|-if $printReport eq ''-|
 				<tr>
-					 <th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit|-include file='FiltersRedirectUrlInclude.tpl' filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Aviso</a></div></th>
+					 <th colspan="5" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit|-include file='FiltersRedirectUrlInclude.tpl' filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Aviso</a></div></th>
 				</tr>
 				|-/if-|
 				<tr>
 					<th>Dirección</th>
+				|-if isset($filters.viewRegions)-|
+				<th>Barrio</th>
+				|-/if-|
 					<th># Padrón</th>
 					<th>Motivo</th>
 					|-if $onlyAddresses eq ''-|
@@ -123,6 +130,9 @@
 						|-if $billboard-||-assign var=address value=$billboard->getAddress()-||-/if-|
 						|-if $address-||-$address-||-/if-|						
 					</td>
+				|-if isset($filters.viewRegions)-|
+				<td>|-$address->getRegionName()-|</td>
+				|-/if-|
 					<td>
 						|-if $address-||-$address->getEnumeration()-||-/if-|						
 					</td>
@@ -139,12 +149,12 @@
 			|-/foreach-|						
 				|-if $pager neq '' and $pager->haveToPaginate()-|
 				<tr> 
-					<td colspan="4" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
+					<td colspan="5" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 				</tr>
 				|-/if-|								
 				|-if $printReport eq ''-|
 				<tr>
-					 <th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit|-include file='FiltersRedirectUrlInclude.tpl' filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Aviso</a></div></th>
+					 <th colspan="5" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit|-include file='FiltersRedirectUrlInclude.tpl' filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Aviso</a></div></th>
 				</tr>
 				|-/if-|
 			</tbody>
@@ -154,12 +164,15 @@
 			<thead>
 				|-if $printReport eq ''-|
 				<tr>
-					 <th colspan="10" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit|-include file='FiltersRedirectUrlInclude.tpl' filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Aviso</a></div></th>
+					 <th colspan="11" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit|-include file='FiltersRedirectUrlInclude.tpl' filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Aviso</a></div></th>
 				</tr>
 				|-/if-|
 				<tr>
 					<th>Circuito</th>
 					<th>Dirección</th>
+				|-if isset($filters.viewRegions)-|
+				<th>Barrio</th>
+				|-/if-|
 					<th># Padrón</th>
 					<th>Motivo</th>
 				|-if $onlyAddresses eq ''-|
@@ -187,11 +200,10 @@
 				<td>
 					|-if $address ne ''-||-$address-||-/if-|
 				</td>
-				<td>
-					|-if $address ne ''-||-$address->getEnumeration()-||-/if-|
-				</td>
-				
-				
+				|-if isset($filters.viewRegions)-|
+				<td>|-$address->getRegionName()-|</td>
+				|-/if-|
+				<td>|-if $address ne ''-||-$address->getEnumeration()-||-/if-|</td>
 				<td>|-if $theme ne ''-||-$theme->getShortName()-||-/if-|</td>
 				|-if $onlyAddresses eq ''-|
 				<td>|-if $theme ne ''-||-$theme->getTypeName()-||-/if-|</td>
@@ -227,12 +239,12 @@
 			|-/foreach-|						
 			|-if $pager neq '' and $pager->haveToPaginate()-|
 				<tr> 
-					<td colspan="10" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
+					<td colspan="11" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 				</tr>							
 			|-/if-|						
 				|-if $printReport eq ''-|
 				<tr>
-					 <th colspan="10" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit|-include file='FiltersRedirectUrlInclude.tpl' filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Aviso</a></div></th>
+					 <th colspan="11" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAdvertisementsEdit|-include file='FiltersRedirectUrlInclude.tpl' filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Aviso</a></div></th>
 				</tr>
 				|-/if-|
 			</tbody>

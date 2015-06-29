@@ -14,6 +14,7 @@
 	</headers>
 	<tableHeaders>
 		<header>Dirección</header>
+		<header>Barrio</header>
 		<header>Padrón</header>
 		|-if isset($viewDetail)-|
 			|-if $type eq 1-|
@@ -31,6 +32,7 @@
 	<tableValues>|-foreach from=$addresses item=address name=for_billboards-|
 		<row>
 			<address>|-$address->getName()-|</address>
+			<region>|-assign var=region value=$address->getRegion()-||-if is_object($region)-||-$region->getName()-||-/if-|</region>
 			<enumeration>|-$address->getEnumeration()-|</enumeration>
 			|-if isset($viewDetail)-||-if $type eq 1-|
 			<dobles>|-$address->getBillboardCountByType(1)-|</dobles>

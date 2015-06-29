@@ -20,6 +20,10 @@
 				<label>Ver cantidades por dirección</label>
 				<input type="checkbox" name="viewDetail" |-if isset($viewDetail)-|checked="checked"|-/if-|/>
 			</p>
+			<p>
+				<label>Ver barrios</label>
+				<input type="checkbox" name="viewRegions" |-if isset($viewRegions)-|checked="checked"|-/if-|/>
+			</p>
 			<p style="margin-top: 20px;">
 				<input type="hidden" name="reportMode" value="normal" id="reportMode"/>
 				<input type="hidden" name="do" value="lausiReportsAddresses" />
@@ -37,6 +41,9 @@
 		<thead>
 			<tr>
 				<th width="25%">Dirección</th>
+				|-if isset($viewRegions)-|
+				<th width="10%">Barrio</th>
+				|-/if-|
 				<th width="10%"># Padrón</th>
 				<th width="10%">Fecha Alta</th>
 				|-if isset($viewDetail)-|
@@ -56,6 +63,9 @@
 		|-foreach from=$addresses item=address name=for_billboards-|
 			<tr>
 				<td>|-$address->getName()-|</td>
+				|-if isset($viewRegions)-|
+				<td>|-$address->getRegionName()-|</td>
+				|-/if-|
 				<td>|-$address->getEnumeration()-|</td>
 				<td>|-$address->getCreationDate()|date_format-|</td>
 				|-if isset($viewDetail)-|
@@ -73,7 +83,7 @@
 		|-/foreach-|					
 		|-if isset($pager) and $pager->haveToPaginate()-|
 			<tr> 
-				<td colspan="|-if isset($viewDetail)-||-if isset($type)-|4|-else-|5|-/if-||-else-|3|-/if-|" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
+				<td colspan="|-if isset($viewDetail)-||-if isset($type)-|5|-else-|6|-/if-||-else-|4|-/if-|" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 			</tr>							
 		|-/if-|
 		</tbody>

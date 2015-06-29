@@ -11,6 +11,7 @@
 	|-if $noGroupByAddressAndTheme neq '1'-|
 	<tableHeaders>
 		<header>Dirección</header>
+		|-if isset($filters.viewRegions)-|<header>Barrio</header>|-/if-|
 		<header>Motivo</header>
 		|-if !$onlyAddresses-|
 		<header>Avisos</header>
@@ -20,6 +21,7 @@
 			|-foreach from=$advertisements item=advertisement name=for_advertisements-|
 				<row>
 					<address>|-assign var=billboard value=$advertisement->getBillboard()-||-if $billboard-||-assign var=address value=$billboard->getAddress()-||-/if-||-if $address-||-$address->getName()-||-/if-|</address>
+					|-if isset($filters.viewRegions)-|<zone>|-$address->getRegionName()-|</zone>|-/if-|
 					<theme>|-assign var=theme value=$advertisement->getTheme()-||-if $theme-||-$theme->getShortName()-||-/if-|</theme>
 					|-if !$onlyAddresses-|<themes>|-$advertisement->getThemesCount()-|</themes>|-/if-|
 				</row>
@@ -29,6 +31,7 @@
 	<tableHeaders>
 			<header>Circuito</header>
 			<header>Dirección</header>
+			|-if isset($filters.viewRegions)-|<zone>|-$address->getRegionName()-|</zone>|-/if-|
 			<header>Motivo</header>
 			|-if $onlyAddresses eq ''-|<header>Tipo</header>
 			<header>Cartelera</header>
@@ -42,6 +45,7 @@
 			|-assign var=billboard value=$advertisement->getBillboard()-|
 			|-if $billboard-||-assign var=address value=$billboard->getAddress()-||-/if-|
 			|-if $address-||-assign var=circuit value=$address->getCircuit()-||-/if-|
+				|-if isset($filters.viewRegions)-|<zone>|-$address->getRegionName()-|</zone>|-/if-|
 				<circuit>|-if $circuit ne ''-||-$circuit->getName()-||-/if-|</circuit>
 				<address>|-if $address ne ''-||-$address->getName()-||-/if-|</address>
 				<theme>|-if $theme ne ''-||-$theme->getShortName()-||-/if-|</theme>
