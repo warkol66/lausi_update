@@ -210,4 +210,17 @@ class Address extends BaseAddress {
 		//cada grado de latitud equivale a 90000
 		return sqrt(pow(($this->getLatitude() - $otherAddress->getLatitude()) * 90000,2)+ pow(($this->getLongitude() - $otherAddress->getLongitude()) * 110900,2));
 	}
+
+	/**
+	 * Obtiene el nombre del barrio
+	 * @return string nombre del barrio
+	 */
+	public function getRegionName()	{
+		$region = $this->getRegion();
+		if (is_object($region))
+			return $region->getName();
+		else
+			return;
+	}
+
 } // Address
