@@ -60,11 +60,14 @@ class LausiReportsAddressesAction extends BaseAction {
 				$smarty->assign('viewDetail',$_GET['viewDetail']);
 			}
 		
+			if (!empty($_GET['viewRegions']))
+				$smarty->assign('viewRegions',$_REQUEST['viewRegions']);
+
 			if ($_GET['reportMode'] == 'normal') {
 				$pager = Common::getAllPaginatedFiltered($addressPeer, $_GET["page"]);
 				$smarty->assign("addresses",$pager->getResults());
 				$smarty->assign("pager",$pager);
-				$url = "Main.php?do=lausiReportsAddresses&type=".$_GET['type']."&page=".$_GET['page']."&viewDetail=".$_GET['viewDetail']."&reportMode=".$_GET['reportMode'];
+				$url = "Main.php?do=lausiReportsAddresses&type=".$_GET['type']."&page=".$_GET['page']."&viewDetail=".$_GET['viewDetail']."&reportMode=".$_GET['reportMode']."&viewRegions=".$_GET['viewRegions'];
 				$smarty->assign("url",$url);
    			} elseif ($_GET['reportMode'] == 'print') {
 				$this->template->template = "TemplatePrint.tpl";
