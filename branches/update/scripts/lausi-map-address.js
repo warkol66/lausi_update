@@ -85,6 +85,10 @@ AddressMap = function() {
 		$('longitude').value = result.geometry.location.lng();
 		
 		var region = _this.getComponent(addressComponents, 'neighborhood').long_name;
+		if (!region) {
+			var region = _this.getComponent(addressComponents, 'sublocality_level_1').long_name;
+		}
+
 		_this.selectRegion(region);
 		
 		$('button_edit_address').enable();
