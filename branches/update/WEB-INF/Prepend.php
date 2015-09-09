@@ -19,7 +19,11 @@ else {
 }
 
 if (!empty($propelVersion)) {
-	require_once 'lib/Propel.php';
+	if (defined('PHPMVC_PERFORM'))
+		require_once '/runtime/lib/Propel.php';
+//		require_once $propelVersion.'/runtime/lib/Propel.php';
+	else
+		require_once 'lib/Propel.php';
 	Propel::init("$moduleRootDir/config/application-conf.php");
 }
 

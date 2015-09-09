@@ -31,6 +31,12 @@ class DBConnection extends DB_Sql {
 		$this->Password = $password;
 		$this->Port = $port;
 
+		//Verifico que se puede conectar a la base, de lo contrario die
+		if (!$this->connect()) {
+			echo "No db conection!!!";
+			die();
+		}
+
 	}
 
 }
