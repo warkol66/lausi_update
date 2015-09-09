@@ -7,11 +7,11 @@
 				<element_type>YES/NO</element_type>
 			</debugMode>
 			<developmentMode>
-				<value>YES</value>
+				<value>NO</value>
 				<element_type>YES/NO</element_type>
 			</developmentMode>
 			<mailCapture>
-				<value>YES</value>
+				<value>NO</value>
 				<element_type>YES/NO</element_type>
 			</mailCapture>
 			<underMaintenance>
@@ -51,27 +51,27 @@
 			<decimalSeparator>,</decimalSeparator>
 			<numberOfDecimals>2</numberOfDecimals>
 			<siteName>LAUSI - Vía Pública</siteName>
-			<siteDescription>Sistema de Gestión de Activos de Vía Pública</siteDescription>
-			<siteShortName>lausi</siteShortName>
+			<siteDescription>Sistema de Gestión de Activos de Lausi Vía Pública</siteDescription>
+			<siteShortName>lausiBiz</siteShortName>
 			<webmasterMail>moddebugger@gmail.com</webmasterMail>
 			<debugMail>moddebugger@gmail.com</debugMail>
-			<fromEmail>moddebugger@gmail.com</fromEmail>
+			<fromEmail>depositolausi@fibercorp.com.ar</fromEmail>
 			<tablePrefix></tablePrefix>
-			<news>Novedades: Bienvenido al Sistema de Gestión de Activos de vía Pública.</news>
-			<affiliateNews>Novedades: Bienvenido al Sistema de Gestión de Activos de vía Pública.</affiliateNews>
+			<news>Novedades: Bienvenido al Sistema de Gestión de Activos Publicitarios de Lausi - Vía Pública.</news>
+			<affiliateNews>Novedades: Bienvenido al Sistema de Gestión de Activos de Lausi - Vía Pública.</affiliateNews>
 		</parameters>
 		<errorReporting>
-			<value>E_ALL</value>
+			<value>NONE</value>
 			<element_type>Options</element_type>
 			<element_options>
-				<option_1></option_1>
+				<option_1>NONE</option_1>
 				<option_2>E_ALL ^ E_NOTICE</option_2>
 				<option_3>E_ALL</option_3>
 				<option_4>E_STRICT</option_4>
 			</element_options>
 		</errorReporting>
 		<rowsPerPage>50</rowsPerPage>
-		<receiveMailBackup>lausi@datamarkets.com.ar,moddebugger@gmail.com</receiveMailBackup>
+		<receiveMailBackup>depositolausi@fibercorp.com.ar,moddebugger@gmail.com</receiveMailBackup>
 	</system>
 	<lausi>
 		<availableBillboardsDays>5</availableBillboardsDays>
@@ -86,10 +86,10 @@
 			</element_options>
 		</mode>
 		<smtpOptions>
-			<smtpHost>mail.anmagaexport.modulserver.com.ar</smtpHost>
+			<smtpHost>lausiupdate.sistemas.biz</smtpHost>
 			<smtpPort>587</smtpPort>
-			<smtpUsername>anmagaex</smtpUsername>
-			<smtpPassword>Anmaga</smtpPassword>
+			<smtpUsername>debugger@lausiupdate.sistemas.biz</smtpUsername>
+			<smtpPassword>Debug2k13</smtpPassword>
 			<smtpSsl>
 				<value>NO</value>
 				<element_type>YES/NO</element_type>
