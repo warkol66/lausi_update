@@ -46,8 +46,8 @@ class LausiClientAddressesDoEditAction extends BaseAction {
 		
 		$params = $_POST['address'];
 
-		$params["latitude"] = Common::convertToMysqlNumericFormat($params["latitude"]);
-		$params["longitude"] = Common::convertToMysqlNumericFormat($params["longitude"]);
+//		$params["latitude"] = Common::convertToMysqlNumericFormat($params["latitude"]);
+//		$params["longitude"] = Common::convertToMysqlNumericFormat($params["longitude"]);
 
 		if ( !empty($_POST["id"]) ) {
 			//estoy editando un clientaddress existente
