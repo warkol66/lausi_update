@@ -13,20 +13,21 @@
 	<table id="tabla-addresses" width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 		<thead>
 			<tr>
-				 <th colspan="6" class="thFillTitle">|-$description-|</th>
+				 <th colspan="4" class="thFillTitle">|-$description-|</th>
 			</tr>
 		|-if empty($result.options)-|
 		</thead>
 		<tbody>
 			<tr>
-				 <th colspan="6" class="thFillTitle">No se han obtenido resultados</th>
+				 <th colspan="4" class="thFillTitle">No se han obtenido resultados</th>
 			</tr>
 		</tbody>
 		|-else-|
 			<tr>
-				<th width="60%" colspan="2">Dirección</th>
-<!--				<th width="10%">Número de Carteleras</th> -->
-				<th width="40%">Ultimo Motivo</th>				
+			  <th width="2%">&nbsp;</th>
+			  <th width="3%">Alt.</th>
+				<th width="60%">Dirección</th>
+				<th width="35%">Último Motivo</th>				
 			</tr>
 		</thead>
 		<tbody>
@@ -42,19 +43,19 @@
 			<tr  class="nopaddingCell">	
 		|-else-|
 			|-assign var=address value=$byAddress.address-|
-			<tr><td colspan="3">|-$address->getName()-| ( |-$byAddress.selected-| Seleccionadas / |-$byAddress.elements|@count-| Disponibles) [ <a href="javascript:switch_vis('div_|-$address->getId()-|')" class="edit">Editar</a> ]</td>	
+			<tr><td colspan="4">|-$address->getName()-| ( |-$byAddress.selected-| Seleccionadas / |-$byAddress.elements|@count-| Disponibles) [ <a href="javascript:switch_vis('div_|-$address->getId()-|')" class="edit">Editar</a> ]</td>	
 			</tr>
 			<tr  class="nopaddingCell">
-			<td colspan="3" class="noPaddingCell">
+			<td colspan="4" class="noPaddingCell">
 				<div id="div_|-$address->getId()-|" style="display:none; margin:0; padding:0;">
 				<table id="tabla-addresses|-$address->getName()-|" width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 			|-foreach from=$byAddress.elements item=billboard name=for_billboards-|			
 				|-assign var=address value=$billboard->getAddress()-|
 				<tr>
 					<td width="2%" nowrap><input type="checkbox" name="toDistribute[]" |-if $billboard->isChecked() -|checked="checked"|-/if-| value="|-$billboard->getId()-|" onClick="var checkedsCount = $$('#div_|-$address->getId()-| input:checked').size();if (checkedsCount == 0) {distributionMap.markAvailable(|-$address->getId()-|)} else if (checkedsCount == |-$byAddress.elements|@count-|){distributionMap.markAssigned(|-$address->getId()-|)} else {distributionMap.markPartiallyAssigned(|-$address->getId()-|)}"/></td>
+				  <td width="5%">|-$billboard->getHeight()|si_no-|</td>
 					<td width="60%">|-$address->getName()-|</td>
-<!--					|-$billboard->getNumber()-|  -->
-					<td width="38%">|-assign var=lastTheme value=$billboard->getLastTheme()-||-if $lastTheme neq false-||-$lastTheme->getName()-||-else-|-|-/if-|</td>				
+					<td width="35%">|-assign var=lastTheme value=$billboard->getLastTheme()-||-if $lastTheme neq false-||-$lastTheme->getName()-||-else-|-|-/if-|</td>				
 				<tr>		
 			|-/foreach-|
 			</table>
@@ -64,7 +65,7 @@
 		|-/if-|					
 		|-/foreach-|						
 			<tr> 
-				<td colspan="6">
+				<td colspan="4">
 					<input type="hidden" name="themeId" value="|-$theme->getId()-|" />
 					<input type="hidden" name="publishDate" value="|-$publishDate-|" />
 					<input type="hidden" name="duration" value="|-$duration-|"/>
