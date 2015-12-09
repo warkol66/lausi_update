@@ -21,7 +21,7 @@
 			</p>
 			<p>
 				<label for="billboard[height]">En Altura</label>
-				<input type="checkbox" id="height" name="billboard[height" value="1"|-if $billboard->getheight() eq '1'-| checked="checked"|-/if-| />
+				<input type="checkbox" id="height" name="billboard[height]" value="1"|-if $billboard->getheight() eq '1'-| checked="checked"|-/if-| />
 			</p>
 			<p>
 				<label for="billboard[row]">Fila</label>
