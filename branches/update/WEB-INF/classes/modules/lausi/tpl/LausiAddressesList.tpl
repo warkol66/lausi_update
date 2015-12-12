@@ -91,7 +91,9 @@
 					|-assign var=circuit value=$address->getCircuit()-|
 					|-if $circuit-||-$circuit->getabbreviation()-||-/if-|				</td>
 				<td nowrap>
-					<button type="button" onclick="viewImages(|-$address->getId()-|)" class="icon iconView">Ver Imágenes</button>
+					|-if $address->countPhotos() > 0-|
+						<button type="button" onclick="viewImages(|-$address->getId()-|)" class="icon iconView">Ver Imágenes</button>
+					|-/if-|
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="lausiAddressesEdit" />
 						<input type="hidden" name="id" value="|-$address->getid()-|" />
