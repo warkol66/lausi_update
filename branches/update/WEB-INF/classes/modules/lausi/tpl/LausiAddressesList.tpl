@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="scripts/egytca/carousel/index.css">
+<script src="scripts/egytca/carousel/index.js"></script>
+
 <h2>Administración de Direcciones</h2>
 <h1>Direcciones del Sistema</h1>
 <p>A continuación se muestra el listado de direcciones disponibles en el sistema. Para buscar una dirección, puede ingresar los parámetros de filtro disponibles en la parte superior del listado. Para agregar una nueva dirección, haga click en "Agregar direción". Para modificar o eliminar una dirección, utilice los controles disponibles en la fila correspondiente a la misma.</p>
@@ -20,7 +23,7 @@
 					|-foreach from=$circuits item=circuit name=for_circuit-|
 						<option value="|-$circuit->getId()-|" |-$circuit->getId()|selected:$filters.searchCircuitId-|>|-$circuit->getName()-|</option>
 					|-/foreach-|
-				</select>				
+				</select>
 			</p>
 			<p>
 				<label for="filters[searchRegionId]">Barrio</label>
@@ -41,7 +44,7 @@
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="filters[searchEnumeration]"># Padrón</label>
 				<input type="text" name="filters[searchEnumeration]" value="|-$filters.searchEnumeration-|" size="15" />
 </p>
-				
+
 			<p>
 				<input type="hidden" name="do" value="lausiAddressesList" />
 				<input type="submit" value="Aplicar Filtro" />
@@ -69,7 +72,7 @@
 		|-if empty($addresses)-|
 			<tr>No hay resultados disponibles</tr>
 		|-/if-|
-		
+
 		|-foreach from=$addresses item=address name=for_addresses-|
 			<tr>
 				<td>|-$address->getstreet()-|</td>
@@ -88,6 +91,7 @@
 					|-assign var=circuit value=$address->getCircuit()-|
 					|-if $circuit-||-$circuit->getabbreviation()-||-/if-|				</td>
 				<td nowrap>
+					<button type="button" onclick="viewImages(|-$address->getId()-|)" class="icon iconView">Ver Imágenes</button>
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="lausiAddressesEdit" />
 						<input type="hidden" name="id" value="|-$address->getid()-|" />
@@ -103,15 +107,44 @@
             			<input type="submit" name="submit_go_delete_address" value="Borrar" onClick="return confirm('Seguro que desea eliminar el address?')" class="iconDelete" />
      			</form>          		</td>
 			</tr>
-		|-/foreach-|						
+		|-/foreach-|
 		|-if $pager->getTotalPages() gt 1-|
-			<tr> 
-				<td colspan="9" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
-			</tr>							
-		|-/if-|						
+			<tr>
+				<td colspan="9" class="pages">|-include file="PaginateInclude.tpl"-|</td>
+			</tr>
+		|-/if-|
 			<tr>
 				 <th colspan="9" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAddressesEdit|-include file='FiltersRedirectUrlInclude.tpl' filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Dirección</a></div></th>
 			</tr>
 		</tbody>
 	</table>
 </div>
+
+<script>
+	var carouselsSources = {};
+	|-foreach from=$addresses item="address"-|
+		carouselsSources[|-$address->getId()-|] = [];
+		|-foreach from=$address->getPhotos() item="photo"-|
+			carouselsSources[|-$address->getId()-|].push('|-$photo->getUri()-|');
+		|-/foreach-|
+	|-/foreach-|
+
+	var createCarousel = function(addressId) {
+		var carousel = new Egytca.Carousel();
+		var sources = carouselsSources[addressId];
+		for (var i = 0; i < sources.length; i++) {
+			carousel.addImage(sources[i]);
+		}
+		return carousel;
+	};
+
+	var viewImages = function(addressId) {
+
+		var carousels = {};
+
+		if ( !(addressId in carousels) )
+			carousels[addressId] = createCarousel(addressId);
+
+		carousels[addressId].activate();
+	};
+</script>

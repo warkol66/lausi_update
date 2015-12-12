@@ -32,14 +32,14 @@
 			<p>
 				<label for="address[nickname]">Nombre de fantasía</label>
 				<input name="address[nickname]" type="text" id="number" title="number" value="|-$address->getNickname()-|" size="45" />
-			</p>			
+			</p>
 			<p>
 				<label for="address[enumeration]">Número de padrón </label>
 				<input name="address[enumeration]" type="text" id="enumaration" title="enumaration" value="|-$address->getEnumeration()-|" size="15" />
-			</p>			
+			</p>
 			<p>
 				<label for="startDate">Fecha de alta </label>
-					<input name="address[creationDate]" type="text" id="creationDate" title="Fecha de alta de la dirección" value="|-$address->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
+					<input name="address[creationDate]" type="text" id="creationDate" title="Fecha de alta de la dirección" value="|-$address->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" />
 					<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('address[creationDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			<p>
@@ -84,6 +84,10 @@
 						<option value="4" |-4|selected:$address->getRating()-|>Standart</option>
 					</select>
 		</p>
+		<p>
+			<label for="address[hasGrille]">Tiene Reja</label>
+			<input type="checkbox" name="address[hasGrille]" |-$address->getHasGrille()|checked:true-|>
+		</p>
 			<p>
 				|-if $action eq "edit"-|
 				<input type="hidden" name="id" id="id" value="|-$address->getid()-|" />
@@ -97,13 +101,13 @@
 				<input type='button' onClick='location.href="Main.php?do=lausiAddressesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Crear nueva' title="Crear nueva dirección"/>
 		</p>
 	</form>
-	
+
 	|-include file="LausiAddressesMapInclude.tpl" -|
-	
-	</fieldset>	
-	
-	
-	
+
+	</fieldset>
+
+
+
 |-if isset($listRedirect) || $address->getId() ne ''-|
 
 	<p>&nbsp;</p>
@@ -144,11 +148,16 @@
 	<h3>Agregar Avisos en la Dirección</h3>
 	<p>
 		|-include file="LausiAddAdvertOnAddressInclude.tpl"-|
-	</p>	
+	</p>
 	<h3>Agregar Carteleras a la Dirección</h3>
 	<p>
 		|-include file="LausiBillboardManager.tpl"-|
 	</p>
 |-/if-|
+
+<h3>Fotos</h3>
+<fieldset>
+	|-include file="LausiAddressPhotosInclude.tpl" photos=$photos-|
+</fieldset>
 
 </div>
