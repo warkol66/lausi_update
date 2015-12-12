@@ -1,8 +1,6 @@
 <?php
 
-require_once 'LausiJsonAction.php';
-
-class LausiAddressesDoUploadPhotoAction extends LausiJsonAction {
+class LausiAddressesDoUploadPhotoAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
@@ -36,5 +34,21 @@ class LausiAddressesDoUploadPhotoAction extends LausiJsonAction {
 			'Uri' => $photo->getUri()
 		];
 		echo json_encode($response);
+	}
+
+	protected function failureResponse($errorCode) {
+		switch ($errorCode) {
+			case 400:
+				header('HTTP/1.1 400 Bad Request');
+				break;
+			case 404:
+				header('HTTP/1.1 404 Not Found');
+				break;
+			case 500:
+				header('HTTP/1.1 500 Internal Server Error');
+				break;
+			default:
+				throw new Exception("unsupported error code: $errorCode");
+		}
 	}
 }
