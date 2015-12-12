@@ -11,8 +11,6 @@
 	<span name="status"></span>
 </form>
 
-<iframe name="fileAsyncUploader" onload="onFileUpload(this)" style="display:none"></iframe>
-
 <script>
 	var uploadStatusEnabled = false;
 
@@ -52,3 +50,5 @@
 		console.log('unknown error uploading file', error);
 	};
 </script>
+
+<iframe name="fileAsyncUploader" onload="onFileUpload(this)" style="display:none"></iframe>
