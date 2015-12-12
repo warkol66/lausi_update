@@ -34,18 +34,13 @@
 			var statusBox = getStatusBoxFromParent(form);
 
 			var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-			var match;
-			if ( matches = iframeDocument.body.innerHTML.match(/^<pre>({.*})<\/pre>$/) ) {
-				//console.log('success', matches)
-				try {
-					var responseData = JSON.parse(matches[1]);
-					setRequestStatus('success', statusBox);
-					|-$onSuccess-|(responseData);
-				} catch (e) {
-					handleRequestError(statusBox, e);
-				}
-			} else {
-				handleRequestError(statusBox, 'response body: ' + iframeDocument.body.innerHTML);
+			//console.log('success', iframeDocument.body.innerHTML)
+			try {
+				var responseData = JSON.parse(iframeDocument.body.innerHTML);
+				setRequestStatus('success', statusBox);
+				|-$onSuccess-|(responseData);
+			} catch (e) {
+				handleRequestError(statusBox, e);
 			}
 		};
 	}

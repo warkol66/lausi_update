@@ -51,6 +51,9 @@
 		templateClone.removeChild(imgBox);
 		document.getElementById('addressPhotos').appendChild(imgBox);
 
+		if ( !('directionGallery' in pageCarousels) )
+			pageCarousels.directionGallery = new Egytca.Carousel();
+
 		var carousel = pageCarousels.directionGallery;
 		carousel.addImage(uri);
 		carousel.addTrigger(imgBox.querySelector('img'), uri);
