@@ -14,7 +14,9 @@ class AddressPeer extends BaseAddressPeer {
 	private $searchRating;
 	private $searchStreetName;
 	private $searchEnumeration;
-	
+	private $searchHeight;
+	private $searchHasGrille;
+
 	//mapea las condiciones del filtro
 	var $filterConditions = array(
 		"searchRegionId"=>"setSearchRegionId",
@@ -22,7 +24,9 @@ class AddressPeer extends BaseAddressPeer {
 		"searchCircuitId"=>"setSearchCircuitId",
 		"searchRating"=>"setSearchRating",
 		"searchStreetName"=>"setSearchStreetName",
-		"searchEnumeration"=>"setSearchEnumeration"
+		"searchEnumeration"=>"setSearchEnumeration",
+		"searchHeight"=>"setSearchHeight",
+		"searchHasGrille"=>"setSearchHasGrille"
 	);
 	
 	/**
@@ -80,6 +84,24 @@ class AddressPeer extends BaseAddressPeer {
 	}
 
 	/**
+	 * Especifica si se busca carteleras en altura
+	 * @param integer si es en altura
+	 *
+	 */	
+	public function setSearchHeight($searchHeight) {
+		$this->searchHeight = $searchHeight;
+	}
+
+	/**
+	 * Especifica si se busca direcciones con reja
+	 * @param integer si tiene reja en la direccion
+	 *
+	 */	
+	public function setSearchHasGrille($searchHasGrille) {
+		$this->searchHasGrille = $searchHasGrille;
+	}
+
+	/**
 	 * Crea una criteria a partir de los distintos parametros de filtrado con los que se inicializo
 	 * el Peer.
 	 *
@@ -95,6 +117,7 @@ class AddressPeer extends BaseAddressPeer {
 			$criteria->filterByCircuitId($this->searchCircuitId)
 					 ->orderByOrdercircuit();
 		}	
+
 		if ($this->searchRegionId)
 			$criteria->filterByRegionId($this->searchRegionId);
 		
@@ -114,7 +137,17 @@ class AddressPeer extends BaseAddressPeer {
 					 ->endUse()
 					 ->distinct();
 		}
-		
+
+		if ($this->searchHeight)
+			$criteria->join('Billboard')
+					 ->useQuery('Billboard')
+						->filterByHeight(1)
+					 ->endUse()
+					 ->distinct();
+
+		if ($this->searchHasGrille)
+			$criteria->filterByHasgrille(1);
+
 		$criteria->join('Circuit', Criteria::LEFT_JOIN);
 
 		//ordenamiento por default pedidos

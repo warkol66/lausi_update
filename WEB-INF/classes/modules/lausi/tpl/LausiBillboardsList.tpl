@@ -75,6 +75,10 @@
 				<label for="filters[searchGroupByType]">Ver detalle por tipo</label>
 				<input type="checkbox" name="filters[searchGroupByType]" |-$filters.searchGroupByType|checked:1-| value="1"/>
 			</p>
+			<p>
+				<label for="filters[searchHeight]">Carteleras en altura </label>
+				<input type="checkbox" name="filters[searchHeight]" |-$filters.searchHeight|checked:1-| value="1"/>
+			</p>
 			<p style="margin-top: 20px;">
 				<input type="hidden" name="do" value="lausiBillboardsList" />
 				<input type="submit" value="Aplicar Filtro" />
