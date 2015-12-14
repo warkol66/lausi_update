@@ -44,6 +44,7 @@ abstract class BaseBillboard extends BaseObject  implements Persistent
 
 	/**
 	 * The value for the height field.
+	 * Note: this column has a database default value of: false
 	 * @var        boolean
 	 */
 	protected $height;
@@ -89,6 +90,27 @@ abstract class BaseBillboard extends BaseObject  implements Persistent
 	 * @var        boolean
 	 */
 	protected $alreadyInValidation = false;
+
+	/**
+	 * Applies default values to this object.
+	 * This method should be called from the object's constructor (or
+	 * equivalent initialization method).
+	 * @see        __construct()
+	 */
+	public function applyDefaultValues()
+	{
+		$this->height = false;
+	}
+
+	/**
+	 * Initializes internal state of BaseBillboard object.
+	 * @see        applyDefaults()
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->applyDefaultValues();
+	}
 
 	/**
 	 * Get the [id] column value.
@@ -240,7 +262,7 @@ abstract class BaseBillboard extends BaseObject  implements Persistent
 			}
 		}
 
-		if ($this->height !== $v) {
+		if ($this->height !== $v || $this->isNew()) {
 			$this->height = $v;
 			$this->modifiedColumns[] = BillboardPeer::HEIGHT;
 		}
@@ -322,6 +344,10 @@ abstract class BaseBillboard extends BaseObject  implements Persistent
 	 */
 	public function hasOnlyDefaultValues()
 	{
+			if ($this->height !== false) {
+				return false;
+			}
+
 		// otherwise, everything was equal, so return TRUE
 		return true;
 	} // hasOnlyDefaultValues()
@@ -1225,6 +1251,7 @@ abstract class BaseBillboard extends BaseObject  implements Persistent
 		$this->alreadyInSave = false;
 		$this->alreadyInValidation = false;
 		$this->clearAllReferences();
+		$this->applyDefaultValues();
 		$this->resetModified();
 		$this->setNew(true);
 		$this->setDeleted(false);

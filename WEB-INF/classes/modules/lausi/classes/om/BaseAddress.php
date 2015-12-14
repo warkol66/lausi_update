@@ -118,6 +118,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 
 	/**
 	 * The value for the hasgrille field.
+	 * Note: this column has a database default value of: false
 	 * @var        boolean
 	 */
 	protected $hasgrille;
@@ -177,6 +178,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	{
 		$this->ordercircuit = 0;
 		$this->nickname = '';
+		$this->hasgrille = false;
 	}
 
 	/**
@@ -743,7 +745,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 			}
 		}
 
-		if ($this->hasgrille !== $v) {
+		if ($this->hasgrille !== $v || $this->isNew()) {
 			$this->hasgrille = $v;
 			$this->modifiedColumns[] = AddressPeer::HASGRILLE;
 		}
@@ -790,6 +792,10 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 			}
 
 			if ($this->nickname !== '') {
+				return false;
+			}
+
+			if ($this->hasgrille !== false) {
 				return false;
 			}
 
