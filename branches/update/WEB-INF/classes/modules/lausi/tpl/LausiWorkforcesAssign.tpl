@@ -72,6 +72,7 @@
 					<tr>
 						<th>Dirección</th>
 						<th>Motivo</th>
+						<th>Altura</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -83,6 +84,7 @@
 							|-assign var=address value=$billboard->getAddress()-|
 							<td>|-$address->getName()-|</td>
 							<td>|-$theme->getName()-|</td>
+							<td>|-$billboard->getHeight()|si_no-|</td>
 							<td>
 								<form action="Main.php" method="post" >
 									<select name="workforceId" onChange="javascript:lausiWorkforcesAssign(|-$advertisement->getId()-|,this.form);">
