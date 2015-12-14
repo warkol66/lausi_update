@@ -43,10 +43,8 @@
 					<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('address[creationDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			<p>
-				<input name="address[latitude]" type="hidden" id="latitude" title="latitude" value="|-$address->getlatitude()|system_numeric_format:8-|" size="20" />
-			</p>
-			<p>
-				<input name="address[longitude]" type="hidden" id="longitude" title="longitude" value="|-$address->getlongitude()|system_numeric_format:8-|" size="20" />
+				<input name="address[latitude]" type="hidden" id="latitude" title="latitude" value="|-$address->getlatitude()-|" size="20" />
+				<input name="address[longitude]" type="hidden" id="longitude" title="longitude" value="|-$address->getlongitude()-|" size="20" />
 			</p>
 			<p>
 				<label for="address[regionId]">Barrio</label>
