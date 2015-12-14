@@ -1,12 +1,12 @@
 
 function lausiOperationSuccess(originalRequest) {
 	
-	$('msgbox').innerHTML = '<span class="resultSuccess">...La Operación ha sido existosa</span>';
+	$('msgbox').innerHTML = '<span class="resultSuccess">...La OperaciÃ³n ha sido existosa</span>';
 }
 
 function lausiOperationFailure(originalRequest) {
 
-	$('msgbox').innerHTML = '<span class="resultFailure">...Ha ocurrido un fallo en la operación</span>';	
+	$('msgbox').innerHTML = '<span class="resultFailure">...Ha ocurrido un fallo en la operaciÃ³n</span>';	
 	
 }
 
