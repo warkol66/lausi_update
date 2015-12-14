@@ -21,6 +21,7 @@
  * @method     DeletedAddressQuery orderByEnumeration($order = Criteria::ASC) Order by the enumeration column
  * @method     DeletedAddressQuery orderByCreationdate($order = Criteria::ASC) Order by the creationDate column
  * @method     DeletedAddressQuery orderByDeletiondate($order = Criteria::ASC) Order by the deletionDate column
+ * @method     DeletedAddressQuery orderByHasgrille($order = Criteria::ASC) Order by the hasGrille column
  * @method     DeletedAddressQuery orderByCircuitid($order = Criteria::ASC) Order by the circuitId column
  *
  * @method     DeletedAddressQuery groupById() Group by the id column
@@ -38,6 +39,7 @@
  * @method     DeletedAddressQuery groupByEnumeration() Group by the enumeration column
  * @method     DeletedAddressQuery groupByCreationdate() Group by the creationDate column
  * @method     DeletedAddressQuery groupByDeletiondate() Group by the deletionDate column
+ * @method     DeletedAddressQuery groupByHasgrille() Group by the hasGrille column
  * @method     DeletedAddressQuery groupByCircuitid() Group by the circuitId column
  *
  * @method     DeletedAddressQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
@@ -70,6 +72,7 @@
  * @method     DeletedAddress findOneByEnumeration(string $enumeration) Return the first DeletedAddress filtered by the enumeration column
  * @method     DeletedAddress findOneByCreationdate(string $creationDate) Return the first DeletedAddress filtered by the creationDate column
  * @method     DeletedAddress findOneByDeletiondate(string $deletionDate) Return the first DeletedAddress filtered by the deletionDate column
+ * @method     DeletedAddress findOneByHasgrille(boolean $hasGrille) Return the first DeletedAddress filtered by the hasGrille column
  * @method     DeletedAddress findOneByCircuitid(int $circuitId) Return the first DeletedAddress filtered by the circuitId column
  *
  * @method     array findById(int $id) Return DeletedAddress objects filtered by the id column
@@ -87,6 +90,7 @@
  * @method     array findByEnumeration(string $enumeration) Return DeletedAddress objects filtered by the enumeration column
  * @method     array findByCreationdate(string $creationDate) Return DeletedAddress objects filtered by the creationDate column
  * @method     array findByDeletiondate(string $deletionDate) Return DeletedAddress objects filtered by the deletionDate column
+ * @method     array findByHasgrille(boolean $hasGrille) Return DeletedAddress objects filtered by the hasGrille column
  * @method     array findByCircuitid(int $circuitId) Return DeletedAddress objects filtered by the circuitId column
  *
  * @package    propel.generator.lausi.classes.om
@@ -715,6 +719,32 @@ abstract class BaseDeletedAddressQuery extends ModelCriteria
 			}
 		}
 		return $this->addUsingAlias(DeletedAddressPeer::DELETIONDATE, $deletiondate, $comparison);
+	}
+
+	/**
+	 * Filter the query on the hasGrille column
+	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByHasgrille(true); // WHERE hasGrille = true
+	 * $query->filterByHasgrille('yes'); // WHERE hasGrille = true
+	 * </code>
+	 *
+	 * @param     boolean|string $hasgrille The value to use as filter.
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    DeletedAddressQuery The current query, for fluid interface
+	 */
+	public function filterByHasgrille($hasgrille = null, $comparison = null)
+	{
+		if (is_string($hasgrille)) {
+			$hasGrille = in_array(strtolower($hasgrille), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+		}
+		return $this->addUsingAlias(DeletedAddressPeer::HASGRILLE, $hasgrille, $comparison);
 	}
 
 	/**

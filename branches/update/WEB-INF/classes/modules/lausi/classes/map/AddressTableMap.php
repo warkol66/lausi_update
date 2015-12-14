@@ -52,6 +52,7 @@ class AddressTableMap extends TableMap {
 		$this->addColumn('ENUMERATION', 'Enumeration', 'VARCHAR', false, 15, null);
 		$this->addColumn('CREATIONDATE', 'Creationdate', 'DATE', false, null, null);
 		$this->addColumn('DELETIONDATE', 'Deletiondate', 'DATE', false, null, null);
+		$this->addColumn('HASGRILLE', 'Hasgrille', 'BOOLEAN', false, null, null);
 		$this->addForeignKey('CIRCUITID', 'Circuitid', 'INTEGER', 'lausi_circuit', 'ID', false, null, null);
 		// validators
 	} // initialize()
@@ -63,7 +64,9 @@ class AddressTableMap extends TableMap {
 	{
     $this->addRelation('Circuit', 'Circuit', RelationMap::MANY_TO_ONE, array('circuitId' => 'id', ), null, null);
     $this->addRelation('Region', 'Region', RelationMap::MANY_TO_ONE, array('regionId' => 'id', ), null, null);
+    $this->addRelation('AddressPhoto', 'AddressPhoto', RelationMap::ONE_TO_MANY, array('id' => 'addressId', ), null, null);
     $this->addRelation('Billboard', 'Billboard', RelationMap::ONE_TO_MANY, array('id' => 'addressId', ), 'CASCADE', null);
+    $this->addRelation('Photo', 'Photo', RelationMap::MANY_TO_MANY, array(), 'CASCADE', null);
 	} // buildRelations()
 
 } // AddressTableMap

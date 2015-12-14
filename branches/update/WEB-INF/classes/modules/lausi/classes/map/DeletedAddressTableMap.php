@@ -52,6 +52,7 @@ class DeletedAddressTableMap extends TableMap {
 		$this->addColumn('ENUMERATION', 'Enumeration', 'VARCHAR', false, 15, null);
 		$this->addColumn('CREATIONDATE', 'Creationdate', 'DATE', false, null, null);
 		$this->addColumn('DELETIONDATE', 'Deletiondate', 'DATE', false, null, null);
+		$this->addColumn('HASGRILLE', 'Hasgrille', 'BOOLEAN', false, null, null);
 		$this->addForeignKey('CIRCUITID', 'Circuitid', 'INTEGER', 'lausi_circuit', 'ID', false, null, null);
 		// validators
 	} // initialize()

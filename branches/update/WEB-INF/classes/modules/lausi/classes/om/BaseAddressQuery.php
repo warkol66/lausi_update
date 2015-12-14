@@ -21,6 +21,7 @@
  * @method     AddressQuery orderByEnumeration($order = Criteria::ASC) Order by the enumeration column
  * @method     AddressQuery orderByCreationdate($order = Criteria::ASC) Order by the creationDate column
  * @method     AddressQuery orderByDeletiondate($order = Criteria::ASC) Order by the deletionDate column
+ * @method     AddressQuery orderByHasgrille($order = Criteria::ASC) Order by the hasGrille column
  * @method     AddressQuery orderByCircuitid($order = Criteria::ASC) Order by the circuitId column
  *
  * @method     AddressQuery groupById() Group by the id column
@@ -38,6 +39,7 @@
  * @method     AddressQuery groupByEnumeration() Group by the enumeration column
  * @method     AddressQuery groupByCreationdate() Group by the creationDate column
  * @method     AddressQuery groupByDeletiondate() Group by the deletionDate column
+ * @method     AddressQuery groupByHasgrille() Group by the hasGrille column
  * @method     AddressQuery groupByCircuitid() Group by the circuitId column
  *
  * @method     AddressQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
@@ -51,6 +53,10 @@
  * @method     AddressQuery leftJoinRegion($relationAlias = null) Adds a LEFT JOIN clause to the query using the Region relation
  * @method     AddressQuery rightJoinRegion($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Region relation
  * @method     AddressQuery innerJoinRegion($relationAlias = null) Adds a INNER JOIN clause to the query using the Region relation
+ *
+ * @method     AddressQuery leftJoinAddressPhoto($relationAlias = null) Adds a LEFT JOIN clause to the query using the AddressPhoto relation
+ * @method     AddressQuery rightJoinAddressPhoto($relationAlias = null) Adds a RIGHT JOIN clause to the query using the AddressPhoto relation
+ * @method     AddressQuery innerJoinAddressPhoto($relationAlias = null) Adds a INNER JOIN clause to the query using the AddressPhoto relation
  *
  * @method     AddressQuery leftJoinBillboard($relationAlias = null) Adds a LEFT JOIN clause to the query using the Billboard relation
  * @method     AddressQuery rightJoinBillboard($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Billboard relation
@@ -74,6 +80,7 @@
  * @method     Address findOneByEnumeration(string $enumeration) Return the first Address filtered by the enumeration column
  * @method     Address findOneByCreationdate(string $creationDate) Return the first Address filtered by the creationDate column
  * @method     Address findOneByDeletiondate(string $deletionDate) Return the first Address filtered by the deletionDate column
+ * @method     Address findOneByHasgrille(boolean $hasGrille) Return the first Address filtered by the hasGrille column
  * @method     Address findOneByCircuitid(int $circuitId) Return the first Address filtered by the circuitId column
  *
  * @method     array findById(int $id) Return Address objects filtered by the id column
@@ -91,6 +98,7 @@
  * @method     array findByEnumeration(string $enumeration) Return Address objects filtered by the enumeration column
  * @method     array findByCreationdate(string $creationDate) Return Address objects filtered by the creationDate column
  * @method     array findByDeletiondate(string $deletionDate) Return Address objects filtered by the deletionDate column
+ * @method     array findByHasgrille(boolean $hasGrille) Return Address objects filtered by the hasGrille column
  * @method     array findByCircuitid(int $circuitId) Return Address objects filtered by the circuitId column
  *
  * @package    propel.generator.lausi.classes.om
@@ -722,6 +730,32 @@ abstract class BaseAddressQuery extends ModelCriteria
 	}
 
 	/**
+	 * Filter the query on the hasGrille column
+	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByHasgrille(true); // WHERE hasGrille = true
+	 * $query->filterByHasgrille('yes'); // WHERE hasGrille = true
+	 * </code>
+	 *
+	 * @param     boolean|string $hasgrille The value to use as filter.
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    AddressQuery The current query, for fluid interface
+	 */
+	public function filterByHasgrille($hasgrille = null, $comparison = null)
+	{
+		if (is_string($hasgrille)) {
+			$hasGrille = in_array(strtolower($hasgrille), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+		}
+		return $this->addUsingAlias(AddressPeer::HASGRILLE, $hasgrille, $comparison);
+	}
+
+	/**
 	 * Filter the query on the circuitId column
 	 * 
 	 * Example usage:
@@ -912,6 +946,79 @@ abstract class BaseAddressQuery extends ModelCriteria
 	}
 
 	/**
+	 * Filter the query by a related AddressPhoto object
+	 *
+	 * @param     AddressPhoto $addressPhoto  the related object to use as filter
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    AddressQuery The current query, for fluid interface
+	 */
+	public function filterByAddressPhoto($addressPhoto, $comparison = null)
+	{
+		if ($addressPhoto instanceof AddressPhoto) {
+			return $this
+				->addUsingAlias(AddressPeer::ID, $addressPhoto->getAddressid(), $comparison);
+		} elseif ($addressPhoto instanceof PropelCollection) {
+			return $this
+				->useAddressPhotoQuery()
+					->filterByPrimaryKeys($addressPhoto->getPrimaryKeys())
+				->endUse();
+		} else {
+			throw new PropelException('filterByAddressPhoto() only accepts arguments of type AddressPhoto or PropelCollection');
+		}
+	}
+
+	/**
+	 * Adds a JOIN clause to the query using the AddressPhoto relation
+	 * 
+	 * @param     string $relationAlias optional alias for the relation
+	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+	 *
+	 * @return    AddressQuery The current query, for fluid interface
+	 */
+	public function joinAddressPhoto($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+	{
+		$tableMap = $this->getTableMap();
+		$relationMap = $tableMap->getRelation('AddressPhoto');
+		
+		// create a ModelJoin object for this join
+		$join = new ModelJoin();
+		$join->setJoinType($joinType);
+		$join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+		if ($previousJoin = $this->getPreviousJoin()) {
+			$join->setPreviousJoin($previousJoin);
+		}
+		
+		// add the ModelJoin to the current object
+		if($relationAlias) {
+			$this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+			$this->addJoinObject($join, $relationAlias);
+		} else {
+			$this->addJoinObject($join, 'AddressPhoto');
+		}
+		
+		return $this;
+	}
+
+	/**
+	 * Use the AddressPhoto relation AddressPhoto object
+	 *
+	 * @see       useQuery()
+	 * 
+	 * @param     string $relationAlias optional alias for the relation,
+	 *                                   to be used as main alias in the secondary query
+	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+	 *
+	 * @return    AddressPhotoQuery A secondary query class using the current class as primary query
+	 */
+	public function useAddressPhotoQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+	{
+		return $this
+			->joinAddressPhoto($relationAlias, $joinType)
+			->useQuery($relationAlias ? $relationAlias : 'AddressPhoto', 'AddressPhotoQuery');
+	}
+
+	/**
 	 * Filter the query by a related Billboard object
 	 *
 	 * @param     Billboard $billboard  the related object to use as filter
@@ -984,6 +1091,23 @@ abstract class BaseAddressQuery extends ModelCriteria
 			->useQuery($relationAlias ? $relationAlias : 'Billboard', 'BillboardQuery');
 	}
 
+	/**
+	 * Filter the query by a related Photo object
+	 * using the lausi_addressPhotos table as cross reference
+	 *
+	 * @param     Photo $photo the related object to use as filter
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    AddressQuery The current query, for fluid interface
+	 */
+	public function filterByPhoto($photo, $comparison = Criteria::EQUAL)
+	{
+		return $this
+			->useAddressPhotoQuery()
+				->filterByPhoto($photo, $comparison)
+			->endUse();
+	}
+	
 	/**
 	 * Exclude object from result
 	 *

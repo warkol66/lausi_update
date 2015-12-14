@@ -117,6 +117,12 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	protected $deletiondate;
 
 	/**
+	 * The value for the hasgrille field.
+	 * @var        boolean
+	 */
+	protected $hasgrille;
+
+	/**
 	 * The value for the circuitid field.
 	 * @var        int
 	 */
@@ -133,9 +139,19 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	protected $aRegion;
 
 	/**
+	 * @var        array AddressPhoto[] Collection to store aggregation of AddressPhoto objects.
+	 */
+	protected $collAddressPhotos;
+
+	/**
 	 * @var        array Billboard[] Collection to store aggregation of Billboard objects.
 	 */
 	protected $collBillboards;
+
+	/**
+	 * @var        array Photo[] Collection to store aggregation of Photo objects.
+	 */
+	protected $collPhotos;
 
 	/**
 	 * Flag to prevent endless save loop, if this object is referenced
@@ -377,6 +393,16 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 		} else {
 			return $dt->format($format);
 		}
+	}
+
+	/**
+	 * Get the [hasgrille] column value.
+	 * si tiene rejas
+	 * @return     boolean
+	 */
+	public function getHasgrille()
+	{
+		return $this->hasgrille;
 	}
 
 	/**
@@ -698,6 +724,34 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	} // setDeletiondate()
 
 	/**
+	 * Sets the value of the [hasgrille] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * si tiene rejas
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Address The current object (for fluent API support)
+	 */
+	public function setHasgrille($v)
+	{
+		if ($v !== null) {
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
+		}
+
+		if ($this->hasgrille !== $v) {
+			$this->hasgrille = $v;
+			$this->modifiedColumns[] = AddressPeer::HASGRILLE;
+		}
+
+		return $this;
+	} // setHasgrille()
+
+	/**
 	 * Set the value of [circuitid] column.
 	 * circuito al que pertenece la calle
 	 * @param      int $v new value
@@ -776,7 +830,8 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 			$this->enumeration = ($row[$startcol + 12] !== null) ? (string) $row[$startcol + 12] : null;
 			$this->creationdate = ($row[$startcol + 13] !== null) ? (string) $row[$startcol + 13] : null;
 			$this->deletiondate = ($row[$startcol + 14] !== null) ? (string) $row[$startcol + 14] : null;
-			$this->circuitid = ($row[$startcol + 15] !== null) ? (int) $row[$startcol + 15] : null;
+			$this->hasgrille = ($row[$startcol + 15] !== null) ? (boolean) $row[$startcol + 15] : null;
+			$this->circuitid = ($row[$startcol + 16] !== null) ? (int) $row[$startcol + 16] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -785,7 +840,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 16; // 16 = AddressPeer::NUM_HYDRATE_COLUMNS.
+			return $startcol + 17; // 17 = AddressPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Address object", $e);
@@ -855,8 +910,11 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 
 			$this->aCircuit = null;
 			$this->aRegion = null;
+			$this->collAddressPhotos = null;
+
 			$this->collBillboards = null;
 
+			$this->collPhotos = null;
 		} // if (deep)
 	}
 
@@ -1009,6 +1067,14 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 				$this->resetModified(); // [HL] After being saved an object is no longer 'modified'
 			}
 
+			if ($this->collAddressPhotos !== null) {
+				foreach ($this->collAddressPhotos as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
 			if ($this->collBillboards !== null) {
 				foreach ($this->collBillboards as $referrerFK) {
 					if (!$referrerFK->isDeleted()) {
@@ -1106,6 +1172,14 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 			}
 
 
+				if ($this->collAddressPhotos !== null) {
+					foreach ($this->collAddressPhotos as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
 				if ($this->collBillboards !== null) {
 					foreach ($this->collBillboards as $referrerFK) {
 						if (!$referrerFK->validate($columns)) {
@@ -1193,6 +1267,9 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 				return $this->getDeletiondate();
 				break;
 			case 15:
+				return $this->getHasgrille();
+				break;
+			case 16:
 				return $this->getCircuitid();
 				break;
 			default:
@@ -1239,7 +1316,8 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 			$keys[12] => $this->getEnumeration(),
 			$keys[13] => $this->getCreationdate(),
 			$keys[14] => $this->getDeletiondate(),
-			$keys[15] => $this->getCircuitid(),
+			$keys[15] => $this->getHasgrille(),
+			$keys[16] => $this->getCircuitid(),
 		);
 		if ($includeForeignObjects) {
 			if (null !== $this->aCircuit) {
@@ -1247,6 +1325,9 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 			}
 			if (null !== $this->aRegion) {
 				$result['Region'] = $this->aRegion->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+			}
+			if (null !== $this->collAddressPhotos) {
+				$result['AddressPhotos'] = $this->collAddressPhotos->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
 			}
 			if (null !== $this->collBillboards) {
 				$result['Billboards'] = $this->collBillboards->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
@@ -1328,6 +1409,9 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 				$this->setDeletiondate($value);
 				break;
 			case 15:
+				$this->setHasgrille($value);
+				break;
+			case 16:
 				$this->setCircuitid($value);
 				break;
 		} // switch()
@@ -1369,7 +1453,8 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 		if (array_key_exists($keys[12], $arr)) $this->setEnumeration($arr[$keys[12]]);
 		if (array_key_exists($keys[13], $arr)) $this->setCreationdate($arr[$keys[13]]);
 		if (array_key_exists($keys[14], $arr)) $this->setDeletiondate($arr[$keys[14]]);
-		if (array_key_exists($keys[15], $arr)) $this->setCircuitid($arr[$keys[15]]);
+		if (array_key_exists($keys[15], $arr)) $this->setHasgrille($arr[$keys[15]]);
+		if (array_key_exists($keys[16], $arr)) $this->setCircuitid($arr[$keys[16]]);
 	}
 
 	/**
@@ -1396,6 +1481,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 		if ($this->isColumnModified(AddressPeer::ENUMERATION)) $criteria->add(AddressPeer::ENUMERATION, $this->enumeration);
 		if ($this->isColumnModified(AddressPeer::CREATIONDATE)) $criteria->add(AddressPeer::CREATIONDATE, $this->creationdate);
 		if ($this->isColumnModified(AddressPeer::DELETIONDATE)) $criteria->add(AddressPeer::DELETIONDATE, $this->deletiondate);
+		if ($this->isColumnModified(AddressPeer::HASGRILLE)) $criteria->add(AddressPeer::HASGRILLE, $this->hasgrille);
 		if ($this->isColumnModified(AddressPeer::CIRCUITID)) $criteria->add(AddressPeer::CIRCUITID, $this->circuitid);
 
 		return $criteria;
@@ -1473,12 +1559,19 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 		$copyObj->setEnumeration($this->getEnumeration());
 		$copyObj->setCreationdate($this->getCreationdate());
 		$copyObj->setDeletiondate($this->getDeletiondate());
+		$copyObj->setHasgrille($this->getHasgrille());
 		$copyObj->setCircuitid($this->getCircuitid());
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of
 			// the getter/setter methods for fkey referrer objects.
 			$copyObj->setNew(false);
+
+			foreach ($this->getAddressPhotos() as $relObj) {
+				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+					$copyObj->addAddressPhoto($relObj->copy($deepCopy));
+				}
+			}
 
 			foreach ($this->getBillboards() as $relObj) {
 				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
@@ -1631,6 +1724,146 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	}
 
 	/**
+	 * Clears out the collAddressPhotos collection
+	 *
+	 * This does not modify the database; however, it will remove any associated objects, causing
+	 * them to be refetched by subsequent calls to accessor method.
+	 *
+	 * @return     void
+	 * @see        addAddressPhotos()
+	 */
+	public function clearAddressPhotos()
+	{
+		$this->collAddressPhotos = null; // important to set this to NULL since that means it is uninitialized
+	}
+
+	/**
+	 * Initializes the collAddressPhotos collection.
+	 *
+	 * By default this just sets the collAddressPhotos collection to an empty array (like clearcollAddressPhotos());
+	 * however, you may wish to override this method in your stub class to provide setting appropriate
+	 * to your application -- for example, setting the initial array to the values stored in database.
+	 *
+	 * @param      boolean $overrideExisting If set to true, the method call initializes
+	 *                                        the collection even if it is not empty
+	 *
+	 * @return     void
+	 */
+	public function initAddressPhotos($overrideExisting = true)
+	{
+		if (null !== $this->collAddressPhotos && !$overrideExisting) {
+			return;
+		}
+		$this->collAddressPhotos = new PropelObjectCollection();
+		$this->collAddressPhotos->setModel('AddressPhoto');
+	}
+
+	/**
+	 * Gets an array of AddressPhoto objects which contain a foreign key that references this object.
+	 *
+	 * If the $criteria is not null, it is used to always fetch the results from the database.
+	 * Otherwise the results are fetched from the database the first time, then cached.
+	 * Next time the same method is called without $criteria, the cached collection is returned.
+	 * If this Address is new, it will return
+	 * an empty collection or the current collection; the criteria is ignored on a new object.
+	 *
+	 * @param      Criteria $criteria optional Criteria object to narrow the query
+	 * @param      PropelPDO $con optional connection object
+	 * @return     PropelCollection|array AddressPhoto[] List of AddressPhoto objects
+	 * @throws     PropelException
+	 */
+	public function getAddressPhotos($criteria = null, PropelPDO $con = null)
+	{
+		if(null === $this->collAddressPhotos || null !== $criteria) {
+			if ($this->isNew() && null === $this->collAddressPhotos) {
+				// return empty collection
+				$this->initAddressPhotos();
+			} else {
+				$collAddressPhotos = AddressPhotoQuery::create(null, $criteria)
+					->filterByAddress($this)
+					->find($con);
+				if (null !== $criteria) {
+					return $collAddressPhotos;
+				}
+				$this->collAddressPhotos = $collAddressPhotos;
+			}
+		}
+		return $this->collAddressPhotos;
+	}
+
+	/**
+	 * Returns the number of related AddressPhoto objects.
+	 *
+	 * @param      Criteria $criteria
+	 * @param      boolean $distinct
+	 * @param      PropelPDO $con
+	 * @return     int Count of related AddressPhoto objects.
+	 * @throws     PropelException
+	 */
+	public function countAddressPhotos(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+	{
+		if(null === $this->collAddressPhotos || null !== $criteria) {
+			if ($this->isNew() && null === $this->collAddressPhotos) {
+				return 0;
+			} else {
+				$query = AddressPhotoQuery::create(null, $criteria);
+				if($distinct) {
+					$query->distinct();
+				}
+				return $query
+					->filterByAddress($this)
+					->count($con);
+			}
+		} else {
+			return count($this->collAddressPhotos);
+		}
+	}
+
+	/**
+	 * Method called to associate a AddressPhoto object to this object
+	 * through the AddressPhoto foreign key attribute.
+	 *
+	 * @param      AddressPhoto $l AddressPhoto
+	 * @return     void
+	 * @throws     PropelException
+	 */
+	public function addAddressPhoto(AddressPhoto $l)
+	{
+		if ($this->collAddressPhotos === null) {
+			$this->initAddressPhotos();
+		}
+		if (!$this->collAddressPhotos->contains($l)) { // only add it if the **same** object is not already associated
+			$this->collAddressPhotos[]= $l;
+			$l->setAddress($this);
+		}
+	}
+
+
+	/**
+	 * If this collection has already been initialized with
+	 * an identical criteria, it returns the collection.
+	 * Otherwise if this Address is new, it will return
+	 * an empty collection; or if this Address has previously
+	 * been saved, it will retrieve related AddressPhotos from storage.
+	 *
+	 * This method is protected by default in order to keep the public
+	 * api reasonable.  You can provide public methods for those you
+	 * actually need in Address.
+	 *
+	 * @param      Criteria $criteria optional Criteria object to narrow the query
+	 * @param      PropelPDO $con optional connection object
+	 * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+	 * @return     PropelCollection|array AddressPhoto[] List of AddressPhoto objects
+	 */
+	public function getAddressPhotosJoinPhoto($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	{
+		$query = AddressPhotoQuery::create(null, $criteria);
+		$query->joinWith('Photo', $join_behavior);
+
+		return $this->getAddressPhotos($query, $con);
+	}
+
+	/**
 	 * Clears out the collBillboards collection
 	 *
 	 * This does not modify the database; however, it will remove any associated objects, causing
@@ -1746,6 +1979,119 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	}
 
 	/**
+	 * Clears out the collPhotos collection
+	 *
+	 * This does not modify the database; however, it will remove any associated objects, causing
+	 * them to be refetched by subsequent calls to accessor method.
+	 *
+	 * @return     void
+	 * @see        addPhotos()
+	 */
+	public function clearPhotos()
+	{
+		$this->collPhotos = null; // important to set this to NULL since that means it is uninitialized
+	}
+
+	/**
+	 * Initializes the collPhotos collection.
+	 *
+	 * By default this just sets the collPhotos collection to an empty collection (like clearPhotos());
+	 * however, you may wish to override this method in your stub class to provide setting appropriate
+	 * to your application -- for example, setting the initial array to the values stored in database.
+	 *
+	 * @return     void
+	 */
+	public function initPhotos()
+	{
+		$this->collPhotos = new PropelObjectCollection();
+		$this->collPhotos->setModel('Photo');
+	}
+
+	/**
+	 * Gets a collection of Photo objects related by a many-to-many relationship
+	 * to the current object by way of the lausi_addressPhotos cross-reference table.
+	 *
+	 * If the $criteria is not null, it is used to always fetch the results from the database.
+	 * Otherwise the results are fetched from the database the first time, then cached.
+	 * Next time the same method is called without $criteria, the cached collection is returned.
+	 * If this Address is new, it will return
+	 * an empty collection or the current collection; the criteria is ignored on a new object.
+	 *
+	 * @param      Criteria $criteria Optional query object to filter the query
+	 * @param      PropelPDO $con Optional connection object
+	 *
+	 * @return     PropelCollection|array Photo[] List of Photo objects
+	 */
+	public function getPhotos($criteria = null, PropelPDO $con = null)
+	{
+		if(null === $this->collPhotos || null !== $criteria) {
+			if ($this->isNew() && null === $this->collPhotos) {
+				// return empty collection
+				$this->initPhotos();
+			} else {
+				$collPhotos = PhotoQuery::create(null, $criteria)
+					->filterByAddress($this)
+					->find($con);
+				if (null !== $criteria) {
+					return $collPhotos;
+				}
+				$this->collPhotos = $collPhotos;
+			}
+		}
+		return $this->collPhotos;
+	}
+
+	/**
+	 * Gets the number of Photo objects related by a many-to-many relationship
+	 * to the current object by way of the lausi_addressPhotos cross-reference table.
+	 *
+	 * @param      Criteria $criteria Optional query object to filter the query
+	 * @param      boolean $distinct Set to true to force count distinct
+	 * @param      PropelPDO $con Optional connection object
+	 *
+	 * @return     int the number of related Photo objects
+	 */
+	public function countPhotos($criteria = null, $distinct = false, PropelPDO $con = null)
+	{
+		if(null === $this->collPhotos || null !== $criteria) {
+			if ($this->isNew() && null === $this->collPhotos) {
+				return 0;
+			} else {
+				$query = PhotoQuery::create(null, $criteria);
+				if($distinct) {
+					$query->distinct();
+				}
+				return $query
+					->filterByAddress($this)
+					->count($con);
+			}
+		} else {
+			return count($this->collPhotos);
+		}
+	}
+
+	/**
+	 * Associate a Photo object to this object
+	 * through the lausi_addressPhotos cross reference table.
+	 *
+	 * @param      Photo $photo The AddressPhoto object to relate
+	 * @return     void
+	 */
+	public function addPhoto($photo)
+	{
+		if ($this->collPhotos === null) {
+			$this->initPhotos();
+		}
+		if (!$this->collPhotos->contains($photo)) { // only add it if the **same** object is not already associated
+			$addressPhoto = new AddressPhoto();
+			$addressPhoto->setPhoto($photo);
+			$this->addAddressPhoto($addressPhoto);
+
+			$this->collPhotos[]= $photo;
+		}
+	}
+
+	/**
 	 * Clears the current object and sets all attributes to their default values
 	 */
 	public function clear()
@@ -1765,6 +2111,7 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 		$this->enumeration = null;
 		$this->creationdate = null;
 		$this->deletiondate = null;
+		$this->hasgrille = null;
 		$this->circuitid = null;
 		$this->alreadyInSave = false;
 		$this->alreadyInValidation = false;
@@ -1787,6 +2134,11 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 	public function clearAllReferences($deep = false)
 	{
 		if ($deep) {
+			if ($this->collAddressPhotos) {
+				foreach ($this->collAddressPhotos as $o) {
+					$o->clearAllReferences($deep);
+				}
+			}
 			if ($this->collBillboards) {
 				foreach ($this->collBillboards as $o) {
 					$o->clearAllReferences($deep);
@@ -1794,6 +2146,10 @@ abstract class BaseAddress extends BaseObject  implements Persistent
 			}
 		} // if ($deep)
 
+		if ($this->collAddressPhotos instanceof PropelCollection) {
+			$this->collAddressPhotos->clearIterator();
+		}
+		$this->collAddressPhotos = null;
 		if ($this->collBillboards instanceof PropelCollection) {
 			$this->collBillboards->clearIterator();
 		}
