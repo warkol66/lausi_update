@@ -5,8 +5,12 @@
 		background-color: lightblue;
 	}
 </style>
+<h2>Edicion de Carteleras </h2>
+<h1>Edicion rápida</h1>
+<p>Edicion rápida de carteleras para asignación o desasingnar si es en altura, marcar la casilla el dato queda almacenado automaticamente.<br>
+Para editar direcciones haga click <a href="Main.php?do=lausiAddressesFastEdit">aqui</a>.</p>
 
-<table class="tableTdBorders" width="100%">
+<table class="tableTdBorders">
 	<thead>
 		<tr>
 			<th>Calle</th>
@@ -19,10 +23,9 @@
 			<tr>
 				<td>|-$billboard->getAddress()-|</td>
 				<td>|-$billboard->getNumber()-|</td>
-				<td>
+				<td align="center">
 					<input type="checkbox" onchange="editField('height', |-$billboard->getId()-|, this)" |-$billboard->getHeight()|checked:true-|>
-					<span name="status"></span>
-				</td>
+				<span name="status"></span>				</td>
 			</tr>
 		|-/foreach-|
 		|-if $all eq "1"-|
