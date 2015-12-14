@@ -26,13 +26,13 @@ abstract class BaseDeletedAddressPeer {
 	const TM_CLASS = 'DeletedAddressTableMap';
 	
 	/** The total number of columns. */
-	const NUM_COLUMNS = 16;
+	const NUM_COLUMNS = 17;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
 	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-	const NUM_HYDRATE_COLUMNS = 16;
+	const NUM_HYDRATE_COLUMNS = 17;
 
 	/** the column name for the ID field */
 	const ID = 'lausi_deletedAddress.ID';
@@ -79,6 +79,9 @@ abstract class BaseDeletedAddressPeer {
 	/** the column name for the DELETIONDATE field */
 	const DELETIONDATE = 'lausi_deletedAddress.DELETIONDATE';
 
+	/** the column name for the HASGRILLE field */
+	const HASGRILLE = 'lausi_deletedAddress.HASGRILLE';
+
 	/** the column name for the CIRCUITID field */
 	const CIRCUITID = 'lausi_deletedAddress.CIRCUITID';
 
@@ -101,12 +104,12 @@ abstract class BaseDeletedAddressPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	protected static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Street', 'Number', 'Rating', 'Intersection', 'Owner', 'Latitude', 'Longitude', 'Regionid', 'Ownerphone', 'Ordercircuit', 'Nickname', 'Enumeration', 'Creationdate', 'Deletiondate', 'Circuitid', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'street', 'number', 'rating', 'intersection', 'owner', 'latitude', 'longitude', 'regionid', 'ownerphone', 'ordercircuit', 'nickname', 'enumeration', 'creationdate', 'deletiondate', 'circuitid', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::STREET, self::NUMBER, self::RATING, self::INTERSECTION, self::OWNER, self::LATITUDE, self::LONGITUDE, self::REGIONID, self::OWNERPHONE, self::ORDERCIRCUIT, self::NICKNAME, self::ENUMERATION, self::CREATIONDATE, self::DELETIONDATE, self::CIRCUITID, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'STREET', 'NUMBER', 'RATING', 'INTERSECTION', 'OWNER', 'LATITUDE', 'LONGITUDE', 'REGIONID', 'OWNERPHONE', 'ORDERCIRCUIT', 'NICKNAME', 'ENUMERATION', 'CREATIONDATE', 'DELETIONDATE', 'CIRCUITID', ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'street', 'number', 'rating', 'intersection', 'owner', 'latitude', 'longitude', 'regionId', 'ownerPhone', 'orderCircuit', 'nickname', 'enumeration', 'creationDate', 'deletionDate', 'circuitId', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Street', 'Number', 'Rating', 'Intersection', 'Owner', 'Latitude', 'Longitude', 'Regionid', 'Ownerphone', 'Ordercircuit', 'Nickname', 'Enumeration', 'Creationdate', 'Deletiondate', 'Hasgrille', 'Circuitid', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'street', 'number', 'rating', 'intersection', 'owner', 'latitude', 'longitude', 'regionid', 'ownerphone', 'ordercircuit', 'nickname', 'enumeration', 'creationdate', 'deletiondate', 'hasgrille', 'circuitid', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::STREET, self::NUMBER, self::RATING, self::INTERSECTION, self::OWNER, self::LATITUDE, self::LONGITUDE, self::REGIONID, self::OWNERPHONE, self::ORDERCIRCUIT, self::NICKNAME, self::ENUMERATION, self::CREATIONDATE, self::DELETIONDATE, self::HASGRILLE, self::CIRCUITID, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'STREET', 'NUMBER', 'RATING', 'INTERSECTION', 'OWNER', 'LATITUDE', 'LONGITUDE', 'REGIONID', 'OWNERPHONE', 'ORDERCIRCUIT', 'NICKNAME', 'ENUMERATION', 'CREATIONDATE', 'DELETIONDATE', 'HASGRILLE', 'CIRCUITID', ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'street', 'number', 'rating', 'intersection', 'owner', 'latitude', 'longitude', 'regionId', 'ownerPhone', 'orderCircuit', 'nickname', 'enumeration', 'creationDate', 'deletionDate', 'hasGrille', 'circuitId', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, )
 	);
 
 	/**
@@ -116,12 +119,12 @@ abstract class BaseDeletedAddressPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	protected static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Street' => 1, 'Number' => 2, 'Rating' => 3, 'Intersection' => 4, 'Owner' => 5, 'Latitude' => 6, 'Longitude' => 7, 'Regionid' => 8, 'Ownerphone' => 9, 'Ordercircuit' => 10, 'Nickname' => 11, 'Enumeration' => 12, 'Creationdate' => 13, 'Deletiondate' => 14, 'Circuitid' => 15, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'street' => 1, 'number' => 2, 'rating' => 3, 'intersection' => 4, 'owner' => 5, 'latitude' => 6, 'longitude' => 7, 'regionid' => 8, 'ownerphone' => 9, 'ordercircuit' => 10, 'nickname' => 11, 'enumeration' => 12, 'creationdate' => 13, 'deletiondate' => 14, 'circuitid' => 15, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::STREET => 1, self::NUMBER => 2, self::RATING => 3, self::INTERSECTION => 4, self::OWNER => 5, self::LATITUDE => 6, self::LONGITUDE => 7, self::REGIONID => 8, self::OWNERPHONE => 9, self::ORDERCIRCUIT => 10, self::NICKNAME => 11, self::ENUMERATION => 12, self::CREATIONDATE => 13, self::DELETIONDATE => 14, self::CIRCUITID => 15, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'STREET' => 1, 'NUMBER' => 2, 'RATING' => 3, 'INTERSECTION' => 4, 'OWNER' => 5, 'LATITUDE' => 6, 'LONGITUDE' => 7, 'REGIONID' => 8, 'OWNERPHONE' => 9, 'ORDERCIRCUIT' => 10, 'NICKNAME' => 11, 'ENUMERATION' => 12, 'CREATIONDATE' => 13, 'DELETIONDATE' => 14, 'CIRCUITID' => 15, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'street' => 1, 'number' => 2, 'rating' => 3, 'intersection' => 4, 'owner' => 5, 'latitude' => 6, 'longitude' => 7, 'regionId' => 8, 'ownerPhone' => 9, 'orderCircuit' => 10, 'nickname' => 11, 'enumeration' => 12, 'creationDate' => 13, 'deletionDate' => 14, 'circuitId' => 15, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Street' => 1, 'Number' => 2, 'Rating' => 3, 'Intersection' => 4, 'Owner' => 5, 'Latitude' => 6, 'Longitude' => 7, 'Regionid' => 8, 'Ownerphone' => 9, 'Ordercircuit' => 10, 'Nickname' => 11, 'Enumeration' => 12, 'Creationdate' => 13, 'Deletiondate' => 14, 'Hasgrille' => 15, 'Circuitid' => 16, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'street' => 1, 'number' => 2, 'rating' => 3, 'intersection' => 4, 'owner' => 5, 'latitude' => 6, 'longitude' => 7, 'regionid' => 8, 'ownerphone' => 9, 'ordercircuit' => 10, 'nickname' => 11, 'enumeration' => 12, 'creationdate' => 13, 'deletiondate' => 14, 'hasgrille' => 15, 'circuitid' => 16, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::STREET => 1, self::NUMBER => 2, self::RATING => 3, self::INTERSECTION => 4, self::OWNER => 5, self::LATITUDE => 6, self::LONGITUDE => 7, self::REGIONID => 8, self::OWNERPHONE => 9, self::ORDERCIRCUIT => 10, self::NICKNAME => 11, self::ENUMERATION => 12, self::CREATIONDATE => 13, self::DELETIONDATE => 14, self::HASGRILLE => 15, self::CIRCUITID => 16, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'STREET' => 1, 'NUMBER' => 2, 'RATING' => 3, 'INTERSECTION' => 4, 'OWNER' => 5, 'LATITUDE' => 6, 'LONGITUDE' => 7, 'REGIONID' => 8, 'OWNERPHONE' => 9, 'ORDERCIRCUIT' => 10, 'NICKNAME' => 11, 'ENUMERATION' => 12, 'CREATIONDATE' => 13, 'DELETIONDATE' => 14, 'HASGRILLE' => 15, 'CIRCUITID' => 16, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'street' => 1, 'number' => 2, 'rating' => 3, 'intersection' => 4, 'owner' => 5, 'latitude' => 6, 'longitude' => 7, 'regionId' => 8, 'ownerPhone' => 9, 'orderCircuit' => 10, 'nickname' => 11, 'enumeration' => 12, 'creationDate' => 13, 'deletionDate' => 14, 'hasGrille' => 15, 'circuitId' => 16, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, )
 	);
 
 	/**
@@ -208,6 +211,7 @@ abstract class BaseDeletedAddressPeer {
 			$criteria->addSelectColumn(DeletedAddressPeer::ENUMERATION);
 			$criteria->addSelectColumn(DeletedAddressPeer::CREATIONDATE);
 			$criteria->addSelectColumn(DeletedAddressPeer::DELETIONDATE);
+			$criteria->addSelectColumn(DeletedAddressPeer::HASGRILLE);
 			$criteria->addSelectColumn(DeletedAddressPeer::CIRCUITID);
 		} else {
 			$criteria->addSelectColumn($alias . '.ID');
@@ -225,6 +229,7 @@ abstract class BaseDeletedAddressPeer {
 			$criteria->addSelectColumn($alias . '.ENUMERATION');
 			$criteria->addSelectColumn($alias . '.CREATIONDATE');
 			$criteria->addSelectColumn($alias . '.DELETIONDATE');
+			$criteria->addSelectColumn($alias . '.HASGRILLE');
 			$criteria->addSelectColumn($alias . '.CIRCUITID');
 		}
 	}

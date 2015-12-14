@@ -2,97 +2,52 @@
 
 
 /**
- * Base static class for performing query and update operations on the 'lausi_address' table.
+ * Base static class for performing query and update operations on the 'lausi_addressPhotos' table.
  *
- * Base de Direcciones
+ * 
  *
  * @package    propel.generator.lausi.classes.om
  */
-abstract class BaseAddressPeer {
+abstract class BaseAddressPhotoPeer {
 
 	/** the default database name for this class */
 	const DATABASE_NAME = 'application';
 
 	/** the table name for this class */
-	const TABLE_NAME = 'lausi_address';
+	const TABLE_NAME = 'lausi_addressPhotos';
 
 	/** the related Propel class for this table */
-	const OM_CLASS = 'Address';
+	const OM_CLASS = 'AddressPhoto';
 
 	/** A class that can be returned by this peer. */
-	const CLASS_DEFAULT = 'lausi.classes.Address';
+	const CLASS_DEFAULT = 'lausi.classes.AddressPhoto';
 
 	/** the related TableMap class for this table */
-	const TM_CLASS = 'AddressTableMap';
+	const TM_CLASS = 'AddressPhotoTableMap';
 	
 	/** The total number of columns. */
-	const NUM_COLUMNS = 17;
+	const NUM_COLUMNS = 2;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
 	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-	const NUM_HYDRATE_COLUMNS = 17;
+	const NUM_HYDRATE_COLUMNS = 2;
 
-	/** the column name for the ID field */
-	const ID = 'lausi_address.ID';
+	/** the column name for the ADDRESSID field */
+	const ADDRESSID = 'lausi_addressPhotos.ADDRESSID';
 
-	/** the column name for the STREET field */
-	const STREET = 'lausi_address.STREET';
-
-	/** the column name for the NUMBER field */
-	const NUMBER = 'lausi_address.NUMBER';
-
-	/** the column name for the RATING field */
-	const RATING = 'lausi_address.RATING';
-
-	/** the column name for the INTERSECTION field */
-	const INTERSECTION = 'lausi_address.INTERSECTION';
-
-	/** the column name for the OWNER field */
-	const OWNER = 'lausi_address.OWNER';
-
-	/** the column name for the LATITUDE field */
-	const LATITUDE = 'lausi_address.LATITUDE';
-
-	/** the column name for the LONGITUDE field */
-	const LONGITUDE = 'lausi_address.LONGITUDE';
-
-	/** the column name for the REGIONID field */
-	const REGIONID = 'lausi_address.REGIONID';
-
-	/** the column name for the OWNERPHONE field */
-	const OWNERPHONE = 'lausi_address.OWNERPHONE';
-
-	/** the column name for the ORDERCIRCUIT field */
-	const ORDERCIRCUIT = 'lausi_address.ORDERCIRCUIT';
-
-	/** the column name for the NICKNAME field */
-	const NICKNAME = 'lausi_address.NICKNAME';
-
-	/** the column name for the ENUMERATION field */
-	const ENUMERATION = 'lausi_address.ENUMERATION';
-
-	/** the column name for the CREATIONDATE field */
-	const CREATIONDATE = 'lausi_address.CREATIONDATE';
-
-	/** the column name for the DELETIONDATE field */
-	const DELETIONDATE = 'lausi_address.DELETIONDATE';
-
-	/** the column name for the HASGRILLE field */
-	const HASGRILLE = 'lausi_address.HASGRILLE';
-
-	/** the column name for the CIRCUITID field */
-	const CIRCUITID = 'lausi_address.CIRCUITID';
+	/** the column name for the PHOTOID field */
+	const PHOTOID = 'lausi_addressPhotos.PHOTOID';
 
 	/** The default string format for model objects of the related table **/
 	const DEFAULT_STRING_FORMAT = 'YAML';
 	
 	/**
-	 * An identiy map to hold any loaded instances of Address objects.
+	 * An identiy map to hold any loaded instances of AddressPhoto objects.
 	 * This must be public so that other peer classes can access this when hydrating from JOIN
 	 * queries.
-	 * @var        array Address[]
+	 * @var        array AddressPhoto[]
 	 */
 	public static $instances = array();
 
@@ -104,12 +59,12 @@ abstract class BaseAddressPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	protected static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Street', 'Number', 'Rating', 'Intersection', 'Owner', 'Latitude', 'Longitude', 'Regionid', 'Ownerphone', 'Ordercircuit', 'Nickname', 'Enumeration', 'Creationdate', 'Deletiondate', 'Hasgrille', 'Circuitid', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'street', 'number', 'rating', 'intersection', 'owner', 'latitude', 'longitude', 'regionid', 'ownerphone', 'ordercircuit', 'nickname', 'enumeration', 'creationdate', 'deletiondate', 'hasgrille', 'circuitid', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::STREET, self::NUMBER, self::RATING, self::INTERSECTION, self::OWNER, self::LATITUDE, self::LONGITUDE, self::REGIONID, self::OWNERPHONE, self::ORDERCIRCUIT, self::NICKNAME, self::ENUMERATION, self::CREATIONDATE, self::DELETIONDATE, self::HASGRILLE, self::CIRCUITID, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'STREET', 'NUMBER', 'RATING', 'INTERSECTION', 'OWNER', 'LATITUDE', 'LONGITUDE', 'REGIONID', 'OWNERPHONE', 'ORDERCIRCUIT', 'NICKNAME', 'ENUMERATION', 'CREATIONDATE', 'DELETIONDATE', 'HASGRILLE', 'CIRCUITID', ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'street', 'number', 'rating', 'intersection', 'owner', 'latitude', 'longitude', 'regionId', 'ownerPhone', 'orderCircuit', 'nickname', 'enumeration', 'creationDate', 'deletionDate', 'hasGrille', 'circuitId', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, )
+		BasePeer::TYPE_PHPNAME => array ('Addressid', 'Photoid', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('addressid', 'photoid', ),
+		BasePeer::TYPE_COLNAME => array (self::ADDRESSID, self::PHOTOID, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ADDRESSID', 'PHOTOID', ),
+		BasePeer::TYPE_FIELDNAME => array ('addressId', 'photoId', ),
+		BasePeer::TYPE_NUM => array (0, 1, )
 	);
 
 	/**
@@ -119,12 +74,12 @@ abstract class BaseAddressPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	protected static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Street' => 1, 'Number' => 2, 'Rating' => 3, 'Intersection' => 4, 'Owner' => 5, 'Latitude' => 6, 'Longitude' => 7, 'Regionid' => 8, 'Ownerphone' => 9, 'Ordercircuit' => 10, 'Nickname' => 11, 'Enumeration' => 12, 'Creationdate' => 13, 'Deletiondate' => 14, 'Hasgrille' => 15, 'Circuitid' => 16, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'street' => 1, 'number' => 2, 'rating' => 3, 'intersection' => 4, 'owner' => 5, 'latitude' => 6, 'longitude' => 7, 'regionid' => 8, 'ownerphone' => 9, 'ordercircuit' => 10, 'nickname' => 11, 'enumeration' => 12, 'creationdate' => 13, 'deletiondate' => 14, 'hasgrille' => 15, 'circuitid' => 16, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::STREET => 1, self::NUMBER => 2, self::RATING => 3, self::INTERSECTION => 4, self::OWNER => 5, self::LATITUDE => 6, self::LONGITUDE => 7, self::REGIONID => 8, self::OWNERPHONE => 9, self::ORDERCIRCUIT => 10, self::NICKNAME => 11, self::ENUMERATION => 12, self::CREATIONDATE => 13, self::DELETIONDATE => 14, self::HASGRILLE => 15, self::CIRCUITID => 16, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'STREET' => 1, 'NUMBER' => 2, 'RATING' => 3, 'INTERSECTION' => 4, 'OWNER' => 5, 'LATITUDE' => 6, 'LONGITUDE' => 7, 'REGIONID' => 8, 'OWNERPHONE' => 9, 'ORDERCIRCUIT' => 10, 'NICKNAME' => 11, 'ENUMERATION' => 12, 'CREATIONDATE' => 13, 'DELETIONDATE' => 14, 'HASGRILLE' => 15, 'CIRCUITID' => 16, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'street' => 1, 'number' => 2, 'rating' => 3, 'intersection' => 4, 'owner' => 5, 'latitude' => 6, 'longitude' => 7, 'regionId' => 8, 'ownerPhone' => 9, 'orderCircuit' => 10, 'nickname' => 11, 'enumeration' => 12, 'creationDate' => 13, 'deletionDate' => 14, 'hasGrille' => 15, 'circuitId' => 16, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, )
+		BasePeer::TYPE_PHPNAME => array ('Addressid' => 0, 'Photoid' => 1, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('addressid' => 0, 'photoid' => 1, ),
+		BasePeer::TYPE_COLNAME => array (self::ADDRESSID => 0, self::PHOTOID => 1, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ADDRESSID' => 0, 'PHOTOID' => 1, ),
+		BasePeer::TYPE_FIELDNAME => array ('addressId' => 0, 'photoId' => 1, ),
+		BasePeer::TYPE_NUM => array (0, 1, )
 	);
 
 	/**
@@ -173,12 +128,12 @@ abstract class BaseAddressPeer {
 	 *		$c->addJoin(TablePeer::alias("alias1", TablePeer::PRIMARY_KEY_COLUMN), TablePeer::PRIMARY_KEY_COLUMN);
 	 * </code>
 	 * @param      string $alias The alias for the current table.
-	 * @param      string $column The column name for current table. (i.e. AddressPeer::COLUMN_NAME).
+	 * @param      string $column The column name for current table. (i.e. AddressPhotoPeer::COLUMN_NAME).
 	 * @return     string
 	 */
 	public static function alias($alias, $column)
 	{
-		return str_replace(AddressPeer::TABLE_NAME.'.', $alias.'.', $column);
+		return str_replace(AddressPhotoPeer::TABLE_NAME.'.', $alias.'.', $column);
 	}
 
 	/**
@@ -196,41 +151,11 @@ abstract class BaseAddressPeer {
 	public static function addSelectColumns(Criteria $criteria, $alias = null)
 	{
 		if (null === $alias) {
-			$criteria->addSelectColumn(AddressPeer::ID);
-			$criteria->addSelectColumn(AddressPeer::STREET);
-			$criteria->addSelectColumn(AddressPeer::NUMBER);
-			$criteria->addSelectColumn(AddressPeer::RATING);
-			$criteria->addSelectColumn(AddressPeer::INTERSECTION);
-			$criteria->addSelectColumn(AddressPeer::OWNER);
-			$criteria->addSelectColumn(AddressPeer::LATITUDE);
-			$criteria->addSelectColumn(AddressPeer::LONGITUDE);
-			$criteria->addSelectColumn(AddressPeer::REGIONID);
-			$criteria->addSelectColumn(AddressPeer::OWNERPHONE);
-			$criteria->addSelectColumn(AddressPeer::ORDERCIRCUIT);
-			$criteria->addSelectColumn(AddressPeer::NICKNAME);
-			$criteria->addSelectColumn(AddressPeer::ENUMERATION);
-			$criteria->addSelectColumn(AddressPeer::CREATIONDATE);
-			$criteria->addSelectColumn(AddressPeer::DELETIONDATE);
-			$criteria->addSelectColumn(AddressPeer::HASGRILLE);
-			$criteria->addSelectColumn(AddressPeer::CIRCUITID);
+			$criteria->addSelectColumn(AddressPhotoPeer::ADDRESSID);
+			$criteria->addSelectColumn(AddressPhotoPeer::PHOTOID);
 		} else {
-			$criteria->addSelectColumn($alias . '.ID');
-			$criteria->addSelectColumn($alias . '.STREET');
-			$criteria->addSelectColumn($alias . '.NUMBER');
-			$criteria->addSelectColumn($alias . '.RATING');
-			$criteria->addSelectColumn($alias . '.INTERSECTION');
-			$criteria->addSelectColumn($alias . '.OWNER');
-			$criteria->addSelectColumn($alias . '.LATITUDE');
-			$criteria->addSelectColumn($alias . '.LONGITUDE');
-			$criteria->addSelectColumn($alias . '.REGIONID');
-			$criteria->addSelectColumn($alias . '.OWNERPHONE');
-			$criteria->addSelectColumn($alias . '.ORDERCIRCUIT');
-			$criteria->addSelectColumn($alias . '.NICKNAME');
-			$criteria->addSelectColumn($alias . '.ENUMERATION');
-			$criteria->addSelectColumn($alias . '.CREATIONDATE');
-			$criteria->addSelectColumn($alias . '.DELETIONDATE');
-			$criteria->addSelectColumn($alias . '.HASGRILLE');
-			$criteria->addSelectColumn($alias . '.CIRCUITID');
+			$criteria->addSelectColumn($alias . '.ADDRESSID');
+			$criteria->addSelectColumn($alias . '.PHOTOID');
 		}
 	}
 
@@ -250,21 +175,21 @@ abstract class BaseAddressPeer {
 		// We need to set the primary table name, since in the case that there are no WHERE columns
 		// it will be impossible for the BasePeer::createSelectSql() method to determine which
 		// tables go into the FROM clause.
-		$criteria->setPrimaryTableName(AddressPeer::TABLE_NAME);
+		$criteria->setPrimaryTableName(AddressPhotoPeer::TABLE_NAME);
 
 		if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
 			$criteria->setDistinct();
 		}
 
 		if (!$criteria->hasSelectClause()) {
-			AddressPeer::addSelectColumns($criteria);
+			AddressPhotoPeer::addSelectColumns($criteria);
 		}
 
 		$criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
 		$criteria->setDbName(self::DATABASE_NAME); // Set the correct dbName
 
 		if ($con === null) {
-			$con = Propel::getConnection(AddressPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(AddressPhotoPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 		// BasePeer returns a PDOStatement
 		$stmt = BasePeer::doCount($criteria, $con);
@@ -282,7 +207,7 @@ abstract class BaseAddressPeer {
 	 *
 	 * @param      Criteria $criteria object used to create the SELECT statement.
 	 * @param      PropelPDO $con
-	 * @return     Address
+	 * @return     AddressPhoto
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
@@ -290,7 +215,7 @@ abstract class BaseAddressPeer {
 	{
 		$critcopy = clone $criteria;
 		$critcopy->setLimit(1);
-		$objects = AddressPeer::doSelect($critcopy, $con);
+		$objects = AddressPhotoPeer::doSelect($critcopy, $con);
 		if ($objects) {
 			return $objects[0];
 		}
@@ -307,7 +232,7 @@ abstract class BaseAddressPeer {
 	 */
 	public static function doSelect(Criteria $criteria, PropelPDO $con = null)
 	{
-		return AddressPeer::populateObjects(AddressPeer::doSelectStmt($criteria, $con));
+		return AddressPhotoPeer::populateObjects(AddressPhotoPeer::doSelectStmt($criteria, $con));
 	}
 	/**
 	 * Prepares the Criteria object and uses the parent doSelect() method to execute a PDOStatement.
@@ -325,12 +250,12 @@ abstract class BaseAddressPeer {
 	public static function doSelectStmt(Criteria $criteria, PropelPDO $con = null)
 	{
 		if ($con === null) {
-			$con = Propel::getConnection(AddressPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(AddressPhotoPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
 		if (!$criteria->hasSelectClause()) {
 			$criteria = clone $criteria;
-			AddressPeer::addSelectColumns($criteria);
+			AddressPhotoPeer::addSelectColumns($criteria);
 		}
 
 		// Set the correct dbName
@@ -348,14 +273,14 @@ abstract class BaseAddressPeer {
 	 * to the cache in order to ensure that the same objects are always returned by doSelect*()
 	 * and retrieveByPK*() calls.
 	 *
-	 * @param      Address $value A Address object.
+	 * @param      AddressPhoto $value A AddressPhoto object.
 	 * @param      string $key (optional) key to use for instance map (for performance boost if key was already calculated externally).
 	 */
 	public static function addInstanceToPool($obj, $key = null)
 	{
 		if (Propel::isInstancePoolingEnabled()) {
 			if ($key === null) {
-				$key = (string) $obj->getId();
+				$key = serialize(array((string) $obj->getAddressid(), (string) $obj->getPhotoid()));
 			} // if key === null
 			self::$instances[$key] = $obj;
 		}
@@ -369,18 +294,18 @@ abstract class BaseAddressPeer {
 	 * methods in your stub classes -- you may need to explicitly remove objects
 	 * from the cache in order to prevent returning objects that no longer exist.
 	 *
-	 * @param      mixed $value A Address object or a primary key value.
+	 * @param      mixed $value A AddressPhoto object or a primary key value.
 	 */
 	public static function removeInstanceFromPool($value)
 	{
 		if (Propel::isInstancePoolingEnabled() && $value !== null) {
-			if (is_object($value) && $value instanceof Address) {
-				$key = (string) $value->getId();
-			} elseif (is_scalar($value)) {
+			if (is_object($value) && $value instanceof AddressPhoto) {
+				$key = serialize(array((string) $value->getAddressid(), (string) $value->getPhotoid()));
+			} elseif (is_array($value) && count($value) === 2) {
 				// assume we've been passed a primary key
-				$key = (string) $value;
+				$key = serialize(array((string) $value[0], (string) $value[1]));
 			} else {
-				$e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or Address object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
+				$e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or AddressPhoto object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
 				throw $e;
 			}
 
@@ -395,7 +320,7 @@ abstract class BaseAddressPeer {
 	 * a multi-column primary key, a serialize()d version of the primary key will be returned.
 	 *
 	 * @param      string $key The key (@see getPrimaryKeyHash()) for this instance.
-	 * @return     Address Found object or NULL if 1) no instance exists for specified key or 2) instance pooling has been disabled.
+	 * @return     AddressPhoto Found object or NULL if 1) no instance exists for specified key or 2) instance pooling has been disabled.
 	 * @see        getPrimaryKeyHash()
 	 */
 	public static function getInstanceFromPool($key)
@@ -419,14 +344,11 @@ abstract class BaseAddressPeer {
 	}
 	
 	/**
-	 * Method to invalidate the instance pool of all tables related to lausi_address
+	 * Method to invalidate the instance pool of all tables related to lausi_addressPhotos
 	 * by a foreign key with ON DELETE CASCADE
 	 */
 	public static function clearRelatedInstancePool()
 	{
-		// Invalidate objects in BillboardPeer instance pool, 
-		// since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
-		BillboardPeer::clearInstancePool();
 	}
 
 	/**
@@ -442,10 +364,10 @@ abstract class BaseAddressPeer {
 	public static function getPrimaryKeyHashFromRow($row, $startcol = 0)
 	{
 		// If the PK cannot be derived from the row, return NULL.
-		if ($row[$startcol] === null) {
+		if ($row[$startcol] === null && $row[$startcol + 1] === null) {
 			return null;
 		}
-		return (string) $row[$startcol];
+		return serialize(array((string) $row[$startcol], (string) $row[$startcol + 1]));
 	}
 
 	/**
@@ -459,7 +381,7 @@ abstract class BaseAddressPeer {
 	 */
 	public static function getPrimaryKeyFromRow($row, $startcol = 0)
 	{
-		return (int) $row[$startcol];
+		return array((int) $row[$startcol], (int) $row[$startcol + 1]);
 	}
 	
 	/**
@@ -474,11 +396,11 @@ abstract class BaseAddressPeer {
 		$results = array();
 	
 		// set the class once to avoid overhead in the loop
-		$cls = AddressPeer::getOMClass(false);
+		$cls = AddressPhotoPeer::getOMClass(false);
 		// populate the object(s)
 		while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$key = AddressPeer::getPrimaryKeyHashFromRow($row, 0);
-			if (null !== ($obj = AddressPeer::getInstanceFromPool($key))) {
+			$key = AddressPhotoPeer::getPrimaryKeyHashFromRow($row, 0);
+			if (null !== ($obj = AddressPhotoPeer::getInstanceFromPool($key))) {
 				// We no longer rehydrate the object, since this can cause data loss.
 				// See http://www.propelorm.org/ticket/509
 				// $obj->hydrate($row, 0, true); // rehydrate
@@ -487,7 +409,7 @@ abstract class BaseAddressPeer {
 				$obj = new $cls();
 				$obj->hydrate($row);
 				$results[] = $obj;
-				AddressPeer::addInstanceToPool($obj, $key);
+				AddressPhotoPeer::addInstanceToPool($obj, $key);
 			} // if key exists
 		}
 		$stmt->closeCursor();
@@ -500,27 +422,27 @@ abstract class BaseAddressPeer {
 	 * @param      int $startcol The 0-based offset for reading from the resultset row.
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
-	 * @return     array (Address object, last column rank)
+	 * @return     array (AddressPhoto object, last column rank)
 	 */
 	public static function populateObject($row, $startcol = 0)
 	{
-		$key = AddressPeer::getPrimaryKeyHashFromRow($row, $startcol);
-		if (null !== ($obj = AddressPeer::getInstanceFromPool($key))) {
+		$key = AddressPhotoPeer::getPrimaryKeyHashFromRow($row, $startcol);
+		if (null !== ($obj = AddressPhotoPeer::getInstanceFromPool($key))) {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + AddressPeer::NUM_HYDRATE_COLUMNS;
+			$col = $startcol + AddressPhotoPeer::NUM_HYDRATE_COLUMNS;
 		} else {
-			$cls = AddressPeer::OM_CLASS;
+			$cls = AddressPhotoPeer::OM_CLASS;
 			$obj = new $cls();
 			$col = $obj->hydrate($row, $startcol);
-			AddressPeer::addInstanceToPool($obj, $key);
+			AddressPhotoPeer::addInstanceToPool($obj, $key);
 		}
 		return array($obj, $col);
 	}
 
 	/**
-	 * Returns the number of rows matching criteria, joining the related Circuit table
+	 * Returns the number of rows matching criteria, joining the related Address table
 	 *
 	 * @param      Criteria $criteria
 	 * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -528,7 +450,7 @@ abstract class BaseAddressPeer {
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
 	 * @return     int Number of matching rows.
 	 */
-	public static function doCountJoinCircuit(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doCountJoinAddress(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		// we're going to modify criteria, so copy it first
 		$criteria = clone $criteria;
@@ -536,14 +458,14 @@ abstract class BaseAddressPeer {
 		// We need to set the primary table name, since in the case that there are no WHERE columns
 		// it will be impossible for the BasePeer::createSelectSql() method to determine which
 		// tables go into the FROM clause.
-		$criteria->setPrimaryTableName(AddressPeer::TABLE_NAME);
+		$criteria->setPrimaryTableName(AddressPhotoPeer::TABLE_NAME);
 
 		if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
 			$criteria->setDistinct();
 		}
 
 		if (!$criteria->hasSelectClause()) {
-			AddressPeer::addSelectColumns($criteria);
+			AddressPhotoPeer::addSelectColumns($criteria);
 		}
 		
 		$criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
@@ -552,10 +474,10 @@ abstract class BaseAddressPeer {
 		$criteria->setDbName(self::DATABASE_NAME);
 
 		if ($con === null) {
-			$con = Propel::getConnection(AddressPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(AddressPhotoPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
-		$criteria->addJoin(AddressPeer::CIRCUITID, CircuitPeer::ID, $join_behavior);
+		$criteria->addJoin(AddressPhotoPeer::ADDRESSID, AddressPeer::ID, $join_behavior);
 
 		$stmt = BasePeer::doCount($criteria, $con);
 
@@ -570,7 +492,7 @@ abstract class BaseAddressPeer {
 
 
 	/**
-	 * Returns the number of rows matching criteria, joining the related Region table
+	 * Returns the number of rows matching criteria, joining the related Photo table
 	 *
 	 * @param      Criteria $criteria
 	 * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -578,7 +500,7 @@ abstract class BaseAddressPeer {
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
 	 * @return     int Number of matching rows.
 	 */
-	public static function doCountJoinRegion(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doCountJoinPhoto(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		// we're going to modify criteria, so copy it first
 		$criteria = clone $criteria;
@@ -586,14 +508,14 @@ abstract class BaseAddressPeer {
 		// We need to set the primary table name, since in the case that there are no WHERE columns
 		// it will be impossible for the BasePeer::createSelectSql() method to determine which
 		// tables go into the FROM clause.
-		$criteria->setPrimaryTableName(AddressPeer::TABLE_NAME);
+		$criteria->setPrimaryTableName(AddressPhotoPeer::TABLE_NAME);
 
 		if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
 			$criteria->setDistinct();
 		}
 
 		if (!$criteria->hasSelectClause()) {
-			AddressPeer::addSelectColumns($criteria);
+			AddressPhotoPeer::addSelectColumns($criteria);
 		}
 		
 		$criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
@@ -602,10 +524,10 @@ abstract class BaseAddressPeer {
 		$criteria->setDbName(self::DATABASE_NAME);
 
 		if ($con === null) {
-			$con = Propel::getConnection(AddressPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(AddressPhotoPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
-		$criteria->addJoin(AddressPeer::REGIONID, RegionPeer::ID, $join_behavior);
+		$criteria->addJoin(AddressPhotoPeer::PHOTOID, PhotoPeer::ID, $join_behavior);
 
 		$stmt = BasePeer::doCount($criteria, $con);
 
@@ -620,15 +542,15 @@ abstract class BaseAddressPeer {
 
 
 	/**
-	 * Selects a collection of Address objects pre-filled with their Circuit objects.
+	 * Selects a collection of AddressPhoto objects pre-filled with their Address objects.
 	 * @param      Criteria  $criteria
 	 * @param      PropelPDO $con
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-	 * @return     array Array of Address objects.
+	 * @return     array Array of AddressPhoto objects.
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
-	public static function doSelectJoinCircuit(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doSelectJoinAddress(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		$criteria = clone $criteria;
 
@@ -637,44 +559,44 @@ abstract class BaseAddressPeer {
 			$criteria->setDbName(self::DATABASE_NAME);
 		}
 
+		AddressPhotoPeer::addSelectColumns($criteria);
+		$startcol = AddressPhotoPeer::NUM_HYDRATE_COLUMNS;
 		AddressPeer::addSelectColumns($criteria);
-		$startcol = AddressPeer::NUM_HYDRATE_COLUMNS;
-		CircuitPeer::addSelectColumns($criteria);
 
-		$criteria->addJoin(AddressPeer::CIRCUITID, CircuitPeer::ID, $join_behavior);
+		$criteria->addJoin(AddressPhotoPeer::ADDRESSID, AddressPeer::ID, $join_behavior);
 
 		$stmt = BasePeer::doSelect($criteria, $con);
 		$results = array();
 
 		while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$key1 = AddressPeer::getPrimaryKeyHashFromRow($row, 0);
-			if (null !== ($obj1 = AddressPeer::getInstanceFromPool($key1))) {
+			$key1 = AddressPhotoPeer::getPrimaryKeyHashFromRow($row, 0);
+			if (null !== ($obj1 = AddressPhotoPeer::getInstanceFromPool($key1))) {
 				// We no longer rehydrate the object, since this can cause data loss.
 				// See http://www.propelorm.org/ticket/509
 				// $obj1->hydrate($row, 0, true); // rehydrate
 			} else {
 
-				$cls = AddressPeer::getOMClass(false);
+				$cls = AddressPhotoPeer::getOMClass(false);
 
 				$obj1 = new $cls();
 				$obj1->hydrate($row);
-				AddressPeer::addInstanceToPool($obj1, $key1);
+				AddressPhotoPeer::addInstanceToPool($obj1, $key1);
 			} // if $obj1 already loaded
 
-			$key2 = CircuitPeer::getPrimaryKeyHashFromRow($row, $startcol);
+			$key2 = AddressPeer::getPrimaryKeyHashFromRow($row, $startcol);
 			if ($key2 !== null) {
-				$obj2 = CircuitPeer::getInstanceFromPool($key2);
+				$obj2 = AddressPeer::getInstanceFromPool($key2);
 				if (!$obj2) {
 
-					$cls = CircuitPeer::getOMClass(false);
+					$cls = AddressPeer::getOMClass(false);
 
 					$obj2 = new $cls();
 					$obj2->hydrate($row, $startcol);
-					CircuitPeer::addInstanceToPool($obj2, $key2);
+					AddressPeer::addInstanceToPool($obj2, $key2);
 				} // if obj2 already loaded
 
-				// Add the $obj1 (Address) to $obj2 (Circuit)
-				$obj2->addAddress($obj1);
+				// Add the $obj1 (AddressPhoto) to $obj2 (Address)
+				$obj2->addAddressPhoto($obj1);
 
 			} // if joined row was not null
 
@@ -686,15 +608,15 @@ abstract class BaseAddressPeer {
 
 
 	/**
-	 * Selects a collection of Address objects pre-filled with their Region objects.
+	 * Selects a collection of AddressPhoto objects pre-filled with their Photo objects.
 	 * @param      Criteria  $criteria
 	 * @param      PropelPDO $con
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-	 * @return     array Array of Address objects.
+	 * @return     array Array of AddressPhoto objects.
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
-	public static function doSelectJoinRegion(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doSelectJoinPhoto(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		$criteria = clone $criteria;
 
@@ -703,44 +625,44 @@ abstract class BaseAddressPeer {
 			$criteria->setDbName(self::DATABASE_NAME);
 		}
 
-		AddressPeer::addSelectColumns($criteria);
-		$startcol = AddressPeer::NUM_HYDRATE_COLUMNS;
-		RegionPeer::addSelectColumns($criteria);
+		AddressPhotoPeer::addSelectColumns($criteria);
+		$startcol = AddressPhotoPeer::NUM_HYDRATE_COLUMNS;
+		PhotoPeer::addSelectColumns($criteria);
 
-		$criteria->addJoin(AddressPeer::REGIONID, RegionPeer::ID, $join_behavior);
+		$criteria->addJoin(AddressPhotoPeer::PHOTOID, PhotoPeer::ID, $join_behavior);
 
 		$stmt = BasePeer::doSelect($criteria, $con);
 		$results = array();
 
 		while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$key1 = AddressPeer::getPrimaryKeyHashFromRow($row, 0);
-			if (null !== ($obj1 = AddressPeer::getInstanceFromPool($key1))) {
+			$key1 = AddressPhotoPeer::getPrimaryKeyHashFromRow($row, 0);
+			if (null !== ($obj1 = AddressPhotoPeer::getInstanceFromPool($key1))) {
 				// We no longer rehydrate the object, since this can cause data loss.
 				// See http://www.propelorm.org/ticket/509
 				// $obj1->hydrate($row, 0, true); // rehydrate
 			} else {
 
-				$cls = AddressPeer::getOMClass(false);
+				$cls = AddressPhotoPeer::getOMClass(false);
 
 				$obj1 = new $cls();
 				$obj1->hydrate($row);
-				AddressPeer::addInstanceToPool($obj1, $key1);
+				AddressPhotoPeer::addInstanceToPool($obj1, $key1);
 			} // if $obj1 already loaded
 
-			$key2 = RegionPeer::getPrimaryKeyHashFromRow($row, $startcol);
+			$key2 = PhotoPeer::getPrimaryKeyHashFromRow($row, $startcol);
 			if ($key2 !== null) {
-				$obj2 = RegionPeer::getInstanceFromPool($key2);
+				$obj2 = PhotoPeer::getInstanceFromPool($key2);
 				if (!$obj2) {
 
-					$cls = RegionPeer::getOMClass(false);
+					$cls = PhotoPeer::getOMClass(false);
 
 					$obj2 = new $cls();
 					$obj2->hydrate($row, $startcol);
-					RegionPeer::addInstanceToPool($obj2, $key2);
+					PhotoPeer::addInstanceToPool($obj2, $key2);
 				} // if obj2 already loaded
 
-				// Add the $obj1 (Address) to $obj2 (Region)
-				$obj2->addAddress($obj1);
+				// Add the $obj1 (AddressPhoto) to $obj2 (Photo)
+				$obj2->addAddressPhoto($obj1);
 
 			} // if joined row was not null
 
@@ -768,14 +690,14 @@ abstract class BaseAddressPeer {
 		// We need to set the primary table name, since in the case that there are no WHERE columns
 		// it will be impossible for the BasePeer::createSelectSql() method to determine which
 		// tables go into the FROM clause.
-		$criteria->setPrimaryTableName(AddressPeer::TABLE_NAME);
+		$criteria->setPrimaryTableName(AddressPhotoPeer::TABLE_NAME);
 
 		if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
 			$criteria->setDistinct();
 		}
 
 		if (!$criteria->hasSelectClause()) {
-			AddressPeer::addSelectColumns($criteria);
+			AddressPhotoPeer::addSelectColumns($criteria);
 		}
 		
 		$criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
@@ -784,12 +706,12 @@ abstract class BaseAddressPeer {
 		$criteria->setDbName(self::DATABASE_NAME);
 
 		if ($con === null) {
-			$con = Propel::getConnection(AddressPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(AddressPhotoPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
-		$criteria->addJoin(AddressPeer::CIRCUITID, CircuitPeer::ID, $join_behavior);
+		$criteria->addJoin(AddressPhotoPeer::ADDRESSID, AddressPeer::ID, $join_behavior);
 
-		$criteria->addJoin(AddressPeer::REGIONID, RegionPeer::ID, $join_behavior);
+		$criteria->addJoin(AddressPhotoPeer::PHOTOID, PhotoPeer::ID, $join_behavior);
 
 		$stmt = BasePeer::doCount($criteria, $con);
 
@@ -803,12 +725,12 @@ abstract class BaseAddressPeer {
 	}
 
 	/**
-	 * Selects a collection of Address objects pre-filled with all related objects.
+	 * Selects a collection of AddressPhoto objects pre-filled with all related objects.
 	 *
 	 * @param      Criteria  $criteria
 	 * @param      PropelPDO $con
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-	 * @return     array Array of Address objects.
+	 * @return     array Array of AddressPhoto objects.
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
@@ -821,70 +743,70 @@ abstract class BaseAddressPeer {
 			$criteria->setDbName(self::DATABASE_NAME);
 		}
 
+		AddressPhotoPeer::addSelectColumns($criteria);
+		$startcol2 = AddressPhotoPeer::NUM_HYDRATE_COLUMNS;
+
 		AddressPeer::addSelectColumns($criteria);
-		$startcol2 = AddressPeer::NUM_HYDRATE_COLUMNS;
+		$startcol3 = $startcol2 + AddressPeer::NUM_HYDRATE_COLUMNS;
 
-		CircuitPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + CircuitPeer::NUM_HYDRATE_COLUMNS;
+		PhotoPeer::addSelectColumns($criteria);
+		$startcol4 = $startcol3 + PhotoPeer::NUM_HYDRATE_COLUMNS;
 
-		RegionPeer::addSelectColumns($criteria);
-		$startcol4 = $startcol3 + RegionPeer::NUM_HYDRATE_COLUMNS;
+		$criteria->addJoin(AddressPhotoPeer::ADDRESSID, AddressPeer::ID, $join_behavior);
 
-		$criteria->addJoin(AddressPeer::CIRCUITID, CircuitPeer::ID, $join_behavior);
-
-		$criteria->addJoin(AddressPeer::REGIONID, RegionPeer::ID, $join_behavior);
+		$criteria->addJoin(AddressPhotoPeer::PHOTOID, PhotoPeer::ID, $join_behavior);
 
 		$stmt = BasePeer::doSelect($criteria, $con);
 		$results = array();
 
 		while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$key1 = AddressPeer::getPrimaryKeyHashFromRow($row, 0);
-			if (null !== ($obj1 = AddressPeer::getInstanceFromPool($key1))) {
+			$key1 = AddressPhotoPeer::getPrimaryKeyHashFromRow($row, 0);
+			if (null !== ($obj1 = AddressPhotoPeer::getInstanceFromPool($key1))) {
 				// We no longer rehydrate the object, since this can cause data loss.
 				// See http://www.propelorm.org/ticket/509
 				// $obj1->hydrate($row, 0, true); // rehydrate
 			} else {
-				$cls = AddressPeer::getOMClass(false);
+				$cls = AddressPhotoPeer::getOMClass(false);
 
 				$obj1 = new $cls();
 				$obj1->hydrate($row);
-				AddressPeer::addInstanceToPool($obj1, $key1);
+				AddressPhotoPeer::addInstanceToPool($obj1, $key1);
 			} // if obj1 already loaded
 
-			// Add objects for joined Circuit rows
+			// Add objects for joined Address rows
 
-			$key2 = CircuitPeer::getPrimaryKeyHashFromRow($row, $startcol2);
+			$key2 = AddressPeer::getPrimaryKeyHashFromRow($row, $startcol2);
 			if ($key2 !== null) {
-				$obj2 = CircuitPeer::getInstanceFromPool($key2);
+				$obj2 = AddressPeer::getInstanceFromPool($key2);
 				if (!$obj2) {
 
-					$cls = CircuitPeer::getOMClass(false);
+					$cls = AddressPeer::getOMClass(false);
 
 					$obj2 = new $cls();
 					$obj2->hydrate($row, $startcol2);
-					CircuitPeer::addInstanceToPool($obj2, $key2);
+					AddressPeer::addInstanceToPool($obj2, $key2);
 				} // if obj2 loaded
 
-				// Add the $obj1 (Address) to the collection in $obj2 (Circuit)
-				$obj2->addAddress($obj1);
+				// Add the $obj1 (AddressPhoto) to the collection in $obj2 (Address)
+				$obj2->addAddressPhoto($obj1);
 			} // if joined row not null
 
-			// Add objects for joined Region rows
+			// Add objects for joined Photo rows
 
-			$key3 = RegionPeer::getPrimaryKeyHashFromRow($row, $startcol3);
+			$key3 = PhotoPeer::getPrimaryKeyHashFromRow($row, $startcol3);
 			if ($key3 !== null) {
-				$obj3 = RegionPeer::getInstanceFromPool($key3);
+				$obj3 = PhotoPeer::getInstanceFromPool($key3);
 				if (!$obj3) {
 
-					$cls = RegionPeer::getOMClass(false);
+					$cls = PhotoPeer::getOMClass(false);
 
 					$obj3 = new $cls();
 					$obj3->hydrate($row, $startcol3);
-					RegionPeer::addInstanceToPool($obj3, $key3);
+					PhotoPeer::addInstanceToPool($obj3, $key3);
 				} // if obj3 loaded
 
-				// Add the $obj1 (Address) to the collection in $obj3 (Region)
-				$obj3->addAddress($obj1);
+				// Add the $obj1 (AddressPhoto) to the collection in $obj3 (Photo)
+				$obj3->addAddressPhoto($obj1);
 			} // if joined row not null
 
 			$results[] = $obj1;
@@ -895,7 +817,7 @@ abstract class BaseAddressPeer {
 
 
 	/**
-	 * Returns the number of rows matching criteria, joining the related Circuit table
+	 * Returns the number of rows matching criteria, joining the related Address table
 	 *
 	 * @param      Criteria $criteria
 	 * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -903,7 +825,7 @@ abstract class BaseAddressPeer {
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
 	 * @return     int Number of matching rows.
 	 */
-	public static function doCountJoinAllExceptCircuit(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doCountJoinAllExceptAddress(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		// we're going to modify criteria, so copy it first
 		$criteria = clone $criteria;
@@ -911,14 +833,14 @@ abstract class BaseAddressPeer {
 		// We need to set the primary table name, since in the case that there are no WHERE columns
 		// it will be impossible for the BasePeer::createSelectSql() method to determine which
 		// tables go into the FROM clause.
-		$criteria->setPrimaryTableName(AddressPeer::TABLE_NAME);
+		$criteria->setPrimaryTableName(AddressPhotoPeer::TABLE_NAME);
 		
 		if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
 			$criteria->setDistinct();
 		}
 
 		if (!$criteria->hasSelectClause()) {
-			AddressPeer::addSelectColumns($criteria);
+			AddressPhotoPeer::addSelectColumns($criteria);
 		}
 		
 		$criteria->clearOrderByColumns(); // ORDER BY should not affect count
@@ -927,10 +849,10 @@ abstract class BaseAddressPeer {
 		$criteria->setDbName(self::DATABASE_NAME);
 
 		if ($con === null) {
-			$con = Propel::getConnection(AddressPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(AddressPhotoPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 	
-		$criteria->addJoin(AddressPeer::REGIONID, RegionPeer::ID, $join_behavior);
+		$criteria->addJoin(AddressPhotoPeer::PHOTOID, PhotoPeer::ID, $join_behavior);
 
 		$stmt = BasePeer::doCount($criteria, $con);
 
@@ -945,7 +867,7 @@ abstract class BaseAddressPeer {
 
 
 	/**
-	 * Returns the number of rows matching criteria, joining the related Region table
+	 * Returns the number of rows matching criteria, joining the related Photo table
 	 *
 	 * @param      Criteria $criteria
 	 * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -953,7 +875,7 @@ abstract class BaseAddressPeer {
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
 	 * @return     int Number of matching rows.
 	 */
-	public static function doCountJoinAllExceptRegion(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doCountJoinAllExceptPhoto(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		// we're going to modify criteria, so copy it first
 		$criteria = clone $criteria;
@@ -961,14 +883,14 @@ abstract class BaseAddressPeer {
 		// We need to set the primary table name, since in the case that there are no WHERE columns
 		// it will be impossible for the BasePeer::createSelectSql() method to determine which
 		// tables go into the FROM clause.
-		$criteria->setPrimaryTableName(AddressPeer::TABLE_NAME);
+		$criteria->setPrimaryTableName(AddressPhotoPeer::TABLE_NAME);
 		
 		if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
 			$criteria->setDistinct();
 		}
 
 		if (!$criteria->hasSelectClause()) {
-			AddressPeer::addSelectColumns($criteria);
+			AddressPhotoPeer::addSelectColumns($criteria);
 		}
 		
 		$criteria->clearOrderByColumns(); // ORDER BY should not affect count
@@ -977,10 +899,10 @@ abstract class BaseAddressPeer {
 		$criteria->setDbName(self::DATABASE_NAME);
 
 		if ($con === null) {
-			$con = Propel::getConnection(AddressPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(AddressPhotoPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 	
-		$criteria->addJoin(AddressPeer::CIRCUITID, CircuitPeer::ID, $join_behavior);
+		$criteria->addJoin(AddressPhotoPeer::ADDRESSID, AddressPeer::ID, $join_behavior);
 
 		$stmt = BasePeer::doCount($criteria, $con);
 
@@ -995,16 +917,16 @@ abstract class BaseAddressPeer {
 
 
 	/**
-	 * Selects a collection of Address objects pre-filled with all related objects except Circuit.
+	 * Selects a collection of AddressPhoto objects pre-filled with all related objects except Address.
 	 *
 	 * @param      Criteria  $criteria
 	 * @param      PropelPDO $con
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-	 * @return     array Array of Address objects.
+	 * @return     array Array of AddressPhoto objects.
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
-	public static function doSelectJoinAllExceptCircuit(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doSelectJoinAllExceptAddress(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		$criteria = clone $criteria;
 
@@ -1015,48 +937,48 @@ abstract class BaseAddressPeer {
 			$criteria->setDbName(self::DATABASE_NAME);
 		}
 
-		AddressPeer::addSelectColumns($criteria);
-		$startcol2 = AddressPeer::NUM_HYDRATE_COLUMNS;
+		AddressPhotoPeer::addSelectColumns($criteria);
+		$startcol2 = AddressPhotoPeer::NUM_HYDRATE_COLUMNS;
 
-		RegionPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + RegionPeer::NUM_HYDRATE_COLUMNS;
+		PhotoPeer::addSelectColumns($criteria);
+		$startcol3 = $startcol2 + PhotoPeer::NUM_HYDRATE_COLUMNS;
 
-		$criteria->addJoin(AddressPeer::REGIONID, RegionPeer::ID, $join_behavior);
+		$criteria->addJoin(AddressPhotoPeer::PHOTOID, PhotoPeer::ID, $join_behavior);
 
 
 		$stmt = BasePeer::doSelect($criteria, $con);
 		$results = array();
 
 		while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$key1 = AddressPeer::getPrimaryKeyHashFromRow($row, 0);
-			if (null !== ($obj1 = AddressPeer::getInstanceFromPool($key1))) {
+			$key1 = AddressPhotoPeer::getPrimaryKeyHashFromRow($row, 0);
+			if (null !== ($obj1 = AddressPhotoPeer::getInstanceFromPool($key1))) {
 				// We no longer rehydrate the object, since this can cause data loss.
 				// See http://www.propelorm.org/ticket/509
 				// $obj1->hydrate($row, 0, true); // rehydrate
 			} else {
-				$cls = AddressPeer::getOMClass(false);
+				$cls = AddressPhotoPeer::getOMClass(false);
 
 				$obj1 = new $cls();
 				$obj1->hydrate($row);
-				AddressPeer::addInstanceToPool($obj1, $key1);
+				AddressPhotoPeer::addInstanceToPool($obj1, $key1);
 			} // if obj1 already loaded
 
-				// Add objects for joined Region rows
+				// Add objects for joined Photo rows
 
-				$key2 = RegionPeer::getPrimaryKeyHashFromRow($row, $startcol2);
+				$key2 = PhotoPeer::getPrimaryKeyHashFromRow($row, $startcol2);
 				if ($key2 !== null) {
-					$obj2 = RegionPeer::getInstanceFromPool($key2);
+					$obj2 = PhotoPeer::getInstanceFromPool($key2);
 					if (!$obj2) {
 	
-						$cls = RegionPeer::getOMClass(false);
+						$cls = PhotoPeer::getOMClass(false);
 
 					$obj2 = new $cls();
 					$obj2->hydrate($row, $startcol2);
-					RegionPeer::addInstanceToPool($obj2, $key2);
+					PhotoPeer::addInstanceToPool($obj2, $key2);
 				} // if $obj2 already loaded
 
-				// Add the $obj1 (Address) to the collection in $obj2 (Region)
-				$obj2->addAddress($obj1);
+				// Add the $obj1 (AddressPhoto) to the collection in $obj2 (Photo)
+				$obj2->addAddressPhoto($obj1);
 
 			} // if joined row is not null
 
@@ -1068,16 +990,16 @@ abstract class BaseAddressPeer {
 
 
 	/**
-	 * Selects a collection of Address objects pre-filled with all related objects except Region.
+	 * Selects a collection of AddressPhoto objects pre-filled with all related objects except Photo.
 	 *
 	 * @param      Criteria  $criteria
 	 * @param      PropelPDO $con
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-	 * @return     array Array of Address objects.
+	 * @return     array Array of AddressPhoto objects.
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
-	public static function doSelectJoinAllExceptRegion(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doSelectJoinAllExceptPhoto(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		$criteria = clone $criteria;
 
@@ -1088,48 +1010,48 @@ abstract class BaseAddressPeer {
 			$criteria->setDbName(self::DATABASE_NAME);
 		}
 
+		AddressPhotoPeer::addSelectColumns($criteria);
+		$startcol2 = AddressPhotoPeer::NUM_HYDRATE_COLUMNS;
+
 		AddressPeer::addSelectColumns($criteria);
-		$startcol2 = AddressPeer::NUM_HYDRATE_COLUMNS;
+		$startcol3 = $startcol2 + AddressPeer::NUM_HYDRATE_COLUMNS;
 
-		CircuitPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + CircuitPeer::NUM_HYDRATE_COLUMNS;
-
-		$criteria->addJoin(AddressPeer::CIRCUITID, CircuitPeer::ID, $join_behavior);
+		$criteria->addJoin(AddressPhotoPeer::ADDRESSID, AddressPeer::ID, $join_behavior);
 
 
 		$stmt = BasePeer::doSelect($criteria, $con);
 		$results = array();
 
 		while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$key1 = AddressPeer::getPrimaryKeyHashFromRow($row, 0);
-			if (null !== ($obj1 = AddressPeer::getInstanceFromPool($key1))) {
+			$key1 = AddressPhotoPeer::getPrimaryKeyHashFromRow($row, 0);
+			if (null !== ($obj1 = AddressPhotoPeer::getInstanceFromPool($key1))) {
 				// We no longer rehydrate the object, since this can cause data loss.
 				// See http://www.propelorm.org/ticket/509
 				// $obj1->hydrate($row, 0, true); // rehydrate
 			} else {
-				$cls = AddressPeer::getOMClass(false);
+				$cls = AddressPhotoPeer::getOMClass(false);
 
 				$obj1 = new $cls();
 				$obj1->hydrate($row);
-				AddressPeer::addInstanceToPool($obj1, $key1);
+				AddressPhotoPeer::addInstanceToPool($obj1, $key1);
 			} // if obj1 already loaded
 
-				// Add objects for joined Circuit rows
+				// Add objects for joined Address rows
 
-				$key2 = CircuitPeer::getPrimaryKeyHashFromRow($row, $startcol2);
+				$key2 = AddressPeer::getPrimaryKeyHashFromRow($row, $startcol2);
 				if ($key2 !== null) {
-					$obj2 = CircuitPeer::getInstanceFromPool($key2);
+					$obj2 = AddressPeer::getInstanceFromPool($key2);
 					if (!$obj2) {
 	
-						$cls = CircuitPeer::getOMClass(false);
+						$cls = AddressPeer::getOMClass(false);
 
 					$obj2 = new $cls();
 					$obj2->hydrate($row, $startcol2);
-					CircuitPeer::addInstanceToPool($obj2, $key2);
+					AddressPeer::addInstanceToPool($obj2, $key2);
 				} // if $obj2 already loaded
 
-				// Add the $obj1 (Address) to the collection in $obj2 (Circuit)
-				$obj2->addAddress($obj1);
+				// Add the $obj1 (AddressPhoto) to the collection in $obj2 (Address)
+				$obj2->addAddressPhoto($obj1);
 
 			} // if joined row is not null
 
@@ -1156,10 +1078,10 @@ abstract class BaseAddressPeer {
 	 */
 	public static function buildTableMap()
 	{
-	  $dbMap = Propel::getDatabaseMap(BaseAddressPeer::DATABASE_NAME);
-	  if (!$dbMap->hasTable(BaseAddressPeer::TABLE_NAME))
+	  $dbMap = Propel::getDatabaseMap(BaseAddressPhotoPeer::DATABASE_NAME);
+	  if (!$dbMap->hasTable(BaseAddressPhotoPeer::TABLE_NAME))
 	  {
-	    $dbMap->addTableObject(new AddressTableMap());
+	    $dbMap->addTableObject(new AddressPhotoTableMap());
 	  }
 	}
 
@@ -1176,13 +1098,13 @@ abstract class BaseAddressPeer {
 	 */
 	public static function getOMClass($withPrefix = true)
 	{
-		return $withPrefix ? AddressPeer::CLASS_DEFAULT : AddressPeer::OM_CLASS;
+		return $withPrefix ? AddressPhotoPeer::CLASS_DEFAULT : AddressPhotoPeer::OM_CLASS;
 	}
 
 	/**
-	 * Method perform an INSERT on the database, given a Address or Criteria object.
+	 * Method perform an INSERT on the database, given a AddressPhoto or Criteria object.
 	 *
-	 * @param      mixed $values Criteria or Address object containing data that is used to create the INSERT statement.
+	 * @param      mixed $values Criteria or AddressPhoto object containing data that is used to create the INSERT statement.
 	 * @param      PropelPDO $con the PropelPDO connection to use
 	 * @return     mixed The new primary key.
 	 * @throws     PropelException Any exceptions caught during processing will be
@@ -1191,17 +1113,13 @@ abstract class BaseAddressPeer {
 	public static function doInsert($values, PropelPDO $con = null)
 	{
 		if ($con === null) {
-			$con = Propel::getConnection(AddressPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(AddressPhotoPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 
 		if ($values instanceof Criteria) {
 			$criteria = clone $values; // rename for clarity
 		} else {
-			$criteria = $values->buildCriteria(); // build Criteria from Address object
-		}
-
-		if ($criteria->containsKey(AddressPeer::ID) && $criteria->keyContainsValue(AddressPeer::ID) ) {
-			throw new PropelException('Cannot insert a value for auto-increment primary key ('.AddressPeer::ID.')');
+			$criteria = $values->buildCriteria(); // build Criteria from AddressPhoto object
 		}
 
 
@@ -1223,9 +1141,9 @@ abstract class BaseAddressPeer {
 	}
 
 	/**
-	 * Method perform an UPDATE on the database, given a Address or Criteria object.
+	 * Method perform an UPDATE on the database, given a AddressPhoto or Criteria object.
 	 *
-	 * @param      mixed $values Criteria or Address object containing data that is used to create the UPDATE statement.
+	 * @param      mixed $values Criteria or AddressPhoto object containing data that is used to create the UPDATE statement.
 	 * @param      PropelPDO $con The connection to use (specify PropelPDO connection object to exert more control over transactions).
 	 * @return     int The number of affected rows (if supported by underlying database driver).
 	 * @throws     PropelException Any exceptions caught during processing will be
@@ -1234,7 +1152,7 @@ abstract class BaseAddressPeer {
 	public static function doUpdate($values, PropelPDO $con = null)
 	{
 		if ($con === null) {
-			$con = Propel::getConnection(AddressPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(AddressPhotoPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 
 		$selectCriteria = new Criteria(self::DATABASE_NAME);
@@ -1242,15 +1160,23 @@ abstract class BaseAddressPeer {
 		if ($values instanceof Criteria) {
 			$criteria = clone $values; // rename for clarity
 
-			$comparison = $criteria->getComparison(AddressPeer::ID);
-			$value = $criteria->remove(AddressPeer::ID);
+			$comparison = $criteria->getComparison(AddressPhotoPeer::ADDRESSID);
+			$value = $criteria->remove(AddressPhotoPeer::ADDRESSID);
 			if ($value) {
-				$selectCriteria->add(AddressPeer::ID, $value, $comparison);
+				$selectCriteria->add(AddressPhotoPeer::ADDRESSID, $value, $comparison);
 			} else {
-				$selectCriteria->setPrimaryTableName(AddressPeer::TABLE_NAME);
+				$selectCriteria->setPrimaryTableName(AddressPhotoPeer::TABLE_NAME);
 			}
 
-		} else { // $values is Address object
+			$comparison = $criteria->getComparison(AddressPhotoPeer::PHOTOID);
+			$value = $criteria->remove(AddressPhotoPeer::PHOTOID);
+			if ($value) {
+				$selectCriteria->add(AddressPhotoPeer::PHOTOID, $value, $comparison);
+			} else {
+				$selectCriteria->setPrimaryTableName(AddressPhotoPeer::TABLE_NAME);
+			}
+
+		} else { // $values is AddressPhoto object
 			$criteria = $values->buildCriteria(); // gets full criteria
 			$selectCriteria = $values->buildPkeyCriteria(); // gets criteria w/ primary key(s)
 		}
@@ -1262,27 +1188,26 @@ abstract class BaseAddressPeer {
 	}
 
 	/**
-	 * Method to DELETE all rows from the lausi_address table.
+	 * Method to DELETE all rows from the lausi_addressPhotos table.
 	 *
 	 * @return     int The number of affected rows (if supported by underlying database driver).
 	 */
 	public static function doDeleteAll($con = null)
 	{
 		if ($con === null) {
-			$con = Propel::getConnection(AddressPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(AddressPhotoPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 		$affectedRows = 0; // initialize var to track total num of affected rows
 		try {
 			// use transaction because $criteria could contain info
 			// for more than one table or we could emulating ON DELETE CASCADE, etc.
 			$con->beginTransaction();
-			$affectedRows += AddressPeer::doOnDeleteCascade(new Criteria(AddressPeer::DATABASE_NAME), $con);
-			$affectedRows += BasePeer::doDeleteAll(AddressPeer::TABLE_NAME, $con, AddressPeer::DATABASE_NAME);
+			$affectedRows += BasePeer::doDeleteAll(AddressPhotoPeer::TABLE_NAME, $con, AddressPhotoPeer::DATABASE_NAME);
 			// Because this db requires some delete cascade/set null emulation, we have to
 			// clear the cached instance *after* the emulation has happened (since
 			// instances get re-added by the select statement contained therein).
-			AddressPeer::clearInstancePool();
-			AddressPeer::clearRelatedInstancePool();
+			AddressPhotoPeer::clearInstancePool();
+			AddressPhotoPeer::clearRelatedInstancePool();
 			$con->commit();
 			return $affectedRows;
 		} catch (PropelException $e) {
@@ -1292,9 +1217,9 @@ abstract class BaseAddressPeer {
 	}
 
 	/**
-	 * Method perform a DELETE on the database, given a Address or Criteria object OR a primary key value.
+	 * Method perform a DELETE on the database, given a AddressPhoto or Criteria object OR a primary key value.
 	 *
-	 * @param      mixed $values Criteria or Address object or primary key or array of primary keys
+	 * @param      mixed $values Criteria or AddressPhoto object or primary key or array of primary keys
 	 *              which is used to create the DELETE statement
 	 * @param      PropelPDO $con the connection to use
 	 * @return     int 	The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -1305,18 +1230,36 @@ abstract class BaseAddressPeer {
 	 public static function doDelete($values, PropelPDO $con = null)
 	 {
 		if ($con === null) {
-			$con = Propel::getConnection(AddressPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(AddressPhotoPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 
 		if ($values instanceof Criteria) {
+			// invalidate the cache for all objects of this type, since we have no
+			// way of knowing (without running a query) what objects should be invalidated
+			// from the cache based on this Criteria.
+			AddressPhotoPeer::clearInstancePool();
 			// rename for clarity
 			$criteria = clone $values;
-		} elseif ($values instanceof Address) { // it's a model object
+		} elseif ($values instanceof AddressPhoto) { // it's a model object
+			// invalidate the cache for this single object
+			AddressPhotoPeer::removeInstanceFromPool($values);
 			// create criteria based on pk values
 			$criteria = $values->buildPkeyCriteria();
 		} else { // it's a primary key, or an array of pks
 			$criteria = new Criteria(self::DATABASE_NAME);
-			$criteria->add(AddressPeer::ID, (array) $values, Criteria::IN);
+			// primary key is composite; we therefore, expect
+			// the primary key passed to be an array of pkey values
+			if (count($values) == count($values, COUNT_RECURSIVE)) {
+				// array is not multi-dimensional
+				$values = array($values);
+			}
+			foreach ($values as $value) {
+				$criterion = $criteria->getNewCriterion(AddressPhotoPeer::ADDRESSID, $value[0]);
+				$criterion->addAnd($criteria->getNewCriterion(AddressPhotoPeer::PHOTOID, $value[1]));
+				$criteria->addOr($criterion);
+				// we can invalidate the cache for this single PK
+				AddressPhotoPeer::removeInstanceFromPool($value);
+			}
 		}
 
 		// Set the correct dbName
@@ -1329,25 +1272,8 @@ abstract class BaseAddressPeer {
 			// for more than one table or we could emulating ON DELETE CASCADE, etc.
 			$con->beginTransaction();
 			
-			// cloning the Criteria in case it's modified by doSelect() or doSelectStmt()
-			$c = clone $criteria;
-			$affectedRows += AddressPeer::doOnDeleteCascade($c, $con);
-			
-			// Because this db requires some delete cascade/set null emulation, we have to
-			// clear the cached instance *after* the emulation has happened (since
-			// instances get re-added by the select statement contained therein).
-			if ($values instanceof Criteria) {
-				AddressPeer::clearInstancePool();
-			} elseif ($values instanceof Address) { // it's a model object
-				AddressPeer::removeInstanceFromPool($values);
-			} else { // it's a primary key, or an array of pks
-				foreach ((array) $values as $singleval) {
-					AddressPeer::removeInstanceFromPool($singleval);
-				}
-			}
-			
 			$affectedRows += BasePeer::doDelete($criteria, $con);
-			AddressPeer::clearRelatedInstancePool();
+			AddressPhotoPeer::clearRelatedInstancePool();
 			$con->commit();
 			return $affectedRows;
 		} catch (PropelException $e) {
@@ -1357,45 +1283,13 @@ abstract class BaseAddressPeer {
 	}
 
 	/**
-	 * This is a method for emulating ON DELETE CASCADE for DBs that don't support this
-	 * feature (like MySQL or SQLite).
-	 *
-	 * This method is not very speedy because it must perform a query first to get
-	 * the implicated records and then perform the deletes by calling those Peer classes.
-	 *
-	 * This method should be used within a transaction if possible.
-	 *
-	 * @param      Criteria $criteria
-	 * @param      PropelPDO $con
-	 * @return     int The number of affected rows (if supported by underlying database driver).
-	 */
-	protected static function doOnDeleteCascade(Criteria $criteria, PropelPDO $con)
-	{
-		// initialize var to track total num of affected rows
-		$affectedRows = 0;
-
-		// first find the objects that are implicated by the $criteria
-		$objects = AddressPeer::doSelect($criteria, $con);
-		foreach ($objects as $obj) {
-
-
-			// delete related Billboard objects
-			$criteria = new Criteria(BillboardPeer::DATABASE_NAME);
-			
-			$criteria->add(BillboardPeer::ADDRESSID, $obj->getId());
-			$affectedRows += BillboardPeer::doDelete($criteria, $con);
-		}
-		return $affectedRows;
-	}
-
-	/**
-	 * Validates all modified columns of given Address object.
+	 * Validates all modified columns of given AddressPhoto object.
 	 * If parameter $columns is either a single column name or an array of column names
 	 * than only those columns are validated.
 	 *
 	 * NOTICE: This does not apply to primary or foreign keys for now.
 	 *
-	 * @param      Address $obj The object to validate.
+	 * @param      AddressPhoto $obj The object to validate.
 	 * @param      mixed $cols Column name or array of column names.
 	 *
 	 * @return     mixed TRUE if all columns are valid or the error message of the first invalid column.
@@ -1405,8 +1299,8 @@ abstract class BaseAddressPeer {
 		$columns = array();
 
 		if ($cols) {
-			$dbMap = Propel::getDatabaseMap(AddressPeer::DATABASE_NAME);
-			$tableMap = $dbMap->getTable(AddressPeer::TABLE_NAME);
+			$dbMap = Propel::getDatabaseMap(AddressPhotoPeer::DATABASE_NAME);
+			$tableMap = $dbMap->getTable(AddressPhotoPeer::TABLE_NAME);
 
 			if (! is_array($cols)) {
 				$cols = array($cols);
@@ -1422,63 +1316,35 @@ abstract class BaseAddressPeer {
 
 		}
 
-		return BasePeer::doValidate(AddressPeer::DATABASE_NAME, AddressPeer::TABLE_NAME, $columns);
+		return BasePeer::doValidate(AddressPhotoPeer::DATABASE_NAME, AddressPhotoPeer::TABLE_NAME, $columns);
 	}
 
 	/**
-	 * Retrieve a single object by pkey.
-	 *
-	 * @param      int $pk the primary key.
-	 * @param      PropelPDO $con the connection to use
-	 * @return     Address
+	 * Retrieve object using using composite pkey values.
+	 * @param      int $addressid
+	 * @param      int $photoid
+	 * @param      PropelPDO $con
+	 * @return     AddressPhoto
 	 */
-	public static function retrieveByPK($pk, PropelPDO $con = null)
-	{
-
-		if (null !== ($obj = AddressPeer::getInstanceFromPool((string) $pk))) {
-			return $obj;
+	public static function retrieveByPK($addressid, $photoid, PropelPDO $con = null) {
+		$_instancePoolKey = serialize(array((string) $addressid, (string) $photoid));
+ 		if (null !== ($obj = AddressPhotoPeer::getInstanceFromPool($_instancePoolKey))) {
+ 			return $obj;
 		}
 
 		if ($con === null) {
-			$con = Propel::getConnection(AddressPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(AddressPhotoPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
+		$criteria = new Criteria(AddressPhotoPeer::DATABASE_NAME);
+		$criteria->add(AddressPhotoPeer::ADDRESSID, $addressid);
+		$criteria->add(AddressPhotoPeer::PHOTOID, $photoid);
+		$v = AddressPhotoPeer::doSelect($criteria, $con);
 
-		$criteria = new Criteria(AddressPeer::DATABASE_NAME);
-		$criteria->add(AddressPeer::ID, $pk);
-
-		$v = AddressPeer::doSelect($criteria, $con);
-
-		return !empty($v) > 0 ? $v[0] : null;
+		return !empty($v) ? $v[0] : null;
 	}
-
-	/**
-	 * Retrieve multiple objects by pkey.
-	 *
-	 * @param      array $pks List of primary keys
-	 * @param      PropelPDO $con the connection to use
-	 * @throws     PropelException Any exceptions caught during processing will be
-	 *		 rethrown wrapped into a PropelException.
-	 */
-	public static function retrieveByPKs($pks, PropelPDO $con = null)
-	{
-		if ($con === null) {
-			$con = Propel::getConnection(AddressPeer::DATABASE_NAME, Propel::CONNECTION_READ);
-		}
-
-		$objs = null;
-		if (empty($pks)) {
-			$objs = array();
-		} else {
-			$criteria = new Criteria(AddressPeer::DATABASE_NAME);
-			$criteria->add(AddressPeer::ID, $pks, Criteria::IN);
-			$objs = AddressPeer::doSelect($criteria, $con);
-		}
-		return $objs;
-	}
-
-} // BaseAddressPeer
+} // BaseAddressPhotoPeer
 
 // This is the static code needed to register the TableMap for this table with the main Propel class.
 //
-BaseAddressPeer::buildTableMap();
+BaseAddressPhotoPeer::buildTableMap();
 

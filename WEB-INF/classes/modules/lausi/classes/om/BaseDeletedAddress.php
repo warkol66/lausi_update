@@ -117,6 +117,12 @@ abstract class BaseDeletedAddress extends BaseObject  implements Persistent
 	protected $deletiondate;
 
 	/**
+	 * The value for the hasgrille field.
+	 * @var        boolean
+	 */
+	protected $hasgrille;
+
+	/**
 	 * The value for the circuitid field.
 	 * @var        int
 	 */
@@ -372,6 +378,16 @@ abstract class BaseDeletedAddress extends BaseObject  implements Persistent
 		} else {
 			return $dt->format($format);
 		}
+	}
+
+	/**
+	 * Get the [hasgrille] column value.
+	 * si tiene rejas
+	 * @return     boolean
+	 */
+	public function getHasgrille()
+	{
+		return $this->hasgrille;
 	}
 
 	/**
@@ -693,6 +709,34 @@ abstract class BaseDeletedAddress extends BaseObject  implements Persistent
 	} // setDeletiondate()
 
 	/**
+	 * Sets the value of the [hasgrille] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * si tiene rejas
+	 * @param      boolean|integer|string $v The new value
+	 * @return     DeletedAddress The current object (for fluent API support)
+	 */
+	public function setHasgrille($v)
+	{
+		if ($v !== null) {
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
+		}
+
+		if ($this->hasgrille !== $v) {
+			$this->hasgrille = $v;
+			$this->modifiedColumns[] = DeletedAddressPeer::HASGRILLE;
+		}
+
+		return $this;
+	} // setHasgrille()
+
+	/**
 	 * Set the value of [circuitid] column.
 	 * circuito al que pertenece la calle
 	 * @param      int $v new value
@@ -771,7 +815,8 @@ abstract class BaseDeletedAddress extends BaseObject  implements Persistent
 			$this->enumeration = ($row[$startcol + 12] !== null) ? (string) $row[$startcol + 12] : null;
 			$this->creationdate = ($row[$startcol + 13] !== null) ? (string) $row[$startcol + 13] : null;
 			$this->deletiondate = ($row[$startcol + 14] !== null) ? (string) $row[$startcol + 14] : null;
-			$this->circuitid = ($row[$startcol + 15] !== null) ? (int) $row[$startcol + 15] : null;
+			$this->hasgrille = ($row[$startcol + 15] !== null) ? (boolean) $row[$startcol + 15] : null;
+			$this->circuitid = ($row[$startcol + 16] !== null) ? (int) $row[$startcol + 16] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -780,7 +825,7 @@ abstract class BaseDeletedAddress extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 16; // 16 = DeletedAddressPeer::NUM_HYDRATE_COLUMNS.
+			return $startcol + 17; // 17 = DeletedAddressPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating DeletedAddress object", $e);
@@ -1162,6 +1207,9 @@ abstract class BaseDeletedAddress extends BaseObject  implements Persistent
 				return $this->getDeletiondate();
 				break;
 			case 15:
+				return $this->getHasgrille();
+				break;
+			case 16:
 				return $this->getCircuitid();
 				break;
 			default:
@@ -1208,7 +1256,8 @@ abstract class BaseDeletedAddress extends BaseObject  implements Persistent
 			$keys[12] => $this->getEnumeration(),
 			$keys[13] => $this->getCreationdate(),
 			$keys[14] => $this->getDeletiondate(),
-			$keys[15] => $this->getCircuitid(),
+			$keys[15] => $this->getHasgrille(),
+			$keys[16] => $this->getCircuitid(),
 		);
 		if ($includeForeignObjects) {
 			if (null !== $this->aCircuit) {
@@ -1294,6 +1343,9 @@ abstract class BaseDeletedAddress extends BaseObject  implements Persistent
 				$this->setDeletiondate($value);
 				break;
 			case 15:
+				$this->setHasgrille($value);
+				break;
+			case 16:
 				$this->setCircuitid($value);
 				break;
 		} // switch()
@@ -1335,7 +1387,8 @@ abstract class BaseDeletedAddress extends BaseObject  implements Persistent
 		if (array_key_exists($keys[12], $arr)) $this->setEnumeration($arr[$keys[12]]);
 		if (array_key_exists($keys[13], $arr)) $this->setCreationdate($arr[$keys[13]]);
 		if (array_key_exists($keys[14], $arr)) $this->setDeletiondate($arr[$keys[14]]);
-		if (array_key_exists($keys[15], $arr)) $this->setCircuitid($arr[$keys[15]]);
+		if (array_key_exists($keys[15], $arr)) $this->setHasgrille($arr[$keys[15]]);
+		if (array_key_exists($keys[16], $arr)) $this->setCircuitid($arr[$keys[16]]);
 	}
 
 	/**
@@ -1362,6 +1415,7 @@ abstract class BaseDeletedAddress extends BaseObject  implements Persistent
 		if ($this->isColumnModified(DeletedAddressPeer::ENUMERATION)) $criteria->add(DeletedAddressPeer::ENUMERATION, $this->enumeration);
 		if ($this->isColumnModified(DeletedAddressPeer::CREATIONDATE)) $criteria->add(DeletedAddressPeer::CREATIONDATE, $this->creationdate);
 		if ($this->isColumnModified(DeletedAddressPeer::DELETIONDATE)) $criteria->add(DeletedAddressPeer::DELETIONDATE, $this->deletiondate);
+		if ($this->isColumnModified(DeletedAddressPeer::HASGRILLE)) $criteria->add(DeletedAddressPeer::HASGRILLE, $this->hasgrille);
 		if ($this->isColumnModified(DeletedAddressPeer::CIRCUITID)) $criteria->add(DeletedAddressPeer::CIRCUITID, $this->circuitid);
 
 		return $criteria;
@@ -1440,6 +1494,7 @@ abstract class BaseDeletedAddress extends BaseObject  implements Persistent
 		$copyObj->setEnumeration($this->getEnumeration());
 		$copyObj->setCreationdate($this->getCreationdate());
 		$copyObj->setDeletiondate($this->getDeletiondate());
+		$copyObj->setHasgrille($this->getHasgrille());
 		$copyObj->setCircuitid($this->getCircuitid());
 		if ($makeNew) {
 			$copyObj->setNew(true);
@@ -1602,6 +1657,7 @@ abstract class BaseDeletedAddress extends BaseObject  implements Persistent
 		$this->enumeration = null;
 		$this->creationdate = null;
 		$this->deletiondate = null;
+		$this->hasgrille = null;
 		$this->circuitid = null;
 		$this->alreadyInSave = false;
 		$this->alreadyInValidation = false;
