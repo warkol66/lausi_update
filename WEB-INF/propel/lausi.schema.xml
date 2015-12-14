@@ -116,7 +116,7 @@
 		<column name="enumeration" type="VARCHAR" size="15" description="Numero de empadronamiento" />
 		<column name="creationDate" type="DATE" description="fecha de alta" />
 		<column name="deletionDate" type="DATE" description="fecha de baja" />
-		<column name="hasGrille" type="BOOLEAN" description="si tiene rejas" />
+		<column name="hasGrille" type="BOOLEAN" default="0" description="si tiene rejas" />
 
 		<column name="circuitId" type="INTEGER" description="circuito al que pertenece la calle" />
 
@@ -152,7 +152,7 @@
 		<column name="enumeration" type="VARCHAR" size="15" description="Numero de empadronamiento" />
 		<column name="creationDate" type="DATE" description="fecha de alta" />
 		<column name="deletionDate" type="DATE" description="fecha de baja" />
-		<column name="hasGrille" type="BOOLEAN" description="si tiene rejas" />
+		<column name="hasGrille" type="BOOLEAN" default="0" description="si tiene rejas" />
 
 		<column name="circuitId" type="INTEGER" description="circuito al que pertenece la calle" />
 
@@ -244,7 +244,7 @@
 		<column name="id" type="INTEGER"  required="true" description="Id del activo" primaryKey="true" autoIncrement="true"  />
 		<column name="number" type="INTEGER" required="true" description="numero del activo" />
 		<column name="type" type="INTEGER" description="tipo del activo" />
-		<column name="height" type="BOOLEAN" description="si esta en altura" />
+		<column name="height" type="BOOLEAN" default="0" description="si esta en altura" />
 		<column name="row" type="INTEGER" description="fila del activo" />
 		<column name="billboardColumn" type="INTEGER" description="columna del activo" />
 		<column name="addressId" type="INTEGER" required="true" description="altura del activo" />
