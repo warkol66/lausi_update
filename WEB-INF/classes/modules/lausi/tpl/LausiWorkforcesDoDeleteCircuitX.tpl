@@ -13,7 +13,7 @@
 		elements = $('circuitAdder').getElementsByTagName('select');
 		elements[0].appendChild(option);
 		
-		$('msgbox').innerHTML = 'La operacion ha sido exitosa.';
+		$('msgbox').innerHTML = 'La operación ha sido exitosa.';
 		
 	}
 
