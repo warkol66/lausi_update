@@ -71,10 +71,12 @@ class LausiWorkforcesEditAction extends BaseAction {
 
 			//buscamos todos los circuits posibles y los actuales
 			$currentCircuits = $workforce->getCircuits();
-			$circuits = CircuitPeer::getAll();
+			foreach ($currentCircuits as $circuit)
+				$currentCircuitsIds[] = $circuit->getId();
+			$circuits = CircuitQuery::create()->filterById($currentCircuitsIds, CRITERIA::NOT_IN)->find();
 			
 			//dejamos que solo se asignen aquellos que no estan asignados
-			$smarty->assign("circuits",array_udiff($circuits,$currentCircuits,'comparator'));
+			$smarty->assign("circuits",$circuits);
 			$smarty->assign('currentCircuits',$currentCircuits);
 			    	
 			$smarty->assign("action","edit");
