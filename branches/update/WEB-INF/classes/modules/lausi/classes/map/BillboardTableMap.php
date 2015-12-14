@@ -40,7 +40,7 @@ class BillboardTableMap extends TableMap {
 		$this->addPrimaryKey('ID', 'Id', 'INTEGER', true, null, null);
 		$this->addColumn('NUMBER', 'Number', 'INTEGER', true, null, null);
 		$this->addColumn('TYPE', 'Type', 'INTEGER', false, null, null);
-		$this->addColumn('HEIGHT', 'Height', 'BOOLEAN', false, null, null);
+		$this->addColumn('HEIGHT', 'Height', 'BOOLEAN', false, null, false);
 		$this->addColumn('ROW', 'Row', 'INTEGER', false, null, null);
 		$this->addColumn('BILLBOARDCOLUMN', 'Billboardcolumn', 'INTEGER', false, null, null);
 		$this->addForeignKey('ADDRESSID', 'Addressid', 'INTEGER', 'lausi_address', 'ID', true, null, null);
