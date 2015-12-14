@@ -1,6 +1,19 @@
 |-if $loginUser neq ""-|
 	<ul>
-		<li><a href="Main.php?do=usersWelcome">Ir al Inicio</a></li>
+		<li class="titleMenu">Acceso rápido</li>
+			<li><a href="Main.php?do=usersWelcome">Disponibilidad</a></li>
+			<li><a href="Main.php?do=lausiThemesList">Motivos</a></li>
+			<li><a href="Main.php?do=lausiAddressesList">Direcciones</a></li>
+			<li><a href="Main.php?do=backupList">Respaldos</a></li>
+			<li><a href="Main.php?do=lausiDistributeByCircuit">Distribuir por Circuito</a></li>
+			<li><a href="Main.php?do=lausiCampaignsShow">Administrar Motivos</a></li>
+			<li><a href="Main.php?do=lausiReportsRouteSheet">Hoja de Ruta Séxtuples</a></li>
+			<li><a href="Main.php?do=lausiReportsSheetsLocation">Hoja de Ruta Dobles</a></li>
+			<li><a href="Main.php?do=lausiAdvertisementsList&amp;clientReport=1">Reporte para Clientes</a></li>
+			<li><a href="Main.php?do=lausiReportsAddresses">Reporte de Direcciones</a></li>
+			<li><a href="Main.php?do=lausiReportsBillboardsOwned">Carteleras por Circuito</a></li>			
+			<li><a href="Main.php?do=lausiReportsThemesCircuit">Motivos por Circuito</a></li>
+			<li><a href="Main.php?do=lausiDeletedAddressesList">Direcciones eliminadas</a></li>
 
 		<li class="titleMenu">Aplicaciones</li>
 			<li><a href="Main.php?do=lausiThemesList">Motivos</a></li>
