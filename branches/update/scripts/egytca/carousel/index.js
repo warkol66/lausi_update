@@ -60,8 +60,15 @@ Egytca.Carousel.prototype = {
 		return button;
 	},
 
-	addImage: function(source) {
+	addImage: function(source, trigger) {
 		this.imageSources.push(source);
+		if (trigger !== undefined)
+			this.addTrigger(trigger, source);
+	},
+
+	removeImage: function(source) {
+		var i = this.imageSources.indexOf(source);
+		this.imageSources.splice(i, 1);
 	},
 
 	setImage: function(source) {
