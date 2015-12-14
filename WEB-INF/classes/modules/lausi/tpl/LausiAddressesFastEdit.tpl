@@ -5,13 +5,16 @@
 		background-color: lightblue;
 	}
 </style>
-
-<table class="tableTdBorders" width="100%">
+<h2>Edicion de Direcciones</h2>
+<h1>Edicion rápida</h1>
+<p>Edicion rápida de direcciones para asignación o desasingnar reja en la dirección, marcar la casilla el dato queda almacenado automaticamente.<br>
+Para editar carteleras haga click <a href="Main.php?do=lausiBillboardsFastEdit">aqui</a>.</p>
+<table class="tableTdBorders">
 	<thead>
 		<tr>
 			<th>Calle</th>
 			<th>Número</th>
-			<th>&nbsp;</th>
+			<th nowrap="nowrap">Tiene reja</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -19,10 +22,9 @@
 			<tr>
 				<td>|-$address->getStreet()-|</td>
 				<td>|-$address->getNumber()-|</td>
-				<td>
+				<td align="center">
 					<input type="checkbox" onchange="editField('hasGrille', |-$address->getId()-|, this)" |-$address->getHasGrille()|checked:true-|>
-					<span name="status"></span>
-				</td>
+					<span name="status"></span>				</td>
 			</tr>
 		|-/foreach-|
 		|-if $pager->getTotalPages() gt 1-|
