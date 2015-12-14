@@ -59,7 +59,7 @@
 		carousel.addTrigger(imgBox.querySelector('img'), uri);
 	};
 
-	var deletePhoto = function(photoId, button) {
+	var deletePhoto = function(photoId, photoUri, button) {
 
 		if (!confirm('¿Desea eliminar la foto?'))
 			return;
@@ -80,6 +80,7 @@
 						return handleRequestError(statusBox, 'incorrect response data');
 					var photoBox = document.getElementById('photo-box-' + photoId);
 					photoBox.parentNode.removeChild(photoBox);
+					pageCarousels.directionGallery.removeImage(photoUri);
 				} catch (e) {
 					handleRequestError(statusBox, e);
 				}
