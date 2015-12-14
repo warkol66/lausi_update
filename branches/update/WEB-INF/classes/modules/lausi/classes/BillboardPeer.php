@@ -16,6 +16,7 @@ class BillboardPeer extends BaseBillboardPeer {
 	private $searchRegionId;
 	private $searchCircuitId;
 	private $searchType;
+	private $searchHeight;
 	private $searchWorkforceId;
 	private $searchThemeId;
 	private $searchRating;
@@ -28,6 +29,7 @@ class BillboardPeer extends BaseBillboardPeer {
 		"searchRegionId"=>"setSearchRegionId",
 		"searchCircuitId"=>"setSearchCircuitId",
 		"searchType"=>"setSearchType",
+		"searchHeight"=>"setSearchHeight",
 		"searchWorkforceId"=>"setSearchWorkforceId",
 		"searchThemeId"=>"setSearchThemeId",
 		"searchRating"=>"setSearchRating",
@@ -71,6 +73,15 @@ class BillboardPeer extends BaseBillboardPeer {
 		$this->searchType = $searchType;
 	}
 	
+	/**
+	 * Especifica si se busca carteleras en altura
+	 * @param integer si es en altura
+	 *
+	 */	
+	public function setSearchHeight($searchHeight) {
+		$this->searchHeight = $searchHeight;
+	}
+
 	/**
 	 * Especifica un operario para limitar una busqueda
 	 * @param integer id operario
@@ -537,6 +548,9 @@ class BillboardPeer extends BaseBillboardPeer {
 
 		if (!empty($this->searchType))
 			$criteria->filterByType($this->searchType);		
+
+		if ($this->searchHeight)
+			$criteria->filterByHeight(1);
 
 		if (!empty($this->searchRating))
 			$criteria->useQuery('Address')

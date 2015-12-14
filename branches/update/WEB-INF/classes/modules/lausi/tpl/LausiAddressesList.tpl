@@ -44,6 +44,8 @@
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="filters[searchEnumeration]"># Padrón</label>
 				<input type="text" name="filters[searchEnumeration]" value="|-$filters.searchEnumeration-|" size="15" />
 </p>
+<p>Carteleras en altura <input name="filters[searchHeight]" type="checkbox" value="1" |-$filters.searchHeight|checked:1-|> &nbsp; &nbsp;
+Tiene reja <input name="filters[searchHasGrille]" type="checkbox" value="1" |-$filters.searchHasGrille|checked:1-|></p>
 
 			<p>
 				<input type="hidden" name="do" value="lausiAddressesList" />
@@ -57,14 +59,14 @@
 				 <th colspan="9" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=lausiAddressesEdit|-include file='FiltersRedirectUrlInclude.tpl' filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Dirección</a></div></th>
 			</tr>
 			<tr>
-				<th width="20%">Calle</th>
-				<th width="20%">Nombre de Fantasia</th>
+				<th width="25%">Calle</th>
+				<th width="18%">Nombre de Fantasia</th>
 				<th width="5%">Número</th>
-				<th width="20%">Intersección</th>
-				<th width="5%">F. Alta</th>
-				<th width="15%"># Padrón </th>
-				<th width="15%">Valoración</th>
-				<th width="10%">Circuito</th>
+				<th width="15%">Intersección</th>
+				<th width="9%">F. Alta</th>
+				<th width="9%"># Padrón </th>
+				<th width="9%">Valoración</th>
+				<th width="5%">Circuito</th>
 				<th width="5%">&nbsp;</th>
 			</tr>
 		</thead>
@@ -80,8 +82,8 @@
 				<td align="right">|-if $address->getnumber() gt 0-||-$address->getnumber()-||-/if-|</td>
 				<td>|-$address->getintersection()-|</td>
 				<td>|-$address->getCreationDate()|date_format-|</td>
-				<td>|-$address->getEnumeration()-|</td>
-				<td nowrap>|-if $address->getrating() lt 1-| -
+				<td nowrap="nowrap">|-$address->getEnumeration()-|</td>
+				<td nowrap="nowrap">|-if $address->getrating() lt 1-| -
 						|-elseif $address->getrating() eq 1-|Premium
 						|-elseif $address->getrating() eq 2-|Superior
 						|-elseif $address->getrating() eq 3-|Destacada
@@ -90,9 +92,11 @@
 				<td>
 					|-assign var=circuit value=$address->getCircuit()-|
 					|-if $circuit-||-$circuit->getabbreviation()-||-/if-|				</td>
-				<td nowrap>
+				<td nowrap="nowrap">
 					|-if $address->countPhotos() > 0-|
-						<button type="button" onclick="viewImages(|-$address->getId()-|)" class="icon iconView">Ver Imágenes</button>
+						<button type="button" onclick="viewImages(|-$address->getId()-|)" class="iconView">Ver Imágenes</button>
+					|-else-|
+					<img src="images/clear.png" style="height:20px;width:20px;" />
 					|-/if-|
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="lausiAddressesEdit" />
