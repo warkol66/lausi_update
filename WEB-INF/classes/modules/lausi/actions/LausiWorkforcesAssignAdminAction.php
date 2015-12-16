@@ -52,6 +52,7 @@ class LausiWorkforcesAssignAdminAction extends BaseAction {
 		$smarty->assign("themes",$themes);
 		
 		$filters = $_GET['filters'];
+		$smarty->assign("filters",$filters);
 
 		if (!empty($filters['searchWorkforceId'])) {
 			$assignedWorkforce = WorkforcePeer::get($filters['searchWorkforceId']);

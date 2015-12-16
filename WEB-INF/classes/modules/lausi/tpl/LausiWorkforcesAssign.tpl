@@ -1,5 +1,8 @@
 <h2>Asignación de Contratistas</h2>
 <h1>Asignar Séxtuples a Contratistas</h1>
+<p>Seleccione un motivo y una fecha de inicio para desplegar los avisos que están pendientes de asignación.<br>
+Al seleccionar el contratista junto al aviso, el mismo quedará asignado automáticamente y desaparecerá del listado.<br>
+Si desea modificar las asignaciones, haga click en el botón "ir a Administrar asignados".</p>
 
 <script type="text/javascript" charset="utf-8">
 	
@@ -53,6 +56,8 @@
 			<p>
 				<input type="hidden" name="do" value="lausiWorkforcesAssign" />
 				<input type="submit" name="buscar" value="Buscar avisos sin asignar" id="some_name" />
+			  <input type="button" id="cancel" name="cancel" title="ir a Administrar asignados" value="ir a Administrar asignados" onClick="location.href='Main.php?do=lausiWorkforcesAssignAdmin'"/>
+
 			</p>
 		</form>
 	</fieldset>

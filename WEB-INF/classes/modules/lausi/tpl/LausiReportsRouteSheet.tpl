@@ -39,7 +39,9 @@
 		<input type="hidden" name="do" value="lausiReportsRouteSheet" id="do" />
 		<input type="hidden" name="reportMode" value="normal" id="reportMode"/>
 		<input type="button"  name="submitForm" value="Generar reporte"  onClick="javascript:buildReport(this.form)"/>
-		|-if !empty($results)-|<input type="button" name="print" value="Generar reporte para impresión" onClick="addAddressesIdsToForm(this.form);javascript:printReport(this.form)"/>|-/if-|
+		|-if !empty($results)-|<input type="button" name="print" value="Generar reporte para impresión" onClick="addAddressesIdsToForm(this.form);javascript:printReport(this.form)"/>
+						<input type="button" name="export" value="Exportar reporte a Excel" onClick="javascript:exportReport(this.form)"/>
+		|-/if-|
 	</form>
 				
 		</fieldset>

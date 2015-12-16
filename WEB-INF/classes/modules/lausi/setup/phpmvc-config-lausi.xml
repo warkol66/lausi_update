@@ -525,6 +525,7 @@
 						scope = "request"
 				 validate = "true">
 	<forward name="success" path="LausiReportsRouteSheet.tpl" />
+	<forward name="xml" path="LausiReportsRouteSheetXml.tpl" />
 	</action>
 </action-mappings>
 

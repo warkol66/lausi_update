@@ -74,6 +74,21 @@ class LausiReportsRouteSheetAction extends BaseAction {
 				$results[$key] = $reportGenerator->reorderAddresses($result, $_REQUEST['addressesIds']);
 			$smarty->assign('results',$results);
 		}
+		elseif ($_GET['reportMode'] == "xls") {
+			foreach ($results as $key => $result)
+				$results[$key] = $reportGenerator->reorderAddresses($result, $_REQUEST['addressesIds']);
+			$smarty->assign('results',$results);
+
+			$this->template->template = "TemplateCsv.tpl";
+
+			$forwardConfig = $mapping->findForwardConfig('xml');
+			$xml = $smarty->fetch($forwardConfig->getPath());
+
+			require_once("ExcelManagement.php");
+			$excel = new ExcelManagement();			
+			$excel->sendXlsFromXml($xml);
+			die;
+		}
 		
 		$smarty->assign('reportMode',$_REQUEST['reportMode']);
 		

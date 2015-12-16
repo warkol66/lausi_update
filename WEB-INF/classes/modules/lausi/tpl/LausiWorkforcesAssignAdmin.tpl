@@ -1,5 +1,8 @@
 <h2>Asignación de Séxtuples</h2>
 <h1>Administrar Asignación a Contratistas</h1>
+<p>Para modificar la asignación de un aviso a un contratista, seleccione le contratista y los avisos asignados aparecerán en un listado en la parte inferior.<br>
+Marque la casilla de los que desea remover y haga click en "Eliminar Seleccionados a <em>&laquo;nombre del contratista&raquo;</em>".<br>
+Si desea realizar nuevas asignaciones de los avisos que remueva al contratista, haga click en el botón "ir a Asignar no asignados".</p>
 
 <script type="text/javascript" charset="utf-8">
 	function submitWorkforceAdvertisementFinder() {
@@ -40,11 +43,12 @@
 			<p>
 				<label for="filters[searchFromDate]">Fecha inicio</label>
 				<input name="filters[searchFromDate]" type="text" id="fromDate" title="fromDate" value="|-if $filters.searchFromDate neq ''-||-$filters.searchFromDate|date_format:"%d-%m-%Y"-||-else-||-$smarty.now|date_format:"%d-%m-%Y"-||-/if-|" size="12" /> 
-				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('fromDate', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[searchFromDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			<p>
 				<input type="hidden" name="do" value="lausiWorkforcesAssignAdmin" />
 				<input type="submit" name="buscar" value="Buscar avisos sextuples asignadas" id="some_name" />
+			  <input type="button" id="cancel" name="cancel" title="ir a Asignar no asignados" value="ir a Asignar no asignados" onClick="location.href='Main.php?do=lausiWorkforcesAssign'"/>
 			</p>
 		</form>
 	</fieldset>
@@ -55,7 +59,7 @@
 
 <div id="Advertisementfilters">
 	<fieldset>
-		<legend>Filtros</legend>
+		<legend>Filtrar por circuito</legend>
 		<form action="Main.php" method="get">
 			<p>
 				<label for="filters[searchCircuitId]">Circuito</label>
@@ -67,16 +71,12 @@
 				</select>
 			</p>
 			<p>
-				<input type="hidden" name="workforceId" value="|-$assignedWorkforce->getId()-|" />
-				|-if $themeId neq ''-|
-					<input type="hidden" name="themeId" value="|-$themeId-|"/>
-				|-/if-|
-				|-if $fromDate neq ''-|
-					<input type="hidden" name="fromDate" value="|-$fromDate-|"/>
-				|-/if-|
+				<input type="hidden" name="filters[searchWorkforceId]" value="|-$assignedWorkforce->getId()-|" />
+				<input type="hidden" name="filters[searchThemeId]" value="|-$filters.searchThemeId-|"/>
+				<input type="hidden" name="filters[searchFromDate]" value="|-$filters.searchFromDate-|"/>
 				<input type="hidden" name="do" value="lausiWorkforcesAssignAdmin" />
-				<input type="submit" name="buscar" value="Aplicar Filtro" id="some_name" />
-				<input type="button" name="quitar_filtros" value="Quitar Filtros" onClick="javascript:submitWorkforceAdvertisementFinder();"/>
+				<input type="submit" name="buscar" value="Aplicar filtro" id="some_name" />
+				<input type="button" value="Quitar filtro de circuito" onClick="javascript:submitWorkforceAdvertisementFinder();"/>
 				
 			</p>					
 		</form>
@@ -92,6 +92,9 @@
 					<tr>
 						<th></th>
 						<th>Dirección</th>
+						<th>Circuito</th>
+						<th>Altura</th>
+						<th>Reja</th>
 						<th>Motivo</th>
 					</tr>
 				</thead>
@@ -103,12 +106,14 @@
 							|-assign var=address value=$billboard->getAddress()-|
 							<td><input type="checkbox" name="toDelete[]" value="|-$advertisement->getId()-|" id="some_name"></td>
 							<td>|-$address->getName()-|</td>
+							<td>|-assign var=circuit value=$address->getCircuit()-||-$circuit->getName()-|</td>
+							<td>|-$billboard->getHeight()|si_no-|</td>
+							<td>|-$address->getHasGrille()|si_no-|</td>
 							<td>|-$theme->getName()-|</td>
 						</tr>
 					|-/foreach-|
 				<tr>
-					 <th colspan="4" class="thFillTitle">
-						<div class="rightLink">
+					 <th colspan="6" class="thFillTitle">
 							<input type="submit" name="delete" value="Eliminar Seleccionados a |-$assignedWorkforce->getName()-|" />
 							<input type="hidden" name="workforceId" value="|-$assignedWorkforce->getId()-|" />
 							|-if $assignedCircuit neq ''-|
@@ -120,7 +125,6 @@
 							|-if $fromDate neq ''-|
 								<input type="hidden" name="fromDate" value="|-$fromDate-|"/>
 							|-/if-|
-						</div>
 					 </th>
 				</tr>
 				</tbody>
@@ -129,7 +133,7 @@
 	</div>
 <br />
 
-	<div id="notAssignedAdvertisements">
+ <div id="notAssignedAdvertisements" style="display:none">
 	<h3>Séxtuples |-if $assignedCircuit neq ''-|en circuito |-$assignedCircuit->getName()-| |-/if-|sin asignar a: |-$assignedWorkforce->getName()-|</h1>
 
 		<form action="Main.php?do=lausiWorkforcesDoAssign" method="post">
@@ -138,6 +142,9 @@
 					<tr>
 						<th></th>
 						<th>Dirección</th>
+						<th>Circuito</th>
+						<th>Altura</th>
+						<th>Reja</th>
 						<th>Motivo</th>
 					</tr>
 				</thead>
@@ -149,12 +156,14 @@
 							|-assign var=address value=$billboard->getAddress()-|
 							<td><input type="checkbox" name="toAssign[]" value="|-$advertisement->getId()-|" id="some_name"></td>
 							<td>|-$address->getName()-|</td>
+							<td>|-assign var=circuit value=$address->getCircuit()-||-$circuit->getName()-|</td>
+							<td>|-$billboard->getHeight()|si_no-|</td>
+							<td>|-$address->getHasGrille()|si_no-|</td>
 							<td>|-$theme->getName()-|</td>
 						</tr>
 					|-/foreach-|						
 				<tr>
-					 <th colspan="4" class="thFillTitle">
-						<div class="rightLink">
+					 <th colspan="6" class="thFillTitle">
 							<input type="submit" name="delete" value="Asignar Seleccionados  a |-$assignedWorkforce->getName()-|" />
 							<input type="hidden" name="workforceId" value="|-$assignedWorkforce->getId()-|" />
 							|-if $assignedCircuit neq ''-|
@@ -166,12 +175,11 @@
 							|-if $fromDate neq ''-|
 								<input type="hidden" name="fromDate" value="|-$fromDate-|"/>
 							|-/if-|
-						</div>
 					 </th>
 				</tr>
 				</tbody>
 			</table>
 		</form>
-	</div>
+</div>
 
 |-/if-|
