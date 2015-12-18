@@ -82,6 +82,7 @@
 			<p style="margin-top: 20px;">
 				<input type="hidden" name="do" value="lausiBillboardsList" />
 				<input type="submit" value="Aplicar Filtro" />
+				<input type="button" id="cancel" name="cancel" title="Quitar Filtro" value="Quitar Filtro" onClick="location.href='Main.php?do=lausiBillboardsList'"/>
 			</p>
 		</form>
 	</fieldset>

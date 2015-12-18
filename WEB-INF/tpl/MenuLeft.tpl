@@ -14,6 +14,8 @@
 			<li><a href="Main.php?do=lausiReportsBillboardsOwned">Carteleras por Circuito</a></li>			
 			<li><a href="Main.php?do=lausiReportsThemesCircuit">Motivos por Circuito</a></li>
 			<li><a href="Main.php?do=lausiDeletedAddressesList">Direcciones eliminadas</a></li>
+			<li><a href="Main.php?do=lausiAddressesFastEdit">Edición rápida reja</a></li>
+			<li><a href="Main.php?do=lausiBillboardsFastEdit">Edición rápida altura</a></li>
 
 		<li class="titleMenu">Aplicaciones</li>
 			<li><a href="Main.php?do=lausiThemesList">Motivos</a></li>
