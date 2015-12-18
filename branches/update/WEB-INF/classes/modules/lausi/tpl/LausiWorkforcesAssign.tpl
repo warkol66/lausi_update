@@ -78,6 +78,7 @@ Si desea modificar las asignaciones, haga click en el botón "ir a Administrar a
 						<th>Dirección</th>
 						<th>Motivo</th>
 						<th>Altura</th>
+						<th>Circuito</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -90,6 +91,7 @@ Si desea modificar las asignaciones, haga click en el botón "ir a Administrar a
 							<td>|-$address->getName()-|</td>
 							<td>|-$theme->getName()-|</td>
 							<td>|-$billboard->getHeight()|si_no-|</td>
+							<td>|-assign var=circuit value=$address->getCircuit()-||-$circuit->getName()-|</td>
 							<td>
 								<form action="Main.php" method="post" >
 									<select name="workforceId" onChange="javascript:lausiWorkforcesAssign(|-$advertisement->getId()-|,this.form);">

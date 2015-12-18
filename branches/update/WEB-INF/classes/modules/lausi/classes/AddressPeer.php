@@ -142,6 +142,7 @@ class AddressPeer extends BaseAddressPeer {
 			$criteria->join('Billboard')
 					 ->useQuery('Billboard')
 						->filterByHeight(1)
+						->filterByType(BillboardPeer::TYPE_SEXTUPLE)
 					 ->endUse()
 					 ->distinct();
 
