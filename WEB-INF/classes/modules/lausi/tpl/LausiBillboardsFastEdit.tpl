@@ -81,8 +81,8 @@ Para editar direcciones haga click <a href="Main.php?do=lausiAddressesFastEdit">
 		<tr>
 			<th>Calle</th>
 			<th>Número</th>
-			<th>En Altura</th>
 			<th>Motivo</th>
+			<th>En Altura</th>
 		</tr>
 	</thead>
 	<tbody>
