@@ -454,7 +454,7 @@ class BillboardPeer extends BaseBillboardPeer {
    		if ($type != null)
 	   		$criteria->filterByType($type);
 	
-	   	$criteria->filterByRating($rating);
+	   	$criteria->useAddressQuery()->filterByRating($rating)->endUse();
 	
 		return BillboardPeer::getAllAvailableOrdered($criteria,$fromDate,$duration,$quantity,$type);	   	
    }
