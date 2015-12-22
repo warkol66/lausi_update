@@ -1,7 +1,8 @@
 <?php
 
 require_once("BaseAction.php");
-require_once("CircuitPeer.php");require_once("ThemePeer.php");
+require_once("CircuitPeer.php");
+require_once("ThemePeer.php");
 require_once("ClientPeer.php");
 
 class LausiDistributeByRatingAction extends BaseAction {
