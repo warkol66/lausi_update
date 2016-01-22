@@ -15,7 +15,7 @@ class LausiAddressesFastEditAction extends LausiAddressesListAction {
 		}
 
 		$url = "Main.php?do=lausiAddressesFastEdit";
-		foreach ($filters as $key => $value) {
+		foreach ($_GET['filters'] as $key => $value) {
 			$url .= "&filters[$key]=$value";
 		}
 		$smarty->assign("url",$url);
