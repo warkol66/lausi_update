@@ -15,7 +15,7 @@ class LausiBillboardsFastEditAction extends LausiBillboardsListAction {
 		}
 
 		$url = "Main.php?do=lausiBillboardsFastEdit";
-		foreach ($filters as $key => $value) {
+		foreach ($_GET['filters'] as $key => $value) {
 			$url .= "&filters[$key]=$value";
 		}
 		$smarty->assign("url",$url);
