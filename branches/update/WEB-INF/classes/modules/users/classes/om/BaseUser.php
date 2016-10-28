@@ -2791,6 +2791,21 @@ abstract class BaseUser extends BaseObject  implements Persistent
 					$o->clearAllReferences($deep);
 				}
 			}
+			if ($this->collAlertSubscriptions) {
+				foreach ($this->collAlertSubscriptions as $o) {
+					$o->clearAllReferences($deep);
+				}
+			}
+			if ($this->collScheduleSubscriptions) {
+				foreach ($this->collScheduleSubscriptions as $o) {
+					$o->clearAllReferences($deep);
+				}
+			}
+			if ($this->collGroups) {
+				foreach ($this->collGroups as $o) {
+					$o->clearAllReferences($deep);
+				}
+			}
 		} // if ($deep)
 
 		if ($this->collActionLogs instanceof PropelCollection) {
@@ -2809,6 +2824,18 @@ abstract class BaseUser extends BaseObject  implements Persistent
 			$this->collUserGroups->clearIterator();
 		}
 		$this->collUserGroups = null;
+		if ($this->collAlertSubscriptions instanceof PropelCollection) {
+			$this->collAlertSubscriptions->clearIterator();
+		}
+		$this->collAlertSubscriptions = null;
+		if ($this->collScheduleSubscriptions instanceof PropelCollection) {
+			$this->collScheduleSubscriptions->clearIterator();
+		}
+		$this->collScheduleSubscriptions = null;
+		if ($this->collGroups instanceof PropelCollection) {
+			$this->collGroups->clearIterator();
+		}
+		$this->collGroups = null;
 		$this->aLevel = null;
 	}
 

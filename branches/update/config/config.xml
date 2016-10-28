@@ -76,6 +76,9 @@
 	<lausi>
 		<availableBillboardsDays>5</availableBillboardsDays>
 	</lausi>
+	<users>
+		<licenses>5</licenses>
+	</users>
 	<email>
 		<mode>
 			<value>SMTP</value>

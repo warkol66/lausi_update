@@ -1615,12 +1615,21 @@ abstract class BaseAlertSubscription extends BaseObject  implements Persistent
 					$o->clearAllReferences($deep);
 				}
 			}
+			if ($this->collUsers) {
+				foreach ($this->collUsers as $o) {
+					$o->clearAllReferences($deep);
+				}
+			}
 		} // if ($deep)
 
 		if ($this->collAlertSubscriptionUsers instanceof PropelCollection) {
 			$this->collAlertSubscriptionUsers->clearIterator();
 		}
 		$this->collAlertSubscriptionUsers = null;
+		if ($this->collUsers instanceof PropelCollection) {
+			$this->collUsers->clearIterator();
+		}
+		$this->collUsers = null;
 		$this->aModuleEntity = null;
 		$this->aModuleEntityFieldRelatedByEntitynamefielduniquename = null;
 		$this->aModuleEntityFieldRelatedByEntitydatefielduniquename = null;

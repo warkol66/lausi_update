@@ -5,29 +5,7 @@ require_once "tests/BaseTest.php";
  */
 
 class TestGis extends BaseTest {
-	
-	public function startUp() {
-		//Vamos a intentar crear una columna de tipo point en la tabla de direcciones e indexarla
-		$con = $this->getConnection();
-		$con->beginTransaction();
-		try {
-			//Intentamos crearlas
-			$con->exec("ALTER TABLE lausi_address ADD loc POINT NOT NULL;");
-			
-			$con->exec("ALTER TABLE lausi_address ADD SPATIAL KEY(loc)");
-			
-			$con->exec("UPDATE lausi_address SET
-				loc = geomFromText(CONCAT('Point(',`longitude`*10000,' ', `latitude`*10000,')'))
-			;");
-			$con->commit();
-			return true;
-		} catch (PDOException $e){
-			$con->rollback();
-			return false;
-		}
-	}
-	
-	public function createTablesTest() {
+	 public function createTablesTest() {
 		$con = $this->getConnection();
 		$con->beginTransaction();
 		try {
@@ -138,7 +116,7 @@ class TestGis extends BaseTest {
 	 */
 	public function propelAddressGisTest() {
 		try {
-			$addresses = AddressQuery::create()->withColumn("Round(GLength(LineStringFromWKB(LineString(lausi_address.loc,geomFromText('Point(-583816 -346037)'))))) / 10000", 'Distance')
+			$addresses = AddressQuery::create()->withColumn("Round(GLength(LineStringFromWKB(LineString(geomFromText(CONCAT('Point(',`longitude`*10000,' ', `latitude`*10000,')')),geomFromText('Point(-583816 -346037)'))))) / 10000", 'Distance')
 											   ->orderBy('Distance')
 											   ->find();
 			if ($this->isVerbose())
@@ -172,82 +150,6 @@ class TestGis extends BaseTest {
 		}
 	}
 	
-	/**
-	 * Obtiene los billboards que se encuentran en el rectangulo circunscrito a 
-	 * la circunsferencia de radio 5km en torno a la client address con id = 4.
-	 */
-	public function getAllAvailableByLocationSquareTest() {
-		$criteria = new Criteria();	
-			
-		$clientAddress = ClientAddressPeer::get(4);
-		$longitude_0 = $clientAddress->getLongitude();
-		$latitude_0 = $clientAddress->getLatitude();
-		$radius = 5000;
-		
-		$deltaLatitude = $radius / 110960;
-		$deltaLongitude = $radius / 90000;
-		
-		$longitude_1 = $longitude_0 - $deltaLongitude;
-		$longitude_2 = $longitude_0 + $deltaLongitude;
-		$longitudeMin = min($longitude_1,$longitude_2);
-		$longitudeMax = max($longitude_1,$longitude_2);
-		$latitude_1 = $latitude_0 - $deltaLatitude;
-		$latitude_2 = $latitude_0 + $deltaLatitude;
-		$latitudeMin = min($latitude_1,$latitude_2);
-		$latitudeMax = max($latitude_1,$latitude_2);
-		
-		try {
-			$criterionLongitude = $criteria->getNewCriterion(AddressPeer::LONGITUDE, $longitudeMin, Criteria::GREATER_EQUAL); 
-		   	$criterionLongitude->addAnd($criteria->getNewCriterion(AddressPeer::LONGITUDE, $longitudeMax, Criteria::LESS_EQUAL));
-	
-		   	$criterionLatitude = $criteria->getNewCriterion(AddressPeer::LATITUDE, $latitudeMin, Criteria::GREATER_EQUAL);
-		   	$criterionLatitude->addAnd($criteria->getNewCriterion(AddressPeer::LATITUDE, $latitudeMax, Criteria::LESS_EQUAL));
-		   	
-			$criteria->addJoin(BillboardPeer::ADDRESSID,AddressPeer::ID,Criteria::INNER_JOIN);
-			
-			//los agregamos a la criteria
-			$criteria->add($criterionLatitude);
-			$criteria->add($criterionLongitude);
-			
-			$result = BillboardPeer::doSelect($criteria);
-			
-			if ($this->isVerbose())
-				print_r($result);
-			
-			return true;
-		} catch (PropelException $e) {
-			if ($this->isVerbose())
-				print_r($e);
-			return false;
-		}
-	}
-	
-	/**
-	 * Obtiene los billboards que se encuentran a un radio menor a 5km de la client address con id = 4.
-	 */
-	public function getAllAvailableByLocationRadialTest() {
-		$criteria = new BillboardQuery();	
-			
-		$clientAddress = ClientAddressPeer::get(4);
-		$longitude_0 = $clientAddress->getLongitude();
-		$latitude_0 = $clientAddress->getLatitude();
-		$radius = 5000;
-		
-		try {
-			$billboards = $criteria->join('Address')
-								   ->withColumn("round(sqrt(pow(abs(" . AddressPeer::LONGITUDE . " - $longitude_0) * 90000,2) + pow(abs(" . AddressPeer::LATITUDE . " - $latitude_0) * 110960,2)))", 'distance')
-								   ->having("distance <= $radius")
-								   ->find();
-			if ($this->isVerbose())
-				print_r($billboards);
-			
-			return true;
-		} catch (PropelException $e) {
-			if ($this->isVerbose())
-				print_r($e);
-			return false;
-		}
-	}
 	
 	
 	public function cleanup() {
@@ -258,7 +160,6 @@ class TestGis extends BaseTest {
 			//Eliminamos las tablas si existiesen.
 			$con->exec("DROP TABLE IF EXISTS address");
 			$con->exec("DROP TABLE IF EXISTS cab");
-			$con->exec("ALTER TABLE lausi_address DROP loc");
 			
 			$con->commit();
 			return true;
