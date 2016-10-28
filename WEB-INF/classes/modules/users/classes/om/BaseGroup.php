@@ -1208,12 +1208,21 @@ abstract class BaseGroup extends BaseObject  implements Persistent
 					$o->clearAllReferences($deep);
 				}
 			}
+			if ($this->collUsers) {
+				foreach ($this->collUsers as $o) {
+					$o->clearAllReferences($deep);
+				}
+			}
 		} // if ($deep)
 
 		if ($this->collUserGroups instanceof PropelCollection) {
 			$this->collUserGroups->clearIterator();
 		}
 		$this->collUserGroups = null;
+		if ($this->collUsers instanceof PropelCollection) {
+			$this->collUsers->clearIterator();
+		}
+		$this->collUsers = null;
 	}
 
 	/**

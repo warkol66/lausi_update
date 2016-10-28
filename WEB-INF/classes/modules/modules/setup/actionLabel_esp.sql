@@ -11,7 +11,7 @@ INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('
 INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('ModulesDoActivateX', 'Activar módulo', 'esp');
 INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('ModulesEntitiesAutocompleteListX', 'Atucompletar entidades de módulos', 'esp');
 INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('ModulesEntitiesCreate', 'Crear entidades', 'esp');
-INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('ModulesEntitiesExportSchemas', 'Exportar esquemas de xml', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('ModulesEntitiesImportSchemas', 'Importar esquemas de xml', 'esp');
 INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('ModulesEntitiesFieldsList', 'Ver los campos de entidades disponibles', 'esp');
 INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('ModulesEntitiesFieldsListX', 'Obtener las entidades disponibles en el sistema via Ajax', 'esp');
 INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('ModulesEntitiesList', 'Ver las entidades disponibles', 'esp');

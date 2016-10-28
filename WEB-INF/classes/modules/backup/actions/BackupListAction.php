@@ -35,9 +35,6 @@ class BackupListAction extends BaseAction {
  		$smarty->assign('message',$_GET['message']);
 		$smarty->assign('filenames',$filenames);
 
-		// borrar actualizaciones vijas
-		shell_exec('/usr/sbin/tmpwatch -d 720 backups/' );
-
 		return $mapping->findForwardConfig('success');
 	}
 

@@ -1615,12 +1615,21 @@ abstract class BaseScheduleSubscription extends BaseObject  implements Persisten
 					$o->clearAllReferences($deep);
 				}
 			}
+			if ($this->collUsers) {
+				foreach ($this->collUsers as $o) {
+					$o->clearAllReferences($deep);
+				}
+			}
 		} // if ($deep)
 
 		if ($this->collScheduleSubscriptionUsers instanceof PropelCollection) {
 			$this->collScheduleSubscriptionUsers->clearIterator();
 		}
 		$this->collScheduleSubscriptionUsers = null;
+		if ($this->collUsers instanceof PropelCollection) {
+			$this->collUsers->clearIterator();
+		}
+		$this->collUsers = null;
 		$this->aModuleEntity = null;
 		$this->aModuleEntityFieldRelatedByEntitynamefielduniquename = null;
 		$this->aModuleEntityFieldRelatedByEntitydatefielduniquename = null;

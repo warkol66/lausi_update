@@ -204,8 +204,10 @@ class ModulesInstallSetupPermissionsAction extends BaseAction {
 		$levels = LevelPeer::getAllWithBitLevelGreaterThan(1);
 		$smarty->assign('levels',$levels);
 
-		$affiliateLevels = AffiliateLevelPeer::getAll();
-		$smarty->assign('affiliateLevels',$affiliateLevels);
+		if (class_exists("AffiliateLevel")){
+			$affiliateLevels = AffiliateLevelPeer::getAll();
+			$smarty->assign('affiliateLevels',$affiliateLevels);
+		}
 
 		$levelSave = 1073741823;
 		$smarty->assign("levelsave",$levelSave);
