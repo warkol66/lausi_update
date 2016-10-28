@@ -57,11 +57,12 @@
 			<table border="0" cellpadding="4" cellspacing="0" id="tabla-advertisements" class="tableTdBorders">
 				<thead>
 					<tr>
-						<th colspan="5"><h3>Motivo: |-$currentTheme->getShortName()-|</h3></th>
+						<th colspan="6"><h3>Motivo: |-$currentTheme->getShortName()-|</h3></th>
 					</tr>
 					<tr>
 						<th>Circuito</th>
 						<th>Dirección</th>
+						<th>Altura</th>
 						<th>Cantidad</th>
 						<th>Se Tapa</th>
 						<th>Contratista</th>
@@ -85,6 +86,9 @@
 							<td>
 								|-$address-|
 							</td>
+							<td align="center">
+								|-if (is_object($billboard) && method_exists($billboard, 'getHeight'))-||-$billboard->getHeight()|si_no-||-/if-|
+							</td>
 							<td align="center">|-$aPreviousHolder.counter-|</td>
 								|-assign var="toDistributeCounter" value=$toDistributeCounter-$aPreviousHolder.counter-|
 							<td>
@@ -105,6 +109,9 @@
 							<td>
 								|-$address->getName()-|
 							</td>
+							<td align="center">
+								|-if (is_object($billboard) && method_exists($billboard, 'getHeight'))-||-$billboard->getHeight()|si_no-||-/if-|
+							</td>
 							<td align="center">|-$toDistributeCounter-|</td>
 							<td>
 							</td>
@@ -121,6 +128,9 @@
 						</td>
 						<td>
 							|-$address->getName()-|
+						</td>
+						<td align="center">
+							|-if (is_object($billboard) && method_exists($billboard, 'getHeight'))-||-$billboard->getHeight()|si_no-||-/if-|
 						</td>
 						<td align="center">|-$address->getToBePublishedCount($date,$theme->getId())-|</td>					
 						<td>|-assign var=previous value=$address->getPreviousThemes($date,$theme->getId())-|
@@ -147,7 +157,7 @@
 	<table border="0" cellpadding="4" cellspacing="0" id="tabla-advertisements" class="tableTdBorders">
 		<thead>
 			<tr>
-				<th colspan="5"><h3>Direcciones Ordenadas</h3></th>
+				<th colspan="6"><h3>Direcciones Ordenadas</h3></th>
 			</tr>
 			<tr>
 				<th>Circuito</th>
