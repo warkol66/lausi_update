@@ -40,7 +40,7 @@
 			</tr>
 			<tr  class="nopaddingCell">
 			<td colspan="4" class="noPaddingCell">
-				<div id="div_|-$address->getId()-|" style="display:none; margin:0; padding:0;">
+				<div id="div_|-$address->getId()-|" style="display:block; margin:0; padding:0;">
 				<table id="tabla-addresses|-$address->getName()-|" width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 			|-foreach from=$byAddress.elements item=billboard name=for_billboards-|
 				|-assign var=address value=$billboard->getAddress()-|
